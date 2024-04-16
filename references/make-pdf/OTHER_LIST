@@ -1,0 +1,1508 @@
+core ++ : ('a -> 'b * 'c) -> ('c -> 'd * 'e) -> 'a -> ('b * 'd) * 'e
+core -- : int -> int -> int list
+core <=? : 'a -> 'a -> bool
+core <? : 'a -> 'a -> bool
+core =? : 'a -> 'a -> bool
+core >=? : 'a -> 'a -> bool
+core >> : ('a -> 'b * 'c) -> ('b -> 'd) -> 'a -> 'd * 'c
+core >? : 'a -> 'a -> bool
+core |-> : 'a -> 'b -> ('a, 'b) func -> ('a, 'b) func
+core |=> : 'a -> 'b -> ('a, 'b) func
+core || : ('a -> 'b) -> ('a -> 'b) -> 'a -> 'b
+core a : 'a -> 'a list -> 'a * 'a list
+core ABBREV_TAC : term -> (string * thm) list * term -> goalstate
+core abs : int -> int
+core ABS : term -> thm -> thm
+core ABSMAXMIN_ELIM_CONV1 : conv
+core ABSMAXMIN_ELIM_CONV2 : conv
+core ABS_CONV : conv -> conv
+core ABS_TAC : tactic
+core AC : thm -> term -> thm
+core ACCEPT_TAC : thm_tactic
+core aconv : term -> term -> bool
+core ADD_ASSUM : term -> thm -> thm
+core align : ((num * 'a) list * 'b) * ((num * 'a) list * 'b) -> ((num * 'a) list * 'b) * ((num * 'a) list * 'b)
+core allpairs : ('a -> 'b -> 'c) -> 'a list -> 'b list -> 'c list
+core ALL_CONV : conv
+core ALL_TAC : tactic
+core ALL_THEN : thm_tactical
+core alpha : term -> term -> term
+core ALPHA : term -> term -> thm
+core ALPHA_CONV : term -> term -> thm
+core AND_IMPS_CONV : term -> thm
+core ANTE_RES_THEN : thm_tactical
+core ANTS_TAC : tactic
+core apply : ('a, 'b) func -> 'a -> 'b
+core applyd : ('a, 'b) func -> ('a -> 'b) -> 'a -> 'b
+core apply_listd : ('a * 'b) list -> ('a -> 'b) -> 'a -> 'b
+core APPLY_MONOTAC : tactic
+core apply_prover : prover -> term -> thm
+core AP_TERM : term -> thm -> thm
+core AP_TERM_TAC : tactic
+core AP_THM : thm -> term -> thm
+core AP_THM_TAC : tactic
+core ARIGHT : string -> bool
+core ARITH_CONV : term -> thm
+core ARITH_RULE : term -> thm
+core ARITH_TAC : tactic
+core ASM : (thm list -> tactic) -> thm list -> tactic
+core ASM_CASES_TAC : term -> tactic
+core ASM_FOL_TAC : (string * thm) list * term -> goalstate
+core ASM_MESON_TAC : thm list -> tactic
+core ASM_REWRITE_RULE : thm list -> thm -> thm
+core ASM_REWRITE_TAC : thm list -> tactic
+core ASM_SIMP_TAC : thm list -> tactic
+core assoc : 'a -> ('a * 'b) list -> 'b
+core assoc' : ('a -> 'b -> bool) -> 'b -> ('a * 'c) list -> 'c
+core assoc2 : 'a -> 'a list * 'b list -> 'b
+core assocd : 'a -> ('a * 'b) list -> 'b -> 'b
+core ASSUME : term -> thm
+core ASSUME_TAC : thm_tactic
+core ASSUM_LIST : (thm list -> tactic) -> tactic
+core atleast : int -> ('a -> 'b * 'a) -> 'a -> 'b list * 'a
+core aty : hol_type
+core augment : prover -> thm list -> prover
+core AUGMENT_SIMPSET : thm -> simpset -> simpset
+core axioms : unit -> thm list
+core b : unit -> goalstack
+core BACKCHAIN_TAC : thm_tactic
+core backquote_char : string
+core basic_congs : unit -> thm list
+core basic_convs : unit -> (string * (term * conv)) list
+core basic_net : unit -> gconv net
+core basic_prover : (simpset -> 'a -> term -> thm) -> simpset -> 'a -> term -> thm
+core basic_rectype_net : (int * (term -> thm)) net ref
+core basic_rewrites : unit -> thm list
+core basic_ss : thm list -> simpset
+core BETA : term -> thm
+core BETAS_CONV : int -> conv
+core BETA_CONV : term -> thm
+core BETA_RULE : thm -> thm
+core BETA_TAC : tactic
+core binders : unit -> string list
+core BINDER_CONV : conv -> term -> thm
+core binops : term -> term -> term list
+core BINOP_CONV : (term -> thm) -> term -> thm
+core BINOP_TAC : tactic
+core bndvar : term -> term
+core body : term -> term
+core BOOL_CASES_TAC : term -> tactic
+core bool_ty : hol_type
+core brand : bool ref
+core break_down_admissibility : thm -> thm
+core bty : hol_type
+core butlast : 'a list -> 'a list
+core by : tactic -> refinement
+core C : ('a -> 'b -> 'c) -> 'b -> 'a -> 'c
+core cache : bool ref
+core cacheconts : ('a * ('b * 'c * 'd) -> 'e) -> 'a * ('b * 'c * 'd) -> 'e
+core CACHE_CONV : (term -> thm) -> term -> thm
+core can : ('a -> 'b) -> 'a -> bool
+core canonicalize_clause : term -> term list -> thm
+core canonicalize_clauses : term list -> thm
+core cases : string -> thm
+core CCONTR : term -> thm -> thm
+core CHANGED_CONV : conv -> conv
+core CHANGED_TAC : tactic -> tactic
+core CHEAT_TAC : tactic
+core check : ('a -> bool) -> 'a -> 'a
+core checkan : (fol_term * int) list -> int * fol_term list -> (int * (('a * (int * fol_term list)) * 'b) list) list -> (int * (('a * (int * fol_term list)) * 'b) list) list
+core choose : ('a, 'b) func -> 'a * 'b
+core CHOOSE : term * thm -> thm -> thm
+core CHOOSE_TAC : thm_tactic
+core CHOOSE_THEN : thm_tactical
+core chop_list : int -> 'a list -> 'a list * 'a list
+core clause_corresponds : term -> term -> bool
+core clear_contrapos_cache : unit -> unit
+core closed_prove_general_recursive_function_exists : term -> thm
+core close_definition_clauses : term -> term * thm
+core CNNF_CONV : conv -> conv
+core COMB2_CONV : conv -> conv -> conv
+core COMB2_QCONV : (term -> thm) -> (term -> thm) -> term -> thm
+core combine : ('a -> 'a -> 'a) -> ('a -> bool) -> ('b, 'a) func -> ('b, 'a) func -> ('b, 'a) func
+core combine_list : ('a -> 'a -> 'a) -> ('a -> bool) -> ('b * 'a) list -> ('b * 'a) list -> ('b * 'a) list
+core COMB_CONV : conv -> conv
+core COMB_QCONV : conv -> term -> thm
+core comment_token : lexcode ref
+core compose_insts : instantiation -> instantiation -> instantiation
+core concl : thm -> term
+core CONDS_ELIM_CONV : conv
+core CONDS_ELIM_CONV' : conv
+core COND_CASES_TAC : tactic
+core COND_ELIM_CONV : term -> thm
+core CONJ : thm -> thm -> thm
+core CONJUNCT1 : thm -> thm
+core CONJUNCT2 : thm -> thm
+core conjuncts : term -> term list
+core CONJUNCTS : thm -> thm list
+core CONJUNCTS_THEN : thm_tactical
+core CONJUNCTS_THEN2 : thm_tactic -> thm_tactic -> thm_tactic
+core CONJ_ACI_RULE : term -> thm
+core CONJ_CANON_CONV : term -> thm
+core CONJ_PAIR : thm -> thm * thm
+core CONJ_TAC : tactic
+core constants : unit -> (string * hol_type) list
+core CONSTANT_MEASURE_THEN : tactic -> goal -> goalstate
+core constant_poly : ('a * int list) list -> bool
+core CONTR : term -> thm -> thm
+core CONTRAPOS : thm -> thm
+core CONTRAPOS_CONV : term -> thm
+core CONTR_TAC : thm_tactic
+core CONV_RULE : conv -> thm -> thm
+core CONV_TAC : conv -> tactic
+core create_equality_axioms : term list -> thm list
+core create_projections : string -> thm list
+core create_recursion_iso_constructor : (term * (term * term)) list -> thm -> term
+core create_recursive_functions : (thm * thm) list -> (term * (term * term)) list -> thm list -> thm -> thm
+core criterion2 : ((num * int list) list * 'a) list -> (num * int list) * (((num * int list) list * 'a) * ((num * int list) list * 'a)) -> ('b * (((num * int list) list * 'c) * ((num * int list) list * 'd))) list -> bool
+core current_goalstack : goalstack ref
+core curry : ('a * 'b -> 'c) -> 'a -> 'b -> 'c
+core dcutin : int ref
+core decreasing : ('a -> 'b) -> 'a -> 'a -> bool
+core DEDUCT_ANTISYM_RULE : thm -> thm -> thm
+core deep_alpha : (string * string) list -> term -> term
+core define : term -> thm
+core defined : ('a, 'b) func -> 'a -> bool
+core define_inductive_type : thm list -> thm -> thm * thm
+core define_inductive_type_constructor : thm list -> (term * (term * term)) list -> thm -> thm
+core define_list : 'a * 'b -> ('a * 'b) list -> ('a * 'b) list
+core define_quotient_type : string -> string * string -> term -> thm * thm
+core define_type : string -> thm * thm
+core define_type_basecase : (hol_type * ('a * hol_type list) list) list -> thm * thm
+core define_type_mutual : (hol_type * (string * hol_type list) list) list -> thm * thm
+core define_type_nested : (hol_type * (string * hol_type list) list) list -> thm * thm
+core define_type_raw : (hol_type * (string * hol_type list) list) list -> thm * thm
+core delete_parser : '_a -> unit
+core delete_user_printer : string -> unit
+core denominator : num -> num
+core depth : bool ref
+core DEPTH_BINOP_CONV : term -> (term -> thm) -> term -> thm
+core DEPTH_CONV : conv -> conv
+core DEPTH_QCONV : (term -> thm) -> conv
+core DEPTH_SQCONV : strategy
+core derive_canon_inductive_relations : term list -> thm
+core derive_existence : thm -> thm
+core derive_induction_theorem : (term * ('a * term)) list -> (thm * thm) list -> thm list -> thm -> thm -> thm
+core derive_nonschematic_inductive_relations : term -> thm
+core derive_recursion_theorem : (thm * thm) list -> (term * (term * term)) list -> thm list -> thm -> thm
+core dest_abs : term -> term * term
+core dest_binary : string -> term -> term * term
+core DEST_BINARY : term -> term -> term * term
+core dest_binder : string -> term -> term * term
+core dest_binder_vorc : string -> term -> term * term
+core dest_binop : term -> term -> term * term
+core dest_comb : term -> term * term
+core dest_cond : term -> term * (term * term)
+core dest_conj : term -> term * term
+core dest_cons : term -> term * term
+core dest_const : term -> string * hol_type
+core dest_cvar : term -> string * hol_type
+core dest_disj : term -> term * term
+core dest_eq : term -> term * term
+core dest_exists : term -> term * term
+core dest_forall : term -> term * term
+core dest_fun_ty : hol_type -> hol_type * hol_type
+core dest_gabs : term -> term * term
+core dest_imp : term -> term * term
+core dest_intconst : term -> num
+core dest_let : term -> (term * term) list * term
+core dest_list : term -> term list
+core dest_neg : term -> term
+core dest_numconst : term -> num
+core dest_numeral : term -> num
+core dest_pair : term -> term * term
+core dest_select : term -> term * term
+core dest_setenum : term -> term list
+core dest_small_numeral : term -> int
+core dest_thm : thm -> term list * term
+core dest_type : hol_type -> string * hol_type list
+core dest_uexists : term -> term * term
+core dest_var : term -> string * hol_type
+core dest_vartype : hol_type -> string
+core DE_EXISTENTIALIZE_RULE : thm -> term list * thm
+core DISCH : term -> thm -> thm
+core DISCH_ALL : thm -> thm
+core DISCH_TAC : tactic
+core DISCH_THEN : thm_tactic -> tactic
+core DISJ1 : thm -> term -> thm
+core DISJ1_TAC : tactic
+core DISJ2 : term -> thm -> thm
+core DISJ2_TAC : tactic
+core disjuncts : term -> term list
+core DISJ_ACI_RULE : term -> thm
+core DISJ_CANON_CONV : term -> thm
+core DISJ_CASES : thm -> thm -> thm -> thm
+core DISJ_CASES_TAC : thm_tactic
+core DISJ_CASES_THEN : thm_tactical
+core DISJ_CASES_THEN2 : thm_tactic -> thm_tactic -> thm_tactic
+core DISJ_CASES_THENL : thm_tactic list -> thm_tactic
+core distinctness : string -> thm
+core distinctness_store : (string * thm) list ref
+core DIST_ELIM_TAC : tactic
+core dom : ('a, 'b) func -> 'a list
+core do_list : ('a -> 'b) -> 'a list -> unit
+core do_list2 : ('a -> 'b -> 'c) -> 'a list -> 'b list -> unit
+core dpty : pretype
+core e : tactic -> goalstack
+core eager : 'a -> ('b, 'a) lazysum ref
+core el : int -> 'a list -> 'a
+core elistof : ('a -> 'b * 'a) -> ('a -> 'c * 'a) -> string -> 'a -> 'b list * 'a
+core empty_net : 'a net
+core empty_ss : simpset
+core end_itlist : ('a -> 'a -> 'a) -> 'a list -> 'a
+core enter : term list -> term * 'a -> 'a net -> 'a net
+core EQF_ELIM : thm -> thm
+core EQF_INTRO : thm -> thm
+core EQT_ELIM : thm -> thm
+core EQT_INTRO : thm -> thm
+core equals_goal : goal -> goal -> bool
+core equals_thm : thm -> thm -> bool
+core EQ_IMP_RULE : thm -> thm * thm
+core EQ_MP : thm -> thm -> thm
+core EQ_TAC : tactic
+core ETA_CONV : term -> thm
+core eval : ('a, 'b) lazysum ref -> 'b
+core EVERY : tactic list -> tactic
+core EVERY_ASSUM : thm_tactic -> tactic
+core EVERY_CONV : conv list -> conv
+core EVERY_TCL : thm_tactical list -> thm_tactical
+core EXISTENCE : thm -> thm
+core exists : ('a -> bool) -> 'a list -> bool
+core EXISTS : term * term -> thm -> thm
+core EXISTS_EQUATION : term -> thm -> thm
+core EXISTS_TAC : term -> tactic
+core EXPAND_CASES_CONV : conv
+core expand_goal : (int * ((fol_atom list * ('a * fol_term list)) * (int * thm)) list) list -> fol_atom * (int * ((fol_atom list * (int * fol_term list)) * (int * thm)) list) list -> int -> int -> (fol_goal * ((fol_term * int) list * int * int) -> 'b) -> 'b
+core EXPAND_PAIRED_ALL_CONV : conv
+core EXPAND_TAC : string -> tactic
+core explode : string -> string list
+core EXT : thm -> thm
+core extend_basic_congs : thm list -> unit
+core extend_basic_convs : string * (term * conv) -> unit
+core extend_basic_rewrites : thm list -> unit
+core extend_rectype_net : string * ('a * 'b * thm) -> unit
+core fail : unit -> 'a
+core FAIL_TAC : string -> tactic
+core file_on_path : string list -> string -> string
+core filter : ('a -> bool) -> 'a list -> 'a list
+core find : ('a -> bool) -> 'a list -> 'a
+core FIND_ASSUM : thm_tactic -> term -> tactic
+core find_matching_subterm : term -> term -> term
+core find_path : (term -> bool) -> term -> string list
+core find_term : (term -> bool) -> term -> term
+core find_terms : (term -> bool) -> term -> term list
+core finished : 'a list -> int * 'a list
+core finish_induction_conclusion : (term * ('a * term)) list -> (thm * thm) list -> thm -> thm
+core FIRST : tactic list -> tactic
+core FIRST_ASSUM : thm_tactic -> tactic
+core FIRST_CONV : conv list -> conv
+core FIRST_TCL : thm_tactical list -> thm_tactical
+core FIRST_X_ASSUM : thm_tactic -> tactic
+core fix : string -> ('a -> 'b) -> 'a -> 'b
+core FIXITY : string -> int
+core flags : unit -> string list
+core flat : 'a list list -> 'a list
+core flush_goalstack : unit -> unit
+core foldl : ('a -> 'b -> 'c -> 'a) -> 'a -> ('b, 'c) func -> 'a
+core foldl_list : ('a -> 'b -> 'c -> 'a) -> 'a -> ('b * 'c) list -> 'a
+core foldr : ('a -> 'b -> 'c -> 'c) -> ('a, 'b) func -> 'c -> 'c
+core foldr_list : ('a -> 'b -> 'c -> 'c) -> ('a * 'b) list -> 'c -> 'c
+core follow : term list * 'a net -> 'a list
+core follow_path : string list -> term -> term
+core fol_atom_eq : (fol_term * int) list -> 'a * fol_term list -> 'a * fol_term list -> bool
+core FOL_CONV : term -> thm
+core fol_eq : (fol_term * int) list -> fol_term -> fol_term -> bool
+core fol_frees : fol_term -> int list
+core fol_free_in : int -> fol_term -> bool
+core fol_inst : (fol_term * int) list -> fol_atom -> int * fol_term list
+core fol_inst_bump : int -> (fol_term * int) list -> fol_atom -> int * fol_term list
+core fol_of_atom : term list -> term list -> term -> int * fol_term list
+core fol_of_const : term -> int
+core fol_of_form : term list -> term list -> term -> fol_form
+core fol_of_hol_clauses : thm list -> (int * (((int * fol_term list) list * (int * fol_term list)) * (int * thm)) list) list
+core fol_of_literal : term list -> term list -> term -> int * fol_term list
+core fol_of_term : term list -> term list -> term -> fol_term
+core fol_of_var : term -> int
+core fol_subst : (fol_term * int) list -> fol_term -> fol_term
+core fol_substl : (fol_term * int) list -> fol_term list -> fol_term list
+core fol_subst_bump : int -> (fol_term * int) list -> fol_term -> fol_term
+core fol_subst_partial : (fol_term * int) list -> fol_term -> fol_term
+core fol_unify : int -> fol_term -> fol_term -> (fol_term * int) list -> (fol_term * int) list
+core forall : ('a -> bool) -> 'a list -> bool
+core forall2 : ('a -> 'b -> bool) -> 'a list -> 'b list -> bool
+core FORALL_IMPS_CONV : term -> thm
+core FORALL_PAIR_CONV : term -> term list -> thm
+core forder : ('a * int list) * 'b -> ('c * int list) * 'd -> bool
+core frees : term -> term list
+core freesin : term list -> term -> bool
+core freesl : term list -> term list
+core FREEZE_THEN : thm_tactical
+core free_in : term -> term -> bool
+core funpow : int -> ('a -> 'a) -> 'a -> 'a
+core f_f_ : ('a -> 'b) -> ('c -> 'd) -> 'a * 'c -> 'b * 'd
+core g : term -> goalstack
+core GABS_CONV : conv -> term -> thm
+core gather : ('a -> bool) -> 'a list -> 'a list
+core gcd : int -> int -> int
+core gcd_num : num -> num -> num
+core GEN : term -> thm -> thm
+core generalize_recursion_theorem : thm -> thm
+core generalize_schematic_variables : bool -> term list -> thm -> thm
+core GENERAL_REWRITE_CONV : bool -> (conv -> conv) -> gconv net -> thm list -> conv
+core GENL : term list -> thm -> thm
+core genvar : hol_type -> term
+core GEN_ALL : thm -> thm
+core GEN_ALPHA_CONV : term -> term -> thm
+core GEN_BETA_CONV : term -> thm
+core GEN_FOL_CONV : (term * int) list * (term * int) list -> conv
+core GEN_MESON_TAC : int -> int -> int -> thm list -> tactic
+core GEN_NNFC_CONV : conv * (term -> thm * thm) -> term -> thm
+core GEN_NNF_CONV : conv * (term -> thm * thm) -> term -> thm
+core GEN_NNF_DCONV : (term -> thm * thm) -> term -> thm * thm
+core GEN_PAIR_TAC : goal -> goalstate
+core GEN_REAL_ARITH : (num -> term) * conv * conv * conv * conv * conv * conv * conv * conv * conv * ((thm list * thm list * thm list -> positivstellensatz -> thm) -> thm list * thm list * thm list -> thm) -> term -> thm
+core GEN_REWRITE_CONV : (conv -> conv) -> thm list -> conv
+core GEN_REWRITE_RULE : (conv -> conv) -> thm list -> thm -> thm
+core GEN_REWRITE_TAC : (conv -> conv) -> thm list -> tactic
+core GEN_SIMPLIFY_CONV : strategy -> simpset -> int -> thm list -> conv
+core GEN_SUB_CONV : (simpset -> 'a -> term -> thm) -> simpset -> 'a -> (int * (term -> thm)) list -> term -> thm
+core GEN_TAC : tactic
+core getconcl : term -> term
+core get_const_type : string -> hol_type
+core get_flag_value : string -> bool
+core get_generic_type : string -> hol_type
+core get_heads : term list -> term -> (term * int) list * (term * int) list -> (term * int) list * (term * int) list
+core get_infix_status : string -> int * string
+core get_thm_heads : thm -> (term * int) list * (term * int) list -> (term * int) list * (term * int) list
+core get_type_arity : string -> int
+core grab_type : term -> hol_type
+core graph : ('a, 'b) func -> ('a * 'b) list
+core grobner : (num * int list) list list -> ((num * int list) list * history) list
+core grobner_basis : ((num * int list) list * history) list -> ((num * int list) * (((num * int list) list * history) * ((num * int list) list * history))) list -> ((num * int list) list * history) list
+core grobner_ideal : 'a list -> (num * int list) list list -> (num * int list) list -> (int * (num * int list) list) list
+core grobner_interreduce : ((num * int list) list * history) list -> ((num * int list) list * history) list -> ((num * int list) list * history) list
+core grobner_refute : (num * int list) list list -> history
+core grobner_strong : term list -> (num * int list) list list -> (num * int list) list -> int * num * (int * (num * int list) list) list
+core grobner_weak : 'a list -> (num * int list) list list -> num * (int * (num * int list) list) list
+core grob_add : (num * int list) list -> (num * int list) list -> (num * int list) list
+core grob_cmul : num * int list -> (num * int list) list -> (num * int list) list
+core grob_div : (num * int list) list -> (num * int list) list -> (num * int list) list
+core grob_inv : (num * int list) list -> (num * int list) list
+core grob_mmul : num * int list -> num * int list -> num * int list
+core grob_mul : (num * int list) list -> (num * int list) list -> (num * int list) list
+core grob_neg : (num * int list) list -> (num * int list) list
+core grob_pow : 'a list -> (num * int list) list -> int -> (num * int list) list
+core grob_sub : (num * int list) list -> (num * int list) list -> (num * int list) list
+core GSYM : thm -> thm
+core GUESS_MEASURE_THEN : tactic -> tactic
+core GUESS_ORDERING_TAC : tactic
+core GUESS_WF_THEN : tactic -> tactic
+core HALF_BETA_EXPAND : term list -> thm -> thm
+core HAS_SIZE_CONV : term -> thm
+core hd : 'a list -> 'a
+core hide_constant : string -> unit
+core HIGHER_REWRITE_CONV : thm list -> bool -> term -> thm
+core hol_dir : string ref
+core hol_of_atom : int * fol_term list -> term
+core hol_of_const : int -> term
+core hol_of_literal : int * fol_term list -> term
+core hol_of_term : fol_term -> term
+core hol_of_var : int -> term
+core hreal_lift_fn : string -> thm -> thm * thm
+core hreal_lift_thm : thm -> thm
+core hyp : thm -> term list
+core I : 'a -> 'a
+core ideal_cofactors : (term -> num) * (num -> term) * conv * term * term * term * term * term * term * term * thm * (term -> thm) -> term list -> term -> term list
+core ignore_constant_varstruct : bool ref
+core implode : string list -> string
+core IMP_ANTISYM_RULE : thm -> thm -> thm
+core IMP_RES_THEN : thm_tactical
+core IMP_REWRITES_CONV : strategy -> simpset -> int -> (int * ('a -> thm)) list -> 'a -> thm
+core IMP_REWR_CONV : thm -> term -> thm
+core IMP_TRANS : thm -> thm -> thm
+core increasing : ('a -> 'b) -> 'a -> 'a -> bool
+core index : 'a -> 'a list -> int
+core INDUCTIVE_MEASURE_THEN : tactic -> (string * thm) list * term -> goalstate
+core inductive_type_store : (string * (int * thm * thm)) list ref
+core INDUCT_TAC : tactic
+core inferences : int ref
+core infixes : unit -> (string * (int * string)) list
+core injectivity : string -> thm
+core injectivity_store : (string * thm) list ref
+core insert : 'a -> 'a list -> 'a list
+core insert' : ('a -> 'a -> bool) -> 'a -> 'a list -> 'a list
+core insertan : (fol_term * int) list -> int * fol_term list -> (int * (('a list * (int * fol_term list)) * (int * thm)) list) list -> (int * (('a list * (int * fol_term list)) * (int * thm)) list) list
+core inst : (hol_type * hol_type) list -> term -> term
+core INST : (term * term) list -> thm -> thm
+core installed_parsers : unit -> ('_a * (lexcode list -> preterm * lexcode list)) list
+core install_parser : '_a * (lexcode list -> preterm * lexcode list) -> unit
+core install_user_printer : string * (term -> unit) -> unit
+core instantiate : instantiation -> term -> term
+core INSTANTIATE : instantiation -> thm -> thm
+core INSTANTIATE_ALL : instantiation -> thm -> thm
+core instantiate_casewise_recursion : term -> thm
+core instantiate_induction_theorem : (term * (term * term)) list -> thm -> thm
+core inst_goal : instantiation -> goal -> goal
+core INST_TYPE : (hol_type * hol_type) list -> thm -> thm
+core intersect : 'a list -> 'a list -> 'a list
+core INT_ARITH : term -> thm
+core INT_ARITH_CONV : term -> thm
+core INT_ARITH_TAC : tactic
+core INT_OF_REAL_THM : thm -> thm
+core isalnum : string -> bool
+core isalpha : string -> bool
+core isbra : string -> bool
+core isnum : string -> bool
+core ISO_EXPAND_CONV : conv
+core ISO_USAGE_RULE : thm -> thm
+core ISPEC : term -> thm -> thm
+core ISPECL : term list -> thm -> thm
+core issep : string -> bool
+core isspace : string -> bool
+core issymb : string -> bool
+core istriv : (fol_term * int) list -> int -> fol_term -> bool
+core istriv : (fol_term * int) list -> int -> fol_term -> bool
+core is_abs : term -> bool
+core is_applicative : term -> bool
+core is_beq : term -> bool
+core is_binary : string -> term -> bool
+core IS_BINDER : string -> bool
+core is_binder : string -> term -> bool
+core is_binop : term -> term -> bool
+core is_comb : term -> bool
+core is_cond : term -> bool
+core is_conj : term -> bool
+core is_cons : term -> bool
+core is_const : term -> bool
+core is_disj : term -> bool
+core is_eq : term -> bool
+core is_exists : term -> bool
+core is_forall : term -> bool
+core is_gabs : term -> bool
+core is_hidden : string -> bool
+core is_imp : term -> bool
+core IS_INFIX : string -> bool
+core is_intconst : term -> bool
+core is_let : term -> bool
+core is_list : term -> bool
+core is_neg : term -> bool
+core is_numconst : term -> bool
+core is_numeral : term -> bool
+core is_pair : term -> bool
+core IS_PREFIX : string -> bool
+core is_prefix : string -> bool
+core is_ratconst : term -> bool
+core is_reserved_word : string -> bool
+core is_select : term -> bool
+core is_setenum : term -> bool
+core is_small_numeral : term -> bool
+core is_type : hol_type -> bool
+core is_uexists : term -> bool
+core is_undefined : ('a, 'b) func -> bool
+core is_var : term -> bool
+core is_vartype : hol_type -> bool
+core ITAUT : term -> thm
+core ITAUT_TAC : tactic
+core itlist : ('a -> 'b -> 'b) -> 'a list -> 'b -> 'b
+core itlist2 : ('a -> 'b -> 'c -> 'c) -> 'a list -> 'b list -> 'c -> 'c
+core justify_inductive_type_model : (hol_type * (string * hol_type list) list) list -> thm list * thm * thm
+core K : 'a -> 'b -> 'a
+core label_for_lookup : term -> term_label * term list
+core LABEL_TAC : string -> thm_tactic
+core label_to_store : term list -> term -> term_label * term list
+core LAMBDA_ELIM_CONV : conv
+core LAMBDA_PAIR_CONV : term list -> term -> thm
+core LAND_CONV : conv -> conv
+core last : 'a list -> 'a
+core lazify : ('a -> 'b) -> 'a -> ('a, 'b) lazysum ref
+core lcm : int -> int -> int
+core lcm_num : num -> num -> num
+core ldb : int -> int -> int
+core leftbin : ('a -> 'b * 'c) -> ('c -> 'd * 'a) -> ('b -> 'b -> 'b) -> string -> 'a -> 'b * 'c
+core length : 'a list -> int
+core let_CONV : term -> thm
+core LET_TAC : (string * thm) list * term -> goalstate
+core lex : string list -> lexcode list
+core LE_IMP : thm -> thm
+core le_thm : thm -> thm -> bool
+core lhand : term -> term
+core lhs : term -> term
+core lift_function : thm -> thm * thm -> string -> thm -> thm * thm
+core lift_theorem : thm * thm -> thm * thm * thm -> thm list -> thm -> thm
+core lift_type_bijections : thm list -> hol_type -> thm
+core LIMITED_REWRITE_CONV : int -> thm list -> term -> thm
+core listof : ('a -> 'b * 'c) -> ('c -> 'd * 'a) -> string -> 'a -> 'b list * 'c
+core LIST_CONV : conv -> conv
+core LIST_INDUCT_TAC : tactic
+core list_mk_abs : term list * term -> term
+core list_mk_binop : term -> term list -> term
+core list_mk_comb : term * term list -> term
+core list_mk_conj : term list -> term
+core list_mk_disj : term list -> term
+core list_mk_exists : term list * term -> term
+core list_mk_forall : term list * term -> term
+core list_mk_gabs : term list * term -> term
+core list_mk_icomb : string -> term list -> term
+core list_mk_select : term list * term -> term
+core loaded_files : (string * Digest.t) list ref
+core loads : string -> unit
+core loadt : string -> unit
+core load_on_path : string list -> string -> unit
+core load_path : string list ref
+core lookup : term -> 'a net -> 'a list
+core make_args : string -> term list -> hol_type list -> term list
+core make_definitions : thm -> thm
+core make_hol_contrapos : int * thm -> thm
+core make_overloadable : string -> hol_type -> unit
+core mangle : thm -> thm
+core many : ('a -> 'b * 'a) -> 'a -> 'b list * 'a
+core map : ('a -> 'b) -> 'a list -> 'b list
+core map2 : ('a -> 'b -> 'c) -> 'a list -> 'b list -> 'c list
+core mapf : ('a -> 'b) -> ('c, 'a) func -> ('c, 'b) func
+core mapfilter : ('a -> 'b) -> 'a list -> 'b list
+core MAP_EVERY : ('a -> tactic) -> 'a list -> tactic
+core MAP_FIRST : ('a -> tactic) -> 'a list -> tactic
+core map_list : ('a -> 'b) -> ('c * 'a) list -> ('c * 'b) list
+core MATCH_ACCEPT_TAC : thm_tactic
+core match_bvs : term -> term -> (string * string) list -> (string * string) list
+core MATCH_MP : thm -> thm -> thm
+core MATCH_MP_TAC : thm_tactic
+core mdiv : num * int list -> num * int list -> num * int list
+core mem : 'a -> 'a list -> bool
+core mem' : ('a -> 'b -> bool) -> 'a -> 'b list -> bool
+core memx : ((num * 'a) list * 'b) * ((num * 'c) list * 'd) -> (((num * 'a) list * 'e) * ((num * 'c) list * 'f)) list -> bool
+core merge : ('a -> 'a -> bool) -> 'a list -> 'a list -> 'a list
+core mergesort : ('a -> 'a -> bool) -> 'a list -> 'a list
+core merge_nets : 'a net * 'a net -> 'a net
+core MESON : thm list -> term -> thm
+core meson_chatty : bool ref
+core meson_expand : (int * ((fol_atom list * ('a * fol_term list)) * (int * thm)) list) list -> ((int * fol_term list) * (int * ((fol_atom list * (int * fol_term list)) * (int * thm)) list) list) * ((fol_term * int) list * int * int) -> (int * thm -> ((int * fol_term list) * (int * ((fol_atom list * (int * fol_term list)) * (int * thm)) list) list) list * ((fol_term * int) list * int * int) -> 'b) -> 'b
+core meson_expand_cont : int -> ((fol_atom list * ('a * fol_term list)) * 'b) list -> (('c * fol_term list) * (int * (('d * (int * fol_term list)) * 'e) list) list) * ((fol_term * int) list * int * int) -> ('b -> ((int * fol_term list) * (int * (('d * (int * fol_term list)) * 'e) list) list) list * ((fol_term * int) list * int * int) -> 'f) -> 'f
+core meson_single_expand : int -> (fol_atom list * ('a * fol_term list)) * 'b -> (('c * fol_term list) * (int * (('d * (int * fol_term list)) * 'e) list) list) * ((fol_term * int) list * int * int) -> ((int * fol_term list) * (int * (('d * (int * fol_term list)) * 'e) list) list) list * ((fol_term * int) list * int * int)
+core meson_split_limit : int ref
+core MESON_TAC : thm list -> tactic
+core meson_to_hol : (fol_term * int) list -> fol_goal -> thm
+core META_EXISTS_TAC : (string * thm) list * term -> goalstate
+core META_SPEC_TAC : term -> thm -> tactic
+core MINISCOPE_CONV : conv
+core mk_abs : term * term -> term
+core mk_binary : string -> term * term -> term
+core mk_binder : string -> term * term -> term
+core mk_binop : term -> term -> term -> term
+core MK_BINOP : term -> thm * thm -> thm
+core mk_comb : term * term -> term
+core MK_COMB : thm * thm -> thm
+core MK_COMB_TAC : tactic
+core mk_cond : term * term * term -> term
+core mk_conj : term * term -> term
+core MK_CONJ : thm -> thm -> thm
+core mk_cons : term -> term -> term
+core mk_const : string * (hol_type * hol_type) list -> term
+core mk_disj : term * term -> term
+core MK_DISJ : thm -> thm -> thm
+core mk_eq : term * term -> term
+core mk_exists : term * term -> term
+core MK_EXISTS : term -> thm -> thm
+core mk_flist : term list -> term
+core mk_forall : term * term -> term
+core MK_FORALL : term -> thm -> thm
+core mk_fset : term list -> term
+core mk_fthm : term list * term -> thm
+core mk_fun_ty : hol_type -> hol_type -> hol_type
+core mk_gabs : term * term -> term
+core mk_goalstate : goal -> goalstate
+core mk_icomb : term * term -> term
+core mk_imp : term * term -> term
+core mk_intconst : num -> term
+core mk_list : term list * hol_type -> term
+core mk_mconst : string * hol_type -> term
+core mk_neg : term -> term
+core mk_numconst : num -> term
+core mk_numeral : num -> term
+core mk_pair : term * term -> term
+core mk_precedence : (string * ('a * string)) list -> (lexcode list -> preterm * lexcode list) -> lexcode list -> preterm * lexcode list
+core mk_primed_var : term list -> term -> term
+core mk_prover : ('a -> conv) -> ('a -> thm list -> 'a) -> 'a -> prover
+core mk_rewrites : bool -> thm -> thm list -> thm list
+core mk_select : term * term -> term
+core mk_setenum : term list * hol_type -> term
+core mk_small_numeral : int -> term
+core mk_thm : term list * term -> thm
+core mk_type : string * hol_type list -> hol_type
+core mk_uexists : term * term -> term
+core mk_var : string * hol_type -> term
+core mk_vartype : string -> hol_type
+core mlcm : 'a * 'b list -> 'c * 'b list -> num * 'b list
+core monic : (num * 'a list) list * history -> (num * 'a list) list * history
+core MONO_ABS_TAC : tactic
+core MONO_STEP_TAC : tactic
+core MONO_TAC : tactic
+core mono_tactics : (string * tactic) list ref
+core morder_gt : int list -> int list -> bool
+core morder_le : int list -> int list -> bool
+core morder_lt : int list -> int list -> bool
+core MP : thm -> thm -> thm
+core MP_TAC : thm_tactic
+core msubtract : 'a list -> 'a list -> 'a list
+core munion : 'a list -> 'a list -> 'a list
+core NAME_OF : term -> string
+core needs : string -> unit
+core NEG_DISCH : term -> thm -> thm
+core net_of_cong : thm -> (int * (term -> thm)) net -> (int * (term -> thm)) net
+core net_of_conv : term -> 'a -> (int * 'a) net -> (int * 'a) net
+core net_of_thm : bool -> thm -> (int * (term -> thm)) net -> (int * (term -> thm)) net
+core net_update : term list -> 'a * term list * 'a net -> 'a net
+core newbranch : int -> ('a, 'b) func -> int -> ('a, 'b) func -> ('a, 'b) func
+core new_axiom : term -> thm
+core new_basic_definition : term -> thm
+core new_basic_type_definition : string -> string * string -> thm -> thm * thm
+core new_constant : string * hol_type -> unit
+core new_definition : term -> thm
+core new_flag : string * bool -> unit
+core new_inductive_definition : term -> thm * thm * thm
+core new_recursive_definition : thm -> term -> thm
+core new_specification : string list -> thm -> thm
+core new_type : string * int -> unit
+core new_type_definition : string -> string * string -> thm -> thm
+core new_type_var : unit -> pretype
+core NNFC_CONV : conv
+core NNF_CONV : conv
+core nothing : 'a -> 'b list * 'a
+core NOT_ELIM : thm -> thm
+core NOT_INTRO : thm -> thm
+core NO_CONV : conv
+core NO_TAC : tactic
+core NO_THEN : thm_tactical
+core nsplit : ('a -> 'b * 'a) -> 'c list -> 'a -> 'b list * 'a
+core null_inst : instantiation
+core null_meta : term list * instantiation
+core numdom : num -> num * num
+core numerator : num -> num
+core num_0 : num
+core num_1 : num
+core num_10 : num
+core num_2 : num
+core NUM_ADD_CONV : term -> thm
+core NUM_ADD_CONV' : term -> thm
+core NUM_CANCEL_CONV : term -> thm
+core num_CONV : term -> thm
+core NUM_DIVMOD_CONV : num -> num -> thm
+core NUM_DIV_CONV : term -> thm
+core NUM_EQ_CONV : conv
+core NUM_EVEN_CONV : conv
+core NUM_EXP_CONV : term -> thm
+core NUM_FACT_CONV : term -> thm
+core NUM_GE_CONV : conv
+core NUM_GT_CONV : conv
+core NUM_LE_CONV : conv
+core NUM_LT_CONV : conv
+core NUM_MOD_CONV : term -> thm
+core NUM_MULTIPLY_CONV : bool -> conv
+core NUM_MULT_CONV : conv
+core NUM_MULT_CONV' : conv
+core NUM_NORMALIZE_CONV : term -> thm
+core NUM_ODD_CONV : conv
+core NUM_PRE_CONV : term -> thm
+core NUM_REDUCE_CONV : conv
+core NUM_REDUCE_TAC : tactic
+core NUM_RED_CONV : term -> thm
+core NUM_REL_CONV : conv
+core NUM_REL_CONV' : conv
+core NUM_RING : term -> thm
+core NUM_SIMPLIFY_CONV : conv
+core NUM_SUB_CONV : term -> thm
+core NUM_SUC_CONV : term -> thm
+core NUM_SUC_CONV' : term -> thm
+core NUM_TO_INT_CONV : conv
+core o : ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b
+core occurs_in : hol_type -> hol_type -> bool
+core offinc : int
+core ONCE_ASM_REWRITE_RULE : thm list -> thm -> thm
+core ONCE_ASM_REWRITE_TAC : thm list -> tactic
+core ONCE_ASM_SIMP_TAC : thm list -> tactic
+core ONCE_DEPTH_CONV : conv -> conv
+core ONCE_DEPTH_QCONV : conv -> conv
+core ONCE_DEPTH_SQCONV : strategy
+core ONCE_REWRITE_CONV : thm list -> conv
+core ONCE_REWRITE_RULE : thm list -> thm -> thm
+core ONCE_REWRITE_TAC : thm list -> tactic
+core ONCE_SIMPLIFY_CONV : simpset -> thm list -> conv
+core ONCE_SIMP_CONV : thm list -> conv
+core ONCE_SIMP_RULE : thm list -> thm -> thm
+core ONCE_SIMP_TAC : thm list -> tactic
+core optimize_rules : (int * ((fol_atom list * (int * fol_term list)) * (int * thm)) list) list -> (int * ((fol_atom list * (int * fol_term list)) * (int * thm)) list) list
+core ORDERED_IMP_REWR_CONV : (term -> term -> bool) -> thm -> term -> thm
+core ORDERED_REWR_CONV : (term -> term -> bool) -> thm -> term -> thm
+core orelsec_ : conv -> conv -> conv
+core orelse_ : tactic -> tactic -> tactic
+core orelse_tcl_ : thm_tactical -> thm_tactical -> thm_tactical
+core orthogonal : 'a * int list -> (num * int list) list -> (num * int list) list -> bool
+core overload_interface : string * term -> unit
+core override_interface : string * term -> unit
+core p : unit -> goalstack
+core PAIRED_BETA_CONV : term -> thm
+core pair_equals : ('a -> 'b -> bool) -> ('c -> 'd -> bool) -> 'a * 'c -> 'b * 'd -> bool
+core parses_as_binder : string -> bool
+core parse_as_binder : string -> unit
+core parse_as_infix : string * (int * string) -> unit
+core parse_as_prefix : string -> unit
+core parse_inductive_type_specification : string -> (hol_type * (string * hol_type list) list) list
+core parse_preterm : lexcode list -> preterm * lexcode list
+core parse_pretype : lexcode list -> pretype * lexcode list
+core parse_term : string -> term
+core parse_type : string -> hol_type
+core parse_typed_apreterm : lexcode list -> preterm * lexcode list
+core partition : ('a -> bool) -> 'a list -> 'a list * 'a list
+core PART_MATCH : (term -> term) -> thm -> term -> thm
+core PATH_CONV : string list -> conv -> conv
+core PAT_CONV : term -> conv -> conv
+core perform_brand_modification : thm list -> thm list
+core pfrees : preterm -> preterm list -> preterm list
+core pgenvar : unit -> preterm
+core PINST : (hol_type * hol_type) list -> (term * term) list -> thm -> thm
+core pmk_binder : string * preterm list * preterm -> preterm
+core pmk_conj : preterm * preterm -> preterm
+core pmk_cv : string * pretype -> preterm
+core pmk_eq : preterm * preterm -> preterm
+core pmk_exists : preterm * preterm -> preterm
+core pmk_let : preterm list * preterm -> preterm
+core pmk_list : preterm list -> preterm
+core pmk_numeral : num -> preterm
+core pmk_setabs : preterm * preterm -> preterm
+core pmk_setcompr : preterm * preterm list * preterm -> preterm
+core pmk_set_enum : preterm list -> preterm
+core pmk_vbinder : string * preterm * preterm -> preterm
+core POLY_ASSUME_TAC : thm list -> (string * thm) list * term -> goalstate
+core poly_eq : (num * 'a) list -> (num * 'a) list -> bool
+core poly_lt : (num * 'a) list -> (num * 'a) list -> bool
+core POP_ASSUM : thm_tactic -> tactic
+core POP_ASSUM_LIST : (thm list -> tactic) -> tactic
+core possibly : ('a -> 'b * 'a) -> 'a -> 'b list * 'a
+core pow10 : int -> num
+core pow2 : int -> num
+core pp_print_qterm : formatter -> term -> unit
+core pp_print_qtype : formatter -> hol_type -> unit
+core pp_print_term : formatter -> term -> unit
+core pp_print_thm : formatter -> thm -> unit
+core pp_print_type : formatter -> hol_type -> unit
+core prebroken_binops : string list ref
+core precheck : bool ref
+core prefine : bool ref
+core prefixes : unit -> string list
+core PRENEX_CONV : conv
+core PRESIMP_CONV : conv
+core preterm_of_term : term -> preterm
+core pretype_instance : hol_type -> pretype
+core pretype_of_type : hol_type -> pretype
+core pretype_subst : (pretype * pretype) list -> pretype -> pretype
+core PRE_ELIM_CONV : term -> thm
+core PRE_ELIM_TAC : tactic
+core print_all_thm : bool ref
+core print_fpf : ('a, 'b) func -> unit
+core print_goal : goal -> unit
+core print_goalstack : goalstack -> unit
+core print_goalstate : int -> goalstate -> unit
+core print_hyp : int -> string * thm -> unit
+core print_hyps : int -> (string * thm) list -> unit
+core print_num : num -> unit
+core print_qterm : term -> unit
+core print_qtype : hol_type -> unit
+core print_term : term -> unit
+core print_thm : thm -> unit
+core print_to_string : (formatter -> 'a -> 'b) -> 'a -> string
+core print_type : hol_type -> unit
+core print_unambiguous_comprehensions : bool ref
+core prioritize_int : unit -> unit
+core prioritize_num : unit -> unit
+core prioritize_real : unit -> unit
+core projection_cache : (string * thm list) list ref
+core PROP_ATOM_CONV : conv -> conv
+core PROP_CNF_CONV : conv
+core PROP_DNF_CONV : conv
+core prove : term * tactic -> thm
+core prove_canon_recursive_functions_exist : thm -> term -> thm
+core prove_cases_thm : thm -> thm
+core prove_constructors_distinct : thm -> thm
+core prove_constructors_injective : thm -> thm
+core prove_depth_measure_exists : string -> thm
+core prove_general_recursive_function_exists : term -> thm
+core PROVE_HYP : thm -> thm -> thm
+core prove_inductive_properties : term -> term list * thm
+core prove_inductive_relations_exist : term -> thm
+core prove_inductive_types_isomorphic : int -> int -> thm * thm -> thm * thm -> thm * thm
+core prove_model_inhabitation : thm -> thm list
+core prove_monotonicity_hyps : thm -> thm
+core prove_nonschematic_inductive_relations_exist : term -> thm
+core prove_raw_recursive_functions_exist : thm -> term -> thm
+core prove_recursive_functions_exist : thm -> term -> thm
+core pullback_induction_clause : ('a * thm) list -> thm list -> thm -> term -> thm
+core PURE_ASM_REWRITE_RULE : thm list -> thm -> thm
+core PURE_ASM_REWRITE_TAC : thm list -> tactic
+core PURE_ASM_SIMP_TAC : thm list -> tactic
+core PURE_MESON_TAC : int -> int -> int -> goal -> goalstate
+core PURE_ONCE_ASM_REWRITE_RULE : thm list -> thm -> thm
+core PURE_ONCE_ASM_REWRITE_TAC : thm list -> tactic
+core PURE_ONCE_REWRITE_CONV : thm list -> conv
+core PURE_ONCE_REWRITE_RULE : thm list -> thm -> thm
+core PURE_ONCE_REWRITE_TAC : thm list -> tactic
+core pure_prove_general_recursive_function_exists : term -> thm
+core PURE_REWRITE_CONV : thm list -> conv
+core PURE_REWRITE_RULE : thm list -> thm -> thm
+core PURE_REWRITE_TAC : thm list -> tactic
+core PURE_SIMP_CONV : thm list -> conv
+core PURE_SIMP_RULE : thm list -> thm -> thm
+core PURE_SIMP_TAC : thm list -> tactic
+core qcomb : ('a * 'a -> 'b) -> ('a -> 'a) -> 'a * 'a -> 'b
+core qcomb2 : ('a * 'b -> 'c) -> ('a -> 'a) -> ('b -> 'b) -> 'a * 'b -> 'c
+core qmap : ('a -> 'a) -> 'a list -> 'a list
+core qpartition : ('a -> bool) -> 'a list -> 'a list -> 'a list * 'a list
+core qtry : ('a -> 'a) -> 'a -> 'a
+core QUANT_BOOL_CONV : conv
+core quotexpander : string -> string
+core r : int -> goalstack
+core ran : ('a, 'b) func -> 'b list
+core rand : term -> term
+core RAND_CONV : conv -> conv
+core rator : term -> term
+core RATOR_CONV : conv -> conv
+core rat_of_term : term -> num
+core REAL_ARITH : term -> thm
+core REAL_ARITH_TAC : tactic
+core REAL_FIELD : term -> thm
+core real_ideal_cofactors : term list -> term -> term list
+core REAL_IDEAL_CONV : term list -> term -> thm
+core REAL_INT_ABS_CONV : conv
+core REAL_INT_ADD_CONV : conv
+core REAL_INT_EQ_CONV : conv
+core REAL_INT_GE_CONV : conv
+core REAL_INT_GT_CONV : conv
+core REAL_INT_LE_CONV : conv
+core REAL_INT_LT_CONV : conv
+core REAL_INT_MUL_CONV : conv
+core REAL_INT_NEG_CONV : conv
+core REAL_INT_POS_CONV : term -> thm
+core REAL_INT_POS_PROVE : thm -> thm
+core REAL_INT_POW_CONV : conv
+core REAL_INT_RAT_BINOP_CONV : conv
+core REAL_INT_RAT_CONV : conv
+core REAL_INT_RAT_UNOP_CONV : conv
+core REAL_INT_REDUCE_CONV : conv
+core REAL_INT_RED_CONV : term -> thm
+core REAL_INT_SUB_CONV : conv
+core REAL_LET_IMP : thm -> thm
+core REAL_LE_IMP : thm -> thm
+core real_lift_function : string -> thm -> thm * thm
+core real_lift_theorem : thm -> thm
+core REAL_LINEAR_PROVER : (thm list * thm list * thm list -> positivstellensatz -> thm) -> thm list * thm list * thm list -> thm
+core REAL_POLY_ADD_CONV : term -> thm
+core REAL_POLY_CONV : term -> thm
+core REAL_POLY_MUL_CONV : term -> thm
+core REAL_POLY_NEG_CONV : term -> thm
+core REAL_POLY_POW_CONV : term -> thm
+core REAL_POLY_SUB_CONV : term -> thm
+core REAL_RAT_ABS_CONV : conv
+core REAL_RAT_ADD_CONV : conv
+core REAL_RAT_DIV_CONV : term -> thm
+core REAL_RAT_EQ_CONV : conv
+core REAL_RAT_GE_CONV : conv
+core REAL_RAT_GT_CONV : conv
+core REAL_RAT_INT_CONV : conv
+core REAL_RAT_INV_CONV : conv
+core REAL_RAT_LE_CONV : conv
+core REAL_RAT_LT_CONV : conv
+core REAL_RAT_MUL_CONV : conv
+core REAL_RAT_NEG_CONV : term -> thm
+core REAL_RAT_POW_CONV : conv
+core REAL_RAT_REDUCE_CONV : conv
+core REAL_RAT_RED_CONV : term -> thm
+core REAL_RAT_SUB_CONV : conv
+core REAL_RING : term -> thm
+core RECALL_ACCEPT_TAC : ('a -> thm) -> 'a -> goal -> goalstate
+core RECTYPE_EQ_CONV : term -> thm
+core REDEPTH_CONV : conv -> conv
+core REDEPTH_QCONV : (term -> thm) -> conv
+core REDEPTH_SQCONV : strategy
+core reduce : ((num * int list) list * history) list -> (num * int list) list * history -> (num * int list) list * history
+core reduce1 : num * int list -> (num * int list) list * history -> (num * int list) list * history
+core reduceb : num * int list -> ((num * int list) list * history) list -> (num * int list) list * history
+core reduce_interface : string * term -> unit
+core refine : refinement -> goalstack
+core REFINEMENT_PROOF : goal * refinement -> thm
+core REFL : term -> thm
+core REFL_TAC : tactic
+core REFUTE_THEN : thm_tactic -> goal -> goalstate
+core remark : string -> unit
+core remove : ('a -> bool) -> 'a list -> 'a * 'a list
+core remove_interface : string -> unit
+core REMOVE_THEN : string -> thm_tactic -> tactic
+core repeat : ('a -> 'a) -> 'a -> 'a
+core REPEAT : tactic -> tactic
+core REPEATC : conv -> conv
+core REPEATQC : (term -> thm) -> term -> thm
+core REPEAT_GTCL : thm_tactical -> thm_tactical
+core REPEAT_TCL : thm_tactical -> thm_tactical
+core replicate : 'a -> int -> 'a list
+core REPLICATE_TAC : int -> tactic -> tactic
+core report : string -> unit
+core report_timing : bool ref
+core reserved_words : unit -> string list
+core reserve_words : string list -> unit
+core reset_consts : unit -> unit
+core reset_type_num : unit -> unit
+core reset_vars : unit -> unit
+core resolve_interface : preterm -> ((int, pretype) func -> 'a) -> (int, pretype) func -> 'a
+core resolve_proof : 'a list -> history -> (int * (num * int list) list) list
+core retypecheck : (string * pretype) list -> preterm -> preterm
+core rev : 'a list -> 'a list
+core reverse_interface : string * hol_type -> string
+core reverse_interface_mapping : bool ref
+core rev_assoc : 'a -> ('b * 'a) list -> 'b
+core rev_assocd : 'a -> ('b * 'a) list -> 'b -> 'b
+core rev_itlist : ('a -> 'b -> 'b) -> 'a list -> 'b -> 'b
+core rev_itlist2 : ('a -> 'b -> 'c -> 'c) -> 'a list -> 'b list -> 'c -> 'c
+core rev_splitlist : ('a -> 'a * 'b) -> 'a -> 'a * 'b list
+core REWRITES_CONV : ('a * (term -> 'b)) net -> term -> 'b
+core REWRITE_CONV : thm list -> conv
+core REWRITE_FUN_EQ_RULE : thm list -> thm -> thm
+core REWRITE_RULE : thm list -> thm -> thm
+core REWRITE_TAC : thm list -> tactic
+core REWR_CONV : thm -> term -> thm
+core rhs : term -> term
+core rightbin : ('a -> 'b * 'c) -> ('c -> 'd * 'a) -> ('b -> 'b -> 'b) -> string -> 'a -> 'b * 'c
+core RIGHT_BETAS : term list -> thm -> thm
+core RING : (term -> num) * (num -> term) * conv * term * term * term * term * term * term * term * thm * (term -> thm) -> term -> thm
+core RING_AND_IDEAL_CONV : (term -> num) * (num -> term) * conv * term * term * term * term * term * term * term * thm * (term -> thm) -> (term -> thm) * (term list -> term -> term list)
+core rotate : int -> refinement
+core RULE_ASSUM_TAC : (thm -> thm) -> tactic
+core RULE_INDUCT_TAC : thm -> tactic
+core RULE_INDUCT_THEN : thm -> thm_tactic -> tactic
+core RUN_SUB_CONV : (simpset -> 'a -> term -> thm) -> simpset -> 'a -> bool -> thm -> thm
+core SCRUB_ASSUMPTION : thm -> thm
+core SCRUB_EQUATION : term -> thm -> thm
+core SELECT_CONV : term -> thm
+core SELECT_ELIM : thm -> term * thm -> thm
+core SELECT_ELIM_CONV : term -> thm
+core SELECT_ELIM_ICONV : term -> thm
+core SELECT_ELIM_TAC : tactic
+core SELECT_INTRO : thm -> thm
+core SELECT_RULE : thm -> thm
+core SEMIRING_NORMALIZERS_CONV : thm -> thm -> (term -> bool) * conv * conv * conv -> (term -> term -> bool) -> (term -> thm) * (term -> thm) * (term -> thm) * (term -> thm) * (term -> thm) * (term -> thm)
+core SEMIRING_NORMALIZE_CONV : thm -> thm -> (term -> bool) * conv * conv * conv -> (term -> term -> bool) -> term -> thm
+core separate_insts : int -> (fol_term * int) list -> (fol_term * int) list -> (fol_term * int) list * (fol_term * int) list
+core SETENUM_UNION_CONV : term -> thm
+core setify : 'a list -> 'a list
+core setify' : ('a -> 'a -> bool) -> ('a -> 'a -> bool) -> 'a list -> 'a list
+core SETIFY_CONV : term -> thm
+core set_basic_congs : thm list -> unit
+core set_basic_convs : (string * (term * conv)) list -> unit
+core set_basic_rewrites : thm list -> unit
+core set_eq : 'a list -> 'a list -> bool
+core set_flag : string * bool -> string * bool ref
+core set_goal : term list * term -> goalstack
+core set_insert : 'a -> 'a list -> 'a list
+core set_merge : 'a list -> 'a list -> 'a list
+core SET_RULE : term -> thm
+core SET_TAC : thm list -> tactic
+core sgn : int -> bool
+core shareout : 'a list list -> 'b list -> 'b list list
+core SIMPLE_BETA_RULE : thm -> thm
+core SIMPLE_CHOOSE : term -> thm -> thm
+core SIMPLE_DISJ_CASES : thm -> thm -> thm
+core SIMPLE_DISJ_PAIR : thm -> thm * thm
+core SIMPLE_EXISTS : term -> thm -> thm
+core SIMPLE_ISO_EXPAND_RULE : thm -> thm
+core SIMPLE_MESON_REFUTE : int -> int -> int -> thm list -> thm
+core simple_new_specification : thm -> thm
+core SIMPLIFY_CASE_DISTINCTNESS_CLAUSES : term -> thm
+core SIMPLIFY_CONV : simpset -> thm list -> conv
+core SIMP_CONV : thm list -> conv
+core SIMP_RULE : thm list -> thm -> thm
+core SIMP_TAC : thm list -> tactic
+core SINGLE_DEPTH_CONV : conv -> conv
+core skew : int ref
+core SKOLEM_CONV : conv
+core solve : (int, pretype) func -> pretype -> pretype
+core solve_goal : (int * ((fol_atom list * ('a * fol_term list)) * (int * thm)) list) list -> bool -> int -> int -> int -> fol_atom -> fol_goal * ((fol_term * int) list * int * int)
+core solve_preterm : (int, pretype) func -> preterm -> preterm
+core some : ('a -> bool) -> 'a list -> 'a * 'a list
+core sort : ('a -> 'a -> bool) -> 'a list -> 'a list
+core SPEC : term -> thm -> thm
+core SPECL : term list -> thm -> thm
+core SPEC_ALL : thm -> thm
+core SPEC_TAC : term * term -> tactic
+core SPEC_VAR : thm -> term * thm
+core splitlist : ('a -> 'b * 'a) -> 'a -> 'b list * 'a
+core split_ppair : preterm -> preterm list
+core SPLIT_TAC : int -> tactic
+core spoly : num * int list -> (num * int list) list * history -> (num * int list) list * history -> (num * int list) list * history
+core ss_of_congs : thm list -> simpset -> simpset
+core ss_of_conv : term -> conv -> simpset -> simpset
+core ss_of_maker : (thm -> thm list -> thm list) -> simpset -> simpset
+core ss_of_prover : (strategy -> strategy) -> simpset -> simpset
+core ss_of_provers : prover list -> simpset -> simpset
+core ss_of_thms : thm list -> simpset -> simpset
+core string_of_term : term -> string
+core string_of_thm : thm -> string
+core string_of_type : hol_type -> string
+core striplist : ('a -> 'a * 'a) -> 'a -> 'a list
+core strip_abs : term -> term list * term
+core STRIP_ASSUME_TAC : thm_tactic
+core strip_comb : term -> term * term list
+core strip_exists : term -> term list * term
+core strip_forall : term -> term list * term
+core strip_gabs : term -> term list * term
+core STRIP_GOAL_THEN : thm_tactic -> tactic
+core strip_ncomb : int -> term -> term * term list
+core strip_select : term -> term list * term
+core STRIP_TAC : tactic
+core STRIP_THM_THEN : thm_tactical
+core STRONG_CNF_CONV : conv
+core STRONG_DNF_CONV : conv
+core STRUCT_CASES_TAC : thm_tactic
+core stvs_translated : bool ref
+core SUBGOAL_TAC : string -> term -> tactic list -> tactic
+core SUBGOAL_THEN : term -> thm_tactic -> tactic
+core SUBS : thm list -> thm -> thm
+core subset : 'a list -> 'a list -> bool
+core subst : (term * term) list -> term -> term
+core SUBST1_TAC : thm_tactic
+core SUBST_ALL_TAC : thm -> tactic
+core SUBST_VAR_TAC : thm -> tactic
+core SUBS_CONV : thm list -> term -> thm
+core subtract : 'a list -> 'a list -> 'a list
+core subtract' : ('a -> 'b -> bool) -> 'a list -> 'b list -> 'a list
+core SUB_CONV : conv -> conv
+core SUB_ELIM_CONV : term -> thm
+core SUB_ELIM_TAC : tactic
+core SUB_QCONV : conv -> term -> thm
+core sucivate : int -> term
+core SYM : thm -> thm
+core SYM_CONV : term -> thm
+core TAC_PROOF : goal * tactic -> thm
+core TAUT : term -> thm
+core temp_path : string ref
+core term_match : term list -> term -> term -> instantiation
+core term_of_preterm : preterm -> term
+core term_of_rat : num -> term
+core term_order : term -> term -> bool
+core term_unify : term list -> term -> term -> instantiation
+core term_union : term list -> term list -> term list
+core THENCQC : ('a -> thm) -> (term -> thm) -> 'a -> thm
+core thenc_ : conv -> conv -> conv
+core thenl_ : tactic -> tactic list -> tactic
+core THENQC : (term -> thm) -> (term -> thm) -> term -> thm
+core then_ : tactic -> tactic -> tactic
+core then_tcl_ : thm_tactical -> thm_tactical -> thm_tactical
+core the_definitions : thm list ref
+core the_inductive_types : (string * (thm * thm)) list ref
+core the_interface : (string * (string * hol_type)) list ref
+core the_overload_skeletons : (string * hol_type) list ref
+core the_type_definitions : ((string * string * string) * (thm * thm)) list ref
+core thm_frees : thm -> term list
+core time : ('a -> 'b) -> 'a -> 'b
+core tl : 'a list -> 'a list
+core TOP_DEPTH_CONV : conv -> conv
+core TOP_DEPTH_QCONV : (term -> thm) -> conv
+core TOP_DEPTH_SQCONV : strategy
+core top_goal : unit -> term list * term
+core top_realgoal : unit -> (string * thm) list * term
+core TOP_SWEEP_CONV : conv -> conv
+core TOP_SWEEP_QCONV : (term -> thm) -> conv
+core TOP_SWEEP_SQCONV : strategy
+core top_thm : unit -> thm
+core TRANS : thm -> thm -> thm
+core TRIV_ANTE_RULE : thm -> thm
+core TRY : tactic -> tactic
+core tryalpha : term -> term -> term
+core tryapply : ('a, 'a) func -> 'a -> 'a
+core tryapplyd : ('a, 'b) func -> 'a -> 'b -> 'b
+core tryapplyl : ('a, 'b list) func -> 'a -> 'b list
+core tryfind : ('a -> 'b) -> 'a list -> 'b
+core TRY_CONV : conv -> conv
+core try_user_parser : lexcode list -> preterm * lexcode list
+core try_user_printer : term -> unit
+core tuple_function_existence : term -> thm
+core types : unit -> (string * int) list
+core type_match : hol_type -> hol_type -> (hol_type * hol_type) list -> (hol_type * hol_type) list
+core type_of : term -> hol_type
+core type_of_pretype : pretype -> hol_type
+core type_subst : (hol_type * hol_type) list -> hol_type -> hol_type
+core type_vars_in_term : term -> hol_type list
+core typify : pretype -> preterm * (string * pretype) list * (int, pretype) func -> preterm * (string * pretype) list * (int, pretype) func
+core typify_universal_set : bool ref
+core tysubst : (hol_type * hol_type) list -> hol_type -> hol_type
+core tyvars : hol_type -> hol_type list
+core uncurry : ('a -> 'b -> 'c) -> 'a * 'b -> 'c
+core undefine : 'a -> ('a, 'b) func -> ('a, 'b) func
+core undefined : ('a, 'b) func
+core undefine_list : 'a -> ('a * 'b) list -> ('a * 'b) list
+core UNDISCH : thm -> thm
+core UNDISCH_ALL : thm -> thm
+core UNDISCH_TAC : term -> tactic
+core UNDISCH_THEN : term -> thm_tactic -> tactic
+core unhide_constant : string -> unit
+core unify : (int, pretype) func -> (pretype * pretype) list -> (int, pretype) func
+core UNIFY_ACCEPT_TAC : term list -> thm -> 'a * term -> ('b list * instantiation) * 'c list * (instantiation -> 'd list -> thm)
+core unify_terms : term -> term -> 'a list * (term * term) list * (hol_type * hol_type) list
+core union : 'a list -> 'a list -> 'a list
+core union' : ('a -> 'a -> bool) -> 'a list -> 'a list -> 'a list
+core unions : 'a list list -> 'a list
+core unions' : ('a -> 'a -> bool) -> 'a list list -> 'a list
+core uniq : 'a list -> 'a list
+core uniq' : ('a -> 'a -> bool) -> 'a list -> 'a list
+core unparse_as_binder : string -> unit
+core unparse_as_infix : string -> unit
+core unparse_as_prefix : string -> unit
+core unreserve_words : string list -> unit
+core unschematize_clauses : term list -> term list * term list
+core unspaced_binops : string list ref
+core unzip : ('a * 'b) list -> 'a list * 'b list
+core upto : int -> int -> int list
+core use_file : string -> unit
+core USE_THEN : string -> thm_tactic -> tactic
+core VALID : tactic -> tactic
+core variables : term -> term list
+core variant : term list -> term -> term
+core variants : term list -> term list -> term list
+core verbose : bool ref
+core vfree_in : term -> term -> bool
+core vsubst : (term * term) list -> term -> term
+core W : ('a -> 'a -> 'b) -> 'a -> 'b
+core warn : bool -> string -> unit
+core WEAK_CNF_CONV : conv
+core WEAK_DNF_CONV : conv
+core WF_INDUCT_TAC : term -> (string * thm) list * term -> goalstate
+core WF_INDUCT_THEN : thm_tactic -> term -> (string * thm) list * term -> goalstate
+core X_CHOOSE_TAC : term -> thm_tactic
+core X_CHOOSE_THEN : term -> thm_tactical
+core X_GEN_TAC : term -> tactic
+core X_META_EXISTS_TAC : term -> tactic
+core zip : 'a list -> 'b list -> ('a * 'b) list
+Examples/analysis.ml AND_FORALL_CONV : conv
+Examples/analysis.ml CONV_OF_RCONV : conv -> conv
+Examples/analysis.ml CONV_OF_THM : thm -> conv
+Examples/analysis.ml DORDER_THEN : (thm -> 'a) -> thm -> 'a
+Examples/analysis.ml EQUAL_TAC : tactic
+Examples/analysis.ml EXACT_CONV : thm list -> conv
+Examples/analysis.ml EXISTS_AND_CONV : conv
+Examples/analysis.ml EXISTS_UNIQUE_CONV : term -> thm
+Examples/analysis.ml EXPAND_TAC : string -> tactic
+Examples/analysis.ml EXT_CONV : term -> thm
+Examples/analysis.ml FORALL_IMP_CONV : conv
+Examples/analysis.ml FUN_EQ_CONV : conv
+Examples/analysis.ml HABS_CONV : term -> thm
+Examples/analysis.ml HALF_MK_ABS : thm -> thm
+Examples/analysis.ml IMP_SUBST_TAC : thm_tactic
+Examples/analysis.ml INST_TY_TERM :
+Examples/analysis.ml LEFT_AND_EXISTS_CONV : term -> thm
+Examples/analysis.ml LEFT_IMP_EXISTS_CONV : conv
+Examples/analysis.ml MK_ABS : thm -> thm
+Examples/analysis.ml NOT_EXISTS_CONV : conv
+Examples/analysis.ml NOT_FORALL_CONV : conv
+Examples/analysis.ml NOT_MP : thm -> thm -> thm
+Examples/analysis.ml OLD_SKOLEM_CONV : conv
+Examples/analysis.ml REAL_HORNER_SUM_CONV : term -> thm
+Examples/analysis.ml REAL_SUM_CONV : term -> thm
+Examples/analysis.ml RIGHT_AND_EXISTS_CONV : conv
+Examples/analysis.ml RIGHT_IMP_EXISTS_CONV : conv
+Examples/analysis.ml SUBST : (thm * term) list -> term -> thm -> thm
+Examples/analysis.ml SYM_CANON_CONV : thm -> (term * term -> bool) -> term -> thm
+Examples/analysis.ml X_BETA_CONV : term -> term -> thm
+Examples/analysis.ml X_FUN_EQ_CONV : term -> conv
+Examples/analysis.ml X_SKOLEM_CONV : term -> conv
+Examples/card.ml TRANS_CHAIN_TAC : thm -> term list -> tactic
+Examples/card.ml TRANS_TAC : thm -> term -> (string * thm) list * term -> goalstate
+Examples/hol88.ml AC_CONV : thm * thm -> term -> thm
+Examples/hol88.ml AC_RULE : thm * thm -> term -> thm
+Examples/hol88.ml AND_FORALL_CONV : conv
+Examples/hol88.ml ANTE_CONJ_CONV : term -> thm
+Examples/hol88.ml BODY_CONJUNCTS : thm -> thm list
+Examples/hol88.ml bool_EQ_CONV : term -> thm
+Examples/hol88.ml CASES_THENL : thm_tactic list -> thm_tactic
+Examples/hol88.ml CHECK_ASSUME_TAC : thm_tactic
+Examples/hol88.ml combine : 'a list * 'b list -> ('a * 'b) list
+Examples/hol88.ml COND_CASES_TAC : tactic
+Examples/hol88.ml COND_CONV : term -> thm
+Examples/hol88.ml CONJUNCTS_CONV : term * term -> thm
+Examples/hol88.ml CONJ_DISCH : term -> thm -> thm
+Examples/hol88.ml CONJ_DISCHL : term list -> thm -> thm
+Examples/hol88.ml CONJ_LIST : int -> thm -> thm list
+Examples/hol88.ml CONJ_SET_CONV : term list -> term list -> thm
+Examples/hol88.ml CONV_OF_RCONV : conv -> conv
+Examples/hol88.ml CONV_OF_THM : thm -> conv
+Examples/hol88.ml dest_neg_imp : term -> term * term
+Examples/hol88.ml DISCARD_TAC : thm_tactic
+Examples/hol88.ml DISJ_CASES_UNION : thm -> thm -> thm -> thm
+Examples/hol88.ml DISJ_IMP : thm -> thm
+Examples/hol88.ml EXISTS_AND_CONV : conv
+Examples/hol88.ml EXISTS_EQ : term -> thm -> thm
+Examples/hol88.ml EXISTS_IMP : term -> thm -> thm
+Examples/hol88.ml EXISTS_UNIQUE_CONV : term -> thm
+Examples/hol88.ml FILTER_ASM_REWRITE_RULE : (term -> bool) -> thm list -> thm -> thm
+Examples/hol88.ml FILTER_ASM_REWRITE_TAC : (term -> bool) -> thm list -> tactic
+Examples/hol88.ml FILTER_DISCH_TAC : term -> tactic
+Examples/hol88.ml FILTER_DISCH_THEN : thm_tactic -> term -> tactic
+Examples/hol88.ml FILTER_GEN_TAC : term -> tactic
+Examples/hol88.ml FILTER_ONCE_ASM_REWRITE_RULE :
+Examples/hol88.ml FILTER_ONCE_ASM_REWRITE_TAC : (term -> bool) -> thm list -> tactic
+Examples/hol88.ml FILTER_PURE_ASM_REWRITE_RULE :
+Examples/hol88.ml FILTER_PURE_ASM_REWRITE_TAC : (term -> bool) -> thm list -> tactic
+Examples/hol88.ml FILTER_PURE_ONCE_ASM_REWRITE_RULE :
+Examples/hol88.ml FILTER_PURE_ONCE_ASM_REWRITE_TAC :
+Examples/hol88.ml FILTER_STRIP_TAC : term -> tactic
+Examples/hol88.ml FILTER_STRIP_THEN : thm_tactic -> term -> tactic
+Examples/hol88.ml find_match :
+Examples/hol88.ml FORALL_EQ : term -> thm -> thm
+Examples/hol88.ml FORALL_IMP_CONV : conv
+Examples/hol88.ml FRONT_CONJ_CONV : term list -> term -> thm
+Examples/hol88.ml FUN_EQ_CONV : conv
+Examples/hol88.ml GSPEC : thm -> thm
+Examples/hol88.ml GSUBST_TAC :
+Examples/hol88.ml HALF_MK_ABS : thm -> thm
+Examples/hol88.ml IMP_CANON : thm -> thm list
+Examples/hol88.ml IMP_CONJ : thm -> thm -> thm
+Examples/hol88.ml IMP_ELIM : thm -> thm
+Examples/hol88.ml IMP_RES_TAC : thm -> goal -> goalstate
+Examples/hol88.ml IMP_RES_THEN : (thm -> tactic) -> thm -> tactic
+Examples/hol88.ml INST_TY_TERM :
+Examples/hol88.ml is_constant : string -> bool
+Examples/hol88.ml is_neg_imp : term -> bool
+Examples/hol88.ml is_type : string -> bool
+Examples/hol88.ml LEFT_AND_EXISTS_CONV : term -> thm
+Examples/hol88.ml LEFT_IMP_EXISTS_CONV : conv
+Examples/hol88.ml LIST_BETA_CONV : term -> thm
+Examples/hol88.ml LIST_CONJ : thm list -> thm
+Examples/hol88.ml LIST_MK_EXISTS : term list -> thm -> thm
+Examples/hol88.ml LIST_MP : thm list -> thm -> thm
+Examples/hol88.ml MATCH_MP_TAC : thm -> tactic
+Examples/hol88.ml MK_ABS : thm -> thm
+Examples/hol88.ml MK_EXISTS : thm -> thm
+Examples/hol88.ml mk_primed_var : string * hol_type -> term
+Examples/hol88.ml NOT_EQ_SYM : thm -> thm
+Examples/hol88.ml NOT_EXISTS_CONV : conv
+Examples/hol88.ml NOT_FORALL_CONV : conv
+Examples/hol88.ml NOT_MP : thm -> thm -> thm
+Examples/hol88.ml null : 'a list -> bool
+Examples/hol88.ml PROVE : term * tactic -> thm
+Examples/hol88.ml prove_abs_fn_one_one : thm -> thm
+Examples/hol88.ml prove_abs_fn_onto : thm -> thm
+Examples/hol88.ml prove_rep_fn_one_one : thm -> thm
+Examples/hol88.ml prove_rep_fn_onto : thm -> thm
+Examples/hol88.ml prove_thm : string * term * tactic -> thm
+Examples/hol88.ml RES_CANON : thm -> thm list
+Examples/hol88.ml RES_TAC : goal -> goalstate
+Examples/hol88.ml RES_THEN : (thm -> tactic) -> (string * thm) list * term -> goalstate
+Examples/hol88.ml RIGHT_AND_EXISTS_CONV : conv
+Examples/hol88.ml RIGHT_BETA : thm -> thm
+Examples/hol88.ml RIGHT_CONV_RULE : conv -> thm -> thm
+Examples/hol88.ml RIGHT_IMP_EXISTS_CONV : conv
+Examples/hol88.ml RIGHT_LIST_BETA : thm -> thm
+Examples/hol88.ml SELECT_EQ : term -> thm -> thm
+Examples/hol88.ml SKOLEM_CONV : conv
+Examples/hol88.ml split : ('a * 'b) list -> 'a list * 'b list
+Examples/hol88.ml SUBST : (thm * term) list -> term -> thm -> thm
+Examples/hol88.ml SUBST_CONV : (thm * term) list -> term -> term -> thm
+Examples/hol88.ml SUBST_MATCH : thm -> thm -> thm
+Examples/hol88.ml subst_occs : int list list -> (term * term) list -> term -> term
+Examples/hol88.ml SUBST_OCCS_TAC : (int list * thm) list -> tactic
+Examples/hol88.ml SUBST_TAC : thm list -> tactic
+Examples/hol88.ml type_tyvars : hol_type -> hol_type list
+Examples/hol88.ml X_CASES_THEN : term list list -> thm_tactical
+Examples/hol88.ml X_CASES_THENL : term list list -> thm_tactic list -> thm_tactic
+Examples/hol88.ml X_FUN_EQ_CONV : term -> conv
+Examples/hol88.ml X_SKOLEM_CONV : term -> conv
+Examples/pocklington.ml certify_prime : num -> certificate
+Examples/pocklington.ml check_certificate : certificate -> thm
+Examples/pocklington.ml CONG_CONV : conv
+Examples/pocklington.ml even_num : num -> bool
+Examples/pocklington.ml EXP_MOD_CONV : term -> thm
+Examples/pocklington.ml factor : num -> (num * num) list
+Examples/pocklington.ml find_primitive_root : num -> num list -> num -> num
+Examples/pocklington.ml log2 : num -> num
+Examples/pocklington.ml lookup_under_num : num -> (num * 'a) list -> 'a
+Examples/pocklington.ml multifactor : num -> num list
+Examples/pocklington.ml num_0 : num
+Examples/pocklington.ml num_1 : num
+Examples/pocklington.ml num_2 : num
+Examples/pocklington.ml odd_num : num -> bool
+Examples/pocklington.ml powermod : num -> num -> num -> num
+Examples/pocklington.ml PRIME_CONV : term -> thm
+Examples/pocklington.ml PRIME_TEST : term -> thm
+Examples/pocklington.ml prime_theorem_cache : '_a list ref
+Examples/pocklington.ml PROVE_PRIME : num -> thm
+Examples/pocklington.ml PROVE_PRIMEFACT : num -> thm
+Examples/pocklington.ml setify_num : num list -> num list
+Examples/pocklington.ml split_factors : num -> num list -> num list -> num -> num list * num list
+Examples/pocklington.ml uniq_num : num list -> num list
+Examples/prime.ml COPRIME_CONV : term -> thm
+Examples/prime.ml DIVIDES_CONV : term -> thm
+Examples/prime.ml GCD_CONV : term -> thm
+Examples/rstc.ml RULE_INDUCT_TAC : thm -> tactic
+Examples/sos.ml allpermutations : 'a list -> 'a list list
+Examples/sos.ml allvarorders : 'a list -> ('a -> int) list
+Examples/sos.ml blocks : int list -> (int * int * int, num) func -> matrix list
+Examples/sos.ml bmatrix_add : ('_a, num) func -> ('_a, num) func -> ('_a, num) func
+Examples/sos.ml bmatrix_cmul : num -> ('a, num) func -> ('a, num) func
+Examples/sos.ml bmatrix_neg : ('_a, num) func -> ('_a, num) func
+Examples/sos.ml bmatrix_sub : ('_a, num) func -> ('_a, num) func -> ('_a, num) func
+Examples/sos.ml changevariables : (term * term) list -> (monomial, num) func -> poly
+Examples/sos.ml changevariables_monomial : (term * term) list -> monomial -> monomial
+Examples/sos.ml column : int -> matrix -> vector
+Examples/sos.ml csdp :
+Examples/sos.ml csdp : vector -> matrix list -> vector
+Examples/sos.ml csdp_default_parameters : string
+Examples/sos.ml csdp_params : string
+Examples/sos.ml debugging : bool ref
+Examples/sos.ml decimal : string list -> num * string list
+Examples/sos.ml decimalize : int -> num -> string
+Examples/sos.ml deepen : (int -> 'a) -> int -> 'a
+Examples/sos.ml degree : term -> poly -> int
+Examples/sos.ml deration :
+Examples/sos.ml dest_monomial : ('a, 'b) func -> ('a * 'b) list
+Examples/sos.ml dest_poly : (monomial, 'a) func -> ('a * (term * int) list) list
+Examples/sos.ml diag : matrix -> (num * (int * (int, num) func)) list
+Examples/sos.ml diagonal : vector -> matrix
+Examples/sos.ml dim : vector -> int
+Examples/sos.ml dimensions : matrix -> int * int
+Examples/sos.ml element : 'a * ('b, num) func -> 'b -> num
+Examples/sos.ml eliminate_all_equations :
+Examples/sos.ml eliminate_equations :
+Examples/sos.ml enumerate_monomials : int -> term list -> monomial list
+Examples/sos.ml enumerate_products :
+Examples/sos.ml epoly_add :
+Examples/sos.ml epoly_cmul :
+Examples/sos.ml epoly_neg : ('_a, ('_b, num) func) func -> ('_a, ('_b, num) func) func
+Examples/sos.ml epoly_of_poly : ('a, num) func -> ('a, (int * int * int, num) func) func
+Examples/sos.ml epoly_pmul :
+Examples/sos.ml epoly_sub :
+Examples/sos.ml equation_add : ('a, num) func -> ('a, num) func -> ('a, num) func
+Examples/sos.ml equation_cmul : num -> ('a, num) func -> ('a, num) func
+Examples/sos.ml equation_eval : ('a, num) func -> ('a, num) func -> num
+Examples/sos.ml eval : (term, num) func -> poly -> num
+Examples/sos.ml failstore : '_a list ref
+Examples/sos.ml file_of_string : string -> string -> unit
+Examples/sos.ml humanorder_monomial : ('a, 'b) func -> ('a, 'b) func -> bool
+Examples/sos.ml humanorder_varpow : 'a * 'b -> 'a * 'b -> bool
+Examples/sos.ml INT_SOS : term -> thm
+Examples/sos.ml in_convex_hull : int list list -> int list -> bool
+Examples/sos.ml is_zero : 'a * ('b, 'c) func -> bool
+Examples/sos.ml iter : int * int -> (int -> 'a -> 'a) -> 'a -> 'a
+Examples/sos.ml itern : int -> 'a list -> ('a -> int -> 'b -> 'b) -> 'b -> 'b
+Examples/sos.ml linear_program : matrix -> vector -> bool
+Examples/sos.ml linear_program_basic : matrix -> bool
+Examples/sos.ml mapa : ('a -> num) -> 'b * ('c, 'a) func -> 'b * ('c, num) func
+Examples/sos.ml matrix_0 : int * int -> matrix
+Examples/sos.ml matrix_1 : int * int -> matrix
+Examples/sos.ml matrix_add : matrix -> matrix -> matrix
+Examples/sos.ml matrix_cmul : num -> matrix -> matrix
+Examples/sos.ml matrix_const : num -> int * int -> matrix
+Examples/sos.ml matrix_neg : matrix -> matrix
+Examples/sos.ml matrix_of_list : num list list -> matrix
+Examples/sos.ml matrix_sub : matrix -> matrix -> matrix
+Examples/sos.ml minimal_convex_hull : int list list -> int list list
+Examples/sos.ml mkparser : (string list -> 'a * 'b list) -> string -> 'a
+Examples/sos.ml monomial_1 : monomial
+Examples/sos.ml monomial_degree : term -> monomial -> int
+Examples/sos.ml monomial_div : monomial -> monomial -> monomial
+Examples/sos.ml monomial_divides : monomial -> monomial -> bool
+Examples/sos.ml monomial_eval : (term, num) func -> monomial -> num
+Examples/sos.ml monomial_lcm : monomial -> monomial -> monomial
+Examples/sos.ml monomial_mul : monomial -> monomial -> monomial
+Examples/sos.ml monomial_multidegree : monomial -> int
+Examples/sos.ml monomial_order : monomial -> monomial -> bool
+Examples/sos.ml monomial_pow : monomial -> int -> monomial
+Examples/sos.ml monomial_var : term -> monomial
+Examples/sos.ml monomial_variables : ('a, 'b) func -> 'a list
+Examples/sos.ml multidegree : poly -> int
+Examples/sos.ml newton_polytope : poly -> monomial list
+Examples/sos.ml nice_rational : num -> num -> num
+Examples/sos.ml nice_vector : num -> 'a * ('b, num) func -> 'a * ('b, num) func
+Examples/sos.ml parse_csdpoutput : string -> vector
+Examples/sos.ml parse_decimal : string -> num
+Examples/sos.ml parse_sdpaoutput : string -> vector
+Examples/sos.ml poly_0 : poly
+Examples/sos.ml poly_add : poly -> poly -> poly
+Examples/sos.ml poly_cmmul : num * monomial -> poly -> poly
+Examples/sos.ml poly_cmul : num -> poly -> poly
+Examples/sos.ml poly_const : num -> poly
+Examples/sos.ml poly_div : poly -> poly -> poly
+Examples/sos.ml poly_exp : poly -> poly -> poly
+Examples/sos.ml poly_isconst : poly -> bool
+Examples/sos.ml poly_mul : poly -> poly -> poly
+Examples/sos.ml poly_neg : poly -> poly
+Examples/sos.ml poly_of_term : term -> poly
+Examples/sos.ml poly_pow : poly -> int -> poly
+Examples/sos.ml poly_square : poly -> poly
+Examples/sos.ml poly_sub : poly -> poly -> poly
+Examples/sos.ml poly_var : term -> poly
+Examples/sos.ml poly_variables : poly -> term list
+Examples/sos.ml print_matrix : matrix -> unit
+Examples/sos.ml print_monomial : monomial -> unit
+Examples/sos.ml print_poly : poly -> unit
+Examples/sos.ml print_vector : vector -> unit
+Examples/sos.ml PURE_SOS : term -> thm
+Examples/sos.ml PURE_SOS_TAC : tactic
+Examples/sos.ml REAL_NONLINEAR_PROVER :
+Examples/sos.ml real_positivnullstellensatz_general :
+Examples/sos.ml REAL_SOS : term -> thm
+Examples/sos.ml row : int -> matrix -> vector
+Examples/sos.ml run_csdp :
+Examples/sos.ml run_csdp : bool -> vector -> matrix list -> int * vector
+Examples/sos.ml run_sdpa : bool -> vector -> matrix list -> vector
+Examples/sos.ml scale_then :
+Examples/sos.ml sdpa : vector -> matrix list -> vector
+Examples/sos.ml sdpa_alt_parameters : string
+Examples/sos.ml sdpa_default_parameters : string
+Examples/sos.ml sdpa_of_blockdiagonal : int -> (int * int * int, num) func -> string
+Examples/sos.ml sdpa_of_blockproblem :
+Examples/sos.ml sdpa_of_matrix : int -> matrix -> string
+Examples/sos.ml sdpa_of_problem : string -> vector -> matrix list -> string
+Examples/sos.ml sdpa_of_vector : vector -> string
+Examples/sos.ml sdpa_params : string
+Examples/sos.ml sdpa_run_succeeded : string -> bool
+Examples/sos.ml solve_equations : 'a -> ('a, num) func list -> ('a, num) func
+Examples/sos.ml SOS_CONV : term -> thm
+Examples/sos.ml SOS_RULE : term -> thm
+Examples/sos.ml string_of_cmonomial : num * monomial -> string
+Examples/sos.ml string_of_file : string -> string
+Examples/sos.ml string_of_matrix : int -> matrix -> string
+Examples/sos.ml string_of_monomial : monomial -> string
+Examples/sos.ml string_of_poly : poly -> string
+Examples/sos.ml string_of_term : term -> string
+Examples/sos.ml string_of_varpow : term -> int -> string
+Examples/sos.ml string_of_vector : int -> int -> vector -> string
+Examples/sos.ml sumofsquares : poly -> num * (num * (monomial, num) func) list
+Examples/sos.ml sumofsquares_general_symmetry :
+Examples/sos.ml term_of_cmonomial : monomial * num -> term
+Examples/sos.ml term_of_monomial : monomial -> term
+Examples/sos.ml term_of_poly : poly -> term
+Examples/sos.ml term_of_sos :
+Examples/sos.ml term_of_sqterm : num * poly -> positivstellensatz
+Examples/sos.ml term_of_varpow : term -> int -> term
+Examples/sos.ml token : string -> string list -> string * string list
+Examples/sos.ml transp : matrix -> matrix
+Examples/sos.ml vector_0 : int -> vector
+Examples/sos.ml vector_1 : int -> vector
+Examples/sos.ml vector_add : vector -> vector -> vector
+Examples/sos.ml vector_cmul : num -> vector -> vector
+Examples/sos.ml vector_const : num -> int -> vector
+Examples/sos.ml vector_dot : vector -> vector -> num
+Examples/sos.ml vector_neg : vector -> vector
+Examples/sos.ml vector_of_list : num list -> vector
+Examples/sos.ml vector_sub : vector -> vector -> vector
+Examples/sos.ml word : string -> string list -> string * string list
+Examples/sos.ml |--> : 'a -> num -> ('a, num) func -> ('a, num) func
+Examples/transc.ml add_to_diff_net : thm -> unit
+Examples/transc.ml CONTINUOUS_CONV : term -> thm
+Examples/transc.ml CONTINUOUS_RULE : term -> thm
+Examples/transc.ml DIFFERENTIABLE_CONV : term -> thm
+Examples/transc.ml DIFFERENTIABLE_RULE : term -> thm
+Examples/transc.ml DIFF_CONV : term -> thm
+Examples/transc.ml diff_net : '_a net ref
+Examples/transc.ml DIFF_TAC : goal -> goalstate
+Examples/transc.ml EXT_CONV : term -> thm
+Examples/transc.ml INTEGRABLE_CONV : term -> thm
+Examples/transc.ml INTEGRABLE_RULE : term -> thm
+Examples/transc.ml LE_MATCH_TAC : thm -> (string * thm) list * term -> goalstate
+Examples/transc.ml SYM_CANON_CONV : thm -> (term * term -> bool) -> term -> thm
+Examples/wo.ml EXPAND_TAC : string -> tactic

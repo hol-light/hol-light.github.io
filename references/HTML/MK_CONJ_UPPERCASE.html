@@ -1,0 +1,35 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>MK_CONJ : thm -&gt; thm -&gt; thm</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Conjoin both sides of two equational theorems.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Given two theorems, each with a Boolean equation as conclusion, <SPAN CLASS=BRKT>MK_CONJ</SPAN>
+returns the equation resulting from conjoining their respective sides:
+<DIV class=XMPL><PRE>
+         A |- p <=> p'   B |- q <=> q'
+      ----------------------------------- MK_CONJ
+           A u B |- p /\ q <=> p' /\ q'
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails unless both input theorems are Boolean equations (iff).
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # let th1 = ARITH_RULE `0 < n <=> ~(n = 0)`
+    and th2 = ARITH_RULE `1 <= n <=> ~(n = 0)`;;
+  val th1 : thm = |- 0 < n <=> ~(n = 0)
+  val th2 : thm = |- 1 <= n <=> ~(n = 0)
+
+  # MK_CONJ th1 th2;;
+  val it : thm = |- 0 < n /\ 1 <= n <=> ~(n = 0) /\ ~(n = 0)
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="AP_TERM.html">AP_TERM</A>, <A href="AP_THM.html">AP_THM</A>, <A href="MK_BINOP_UPPERCASE.html">MK_BINOP</A>, <A href="MK_COMB_UPPERCASE.html">MK_COMB</A>, <A href="MK_DISJ_UPPERCASE.html">MK_DISJ</A>, <A href="MK_EXISTS_UPPERCASE.html">MK_EXISTS</A>, <A href="MK_FORALL_UPPERCASE.html">MK_FORALL</A>.
+
+
+</DL>

@@ -1,0 +1,32 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>ALPHA : term -&gt; term -&gt; thm</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Proves equality of alpha-equivalent terms.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+When applied to a pair of terms <SPAN CLASS=BRKT>t1</SPAN> and <SPAN CLASS=BRKT>t1'</SPAN> which are
+alpha-equivalent, <SPAN CLASS=BRKT>ALPHA</SPAN> returns the theorem <SPAN CLASS=BRKT>|- t1 = t1'</SPAN>.
+<DIV class=XMPL><PRE>
+
+   -------------  ALPHA `t1` `t1'`
+    |- t1 = t1'
+</PRE></DIV>
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails unless the terms provided are alpha-equivalent.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # ALPHA `!x:num. x = x` `!y:num. y = y`;;
+  val it : thm = |- (!x. x = x) <=> (!y. y = y)
+
+  # ALPHA `\w. w + z` `\z'. z' + z`;;
+  val it : thm = |- (\w. w + z) = (\z'. z' + z)
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="aconv.html">aconv</A>, <A href="ALPHA_CONV.html">ALPHA_CONV</A>, <A href="GEN_ALPHA_CONV.html">GEN_ALPHA_CONV</A>.
+
+
+</DL>

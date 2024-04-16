@@ -1,0 +1,30 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>insert' : ('a -&gt; 'a -&gt; bool) -&gt; 'a -&gt; 'a list -&gt; 'a list</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Insert element into list unless it contains an equivalent one already.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+If <SPAN CLASS=BRKT>r</SPAN> is a binary relation, <SPAN CLASS=BRKT>x</SPAN> an element and <SPAN CLASS=BRKT>l</SPAN> a list, the call
+<SPAN CLASS=BRKT>insert' r x l</SPAN> will add <SPAN CLASS=BRKT>x</SPAN> to the head of the list, unless the list already
+contains an element <SPAN CLASS=BRKT>x'</SPAN> with <SPAN CLASS=BRKT>r x x'</SPAN>; if it does, the list is returned
+unchanged. The function <SPAN CLASS=BRKT>insert</SPAN> is the special case where <SPAN CLASS=BRKT>r</SPAN> is equality.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails only if the relation fails.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # insert' (fun x y -> abs(x) = abs(y)) (-1) [1;2;3];;
+  val it : int list = [1; 2; 3]
+
+  # insert' (fun x y -> abs(x) = abs(y)) (-1) [2;3;4];;
+  val it : int list = [-1; 2; 3; 4]
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="insert.html">insert</A>, <A href="mem_prime.html">mem'</A>, <A href="subtract_prime.html">subtract'</A>, <A href="union_prime.html">union'</A>, <A href="unions_prime.html">unions'</A>.
+
+
+</DL>

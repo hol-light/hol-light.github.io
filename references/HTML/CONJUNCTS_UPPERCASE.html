@@ -1,0 +1,31 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>CONJUNCTS : thm -&gt; thm list</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Recursively splits conjunctions into a list of conjuncts.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Flattens out all conjuncts, regardless of grouping. Returns a singleton list
+if the input theorem is not a conjunction.
+<DIV class=XMPL><PRE>
+       A |- t1 /\ t2 /\ ... /\ tn
+   -----------------------------------  CONJUNCTS
+    A |- t1   A |- t2   ...   A |- tn
+</PRE></DIV>
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Never fails.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # CONJUNCTS(ASSUME `(x /\ y) /\ z /\ w`);;
+  val it : thm list =
+    [(x /\ y) /\ z /\ w |- x; (x /\ y) /\ z /\ w |- y; (x /\ y) /\ z /\ w
+     |- z; (x /\ y) /\ z /\ w |- w]
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="CONJ.html">CONJ</A>, <A href="CONJUNCT1.html">CONJUNCT1</A>, <A href="CONJUNCT2.html">CONJUNCT2</A>, <A href="CONJ_PAIR.html">CONJ_PAIR</A>.
+
+
+</DL>

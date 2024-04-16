@@ -1,0 +1,38 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>SUBLET_CONV : conv -&gt; term -&gt; thm</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Applies subconversion to RHSs of toplevel let-term
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Given a basic conversion <SPAN CLASS=BRKT>conv</SPAN>, the conversion <SPAN CLASS=BRKT>SUBLET_CONV conv</SPAN> applies that
+conversion to the right-hand sides of a toplevel let-term of the form
+<DIV class=XMPL><PRE>
+   let v1 = t1 and ... and vn = tn in t
+</PRE></DIV>
+resulting in the following theorem:
+<DIV class=XMPL><PRE>
+   |- (let v1 = t1 and ... and vn = tn in t) =
+      (let v1 = t1' and ... and vn = tn' in t)
+where applying <SPAN CLASS=BRKT>conv</SPAN> to <SPAN CLASS=BRKT>ti</SPAN> results in the theorem <SPAN CLASS=BRKT>|- ti = ti'</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+<SPAN CLASS=BRKT>SUBLET_CONV conv tm</SPAN> fails if <SPAN CLASS=BRKT>tm</SPAN> is not a <SPAN CLASS=BRKT>let</SPAN>-term, or if the conversion
+<SPAN CLASS=BRKT>conv</SPAN> fails on any of its RHSs.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+This applies it to perform numeric addition on the <SPAN CLASS=BRKT>let</SPAN>-term:
+<DIV class=XMPL><PRE>
+  # SUBLET_CONV NUM_ADD_CONV
+     `let x = 5 + 2 and y = 8 + 17 and z = 3 + 7 in x + y + z`;;
+  val it : thm =
+    |- (let x = 5 + 2 and y = 8 + 17 and z = 3 + 7 in x + y + z) =
+       (let x = 7 and y = 25 and z = 10 in x + y + z)
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="BETA_CONV.html">BETA_CONV</A>, <A href="GEN_BETA_CONV.html">GEN_BETA_CONV</A>, <A href="let_CONV.html">let_CONV</A>.
+
+
+</DL>

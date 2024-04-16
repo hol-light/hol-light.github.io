@@ -1,0 +1,34 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>CHOOSE : term * thm -&gt; thm -&gt; thm</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Eliminates existential quantification using deduction from a
+particular witness.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+When applied to a term-theorem pair <SPAN CLASS=BRKT>(v,A1 |- ?x. s)</SPAN> and a second
+theorem of the form <SPAN CLASS=BRKT>A2 |- t</SPAN>, the inference rule <SPAN CLASS=BRKT>CHOOSE</SPAN>
+produces the theorem <SPAN CLASS=BRKT>A1 u (A2 - {s[v/x]}) |- t</SPAN>.
+<DIV class=XMPL><PRE>
+    A1 |- ?x. s[x]    A2 |- t
+   -------------------------------  CHOOSE (`v`,(A1 |- ?x. s))
+     A1 u (A2 - {s[v/x]}) |- t
+</PRE></DIV>
+Where <SPAN CLASS=BRKT>v</SPAN> is not free in <SPAN CLASS=BRKT>A2 - {s[v/x]}</SPAN>, <SPAN CLASS=BRKT>s</SPAN> or <SPAN CLASS=BRKT>t</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails unless the terms and theorems correspond as indicated above; in
+particular, <SPAN CLASS=BRKT>v</SPAN> must be a variable and have the same type as the variable
+existentially quantified over, and it must not be free in <SPAN CLASS=BRKT>A2 - {s[v/x]}</SPAN>,
+<SPAN CLASS=BRKT>s</SPAN> or <SPAN CLASS=BRKT>t</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>COMMENTS</SPAN><DD>
+For the special case of simply existentially quantifying an assumption over a
+variable, <SPAN CLASS=BRKT>SIMPLE_CHOOSE</SPAN> is easier.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="CHOOSE_TAC.html">CHOOSE_TAC</A>, <A href="EXISTS_UPPERCASE.html">EXISTS</A>, <A href="EXISTS_TAC.html">EXISTS_TAC</A>, <A href="SIMPLE_CHOOSE.html">SIMPLE_CHOOSE</A>.
+
+
+</DL>

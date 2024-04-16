@@ -1,0 +1,57 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>NAME_ASSUMS_LIST : tactic</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Label unnamed assumptions.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+<SPAN CLASS=BRKT>NAME_ASSUMS_LIST</SPAN> labels unnamed assumptions with "H0", "H1", ....
+It skips named assumptions.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Never fails.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+	# g `!(a: A) b c d. a = b ==> b = c ==> c = d ==> a = d`;;
+	val it : goalstack = 1 subgoal (1 total)
+
+	`!a b c d. a = b ==> b = c ==> c = d ==> a = d`
+
+	# e(REPEAT GEN_TAC);;
+	val it : goalstack = 1 subgoal (1 total)
+
+	`a = b ==> b = c ==> c = d ==> a = d`
+
+	# e(DISCH_THEN (LABEL_TAC "Hnamed"));;
+	val it : goalstack = 1 subgoal (1 total)
+
+		0 [`a = b`] (Hnamed)
+
+	`b = c ==> c = d ==> a = d`
+
+	# e(REPEAT STRIP_TAC);;
+	val it : goalstack = 1 subgoal (1 total)
+
+		0 [`a = b`] (Hnamed)
+		1 [`b = c`]
+		2 [`c = d`]
+
+	`a = d`
+
+	# e(NAME_ASSUMS_TAC);;
+	val it : goalstack = 1 subgoal (1 total)
+
+		0 [`a = b`] (Hnamed)
+		1 [`b = c`] (H1)
+		2 [`c = d`] (H0)
+
+	`a = d`
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="HYP_UPPERCASE.html">HYP</A>, <A href="LABEL_TAC.html">LABEL_TAC</A>, <A href="REMOVE_THEN.html">REMOVE_THEN</A>, <A href="USE_THEN.html">USE_THEN</A>.
+
+
+</DL>

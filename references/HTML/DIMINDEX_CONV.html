@@ -1,0 +1,33 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>DIMINDEX_CONV : conv</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Computes the <SPAN CLASS=BRKT>dimindex</SPAN> for a standard finite type.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Finite types parsed and printed as numerals are provided, and this conversion
+when applied to a term of the form <SPAN CLASS=BRKT>`dimindex (:n)`</SPAN> returns the theorem
+<SPAN CLASS=BRKT>|- dimindex(:n) = n</SPAN> where the <SPAN CLASS=BRKT>n</SPAN> on the right is a numeral term.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the term is not of the form <SPAN CLASS=BRKT>`dimindex (:n)`</SPAN> for a standard finite
+type.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+Here we use a 32-element type, perhaps useful for indexing the bits of a
+word:
+<DIV class=XMPL><PRE>
+  # DIMINDEX_CONV `dimindex(:32)`;;
+  val it : thm = |- dimindex (:32) = 32
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>USES</SPAN><DD>
+In conjunction with Cartesian powers such as <SPAN CLASS=BRKT>real^3</SPAN>, where only the size of
+the indexing type is relevant and the simple name <SPAN CLASS=BRKT>n</SPAN> is intuitive.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="dest_finty.html">dest_finty</A>, <A href="DIMINDEX_TAC.html">DIMINDEX_TAC</A>, <A href="HAS_SIZE_DIMINDEX_RULE.html">HAS_SIZE_DIMINDEX_RULE</A>, <A href="mk_finty.html">mk_finty</A>.
+
+
+</DL>

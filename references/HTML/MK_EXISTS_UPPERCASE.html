@@ -1,0 +1,35 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>MK_EXISTS : term -&gt; thm -&gt; thm</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Existentially quantifies both sides of equational theorem.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Given a theorem <SPAN CLASS=BRKT>th</SPAN> whose conclusion is a Boolean equation (iff), the rule
+<SPAN CLASS=BRKT>MK_EXISTS `v` th</SPAN> existentially quantifies both sides of <SPAN CLASS=BRKT>th</SPAN> over the
+variable <SPAN CLASS=BRKT>v</SPAN>, provided it is not free in the hypotheses
+<DIV class=XMPL><PRE>
+             A |- p <=> q
+      ---------------------------- MK_EXISTS `v` [where v not free in A]
+        A |- (?v. p) <=> (?v. q)
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the term is not a variable or is free in the hypotheses of the
+theorem, or if the theorem does not have a Boolean equation for its conclusion.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # let th = ARITH_RULE `f(x:A) >= 1 <=> ~(f(x) = 0)`;;
+  val th : thm = |- f x >= 1 <=> ~(f x = 0)
+
+  # MK_EXISTS `x:A` th;;
+  val it : thm = |- (?x. f x >= 1) <=> (?x. ~(f x = 0))
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="AP_TERM.html">AP_TERM</A>, <A href="AP_THM.html">AP_THM</A>, <A href="MK_BINOP_UPPERCASE.html">MK_BINOP</A>, <A href="MK_COMB_UPPERCASE.html">MK_COMB</A>, <A href="MK_CONJ_UPPERCASE.html">MK_CONJ</A>, <A href="MK_DISJ_UPPERCASE.html">MK_DISJ</A>, <A href="MK_FORALL_UPPERCASE.html">MK_FORALL</A>.
+
+
+</DL>

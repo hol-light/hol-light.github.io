@@ -1,0 +1,131 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>IMP_REWRITE_TAC : thm list -&gt; tactic</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Performs implicational rewriting, adding new assumptions if necessary.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Given a list of theorems <SPAN CLASS=BRKT>[th_1;...;th_k]</SPAN> of the form
+<SPAN CLASS=BRKT>!x_1... x_n. P ==> !y_1... y_m. l = r</SPAN>, the tactic
+<SPAN CLASS=BRKT>IMP_REWRITE_TAC [th_1;...;th_k]</SPAN> applies implicational rewriting using all
+theorems, i.e. replaces any occurrence of <SPAN CLASS=BRKT>l</SPAN> by <SPAN CLASS=BRKT>r</SPAN> in the goal, even
+if <SPAN CLASS=BRKT>P</SPAN> does not hold. This may involve adding some propositional atoms
+(typically instantations of <SPAN CLASS=BRKT>P</SPAN>) or existentials, but in the end, you are
+(almost) sure that l is replaced by r. Note that P can be ``empty'', in which
+case implicational rewriting is just rewriting.
+
+Additional remarks:
+<ul>
+
+<li> A theorem of the form <SPAN CLASS=BRKT>!x_1... x_n. l = r</SPAN> is turned into
+<SPAN CLASS=BRKT>!x_1... x_n. T ==> l = r</SPAN> (so that <SPAN CLASS=BRKT>IMP_REWRITE_TAC</SPAN> can be
+used as a replacement for <SPAN CLASS=BRKT>REWRITE_TAC</SPAN> and <SPAN CLASS=BRKT>SIMP_TAC</SPAN>).
+
+<li> A theorem of the form <SPAN CLASS=BRKT>!x_1... x_n. P ==> !y_1... y_m. Q</SPAN>
+is turned into <SPAN CLASS=BRKT>!x_1... x_n.  P ==> !y_1... y_m. Q = T</SPAN> (so that
+<SPAN CLASS=BRKT>IMP_REWRITE_TAC</SPAN> can be used as a ``deep'' replacement for <SPAN CLASS=BRKT>MATCH_MP_TAC</SPAN>).
+
+<li> A theorem of the form <SPAN CLASS=BRKT>!x_1... x_n. P ==> !y_1... y_m. ~Q</SPAN>
+is turned into <SPAN CLASS=BRKT>!x_1... x_n. P ==> !y_1... y_m. Q = F</SPAN>.
+
+<li> A theorem of the form
+<SPAN CLASS=BRKT>!x_1... x_n. P ==> !y_1... y_k. Q ... ==> l = r</SPAN>
+is turned into <SPAN CLASS=BRKT>!x_1... x_n,y_1... y_k,... P \wedge Q \wedge ... ==> l = r</SPAN>
+
+<li> A theorem of the form
+<SPAN CLASS=BRKT>!x_1... x_n. P ==> (!y^1_1... y^1_k. Q_1 ... ==> l_1 = r_1 /\ !y^2_1... y^2_k. Q_2 ... ==> l_2=r_2 /\ ...)</SPAN>
+is turned into the list of theorems
+<SPAN CLASS=BRKT>!x_1... x_n, y^1_1... y^1_k,... P /\ Q_1 /\ ... ==> l_1 = r_1</SPAN>,
+<SPAN CLASS=BRKT>!x_1... x_n,y^2_1... y^2_k,... P /\ Q_2 /\ ... ==> l_2 = r_2</SPAN> etc.
+
+</ul>
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if no rewrite can be achieved. If the usual behavior of leaving the goal unchanged
+is desired, one can wrap the coal in <SPAN CLASS=BRKT>TRY_TAC</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+This is a simple example:
+<DIV class=XMPL><PRE>
+  # REAL_DIV_REFL;;
+  val it : thm = |- !x. ~(x = &amp;0) ==> x / x = &amp;1
+  # g `!a b c. a < b ==> (a - b) / (a - b) * c = c`;;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!a b c. a < b ==> (a - b) / (a - b) * c = c`
+
+  # e(IMP_REWRITE_TAC[REAL_DIV_REFL]);;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!a b c. a < b ==> &amp;1 * c = c / ~(a - b = &amp;0)`
+</PRE></DIV>
+We can actually do more in one step:
+<DIV class=XMPL><PRE>
+  # g `!a b c. a < b ==> (a - b) / (a - b) * c = c`;;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!a b c. a < b ==> (a - b) / (a - b) * c = c`
+
+  # e(IMP_REWRITE_TAC[REAL_DIV_REFL;REAL_MUL_LID;REAL_SUB_0]);;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!a b. a < b ==> ~(a = b)`
+</PRE></DIV>
+And one can easily conclude with:
+<DIV class=XMPL><PRE>
+  # e(IMP_REWRITE_TAC[REAL_LT_IMP_NE]);;
+  val it : goalstack = No subgoals
+</PRE></DIV>
+This illustrates the use of this tactic as a replacement for <SPAN CLASS=BRKT>MATCH_MP_TAC</SPAN>:
+<DIV class=XMPL><PRE>
+  # g `!a b. &amp;0 < a - b ==> ~(b = a)`;;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!a b. &amp;0 < a - b ==> ~(b = a)`
+
+  # e(IMP_REWRITE_TAC[REAL_LT_IMP_NE]);;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!a b. &amp;0 < a - b ==> b < a`
+</PRE></DIV>
+Actually the goal can be completely proved just by:
+<DIV class=XMPL><PRE>
+  # e(IMP_REWRITE_TAC[REAL_LT_IMP_NE;REAL_SUB_LT]);;
+  val it : goalstack = No subgoals
+</PRE></DIV>
+Of course on this simple example, it would actually be enough to use
+<SPAN CLASS=BRKT>SIMP_TAC</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>USES</SPAN><DD>
+Allows to make some progress when <SPAN CLASS=BRKT>REWRITE_TAC</SPAN> or <SPAN CLASS=BRKT>SIMP_TAC</SPAN> cannot. Namely,
+if the precondition P cannot be proved automatically, then these classic
+tactics cannot be used, and one must generally add the precondition explicitly
+using <SPAN CLASS=BRKT>SUBGOAL_THEN</SPAN> or <SPAN CLASS=BRKT>SUBGOAL_TAC</SPAN>. <SPAN CLASS=BRKT>IMP_REWRITE_TAC</SPAN> allows one to do this
+automatically. Additionally, it can add this precondition deep in a term,
+actually to the deepest where it is meaningful. Thus there is no need to first
+use <SPAN CLASS=BRKT>REPEAT STRIP_TAC</SPAN> (which often forces to decompose the goal into subgoals
+whereas the user would not want to do so). <SPAN CLASS=BRKT>IMP_REWRITE_TAC</SPAN> can also be used
+like <SPAN CLASS=BRKT>MATCH_MP_TAC</SPAN>, but, again, deep in a term. Therefore you can avoid the
+common preliminary <SPAN CLASS=BRKT>REPEAT STRIP_TAC</SPAN>. The only disadvantages w.r.t.
+<SPAN CLASS=BRKT>REWRITE_TAC</SPAN>, <SPAN CLASS=BRKT>SIMP_TAC</SPAN> and <SPAN CLASS=BRKT>MATCH_MP_TAC</SPAN> are that <SPAN CLASS=BRKT>IMP_REWRITE_TAC</SPAN> uses
+only first-order matching and is generally a little bit slower.
+
+<P><DT><SPAN CLASS=FIELD-NAME>COMMENTS</SPAN><DD>
+Contrarily to <SPAN CLASS=BRKT>REWRITE_TAC</SPAN> or <SPAN CLASS=BRKT>SIMP_TAC</SPAN>, the goal obtained by using
+implicational rewriting is generally not equivalent to the initial goal. This
+is actually what makes this tactic so useful: applying only ``reversible''
+reasoning steps is quite a big restriction compared to all the reasoning steps
+that could be achieved (and often wanted).
+
+We use only first-order matching because higher-order matching happens to match
+``too much''.
+
+In situations where they can be used, <SPAN CLASS=BRKT>REWRITE_TAC</SPAN> and <SPAN CLASS=BRKT>SIMP_TAC</SPAN> are generally
+more efficient.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="CASE_REWRITE_TAC.html">CASE_REWRITE_TAC</A>, <A href="REWRITE_TAC.html">REWRITE_TAC</A>, <A href="SEQ_IMP_REWRITE_TAC.html">SEQ_IMP_REWRITE_TAC</A>, <A href="SIMP_TAC.html">SIMP_TAC</A>, <A href="TARGET_REWRITE_TAC.html">TARGET_REWRITE_TAC</A>.
+
+
+</DL>

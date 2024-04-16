@@ -1,0 +1,53 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>the_implicit_types :  (string * hol_type) list ref</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Restrict variables to a particular type or type scheme.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Normally, the types of variables in term quotations are restricted only by the
+context in which they appear and will otherwise have maximally general types
+inferred. By associating variable names with type schemes in the list of pairs
+<SPAN CLASS=BRKT>the_implicit_types</SPAN>, the types of variables will be suitably restricted. This
+can be a convenience in reducing the amount of manual type annotation in terms.
+The facility is somewhat analogous to the schemas specified for constants in
+<SPAN CLASS=BRKT>the_overload_skeletons</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Not applicable.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+If we parse the following term, in which all names denote variables (assume
+neither <SPAN CLASS=BRKT>mul</SPAN> nor <SPAN CLASS=BRKT>x</SPAN> has been declared a constant), then the type of <SPAN CLASS=BRKT>x</SPAN> is
+completely unrestricted if <SPAN CLASS=BRKT>the_implicit_types</SPAN> is empty as in HOL Light's
+initial state:
+<DIV class=XMPL><PRE>
+  # the_implicit_types := [];;
+  val it : unit = ()
+  # `mul 1 x`;;
+  Warning: inventing type variables
+  val it : term = `mul 1 x`
+  # map dest_var (frees it);;
+  val it : (string * hol_type) list =
+    [("mul", `:num->?83058->?83057`); ("x", `:?83058`)]
+</PRE></DIV>
+However, if we use the implicit types to require that the variable <SPAN CLASS=BRKT>mul</SPAN> has an
+instance of a generic type scheme each time it is parsed, all types follow
+implicitly:
+<DIV class=XMPL><PRE>
+  # the_implicit_types := ["mul",`:A->A->A`; "iv",`:A->A`];;
+  val it : unit = ()
+  # `mul 1 x`;;
+  val it : term = `mul 1 x`
+  # map dest_var (frees it);;
+  val it : (string * hol_type) list =
+    [("mul", `:num->num->num`); ("x", `:num`)]
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="make_overloadable.html">make_overloadable</A>, <A href="overload_interface.html">overload_interface</A>, <A href="override_interface.html">override_interface</A>, <A href="prioritize_overload.html">prioritize_overload</A>,
+<A href="reduce_interface.html">reduce_interface</A>, <A href="remove_interface.html">remove_interface</A>, <A href="the_interface.html">the_interface</A>, <A href="the_overload_skeletons.html">the_overload_skeletons</A>.
+
+
+</DL>

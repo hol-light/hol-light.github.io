@@ -1,0 +1,21 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>type_unify : hol_type -&gt; hol_type -&gt; (hol_type * hol_type) list -&gt; (hol_type * hol_type) list</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Unify two types by instantiating their type variables
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Given two types <SPAN CLASS=BRKT>ty1</SPAN> and <SPAN CLASS=BRKT>ty2</SPAN> and an existing instantiation <SPAN CLASS=BRKT>i</SPAN> of type
+variables,  a call <SPAN CLASS=BRKT>type_unify vars ty1 ty2 i</SPAN> attempts to find an augmented
+instantiation of the type variables to make the two types equal.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the two types are not first-order unifiable by instantiating the given
+type variables.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="INSTANTIATE_UPPERCASE.html">instantiate</A>, <A href="term_match.html">term_match</A>, <A href="term_type_unify.html">term_type_unify</A>, <A href="term_unify.html">term_unify</A>.
+
+
+</DL>

@@ -1,0 +1,50 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>METIS_TAC : thm list -&gt; tactic</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Automated first-order proof search tactic using Metis algorithm.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+A call to <SPAN CLASS=BRKT>METIS_TAC[theorems]</SPAN> will attempt to establish the current goal
+using pure first-order reasoning, taking <SPAN CLASS=BRKT>theorems</SPAN> as the starting-point. (It
+does not take the assumptions of the goal into account, but the similar
+function <SPAN CLASS=BRKT>ASM_METIS_TAC</SPAN> does.) It will usually either solve the goal
+completely or run for an infeasibly long time, but it may sometimes fail
+quickly.
+
+This tactic is closely related to <SPAN CLASS=BRKT>MESON_TAC</SPAN>, and many of the same general
+comments apply. Generally speaking, <SPAN CLASS=BRKT>METIS_TAC</SPAN> is capable of solving more
+challenging problems than <SPAN CLASS=BRKT>MESON_TAC</SPAN>, though the latter is often faster where
+it succeeds. Like <SPAN CLASS=BRKT>MESON_TAC</SPAN>, it will exploit no special properties of the
+constants in the goal, other than equality and logical primitives. Any
+properties that are needed must be supplied explicitly in the theorem list,
+e.g. <SPAN CLASS=BRKT>LE_REFL</SPAN> to tell it that <SPAN CLASS=BRKT><=</SPAN> on natural numbers is reflexive, or
+<SPAN CLASS=BRKT>REAL_ADD_SYM</SPAN> to tell it that addition on real numbers is symmetric.
+
+Sometimes the similar <SPAN CLASS=BRKT>MESON_TAC</SPAN> tactic is faster, especially on simpler
+goals.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the goal is unprovable within the search bounds.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+Here is a simple `group theory' type property about a binary function <SPAN CLASS=BRKT>m</SPAN>:
+<DIV class=XMPL><PRE>
+  # g `(!x y z. m(x, m(y,z)) = m(m(x,y), z) /\ m(x,y) = m(y,x))
+       ==> m(a, m(b, m(c, m(d, m(e, f))))) = m(f, m(e, m(d, m(c, m(b, a)))))`;;
+
+</PRE></DIV>
+It is solved in a fraction of a second by:
+<DIV class=XMPL><PRE>
+  # e(METIS_TAC[]);;
+  val it : goalstack = No subgoals
+</PRE></DIV>
+This is an example where <SPAN CLASS=BRKT>METIS_TAC</SPAN> substantially outperforms <SPAN CLASS=BRKT>MESON_TAC</SPAN>,
+which does not seem to be able to solve that problem in a reasonable time.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="ASM_METIS_TAC.html">ASM_METIS_TAC</A>, <A href="LEANCOP_TAC.html">LEANCOP_TAC</A>, <A href="MESON_TAC.html">MESON_TAC</A>, <A href="METIS.html">METIS</A>, <A href="NANOCOP_TAC.html">NANOCOP_TAC</A>.
+
+
+</DL>

@@ -1,0 +1,10 @@
+# System-dependent Unix makefile for the NE editor.
+# Version for DEC OSF1.
+
+FLAGS   = CC=cc \
+          CFLAGS="-Dunixwinsz -DHAVE_TERMCAP -O -Olimit 1000 -std1" \
+          LIB_TERMINAL=-ltermcap 
+        
+newne:;   @make -f BaseMake $(FLAGS) $(TARGET)
+
+# End

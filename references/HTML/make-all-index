@@ -1,0 +1,3 @@
+echo Making HTML for the index...
+(for i in `ls -a ../Help | grep '.hlp$' | sort -f`; do ./make-index $i; done) >reference.html
+../../ne_text_editor/src/nenew -from reference.html -to reference.html -with .iscript

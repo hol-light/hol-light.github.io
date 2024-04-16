@@ -1,0 +1,48 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>type_invention_error : bool ref</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Determines if invented type variables are treated as an error.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+If HOL Light is unable to assign specific types to a term entered in quotation,
+it will invent its own type variables to use in the most general type. The flag
+<SPAN CLASS=BRKT>type_invention_error</SPAN> determines whether in such cases the term parser treats
+it as an error. The default is <SPAN CLASS=BRKT>false</SPAN>, since sometimes the invention of type
+variables is immaterial, e.g. in ad-hoc logical lemmas used inside a proof.
+However, to enforce a more careful style, set it to <SPAN CLASS=BRKT>true</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Not applicable.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+When the following term is entered, HOL Light invents a type variable to use as
+the most general type. In the normal course of events this merely results in a
+warning (see <SPAN CLASS=BRKT>type_invention_warning</SPAN> to remove even this warning):
+<DIV class=XMPL><PRE>
+  # let tm = `x = x`;;
+  Warning: inventing type variables
+  val tm : term = `x = x`
+</PRE></DIV>
+whereas if <SPAN CLASS=BRKT>type_invention_error</SPAN> is set to <SPAN CLASS=BRKT>true</SPAN>, the term parser
+fails with an error message:
+<DIV class=XMPL><PRE>
+  # type_invention_error := true;;
+  val it : unit = ()
+  # let tm = `x = x`;;
+  Exception:
+  Failure "typechecking error (cannot infer type of variables): =, x".
+</PRE></DIV>
+You can avoid the error by explicitly giving appropriate types or
+type variables yourself:
+<DIV class=XMPL><PRE>
+  # let tm = `(x:int) = x`;;
+  val tm : term = `x = x`
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="print_types_of_subterms.html">print_types_of_subterms</A>, <A href="retypecheck.html">retypecheck</A>, <A href="term_of_preterm.html">term_of_preterm</A>, <A href="type_invention_warning.html">type_invention_warning</A>.
+
+
+</DL>

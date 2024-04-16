@@ -1,0 +1,26 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>dest_string : term -&gt; string</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Produces OCaml string corresponding to object-level string.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+<SPAN CLASS=BRKT>dest_string t</SPAN> where <SPAN CLASS=BRKT>t</SPAN> is a literal string in the HOL object logic of type
+<SPAN CLASS=BRKT>string</SPAN> (which is an abbreviation for <SPAN CLASS=BRKT>char list</SPAN>), produces the corresponding
+OCaml string.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the term is not a literal term of type <SPAN CLASS=BRKT>string</SPAN>
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # dest_string `"HOL"`;;
+  val it : string = "HOL"
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="dest_char.html">dest_char</A>, <A href="dest_list.html">dest_list</A>, <A href="mk_char.html">mk_char</A>, <A href="mk_list.html">mk_list</A>, <A href="mk_string.html">mk_string</A>.
+
+
+</DL>

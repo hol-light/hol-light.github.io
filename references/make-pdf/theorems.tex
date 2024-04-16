@@ -1,0 +1,5155 @@
+\section{Theorems about basic logical notions}
+\THEOREM ABS\_SIMP
+  |- !t1 t2. (\x. t1) t2 = t1
+\ENDTHEOREM
+\THEOREM AND\_CLAUSES
+  |- !t. (T /\ t <=> t) /\
+         (t /\ T <=> t) /\
+         (F /\ t <=> F) /\
+         (t /\ F <=> F) /\
+         (t /\ t <=> t)
+\ENDTHEOREM
+\THEOREM AND\_DEF
+  |- (/\) = (\p q. (\f. f p q) = (\f. f T T))
+\ENDTHEOREM
+\THEOREM AND\_FORALL\_THM
+  |- !P Q. (!x. P x) /\ (!x. Q x) <=> (!x. P x /\ Q x)
+\ENDTHEOREM
+\THEOREM BETA\_THM
+  |- !f y. (\x. f x) y = f y
+\ENDTHEOREM
+\THEOREM BOOL\_CASES\_AX
+  |- !t. (t <=> T) \/ (t <=> F)
+\ENDTHEOREM
+\THEOREM COND\_ABS
+  |- !b f g. (\x. if b then f x else g x) = (if b then f else g)
+\ENDTHEOREM
+\THEOREM COND\_CLAUSES
+  |- !t1 t2. (if T then t1 else t2) = t1 /\ (if F then t1 else t2) = t2
+\ENDTHEOREM
+\THEOREM COND\_DEF
+  |- COND = (\t t1 t2. @x. ((t <=> T) ==> x = t1) /\ ((t <=> F) ==> x = t2))
+\ENDTHEOREM
+\THEOREM COND\_ELIM\_THM
+  |- P (if c then x else y) <=> (c ==> P x) /\ (~c ==> P y)
+\ENDTHEOREM
+\THEOREM COND\_EXPAND
+  |- !b t1 t2. (if b then t1 else t2) <=> (~b \/ t1) /\ (b \/ t2)
+\ENDTHEOREM
+\THEOREM COND\_ID
+  |- !b t. (if b then t else t) = t
+\ENDTHEOREM
+\THEOREM COND\_RAND
+  |- !b f x y. f (if b then x else y) = (if b then f x else f y)
+\ENDTHEOREM
+\THEOREM COND\_RATOR
+  |- !b f g x. (if b then f else g) x = (if b then f x else g x)
+\ENDTHEOREM
+\THEOREM CONJ\_ACI
+  |- (p /\ q <=> q /\ p) /\
+     ((p /\ q) /\ r <=> p /\ q /\ r) /\
+     (p /\ q /\ r <=> q /\ p /\ r) /\
+     (p /\ p <=> p) /\
+     (p /\ p /\ q <=> p /\ q)
+\ENDTHEOREM
+\THEOREM CONJ\_ASSOC
+  |- !t1 t2 t3. t1 /\ t2 /\ t3 <=> (t1 /\ t2) /\ t3
+\ENDTHEOREM
+\THEOREM CONJ\_SYM
+  |- !t1 t2. t1 /\ t2 <=> t2 /\ t1
+\ENDTHEOREM
+\THEOREM CONTRAPOS\_THM
+  |- !t1 t2. ~t1 ==> ~t2 <=> t2 ==> t1
+\ENDTHEOREM
+\THEOREM DE\_MORGAN\_THM
+  |- !t1 t2. (~(t1 /\ t2) <=> ~t1 \/ ~t2) /\ (~(t1 \/ t2) <=> ~t1 /\ ~t2)
+\ENDTHEOREM
+\THEOREM DISJ\_ACI
+  |- (p \/ q <=> q \/ p) /\
+     ((p \/ q) \/ r <=> p \/ q \/ r) /\
+     (p \/ q \/ r <=> q \/ p \/ r) /\
+     (p \/ p <=> p) /\
+     (p \/ p \/ q <=> p \/ q)
+\ENDTHEOREM
+\THEOREM DISJ\_ASSOC
+  |- !t1 t2 t3. t1 \/ t2 \/ t3 <=> (t1 \/ t2) \/ t3
+\ENDTHEOREM
+\THEOREM DISJ\_SYM
+  |- !t1 t2. t1 \/ t2 <=> t2 \/ t1
+\ENDTHEOREM
+\THEOREM EQ\_CLAUSES
+  |- !t. ((T <=> t) <=> t) /\
+         ((t <=> T) <=> t) /\
+         ((F <=> t) <=> ~t) /\
+         ((t <=> F) <=> ~t)
+\ENDTHEOREM
+\THEOREM EQ\_EXT
+  |- !f g. (!x. f x = g x) ==> f = g
+\ENDTHEOREM
+\THEOREM EQ\_IMP
+  |- (a <=> b) ==> a ==> b
+\ENDTHEOREM
+\THEOREM EQ\_REFL
+  |- !x. x = x
+\ENDTHEOREM
+\THEOREM EQ\_REFL\_T
+  |- !x. x = x <=> T
+\ENDTHEOREM
+\THEOREM EQ\_SYM
+  |- !x y. x = y ==> y = x
+\ENDTHEOREM
+\THEOREM EQ\_SYM\_EQ
+  |- !x y. x = y <=> y = x
+\ENDTHEOREM
+\THEOREM EQ\_TRANS
+  |- !x y z. x = y /\ y = z ==> x = z
+\ENDTHEOREM
+\THEOREM ETA\_AX
+  |- !t. (\x. t x) = t
+\ENDTHEOREM
+\THEOREM EXCLUDED\_MIDDLE
+  |- !t. t \/ ~t
+\ENDTHEOREM
+\THEOREM EXISTS\_BOOL\_THM
+  |- (?b. P b) <=> P T \/ P F
+\ENDTHEOREM
+\THEOREM EXISTS\_DEF
+  |- (?) = (\P. !q. (!x. P x ==> q) ==> q)
+\ENDTHEOREM
+\THEOREM EXISTS\_NOT\_THM
+  |- !P. (?x. ~P x) <=> ~(!x. P x)
+\ENDTHEOREM
+\THEOREM EXISTS\_OR\_THM
+  |- !P Q. (?x. P x \/ Q x) <=> (?x. P x) \/ (?x. Q x)
+\ENDTHEOREM
+\THEOREM EXISTS\_REFL
+  |- !a. ?x. x = a
+\ENDTHEOREM
+\THEOREM EXISTS\_SIMP
+  |- !t. (?x. t) <=> t
+\ENDTHEOREM
+\THEOREM EXISTS\_THM
+  |- (?) = (\P. P ((@) P))
+\ENDTHEOREM
+\THEOREM EXISTS\_UNIQUE
+  |- !P. (?!x. P x) <=> (?x. P x /\ (!y. P y ==> y = x))
+\ENDTHEOREM
+\THEOREM EXISTS\_UNIQUE\_ALT
+  |- !P. (?!x. P x) <=> (?x. !y. P y <=> x = y)
+\ENDTHEOREM
+\THEOREM EXISTS\_UNIQUE\_DEF
+  |- (?!) = (\P. (?) P /\ (!x y. P x /\ P y ==> x = y))
+\ENDTHEOREM
+\THEOREM EXISTS\_UNIQUE\_REFL
+  |- !a. ?!x. x = a
+\ENDTHEOREM
+\THEOREM EXISTS\_UNIQUE\_THM
+  |- !P. (?!x. P x) <=> (?x. P x) /\ (!x x'. P x /\ P x' ==> x = x')
+\ENDTHEOREM
+\THEOREM FORALL\_AND\_THM
+  |- !P Q. (!x. P x /\ Q x) <=> (!x. P x) /\ (!x. Q x)
+\ENDTHEOREM
+\THEOREM FORALL\_BOOL\_THM
+  |- (!b. P b) <=> P T /\ P F
+\ENDTHEOREM
+\THEOREM FORALL\_DEF
+  |- (!) = (\P. P = (\x. T))
+\ENDTHEOREM
+\THEOREM FORALL\_NOT\_THM
+  |- !P. (!x. ~P x) <=> ~(?x. P x)
+\ENDTHEOREM
+\THEOREM FORALL\_SIMP
+  |- !t. (!x. t) <=> t
+\ENDTHEOREM
+\THEOREM FUN\_EQ\_THM
+  |- !f g. f = g <=> (!x. f x = g x)
+\ENDTHEOREM
+\THEOREM F\_DEF
+  |- F <=> (!p. p)
+\ENDTHEOREM
+\THEOREM IMP\_CLAUSES
+  |- !t. (T ==> t <=> t) /\
+         (t ==> T <=> T) /\
+         (F ==> t <=> T) /\
+         (t ==> t <=> T) /\
+         (t ==> F <=> ~t)
+\ENDTHEOREM
+\THEOREM IMP\_CONJ
+  |- p /\ q ==> r <=> p ==> q ==> r
+\ENDTHEOREM
+\THEOREM IMP\_DEF
+  |- (==>) = (\p q. p /\ q <=> p)
+\ENDTHEOREM
+\THEOREM IMP\_IMP
+  |- p ==> q ==> r <=> p /\ q ==> r
+\ENDTHEOREM
+\THEOREM LEFT\_AND\_EXISTS\_THM
+  |- !P Q. (?x. P x) /\ Q <=> (?x. P x /\ Q)
+\ENDTHEOREM
+\THEOREM LEFT\_AND\_FORALL\_THM
+  |- !P Q. (!x. P x) /\ Q <=> (!x. P x /\ Q)
+\ENDTHEOREM
+\THEOREM LEFT\_EXISTS\_AND\_THM
+  |- !P Q. (?x. P x /\ Q) <=> (?x. P x) /\ Q
+\ENDTHEOREM
+\THEOREM LEFT\_EXISTS\_IMP\_THM
+  |- !P Q. (?x. P x ==> Q) <=> (!x. P x) ==> Q
+\ENDTHEOREM
+\THEOREM LEFT\_FORALL\_IMP\_THM
+  |- !P Q. (!x. P x ==> Q) <=> (?x. P x) ==> Q
+\ENDTHEOREM
+\THEOREM LEFT\_FORALL\_OR\_THM
+  |- !P Q. (!x. P x \/ Q) <=> (!x. P x) \/ Q
+\ENDTHEOREM
+\THEOREM LEFT\_IMP\_EXISTS\_THM
+  |- !P Q. (?x. P x) ==> Q <=> (!x. P x ==> Q)
+\ENDTHEOREM
+\THEOREM LEFT\_IMP\_FORALL\_THM
+  |- !P Q. (!x. P x) ==> Q <=> (?x. P x ==> Q)
+\ENDTHEOREM
+\THEOREM LEFT\_OR\_DISTRIB
+  |- !p q r. p /\ (q \/ r) <=> p /\ q \/ p /\ r
+\ENDTHEOREM
+\THEOREM LEFT\_OR\_EXISTS\_THM
+  |- !P Q. (?x. P x) \/ Q <=> (?x. P x \/ Q)
+\ENDTHEOREM
+\THEOREM LEFT\_OR\_FORALL\_THM
+  |- !P Q. (!x. P x) \/ Q <=> (!x. P x \/ Q)
+\ENDTHEOREM
+\THEOREM MONO\_AND
+  |- (A ==> B) /\ (C ==> D) ==> A /\ C ==> B /\ D
+\ENDTHEOREM
+\THEOREM MONO\_COND
+  |- (A ==> B) /\ (C ==> D) ==> (if b then A else C) ==> (if b then B else D)
+\ENDTHEOREM
+\THEOREM MONO\_EXISTS
+  |- (!x. P x ==> Q x) ==> (?x. P x) ==> (?x. Q x)
+\ENDTHEOREM
+\THEOREM MONO\_FORALL
+  |- (!x. P x ==> Q x) ==> (!x. P x) ==> (!x. Q x)
+\ENDTHEOREM
+\THEOREM MONO\_IMP
+  |- (B ==> A) /\ (C ==> D) ==> (A ==> C) ==> B ==> D
+\ENDTHEOREM
+\THEOREM MONO\_NOT
+  |- (B ==> A) ==> ~A ==> ~B
+\ENDTHEOREM
+\THEOREM MONO\_OR
+  |- (A ==> B) /\ (C ==> D) ==> A \/ C ==> B \/ D
+\ENDTHEOREM
+\THEOREM NOT\_CLAUSES
+  |- (!t. ~ ~t <=> t) /\ (~T <=> F) /\ (~F <=> T)
+\ENDTHEOREM
+\THEOREM NOT\_CLAUSES\_WEAK
+  |- (~T <=> F) /\ (~F <=> T)
+\ENDTHEOREM
+\THEOREM NOT\_DEF
+  |- (~) = (\p. p ==> F)
+\ENDTHEOREM
+\THEOREM NOT\_EXISTS\_THM
+  |- !P. ~(?x. P x) <=> (!x. ~P x)
+\ENDTHEOREM
+\THEOREM NOT\_FORALL\_THM
+  |- !P. ~(!x. P x) <=> (?x. ~P x)
+\ENDTHEOREM
+\THEOREM NOT\_IMP
+  |- !t1 t2. ~(t1 ==> t2) <=> t1 /\ ~t2
+\ENDTHEOREM
+\THEOREM OR\_CLAUSES
+  |- !t. (T \/ t <=> T) /\
+         (t \/ T <=> T) /\
+         (F \/ t <=> t) /\
+         (t \/ F <=> t) /\
+         (t \/ t <=> t)
+\ENDTHEOREM
+\THEOREM OR\_DEF
+  |- (\/) = (\p q. !r. (p ==> r) ==> (q ==> r) ==> r)
+\ENDTHEOREM
+\THEOREM OR\_EXISTS\_THM
+  |- !P Q. (?x. P x) \/ (?x. Q x) <=> (?x. P x \/ Q x)
+\ENDTHEOREM
+\THEOREM REFL\_CLAUSE
+  |- !x. x = x <=> T
+\ENDTHEOREM
+\THEOREM RIGHT\_AND\_EXISTS\_THM
+  |- !P Q. P /\ (?x. Q x) <=> (?x. P /\ Q x)
+\ENDTHEOREM
+\THEOREM RIGHT\_AND\_FORALL\_THM
+  |- !P Q. P /\ (!x. Q x) <=> (!x. P /\ Q x)
+\ENDTHEOREM
+\THEOREM RIGHT\_EXISTS\_AND\_THM
+  |- !P Q. (?x. P /\ Q x) <=> P /\ (?x. Q x)
+\ENDTHEOREM
+\THEOREM RIGHT\_EXISTS\_IMP\_THM
+  |- !P Q. (?x. P ==> Q x) <=> P ==> (?x. Q x)
+\ENDTHEOREM
+\THEOREM RIGHT\_FORALL\_IMP\_THM
+  |- !P Q. (!x. P ==> Q x) <=> P ==> (!x. Q x)
+\ENDTHEOREM
+\THEOREM RIGHT\_FORALL\_OR\_THM
+  |- !P Q. (!x. P \/ Q x) <=> P \/ (!x. Q x)
+\ENDTHEOREM
+\THEOREM RIGHT\_IMP\_EXISTS\_THM
+  |- !P Q. P ==> (?x. Q x) <=> (?x. P ==> Q x)
+\ENDTHEOREM
+\THEOREM RIGHT\_IMP\_FORALL\_THM
+  |- !P Q. P ==> (!x. Q x) <=> (!x. P ==> Q x)
+\ENDTHEOREM
+\THEOREM RIGHT\_OR\_DISTRIB
+  |- !p q r. (p \/ q) /\ r <=> p /\ r \/ q /\ r
+\ENDTHEOREM
+\THEOREM RIGHT\_OR\_EXISTS\_THM
+  |- !P Q. P \/ (?x. Q x) <=> (?x. P \/ Q x)
+\ENDTHEOREM
+\THEOREM RIGHT\_OR\_FORALL\_THM
+  |- !P Q. P \/ (!x. Q x) <=> (!x. P \/ Q x)
+\ENDTHEOREM
+\THEOREM SELECT\_AX
+  |- !P x. P x ==> P ((@) P)
+\ENDTHEOREM
+\THEOREM SELECT\_REFL
+  |- !x. (@y. y = x) = x
+\ENDTHEOREM
+\THEOREM SELECT\_UNIQUE
+  |- !P x. (!y. P y <=> y = x) ==> (@) P = x
+\ENDTHEOREM
+\THEOREM SKOLEM\_THM
+  |- !P. (!x. ?y. P x y) <=> (?y. !x. P x (y x))
+\ENDTHEOREM
+\THEOREM SWAP\_EXISTS\_THM
+  |- !P. (?x y. P x y) <=> (?y x. P x y)
+\ENDTHEOREM
+\THEOREM SWAP\_FORALL\_THM
+  |- !P. (!x y. P x y) <=> (!y x. P x y)
+\ENDTHEOREM
+\THEOREM TRIV\_AND\_EXISTS\_THM
+  |- !P Q. (?x. P) /\ (?x. Q) <=> (?x. P /\ Q)
+\ENDTHEOREM
+\THEOREM TRIV\_EXISTS\_AND\_THM
+  |- !P Q. (?x. P /\ Q) <=> (?x. P) /\ (?x. Q)
+\ENDTHEOREM
+\THEOREM TRIV\_EXISTS\_IMP\_THM
+  |- !P Q. (?x. P ==> Q) <=> (!x. P) ==> (?x. Q)
+\ENDTHEOREM
+\THEOREM TRIV\_FORALL\_IMP\_THM
+  |- !P Q. (!x. P ==> Q) <=> (?x. P) ==> (!x. Q)
+\ENDTHEOREM
+\THEOREM TRIV\_FORALL\_OR\_THM
+  |- !P Q. (!x. P \/ Q) <=> (!x. P) \/ (!x. Q)
+\ENDTHEOREM
+\THEOREM TRIV\_OR\_FORALL\_THM
+  |- !P Q. (!x. P) \/ (!x. Q) <=> (!x. P \/ Q)
+\ENDTHEOREM
+\THEOREM TRUTH
+  |- T
+\ENDTHEOREM
+\THEOREM T\_DEF
+  |- T <=> (\p. p) = (\p. p)
+\ENDTHEOREM
+\THEOREM UNIQUE\_SKOLEM\_ALT
+  |- !P. (!x. ?!y. P x y) <=> (?f. !x y. P x y <=> f x = y)
+\ENDTHEOREM
+\THEOREM UNIQUE\_SKOLEM\_THM
+  |- !P. (!x. ?!y. P x y) <=> (?!f. !x. P x (f x))
+\ENDTHEOREM
+\THEOREM UNWIND\_THM1
+  |- !P a. (?x. a = x /\ P x) <=> P a
+\ENDTHEOREM
+\THEOREM UNWIND\_THM2
+  |- !P a. (?x. x = a /\ P x) <=> P a
+\ENDTHEOREM
+\THEOREM bool\_INDUCT
+  |- !P. P F /\ P T ==> (!x. P x)
+\ENDTHEOREM
+\THEOREM bool\_RECURSION
+  |- !a b. ?f. f F = a /\ f T = b
+\ENDTHEOREM
+
+\section{Theorems about elementary constructs}
+\THEOREM EXISTS\_ONE\_REP
+  |- ?b. b
+\ENDTHEOREM
+\THEOREM I\_DEF
+  |- I = (\x. x)
+\ENDTHEOREM
+\THEOREM I\_O\_ID
+  |- !f. I o f = f /\ f o I = f
+\ENDTHEOREM
+\THEOREM I\_THM
+  |- !x. I x = x
+\ENDTHEOREM
+\THEOREM OUTL
+  |- OUTL (INL x) = x
+\ENDTHEOREM
+\THEOREM OUTR
+  |- OUTR (INR y) = y
+\ENDTHEOREM
+\THEOREM o\_ASSOC
+  |- !f g h. f o g o h = (f o g) o h
+\ENDTHEOREM
+\THEOREM o\_DEF
+  |- !f g. f o g = (\x. f (g x))
+\ENDTHEOREM
+\THEOREM o\_THM
+  |- !f g x. (f o g) x = f (g x)
+\ENDTHEOREM
+\THEOREM one
+  |- !v. v = one
+\ENDTHEOREM
+\THEOREM one\_Axiom
+  |- !e. ?!fn. fn one = e
+\ENDTHEOREM
+\THEOREM one\_DEF
+  |- one = (@x. T)
+\ENDTHEOREM
+\THEOREM one\_INDUCT
+  |- !P. P one ==> (!x. P x)
+\ENDTHEOREM
+\THEOREM one\_RECURSION
+  |- !e. ?fn. fn one = e
+\ENDTHEOREM
+\THEOREM one\_axiom
+  |- !f g. f = g
+\ENDTHEOREM
+\THEOREM one\_tydef
+  |- (!a. one_ABS (one_REP a) = a) /\ (!r. r <=> one_REP (one_ABS r) <=> r)
+\ENDTHEOREM
+\THEOREM option\_INDUCT
+  |- !P. P NONE /\ (!a. P (SOME a)) ==> (!x. P x)
+\ENDTHEOREM
+\THEOREM option\_RECURSION
+  |- !NONE' SOME'. ?fn. fn NONE = NONE' /\ (!a. fn (SOME a) = SOME' a)
+\ENDTHEOREM
+\THEOREM sum\_INDUCT
+  |- !P. (!a. P (INL a)) /\ (!a. P (INR a)) ==> (!x. P x)
+\ENDTHEOREM
+\THEOREM sum\_RECURSION
+  |- !INL' INR'. ?fn. (!a. fn (INL a) = INL' a) /\ (!a. fn (INR a) = INR' a)
+\ENDTHEOREM
+
+\section{Theorems about pairs}
+\THEOREM COMMA\_DEF
+  |- !x y. x,y = ABS_prod (mk_pair x y)
+\ENDTHEOREM
+\THEOREM CURRY\_DEF
+  |- !f x y. CURRY f x y = f (x,y)
+\ENDTHEOREM
+\THEOREM EXISTS\_PAIR\_THM
+  |- (?p. P p) <=> (?p1 p2. P (p1,p2))
+\ENDTHEOREM
+\THEOREM FORALL\_PAIR\_THM
+  |- (!p. P p) <=> (!p1 p2. P (p1,p2))
+\ENDTHEOREM
+\THEOREM FST
+  |- !x y. FST (x,y) = x
+\ENDTHEOREM
+\THEOREM FST\_DEF
+  |- !p. FST p = (@x. ?y. p = x,y)
+\ENDTHEOREM
+\THEOREM PAIR
+  |- !x. FST x,SND x = x
+\ENDTHEOREM
+\THEOREM PAIR\_EQ
+  |- !x y a b. x,y = a,b <=> x = a /\ y = b
+\ENDTHEOREM
+\THEOREM PAIR\_EXISTS\_THM
+  |- ?x a b. x = mk_pair a b
+\ENDTHEOREM
+\THEOREM PAIR\_SURJECTIVE
+  |- !p. ?x y. p = x,y
+\ENDTHEOREM
+\THEOREM PASSOC\_DEF
+  |- !f x y z. PASSOC f (x,y,z) = f ((x,y),z)
+\ENDTHEOREM
+\THEOREM REP\_ABS\_PAIR
+  |- !x y. REP_prod (ABS_prod (mk_pair x y)) = mk_pair x y
+\ENDTHEOREM
+\THEOREM SND
+  |- !x y. SND (x,y) = y
+\ENDTHEOREM
+\THEOREM SND\_DEF
+  |- !p. SND p = (@y. ?x. p = x,y)
+\ENDTHEOREM
+\THEOREM UNCURRY\_DEF
+  |- !f x y. UNCURRY f (x,y) = f x y
+\ENDTHEOREM
+\THEOREM mk\_pair\_def
+  |- !x y. mk_pair x y = (\a b. a = x /\ b = y)
+\ENDTHEOREM
+\THEOREM pair\_INDUCT
+  |- (!x y. P (x,y)) ==> (!p. P p)
+\ENDTHEOREM
+\THEOREM pair\_RECURSION
+  |- !PAIR'. ?fn. !a0 a1. fn (a0,a1) = PAIR' a0 a1
+\ENDTHEOREM
+\THEOREM prod\_tybij
+  |- (!a. ABS_prod (REP_prod a) = a) /\
+     (!r. (?a b. r = mk_pair a b) <=> REP_prod (ABS_prod r) = r)
+\ENDTHEOREM
+
+\section{Theorems about wellfoundedness}
+\THEOREM MEASURE\_LE
+  |- (!y. measure m y a ==> measure m y b) <=> m a <= m b
+\ENDTHEOREM
+\THEOREM WF
+  |- !(<<). WF (<<) <=>
+            (!P. (?x. P x) ==> (?x. P x /\ (!y. y << x ==> ~P y)))
+\ENDTHEOREM
+\THEOREM WF\_DCHAIN
+  |- WF (<<) <=> ~(?s. !n. s (SUC n) << s n)
+\ENDTHEOREM
+\THEOREM WF\_EQ
+  |- WF (<<) <=> (!P. (?x. P x) <=> (?x. P x /\ (!y. y << x ==> ~P y)))
+\ENDTHEOREM
+\THEOREM WF\_EREC
+  |- WF (<<)
+     ==> (!H. (!f g x. (!z. z << x ==> f z = g z) ==> H f x = H g x)
+              ==> (?!f. !x. f x = H f x))
+\ENDTHEOREM
+\THEOREM WF\_FALSE
+  |- WF (\x y. F)
+\ENDTHEOREM
+\THEOREM WF\_IND
+  |- WF (<<) <=> (!P. (!x. (!y. y << x ==> P y) ==> P x) ==> (!x. P x))
+\ENDTHEOREM
+\THEOREM WF\_LEX
+  |- !R S.
+         WF R /\ WF S
+         ==> WF (\(r1,s1). \(r2,s2). R r1 r2 \/ r1 = r2 /\ S s1 s2)
+\ENDTHEOREM
+\THEOREM WF\_LEX\_DEPENDENT
+  |- !R S.
+         WF R /\ (!a. WF (S a))
+         ==> WF (\(r1,s1). \(r2,s2). R r1 r2 \/ r1 = r2 /\ S r1 s1 s2)
+\ENDTHEOREM
+\THEOREM WF\_MEASURE
+  |- !m. WF (measure m)
+\ENDTHEOREM
+\THEOREM WF\_MEASURE\_GEN
+  |- !m. WF (<<) ==> WF (\x x'. m x << m x')
+\ENDTHEOREM
+\THEOREM WF\_POINTWISE
+  |- WF (<<) /\ WF (<<<) ==> WF (\(x1,y1). \(x2,y2). x1 << x2 /\ y1 <<< y2)
+\ENDTHEOREM
+\THEOREM WF\_REC
+  |- WF (<<)
+     ==> (!H. (!f g x. (!z. z << x ==> f z = g z) ==> H f x = H g x)
+              ==> (?f. !x. f x = H f x))
+\ENDTHEOREM
+\THEOREM WF\_REC\_INVARIANT
+  |- WF (<<)
+     ==> (!H S.
+              (!f g x.
+                   (!z. z << x ==> f z = g z /\ S z (f z))
+                   ==> H f x = H g x /\ S x (H f x))
+              ==> (?f. !x. f x = H f x))
+\ENDTHEOREM
+\THEOREM WF\_REC\_TAIL
+  |- !P g h. ?f. !x. f x = (if P x then f (g x) else h x)
+\ENDTHEOREM
+\THEOREM WF\_REC\_TAIL\_GENERAL
+  |- !P G H.
+         WF (<<) /\
+         (!f g x.
+              (!z. z << x ==> f z = g z)
+              ==> (P f x <=> P g x) /\ G f x = G g x /\ H f x = H g x) /\
+         (!f g x. (!z. z << x ==> f z = g z) ==> H f x = H g x) /\
+         (!f x y. P f x /\ y << G f x ==> y << x)
+         ==> (?f. !x. f x = (if P f x then f (G f x) else H f x))
+\ENDTHEOREM
+\THEOREM WF\_REC\_WF
+  |- (!H. (!f g x. (!z. z << x ==> f z = g z) ==> H f x = H g x)
+          ==> (?f. !x. f x = H f x))
+     ==> WF (<<)
+\ENDTHEOREM
+\THEOREM WF\_REC\_num
+  |- !H. (!f g n. (!m. m < n ==> f m = g m) ==> H f n = H g n)
+         ==> (?f. !n. f n = H f n)
+\ENDTHEOREM
+\THEOREM WF\_REFL
+  |- !x. WF (<<) ==> ~(x << x)
+\ENDTHEOREM
+\THEOREM WF\_SUBSET
+  |- (!x y. x << y ==> x <<< y) /\ WF (<<<) ==> WF (<<)
+\ENDTHEOREM
+\THEOREM WF\_UREC
+  |- WF (<<)
+     ==> (!H. (!f g x. (!z. z << x ==> f z = g z) ==> H f x = H g x)
+              ==> (!f g. (!x. f x = H f x) /\ (!x. g x = H g x) ==> f = g))
+\ENDTHEOREM
+\THEOREM WF\_UREC\_WF
+  |- (!H. (!f g x. (!z. z << x ==> (f z <=> g z)) ==> (H f x <=> H g x))
+          ==> (!f g. (!x. f x <=> H f x) /\ (!x. g x <=> H g x) ==> f = g))
+     ==> WF (<<)
+\ENDTHEOREM
+\THEOREM WF\_num
+  |- WF (<)
+\ENDTHEOREM
+\THEOREM measure
+  |- !m. measure m = (\x y. m x < m y)
+\ENDTHEOREM
+
+\section{Theorems about natural number arithmetic}
+\THEOREM ADD
+  |- (!n. 0 + n = n) /\ (!m n. SUC m + n = SUC (m + n))
+\ENDTHEOREM
+\THEOREM ADD1
+  |- !m. SUC m = m + 1
+\ENDTHEOREM
+\THEOREM ADD\_0
+  |- !m. m + 0 = m
+\ENDTHEOREM
+\THEOREM ADD\_AC
+  |- m + n = n + m /\ (m + n) + p = m + n + p /\ m + n + p = n + m + p
+\ENDTHEOREM
+\THEOREM ADD\_ASSOC
+  |- !m n p. m + n + p = (m + n) + p
+\ENDTHEOREM
+\THEOREM ADD\_CLAUSES
+  |- (!n. 0 + n = n) /\
+     (!m. m + 0 = m) /\
+     (!m n. SUC m + n = SUC (m + n)) /\
+     (!m n. m + SUC n = SUC (m + n))
+\ENDTHEOREM
+\THEOREM ADD\_EQ\_0
+  |- !m n. m + n = 0 <=> m = 0 /\ n = 0
+\ENDTHEOREM
+\THEOREM ADD\_SUB
+  |- !m n. (m + n) - n = m
+\ENDTHEOREM
+\THEOREM ADD\_SUB2
+  |- !m n. (m + n) - m = n
+\ENDTHEOREM
+\THEOREM ADD\_SUBR
+  |- !m n. n - (m + n) = 0
+\ENDTHEOREM
+\THEOREM ADD\_SUBR2
+  |- !m n. m - (m + n) = 0
+\ENDTHEOREM
+\THEOREM ADD\_SUC
+  |- !m n. m + SUC n = SUC (m + n)
+\ENDTHEOREM
+\THEOREM ADD\_SYM
+  |- !m n. m + n = n + m
+\ENDTHEOREM
+\THEOREM BIT0
+  |- !n. BIT0 n = n + n
+\ENDTHEOREM
+\THEOREM BIT0\_THM
+  |- !n. NUMERAL (BIT0 n) = NUMERAL n + NUMERAL n
+\ENDTHEOREM
+\THEOREM BIT1
+  |- !n. BIT1 n = SUC (n + n)
+\ENDTHEOREM
+\THEOREM BIT1\_THM
+  |- !n. NUMERAL (BIT1 n) = SUC (NUMERAL n + NUMERAL n)
+\ENDTHEOREM
+\THEOREM DIST\_ADD2
+  |- !m n p q. dist (m + n,p + q) <= dist (m,p) + dist (n,q)
+\ENDTHEOREM
+\THEOREM DIST\_ADD2\_REV
+  |- !m n p q. dist (m,p) <= dist (m + n,p + q) + dist (n,q)
+\ENDTHEOREM
+\THEOREM DIST\_ADDBOUND
+  |- !m n. dist (m,n) <= m + n
+\ENDTHEOREM
+\THEOREM DIST\_ELIM\_THM
+  |- P (dist (x,y)) <=> (!d. (x = y + d ==> P d) /\ (y = x + d ==> P d))
+\ENDTHEOREM
+\THEOREM DIST\_EQ\_0
+  |- !m n. dist (m,n) = 0 <=> m = n
+\ENDTHEOREM
+\THEOREM DIST\_LADD
+  |- !m p n. dist (m + n,m + p) = dist (n,p)
+\ENDTHEOREM
+\THEOREM DIST\_LADD\_0
+  |- !m n. dist (m + n,m) = n
+\ENDTHEOREM
+\THEOREM DIST\_LE\_CASES
+  |- !m n p. dist (m,n) <= p <=> m <= n + p /\ n <= m + p
+\ENDTHEOREM
+\THEOREM DIST\_LMUL
+  |- !m n p. m * dist (n,p) = dist (m * n,m * p)
+\ENDTHEOREM
+\THEOREM DIST\_LZERO
+  |- !n. dist (0,n) = n
+\ENDTHEOREM
+\THEOREM DIST\_RADD
+  |- !m p n. dist (m + p,n + p) = dist (m,n)
+\ENDTHEOREM
+\THEOREM DIST\_RADD\_0
+  |- !m n. dist (m,m + n) = n
+\ENDTHEOREM
+\THEOREM DIST\_REFL
+  |- !n. dist (n,n) = 0
+\ENDTHEOREM
+\THEOREM DIST\_RMUL
+  |- !m n p. dist (m,n) * p = dist (m * p,n * p)
+\ENDTHEOREM
+\THEOREM DIST\_RZERO
+  |- !n. dist (n,0) = n
+\ENDTHEOREM
+\THEOREM DIST\_SYM
+  |- !m n. dist (m,n) = dist (n,m)
+\ENDTHEOREM
+\THEOREM DIST\_TRIANGLE
+  |- !m n p. dist (m,p) <= dist (m,n) + dist (n,p)
+\ENDTHEOREM
+\THEOREM DIST\_TRIANGLES\_LE
+  |- !m n p q r s.
+         dist (m,n) <= r /\ dist (p,q) <= s
+         ==> dist (m,p) <= dist (n,q) + r + s
+\ENDTHEOREM
+\THEOREM DIST\_TRIANGLE\_LE
+  |- !m n p q. dist (m,n) + dist (n,p) <= q ==> dist (m,p) <= q
+\ENDTHEOREM
+\THEOREM DIVISION
+  |- !m n. ~(n = 0) ==> m = m DIV n * n + m MOD n /\ m MOD n < n
+\ENDTHEOREM
+\THEOREM DIVISION\_0
+  |- !m n.
+         if n = 0
+         then m DIV n = 0 /\ m MOD n = 0
+         else m = m DIV n * n + m MOD n /\ m MOD n < n
+\ENDTHEOREM
+\THEOREM DIVMOD\_ELIM\_THM
+  |- P (m DIV n) (m MOD n) <=>
+     (!q r. n = 0 /\ q = 0 /\ r = 0 \/ m = q * n + r /\ r < n ==> P q r)
+\ENDTHEOREM
+\THEOREM DIVMOD\_ELIM\_THM'
+  |- P (m DIV n) (m MOD n) <=>
+     (?q r. (n = 0 /\ q = 0 /\ r = 0 \/ m = q * n + r /\ r < n) /\ P q r)
+\ENDTHEOREM
+\THEOREM DIVMOD\_EXIST
+  |- !m n. ~(n = 0) ==> (?q r. m = q * n + r /\ r < n)
+\ENDTHEOREM
+\THEOREM DIVMOD\_EXIST\_0
+  |- !m n. ?q r. if n = 0 then q = 0 /\ r = 0 else m = q * n + r /\ r < n
+\ENDTHEOREM
+\THEOREM DIVMOD\_UNIQ
+  |- !m n q r. m = q * n + r /\ r < n ==> m DIV n = q /\ m MOD n = r
+\ENDTHEOREM
+\THEOREM DIVMOD\_UNIQ\_LEMMA
+  |- !m n q1 r1 q2 r2.
+         (m = q1 * n + r1 /\ r1 < n) /\ m = q2 * n + r2 /\ r2 < n
+         ==> q1 = q2 /\ r1 = r2
+\ENDTHEOREM
+\THEOREM DIV\_0
+  |- !n. ~(n = 0) ==> 0 DIV n = 0
+\ENDTHEOREM
+\THEOREM DIV\_1
+  |- !n. n DIV 1 = n
+\ENDTHEOREM
+\THEOREM DIV\_ADD\_MOD
+  |- !a b n.
+         ~(n = 0)
+         ==> ((a + b) MOD n = a MOD n + b MOD n <=>
+              (a + b) DIV n = a DIV n + b DIV n)
+\ENDTHEOREM
+\THEOREM DIV\_DIV
+  |- !m n p. ~(n * p = 0) ==> m DIV n DIV p = m DIV (n * p)
+\ENDTHEOREM
+\THEOREM DIV\_EQ\_0
+  |- !m n. ~(n = 0) ==> (m DIV n = 0 <=> m < n)
+\ENDTHEOREM
+\THEOREM DIV\_EQ\_EXCLUSION
+  |- b * c < (a + 1) * d /\ a * d < (c + 1) * b ==> a DIV b = c DIV d
+\ENDTHEOREM
+\THEOREM DIV\_LE
+  |- !m n. ~(n = 0) ==> m DIV n <= m
+\ENDTHEOREM
+\THEOREM DIV\_LE\_EXCLUSION
+  |- !a b c d. ~(b = 0) /\ b * c < (a + 1) * d ==> c DIV d <= a DIV b
+\ENDTHEOREM
+\THEOREM DIV\_LT
+  |- !m n. m < n ==> m DIV n = 0
+\ENDTHEOREM
+\THEOREM DIV\_MOD
+  |- !m n p. ~(n * p = 0) ==> (m DIV n) MOD p = (m MOD (n * p)) DIV n
+\ENDTHEOREM
+\THEOREM DIV\_MONO
+  |- !m n p. ~(p = 0) /\ m <= n ==> m DIV p <= n DIV p
+\ENDTHEOREM
+\THEOREM DIV\_MONO2
+  |- !m n p. ~(p = 0) /\ p <= m ==> n DIV m <= n DIV p
+\ENDTHEOREM
+\THEOREM DIV\_MONO\_LT
+  |- !m n p. ~(p = 0) /\ m + p <= n ==> m DIV p < n DIV p
+\ENDTHEOREM
+\THEOREM DIV\_MULT
+  |- !m n. ~(m = 0) ==> (m * n) DIV m = n
+\ENDTHEOREM
+\THEOREM DIV\_MULT2
+  |- !m n p. ~(m * p = 0) ==> (m * n) DIV (m * p) = n DIV p
+\ENDTHEOREM
+\THEOREM DIV\_MUL\_LE
+  |- !m n. n * m DIV n <= m
+\ENDTHEOREM
+\THEOREM DIV\_REFL
+  |- !n. ~(n = 0) ==> n DIV n = 1
+\ENDTHEOREM
+\THEOREM DIV\_UNIQ
+  |- !m n q r. m = q * n + r /\ r < n ==> m DIV n = q
+\ENDTHEOREM
+\THEOREM EQ\_ADD\_LCANCEL
+  |- !m n p. m + n = m + p <=> n = p
+\ENDTHEOREM
+\THEOREM EQ\_ADD\_LCANCEL\_0
+  |- !m n. m + n = m <=> n = 0
+\ENDTHEOREM
+\THEOREM EQ\_ADD\_RCANCEL
+  |- !m n p. m + p = n + p <=> m = n
+\ENDTHEOREM
+\THEOREM EQ\_ADD\_RCANCEL\_0
+  |- !m n. m + n = n <=> m = 0
+\ENDTHEOREM
+\THEOREM EQ\_IMP\_LE
+  |- !m n. m = n ==> m <= n
+\ENDTHEOREM
+\THEOREM EQ\_MULT\_LCANCEL
+  |- !m n p. m * n = m * p <=> m = 0 \/ n = p
+\ENDTHEOREM
+\THEOREM EQ\_MULT\_RCANCEL
+  |- !m n p. m * p = n * p <=> m = n \/ p = 0
+\ENDTHEOREM
+\THEOREM EQ\_SUC
+  |- !m n. SUC m = SUC n <=> m = n
+\ENDTHEOREM
+\THEOREM EVEN
+  |- (EVEN 0 <=> T) /\ (!n. EVEN (SUC n) <=> ~EVEN n)
+\ENDTHEOREM
+\THEOREM EVEN\_ADD
+  |- !m n. EVEN (m + n) <=> EVEN m <=> EVEN n
+\ENDTHEOREM
+\THEOREM EVEN\_AND\_ODD
+  |- !n. ~(EVEN n /\ ODD n)
+\ENDTHEOREM
+\THEOREM EVEN\_DOUBLE
+  |- !n. EVEN (2 * n)
+\ENDTHEOREM
+\THEOREM EVEN\_EXISTS
+  |- !n. EVEN n <=> (?m. n = 2 * m)
+\ENDTHEOREM
+\THEOREM EVEN\_EXISTS\_LEMMA
+  |- !n. (EVEN n ==> (?m. n = 2 * m)) /\ (~EVEN n ==> (?m. n = SUC (2 * m)))
+\ENDTHEOREM
+\THEOREM EVEN\_EXP
+  |- !m n. EVEN (m EXP n) <=> EVEN m /\ ~(n = 0)
+\ENDTHEOREM
+\THEOREM EVEN\_MOD
+  |- !n. EVEN n <=> n MOD 2 = 0
+\ENDTHEOREM
+\THEOREM EVEN\_MULT
+  |- !m n. EVEN (m * n) <=> EVEN m \/ EVEN n
+\ENDTHEOREM
+\THEOREM EVEN\_ODD\_DECOMPOSITION
+  |- !n. (?k m. ODD m /\ n = 2 EXP k * m) <=> ~(n = 0)
+\ENDTHEOREM
+\THEOREM EVEN\_OR\_ODD
+  |- !n. EVEN n \/ ODD n
+\ENDTHEOREM
+\THEOREM EVEN\_SUB
+  |- !m n. EVEN (m - n) <=> m <= n \/ (EVEN m <=> EVEN n)
+\ENDTHEOREM
+\THEOREM EXP
+  |- (!m. m EXP 0 = 1) /\ (!m n. m EXP SUC n = m * m EXP n)
+\ENDTHEOREM
+\THEOREM EXP\_1
+  |- !n. n EXP 1 = n
+\ENDTHEOREM
+\THEOREM EXP\_2
+  |- !n. n EXP 2 = n * n
+\ENDTHEOREM
+\THEOREM EXP\_ADD
+  |- !m n p. m EXP (n + p) = m EXP n * m EXP p
+\ENDTHEOREM
+\THEOREM EXP\_EQ\_0
+  |- !m n. m EXP n = 0 <=> m = 0 /\ ~(n = 0)
+\ENDTHEOREM
+\THEOREM EXP\_LT\_0
+  |- !n x. 0 < x EXP n <=> ~(x = 0) \/ n = 0
+\ENDTHEOREM
+\THEOREM EXP\_MULT
+  |- !m n p. m EXP (n * p) = m EXP n EXP p
+\ENDTHEOREM
+\THEOREM EXP\_ONE
+  |- !n. 1 EXP n = 1
+\ENDTHEOREM
+\THEOREM FACT
+  |- FACT 0 = 1 /\ (!n. FACT (SUC n) = SUC n * FACT n)
+\ENDTHEOREM
+\THEOREM FACT\_LE
+  |- !n. 1 <= FACT n
+\ENDTHEOREM
+\THEOREM FACT\_LT
+  |- !n. 0 < FACT n
+\ENDTHEOREM
+\THEOREM FACT\_MONO
+  |- !m n. m <= n ==> FACT m <= FACT n
+\ENDTHEOREM
+\THEOREM GE
+  |- !n m. m >= n <=> n <= m
+\ENDTHEOREM
+\THEOREM GT
+  |- !n m. m > n <=> n < m
+\ENDTHEOREM
+\THEOREM LE
+  |- (!m. m <= 0 <=> m = 0) /\ (!m n. m <= SUC n <=> m = SUC n \/ m <= n)
+\ENDTHEOREM
+\THEOREM LEFT\_ADD\_DISTRIB
+  |- !m n p. m * (n + p) = m * n + m * p
+\ENDTHEOREM
+\THEOREM LEFT\_SUB\_DISTRIB
+  |- !m n p. m * (n - p) = m * n - m * p
+\ENDTHEOREM
+\THEOREM LET\_ADD2
+  |- !m n p q. m <= p /\ n < q ==> m + n < p + q
+\ENDTHEOREM
+\THEOREM LET\_ANTISYM
+  |- !m n. ~(m <= n /\ n < m)
+\ENDTHEOREM
+\THEOREM LET\_CASES
+  |- !m n. m <= n \/ n < m
+\ENDTHEOREM
+\THEOREM LET\_TRANS
+  |- !m n p. m <= n /\ n < p ==> m < p
+\ENDTHEOREM
+\THEOREM LE\_0
+  |- !n. 0 <= n
+\ENDTHEOREM
+\THEOREM LE\_ADD
+  |- !m n. m <= m + n
+\ENDTHEOREM
+\THEOREM LE\_ADD2
+  |- !m n p q. m <= p /\ n <= q ==> m + n <= p + q
+\ENDTHEOREM
+\THEOREM LE\_ADDR
+  |- !m n. n <= m + n
+\ENDTHEOREM
+\THEOREM LE\_ADD\_LCANCEL
+  |- !m n p. m + n <= m + p <=> n <= p
+\ENDTHEOREM
+\THEOREM LE\_ADD\_RCANCEL
+  |- !m n p. m + p <= n + p <=> m <= n
+\ENDTHEOREM
+\THEOREM LE\_ANTISYM
+  |- !m n. m <= n /\ n <= m <=> m = n
+\ENDTHEOREM
+\THEOREM LE\_CASES
+  |- !m n. m <= n \/ n <= m
+\ENDTHEOREM
+\THEOREM LE\_EXISTS
+  |- !m n. m <= n <=> (?d. n = m + d)
+\ENDTHEOREM
+\THEOREM LE\_EXP
+  |- !x m n.
+         x EXP m <= x EXP n <=>
+         (if x = 0 then m = 0 ==> n = 0 else x = 1 \/ m <= n)
+\ENDTHEOREM
+\THEOREM LE\_LDIV
+  |- !a b n. ~(a = 0) /\ b <= a * n ==> b DIV a <= n
+\ENDTHEOREM
+\THEOREM LE\_LDIV\_EQ
+  |- !a b n. ~(a = 0) ==> (b DIV a <= n <=> b < a * (n + 1))
+\ENDTHEOREM
+\THEOREM LE\_LT
+  |- !m n. m <= n <=> m < n \/ m = n
+\ENDTHEOREM
+\THEOREM LE\_MULT2
+  |- !m n p q. m <= n /\ p <= q ==> m * p <= n * q
+\ENDTHEOREM
+\THEOREM LE\_MULT\_LCANCEL
+  |- !m n p. m * n <= m * p <=> m = 0 \/ n <= p
+\ENDTHEOREM
+\THEOREM LE\_MULT\_RCANCEL
+  |- !m n p. m * p <= n * p <=> m <= n \/ p = 0
+\ENDTHEOREM
+\THEOREM LE\_RDIV\_EQ
+  |- !a b n. ~(a = 0) ==> (n <= b DIV a <=> a * n <= b)
+\ENDTHEOREM
+\THEOREM LE\_REFL
+  |- !n. n <= n
+\ENDTHEOREM
+\THEOREM LE\_SQUARE\_REFL
+  |- !n. n <= n * n
+\ENDTHEOREM
+\THEOREM LE\_SUC
+  |- !m n. SUC m <= SUC n <=> m <= n
+\ENDTHEOREM
+\THEOREM LE\_SUC\_LT
+  |- !m n. SUC m <= n <=> m < n
+\ENDTHEOREM
+\THEOREM LE\_TRANS
+  |- !m n p. m <= n /\ n <= p ==> m <= p
+\ENDTHEOREM
+\THEOREM LT
+  |- (!m. m < 0 <=> F) /\ (!m n. m < SUC n <=> m = n \/ m < n)
+\ENDTHEOREM
+\THEOREM LTE\_ADD2
+  |- !m n p q. m < p /\ n <= q ==> m + n < p + q
+\ENDTHEOREM
+\THEOREM LTE\_ANTISYM
+  |- !m n. ~(m < n /\ n <= m)
+\ENDTHEOREM
+\THEOREM LTE\_CASES
+  |- !m n. m < n \/ n <= m
+\ENDTHEOREM
+\THEOREM LTE\_TRANS
+  |- !m n p. m < n /\ n <= p ==> m < p
+\ENDTHEOREM
+\THEOREM LT\_0
+  |- !n. 0 < SUC n
+\ENDTHEOREM
+\THEOREM LT\_ADD
+  |- !m n. m < m + n <=> 0 < n
+\ENDTHEOREM
+\THEOREM LT\_ADD2
+  |- !m n p q. m < p /\ n < q ==> m + n < p + q
+\ENDTHEOREM
+\THEOREM LT\_ADDR
+  |- !m n. n < m + n <=> 0 < m
+\ENDTHEOREM
+\THEOREM LT\_ADD\_LCANCEL
+  |- !m n p. m + n < m + p <=> n < p
+\ENDTHEOREM
+\THEOREM LT\_ADD\_RCANCEL
+  |- !m n p. m + p < n + p <=> m < n
+\ENDTHEOREM
+\THEOREM LT\_ANTISYM
+  |- !m n. ~(m < n /\ n < m)
+\ENDTHEOREM
+\THEOREM LT\_CASES
+  |- !m n. m < n \/ n < m \/ m = n
+\ENDTHEOREM
+\THEOREM LT\_EXISTS
+  |- !m n. m < n <=> (?d. n = m + SUC d)
+\ENDTHEOREM
+\THEOREM LT\_EXP
+  |- !x m n.
+         x EXP m < x EXP n <=> 2 <= x /\ m < n \/ x = 0 /\ ~(m = 0) /\ n = 0
+\ENDTHEOREM
+\THEOREM LT\_IMP\_LE
+  |- !m n. m < n ==> m <= n
+\ENDTHEOREM
+\THEOREM LT\_LE
+  |- !m n. m < n <=> m <= n /\ ~(m = n)
+\ENDTHEOREM
+\THEOREM LT\_LMULT
+  |- !m n p. ~(m = 0) /\ n < p ==> m * n < m * p
+\ENDTHEOREM
+\THEOREM LT\_MULT
+  |- !m n. 0 < m * n <=> 0 < m /\ 0 < n
+\ENDTHEOREM
+\THEOREM LT\_MULT2
+  |- !m n p q. m < n /\ p < q ==> m * p < n * q
+\ENDTHEOREM
+\THEOREM LT\_MULT\_LCANCEL
+  |- !m n p. m * n < m * p <=> ~(m = 0) /\ n < p
+\ENDTHEOREM
+\THEOREM LT\_MULT\_RCANCEL
+  |- !m n p. m * p < n * p <=> m < n /\ ~(p = 0)
+\ENDTHEOREM
+\THEOREM LT\_NZ
+  |- !n. 0 < n <=> ~(n = 0)
+\ENDTHEOREM
+\THEOREM LT\_REFL
+  |- !n. ~(n < n)
+\ENDTHEOREM
+\THEOREM LT\_SUC
+  |- !m n. SUC m < SUC n <=> m < n
+\ENDTHEOREM
+\THEOREM LT\_SUC\_LE
+  |- !m n. m < SUC n <=> m <= n
+\ENDTHEOREM
+\THEOREM LT\_TRANS
+  |- !m n p. m < n /\ n < p ==> m < p
+\ENDTHEOREM
+\THEOREM MINIMAL
+  |- !P. (?n. P n) <=> P ((minimal) P) /\ (!m. m < (minimal) P ==> ~P m)
+\ENDTHEOREM
+\THEOREM MOD\_0
+  |- !n. ~(n = 0) ==> 0 MOD n = 0
+\ENDTHEOREM
+\THEOREM MOD\_1
+  |- !n. n MOD 1 = 0
+\ENDTHEOREM
+\THEOREM MOD\_ADD\_MOD
+  |- !a b n. ~(n = 0) ==> (a MOD n + b MOD n) MOD n = (a + b) MOD n
+\ENDTHEOREM
+\THEOREM MOD\_EQ
+  |- !m n p q. m = n + q * p ==> m MOD p = n MOD p
+\ENDTHEOREM
+\THEOREM MOD\_EQ\_0
+  |- !m n. ~(n = 0) ==> (m MOD n = 0 <=> (?q. m = q * n))
+\ENDTHEOREM
+\THEOREM MOD\_EXISTS
+  |- !m n. (?q. m = n * q) <=> (if n = 0 then m = 0 else m MOD n = 0)
+\ENDTHEOREM
+\THEOREM MOD\_EXP\_MOD
+  |- !m n p. ~(n = 0) ==> (m MOD n) EXP p MOD n = m EXP p MOD n
+\ENDTHEOREM
+\THEOREM MOD\_LE
+  |- !m n. ~(n = 0) ==> m MOD n <= m
+\ENDTHEOREM
+\THEOREM MOD\_LT
+  |- !m n. m < n ==> m MOD n = m
+\ENDTHEOREM
+\THEOREM MOD\_MOD
+  |- !m n p. ~(n * p = 0) ==> m MOD (n * p) MOD n = m MOD n
+\ENDTHEOREM
+\THEOREM MOD\_MOD\_REFL
+  |- !m n. ~(n = 0) ==> m MOD n MOD n = m MOD n
+\ENDTHEOREM
+\THEOREM MOD\_MULT
+  |- !m n. ~(m = 0) ==> (m * n) MOD m = 0
+\ENDTHEOREM
+\THEOREM MOD\_MULT2
+  |- !m n p. ~(m * p = 0) ==> (m * n) MOD (m * p) = m * n MOD p
+\ENDTHEOREM
+\THEOREM MOD\_MULT\_ADD
+  |- !m n p. (m * n + p) MOD n = p MOD n
+\ENDTHEOREM
+\THEOREM MOD\_MULT\_LMOD
+  |- !m n p. ~(n = 0) ==> (m MOD n * p) MOD n = (m * p) MOD n
+\ENDTHEOREM
+\THEOREM MOD\_MULT\_MOD2
+  |- !m n p. ~(n = 0) ==> (m MOD n * p MOD n) MOD n = (m * p) MOD n
+\ENDTHEOREM
+\THEOREM MOD\_MULT\_RMOD
+  |- !m n p. ~(n = 0) ==> (m * p MOD n) MOD n = (m * p) MOD n
+\ENDTHEOREM
+\THEOREM MOD\_UNIQ
+  |- !m n q r. m = q * n + r /\ r < n ==> m MOD n = r
+\ENDTHEOREM
+\THEOREM MULT
+  |- (!n. 0 * n = 0) /\ (!m n. SUC m * n = m * n + n)
+\ENDTHEOREM
+\THEOREM MULT\_0
+  |- !m. m * 0 = 0
+\ENDTHEOREM
+\THEOREM MULT\_2
+  |- !n. 2 * n = n + n
+\ENDTHEOREM
+\THEOREM MULT\_AC
+  |- m * n = n * m /\ (m * n) * p = m * n * p /\ m * n * p = n * m * p
+\ENDTHEOREM
+\THEOREM MULT\_ASSOC
+  |- !m n p. m * n * p = (m * n) * p
+\ENDTHEOREM
+\THEOREM MULT\_CLAUSES
+  |- (!n. 0 * n = 0) /\
+     (!m. m * 0 = 0) /\
+     (!n. 1 * n = n) /\
+     (!m. m * 1 = m) /\
+     (!m n. SUC m * n = m * n + n) /\
+     (!m n. m * SUC n = m + m * n)
+\ENDTHEOREM
+\THEOREM MULT\_EQ\_0
+  |- !m n. m * n = 0 <=> m = 0 \/ n = 0
+\ENDTHEOREM
+\THEOREM MULT\_EQ\_1
+  |- !m n. m * n = 1 <=> m = 1 /\ n = 1
+\ENDTHEOREM
+\THEOREM MULT\_EXP
+  |- !p m n. (m * n) EXP p = m EXP p * n EXP p
+\ENDTHEOREM
+\THEOREM MULT\_SUC
+  |- !m n. m * SUC n = m + m * n
+\ENDTHEOREM
+\THEOREM MULT\_SYM
+  |- !m n. m * n = n * m
+\ENDTHEOREM
+\THEOREM NOT\_EVEN
+  |- !n. ~EVEN n <=> ODD n
+\ENDTHEOREM
+\THEOREM NOT\_LE
+  |- !m n. ~(m <= n) <=> n < m
+\ENDTHEOREM
+\THEOREM NOT\_LT
+  |- !m n. ~(m < n) <=> n <= m
+\ENDTHEOREM
+\THEOREM NOT\_ODD
+  |- !n. ~ODD n <=> EVEN n
+\ENDTHEOREM
+\THEOREM NOT\_SUC
+  |- !n. ~(SUC n = 0)
+\ENDTHEOREM
+\THEOREM NUMERAL
+  |- !n. NUMERAL n = n
+\ENDTHEOREM
+\THEOREM ODD
+  |- (ODD 0 <=> F) /\ (!n. ODD (SUC n) <=> ~ODD n)
+\ENDTHEOREM
+\THEOREM ODD\_ADD
+  |- !m n. ODD (m + n) <=> ~(ODD m <=> ODD n)
+\ENDTHEOREM
+\THEOREM ODD\_DOUBLE
+  |- !n. ODD (SUC (2 * n))
+\ENDTHEOREM
+\THEOREM ODD\_EXISTS
+  |- !n. ODD n <=> (?m. n = SUC (2 * m))
+\ENDTHEOREM
+\THEOREM ODD\_EXP
+  |- !m n. ODD (m EXP n) <=> ODD m \/ n = 0
+\ENDTHEOREM
+\THEOREM ODD\_MOD
+  |- !n. ODD n <=> n MOD 2 = 1
+\ENDTHEOREM
+\THEOREM ODD\_MULT
+  |- !m n. ODD (m * n) <=> ODD m /\ ODD n
+\ENDTHEOREM
+\THEOREM ODD\_SUB
+  |- !m n. ODD (m - n) <=> n < m /\ ~(ODD m <=> ODD n)
+\ENDTHEOREM
+\THEOREM ONE
+  |- 1 = SUC 0
+\ENDTHEOREM
+\THEOREM PRE
+  |- PRE 0 = 0 /\ (!n. PRE (SUC n) = n)
+\ENDTHEOREM
+\THEOREM PRE\_ELIM\_THM
+  |- P (PRE n) <=> (!m. n = SUC m \/ m = 0 /\ n = 0 ==> P m)
+\ENDTHEOREM
+\THEOREM PRE\_ELIM\_THM'
+  |- P (PRE n) <=> (?m. (n = SUC m \/ m = 0 /\ n = 0) /\ P m)
+\ENDTHEOREM
+\THEOREM RIGHT\_ADD\_DISTRIB
+  |- !m n p. (m + n) * p = m * p + n * p
+\ENDTHEOREM
+\THEOREM RIGHT\_SUB\_DISTRIB
+  |- !m n p. (m - n) * p = m * p - n * p
+\ENDTHEOREM
+\THEOREM SUB
+  |- (!m. m - 0 = m) /\ (!m n. m - SUC n = PRE (m - n))
+\ENDTHEOREM
+\THEOREM SUB\_0
+  |- !m. 0 - m = 0 /\ m - 0 = m
+\ENDTHEOREM
+\THEOREM SUB\_ADD
+  |- !m n. n <= m ==> m - n + n = m
+\ENDTHEOREM
+\THEOREM SUB\_ADD\_LCANCEL
+  |- !m n p. (m + n) - (m + p) = n - p
+\ENDTHEOREM
+\THEOREM SUB\_ADD\_RCANCEL
+  |- !m n p. (m + p) - (n + p) = m - n
+\ENDTHEOREM
+\THEOREM SUB\_ELIM\_THM
+  |- P (a - b) <=> (!d. a = b + d \/ a < b /\ d = 0 ==> P d)
+\ENDTHEOREM
+\THEOREM SUB\_ELIM\_THM'
+  |- P (a - b) <=> (?d. (a = b + d \/ a < b /\ d = 0) /\ P d)
+\ENDTHEOREM
+\THEOREM SUB\_EQ\_0
+  |- !m n. m - n = 0 <=> m <= n
+\ENDTHEOREM
+\THEOREM SUB\_PRESUC
+  |- !m n. PRE (SUC m - n) = m - n
+\ENDTHEOREM
+\THEOREM SUB\_REFL
+  |- !n. n - n = 0
+\ENDTHEOREM
+\THEOREM SUB\_SUC
+  |- !m n. SUC m - SUC n = m - n
+\ENDTHEOREM
+\THEOREM SUC\_INJ
+  |- !m n. SUC m = SUC n <=> m = n
+\ENDTHEOREM
+\THEOREM SUC\_SUB1
+  |- !n. SUC n - 1 = n
+\ENDTHEOREM
+\THEOREM TWO
+  |- 2 = SUC 1
+\ENDTHEOREM
+\THEOREM WLOG\_LE
+  |- (!m n. P m n <=> P n m) /\ (!m n. m <= n ==> P m n) ==> (!m n. P m n)
+\ENDTHEOREM
+\THEOREM WLOG\_LT
+  |- (!m. P m m) /\ (!m n. P m n <=> P n m) /\ (!m n. m < n ==> P m n)
+     ==> (!m y. P m y)
+\ENDTHEOREM
+\THEOREM dist
+  |- !n m. dist (m,n) = m - n + n - m
+\ENDTHEOREM
+\THEOREM minimal
+  |- !P. (minimal) P = (@n. P n /\ (!m. m < n ==> ~P m))
+\ENDTHEOREM
+\THEOREM num\_Axiom
+  |- !e f. ?!fn. fn 0 = e /\ (!n. fn (SUC n) = f (fn n) n)
+\ENDTHEOREM
+\THEOREM num\_Axiom
+  |- !e f. ?!fn. fn _0 = e /\ (!n. fn (SUC n) = f (fn n) n)
+\ENDTHEOREM
+\THEOREM num\_CASES
+  |- !m. m = 0 \/ (?n. m = SUC n)
+\ENDTHEOREM
+\THEOREM num\_INDUCTION
+  |- !P. P 0 /\ (!n. P n ==> P (SUC n)) ==> (!n. P n)
+\ENDTHEOREM
+\THEOREM num\_INDUCTION
+  |- !P. P _0 /\ (!n. P n ==> P (SUC n)) ==> (!n. P n)
+\ENDTHEOREM
+\THEOREM num\_MAX
+  |- !P. (?x. P x) /\ (?M. !x. P x ==> x <= M) <=>
+         (?m. P m /\ (!x. P x ==> x <= m))
+\ENDTHEOREM
+\THEOREM num\_RECURSION
+  |- !e f. ?fn. fn 0 = e /\ (!n. fn (SUC n) = f (fn n) n)
+\ENDTHEOREM
+\THEOREM num\_WF
+  |- !P. (!n. (!m. m < n ==> P m) ==> P n) ==> (!n. P n)
+\ENDTHEOREM
+\THEOREM num\_WOP
+  |- !P. (?n. P n) <=> (?n. P n /\ (!m. m < n ==> ~P m))
+\ENDTHEOREM
+
+\section{Theorems about lists}
+\THEOREM ALL
+  |- (ALL P [] <=> T) /\ (ALL P (CONS h t) <=> P h /\ ALL P t)
+\ENDTHEOREM
+\THEOREM ALL2
+  |- (ALL2 P [] [] <=> T) /\
+     (ALL2 P (CONS h1 t1) [] <=> F) /\
+     (ALL2 P [] (CONS h2 t2) <=> F) /\
+     (ALL2 P (CONS h1 t1) (CONS h2 t2) <=> P h1 h2 /\ ALL2 P t1 t2)
+\ENDTHEOREM
+\THEOREM ALL2\_ALL
+  |- !P l. ALL2 P l l <=> ALL (\x. P x x) l
+\ENDTHEOREM
+\THEOREM ALL2\_AND\_RIGHT
+  |- !l m P Q. ALL2 (\x y. P x /\ Q x y) l m <=> ALL P l /\ ALL2 Q l m
+\ENDTHEOREM
+\THEOREM ALL2\_DEF
+  |- (ALL2 P [] l2 <=> l2 = []) /\
+     (ALL2 P (CONS h1 t1) l2 <=>
+      (if l2 = [] then F else P h1 (HD l2) /\ ALL2 P t1 (TL l2)))
+\ENDTHEOREM
+\THEOREM ALL2\_MAP
+  |- !P f l. ALL2 P (MAP f l) l <=> ALL (\a. P (f a) a) l
+\ENDTHEOREM
+\THEOREM ALL2\_MAP2
+  |- !l m. ALL2 P (MAP f l) (MAP g m) <=> ALL2 (\x y. P (f x) (g y)) l m
+\ENDTHEOREM
+\THEOREM ALL\_APPEND
+  |- !P l1 l2. ALL P (APPEND l1 l2) <=> ALL P l1 /\ ALL P l2
+\ENDTHEOREM
+\THEOREM ALL\_IMP
+  |- !P Q l. (!x. MEM x l /\ P x ==> Q x) /\ ALL P l ==> ALL Q l
+\ENDTHEOREM
+\THEOREM ALL\_MAP
+  |- !P f l. ALL P (MAP f l) <=> ALL (P o f) l
+\ENDTHEOREM
+\THEOREM ALL\_MEM
+  |- !P l. (!x. MEM x l ==> P x) <=> ALL P l
+\ENDTHEOREM
+\THEOREM ALL\_MP
+  |- !P Q l. ALL (\x. P x ==> Q x) l /\ ALL P l ==> ALL Q l
+\ENDTHEOREM
+\THEOREM ALL\_T
+  |- !l. ALL (\x. T) l
+\ENDTHEOREM
+\THEOREM AND\_ALL
+  |- !l. ALL P l /\ ALL Q l <=> ALL (\x. P x /\ Q x) l
+\ENDTHEOREM
+\THEOREM AND\_ALL2
+  |- !P Q l m. ALL2 P l m /\ ALL2 Q l m <=> ALL2 (\x y. P x y /\ Q x y) l m
+\ENDTHEOREM
+\THEOREM APPEND
+  |- (!l. APPEND [] l = l) /\
+     (!h t l. APPEND (CONS h t) l = CONS h (APPEND t l))
+\ENDTHEOREM
+\THEOREM APPEND\_ASSOC
+  |- !l m n. APPEND l (APPEND m n) = APPEND (APPEND l m) n
+\ENDTHEOREM
+\THEOREM APPEND\_EQ\_NIL
+  |- !l m. APPEND l m = [] <=> l = [] /\ m = []
+\ENDTHEOREM
+\THEOREM APPEND\_NIL
+  |- !l. APPEND l [] = l
+\ENDTHEOREM
+\THEOREM ASSOC
+  |- ASSOC a (CONS h t) = (if FST h = a then SND h else ASSOC a t)
+\ENDTHEOREM
+\THEOREM CONS\_11
+  |- !h1 h2 t1 t2. CONS h1 t1 = CONS h2 t2 <=> h1 = h2 /\ t1 = t2
+\ENDTHEOREM
+\THEOREM EL
+  |- EL 0 l = HD l /\ EL (SUC n) l = EL n (TL l)
+\ENDTHEOREM
+\THEOREM EX
+  |- (EX P [] <=> F) /\ (EX P (CONS h t) <=> P h \/ EX P t)
+\ENDTHEOREM
+\THEOREM EXISTS\_EX
+  |- !P l. (?x. EX (P x) l) <=> EX (\s. ?x. P x s) l
+\ENDTHEOREM
+\THEOREM EX\_IMP
+  |- !P Q l. (!x. MEM x l /\ P x ==> Q x) /\ EX P l ==> EX Q l
+\ENDTHEOREM
+\THEOREM EX\_MAP
+  |- !P f l. EX P (MAP f l) <=> EX (P o f) l
+\ENDTHEOREM
+\THEOREM EX\_MEM
+  |- !P l. (?x. P x /\ MEM x l) <=> EX P l
+\ENDTHEOREM
+\THEOREM FILTER
+  |- FILTER P [] = [] /\
+     FILTER P (CONS h t) = (if P h then CONS h (FILTER P t) else FILTER P t)
+\ENDTHEOREM
+\THEOREM FILTER\_APPEND
+  |- !P l1 l2. FILTER P (APPEND l1 l2) = APPEND (FILTER P l1) (FILTER P l2)
+\ENDTHEOREM
+\THEOREM FILTER\_MAP
+  |- !P f l. FILTER P (MAP f l) = MAP f (FILTER (P o f) l)
+\ENDTHEOREM
+\THEOREM FORALL\_ALL
+  |- !P l. (!x. ALL (P x) l) <=> ALL (\s. !x. P x s) l
+\ENDTHEOREM
+\THEOREM HD
+  |- HD (CONS h t) = h
+\ENDTHEOREM
+\THEOREM ITLIST
+  |- ITLIST f [] b = b /\ ITLIST f (CONS h t) b = f h (ITLIST f t b)
+\ENDTHEOREM
+\THEOREM ITLIST2
+  |- ITLIST2 f [] [] b = b /\
+     ITLIST2 f (CONS h1 t1) (CONS h2 t2) b = f h1 h2 (ITLIST2 f t1 t2 b)
+\ENDTHEOREM
+\THEOREM ITLIST2\_DEF
+  |- ITLIST2 f [] l2 b = b /\
+     ITLIST2 f (CONS h1 t1) l2 b = f h1 (HD l2) (ITLIST2 f t1 (TL l2) b)
+\ENDTHEOREM
+\THEOREM ITLIST\_APPEND
+  |- !f a l1 l2. ITLIST f (APPEND l1 l2) a = ITLIST f l1 (ITLIST f l2 a)
+\ENDTHEOREM
+\THEOREM ITLIST\_EXTRA
+  |- !l. ITLIST f (APPEND l [a]) b = ITLIST f l (f a b)
+\ENDTHEOREM
+\THEOREM LAST
+  |- LAST (CONS h t) = (if t = [] then h else LAST t)
+\ENDTHEOREM
+\THEOREM LAST\_CLAUSES
+  |- LAST [h] = h /\ LAST (CONS h (CONS k t)) = LAST (CONS k t)
+\ENDTHEOREM
+\THEOREM LENGTH
+  |- LENGTH [] = 0 /\ (!h t. LENGTH (CONS h t) = SUC (LENGTH t))
+\ENDTHEOREM
+\THEOREM LENGTH\_APPEND
+  |- !l m. LENGTH (APPEND l m) = LENGTH l + LENGTH m
+\ENDTHEOREM
+\THEOREM LENGTH\_EQ\_CONS
+  |- !l n. LENGTH l = SUC n <=> (?h t. l = CONS h t /\ LENGTH t = n)
+\ENDTHEOREM
+\THEOREM LENGTH\_EQ\_NIL
+  |- !l. LENGTH l = 0 <=> l = []
+\ENDTHEOREM
+\THEOREM LENGTH\_MAP
+  |- !l f. LENGTH (MAP f l) = LENGTH l
+\ENDTHEOREM
+\THEOREM LENGTH\_MAP2
+  |- !f l m. LENGTH l = LENGTH m ==> LENGTH (MAP2 f l m) = LENGTH m
+\ENDTHEOREM
+\THEOREM LENGTH\_REPLICATE
+  |- !n x. LENGTH (REPLICATE n x) = n
+\ENDTHEOREM
+\THEOREM MAP
+  |- (!f. MAP f [] = []) /\ (!f h t. MAP f (CONS h t) = CONS (f h) (MAP f t))
+\ENDTHEOREM
+\THEOREM MAP2
+  |- MAP2 f [] [] = [] /\
+     MAP2 f (CONS h1 t1) (CONS h2 t2) = CONS (f h1 h2) (MAP2 f t1 t2)
+\ENDTHEOREM
+\THEOREM MAP2\_DEF
+  |- MAP2 f [] l = [] /\
+     MAP2 f (CONS h1 t1) l = CONS (f h1 (HD l)) (MAP2 f t1 (TL l))
+\ENDTHEOREM
+\THEOREM MAP\_APPEND
+  |- !f l1 l2. MAP f (APPEND l1 l2) = APPEND (MAP f l1) (MAP f l2)
+\ENDTHEOREM
+\THEOREM MAP\_EQ
+  |- !f g l. ALL (\x. f x = g x) l ==> MAP f l = MAP g l
+\ENDTHEOREM
+\THEOREM MAP\_EQ\_ALL2
+  |- !l m. ALL2 (\x y. f x = f y) l m ==> MAP f l = MAP f m
+\ENDTHEOREM
+\THEOREM MAP\_EQ\_DEGEN
+  |- !l f. ALL (\x. f x = x) l ==> MAP f l = l
+\ENDTHEOREM
+\THEOREM MAP\_FST\_ZIP
+  |- !l1 l2. LENGTH l1 = LENGTH l2 ==> MAP FST (ZIP l1 l2) = l1
+\ENDTHEOREM
+\THEOREM MAP\_SND\_ZIP
+  |- !l1 l2. LENGTH l1 = LENGTH l2 ==> MAP SND (ZIP l1 l2) = l2
+\ENDTHEOREM
+\THEOREM MAP\_o
+  |- !f g l. MAP (g o f) l = MAP g (MAP f l)
+\ENDTHEOREM
+\THEOREM MEM
+  |- (MEM x [] <=> F) /\ (MEM x (CONS h t) <=> x = h \/ MEM x t)
+\ENDTHEOREM
+\THEOREM MEM\_APPEND
+  |- !x l1 l2. MEM x (APPEND l1 l2) <=> MEM x l1 \/ MEM x l2
+\ENDTHEOREM
+\THEOREM MEM\_ASSOC
+  |- !l x. MEM (x,ASSOC x l) l <=> MEM x (MAP FST l)
+\ENDTHEOREM
+\THEOREM MEM\_EL
+  |- !l n. n < LENGTH l ==> MEM (EL n l) l
+\ENDTHEOREM
+\THEOREM MEM\_FILTER
+  |- !P l x. MEM x (FILTER P l) <=> P x /\ MEM x l
+\ENDTHEOREM
+\THEOREM MEM\_MAP
+  |- !f y l. MEM y (MAP f l) <=> (?x. MEM x l /\ y = f x)
+\ENDTHEOREM
+\THEOREM MONO\_ALL
+  |- (!x. P x ==> Q x) ==> ALL P l ==> ALL Q l
+\ENDTHEOREM
+\THEOREM MONO\_ALL2
+  |- (!x y. P x y ==> Q x y) ==> ALL2 P l l' ==> ALL2 Q l l'
+\ENDTHEOREM
+\THEOREM NOT\_ALL
+  |- !P l. ~ALL P l <=> EX (\x. ~P x) l
+\ENDTHEOREM
+\THEOREM NOT\_CONS\_NIL
+  |- !h t. ~(CONS h t = [])
+\ENDTHEOREM
+\THEOREM NOT\_EX
+  |- !P l. ~EX P l <=> ALL (\x. ~P x) l
+\ENDTHEOREM
+\THEOREM NULL
+  |- (NULL [] <=> T) /\ (NULL (CONS h t) <=> F)
+\ENDTHEOREM
+\THEOREM REPLICATE
+  |- REPLICATE 0 x = [] /\ REPLICATE (SUC n) x = CONS x (REPLICATE n x)
+\ENDTHEOREM
+\THEOREM REVERSE
+  |- REVERSE [] = [] /\ REVERSE (CONS x l) = APPEND (REVERSE l) [x]
+\ENDTHEOREM
+\THEOREM REVERSE\_APPEND
+  |- !l m. REVERSE (APPEND l m) = APPEND (REVERSE m) (REVERSE l)
+\ENDTHEOREM
+\THEOREM REVERSE\_REVERSE
+  |- !l. REVERSE (REVERSE l) = l
+\ENDTHEOREM
+\THEOREM TL
+  |- TL (CONS h t) = t
+\ENDTHEOREM
+\THEOREM ZIP
+  |- ZIP [] [] = [] /\
+     ZIP (CONS h1 t1) (CONS h2 t2) = CONS (h1,h2) (ZIP t1 t2)
+\ENDTHEOREM
+\THEOREM ZIP\_DEF
+  |- ZIP [] l2 = [] /\ ZIP (CONS h1 t1) l2 = CONS (h1,HD l2) (ZIP t1 (TL l2))
+\ENDTHEOREM
+\THEOREM list\_CASES
+  |- !l. l = [] \/ (?h t. l = CONS h t)
+\ENDTHEOREM
+\THEOREM list\_INDUCT
+  |- !P. P [] /\ (!a0 a1. P a1 ==> P (CONS a0 a1)) ==> (!x. P x)
+\ENDTHEOREM
+\THEOREM list\_RECURSION
+  |- !NIL' CONS'.
+         ?fn. fn [] = NIL' /\ (!a0 a1. fn (CONS a0 a1) = CONS' a0 a1 (fn a1))
+\ENDTHEOREM
+
+\section{Theorems about real numbers}
+\THEOREM REAL\_ADD\_ASSOC
+  |- !x y z. x + y + z = (x + y) + z
+\ENDTHEOREM
+\THEOREM REAL\_ADD\_LDISTRIB
+  |- !x y z. x * (y + z) = x * y + x * z
+\ENDTHEOREM
+\THEOREM REAL\_ADD\_LID
+  |- !x. &0 + x = x
+\ENDTHEOREM
+\THEOREM REAL\_ADD\_LINV
+  |- !x. --x + x = &0
+\ENDTHEOREM
+\THEOREM REAL\_ADD\_SYM
+  |- !x y. x + y = y + x
+\ENDTHEOREM
+\THEOREM REAL\_INV\_0
+  |- inv (&0) = &0
+\ENDTHEOREM
+\THEOREM REAL\_LE\_ANTISYM
+  |- !x y. x <= y /\ y <= x <=> x = y
+\ENDTHEOREM
+\THEOREM REAL\_LE\_LADD\_IMP
+  |- !x y z. y <= z ==> x + y <= x + z
+\ENDTHEOREM
+\THEOREM REAL\_LE\_MUL
+  |- !x y. &0 <= x /\ &0 <= y ==> &0 <= x * y
+\ENDTHEOREM
+\THEOREM REAL\_LE\_REFL
+  |- !x. x <= x
+\ENDTHEOREM
+\THEOREM REAL\_LE\_TOTAL
+  |- !x y. x <= y \/ y <= x
+\ENDTHEOREM
+\THEOREM REAL\_LE\_TRANS
+  |- !x y z. x <= y /\ y <= z ==> x <= z
+\ENDTHEOREM
+\THEOREM REAL\_MUL\_ASSOC
+  |- !x y z. x * y * z = (x * y) * z
+\ENDTHEOREM
+\THEOREM REAL\_MUL\_LID
+  |- !x. &1 * x = x
+\ENDTHEOREM
+\THEOREM REAL\_MUL\_LINV
+  |- !x. ~(x = &0) ==> inv x * x = &1
+\ENDTHEOREM
+\THEOREM REAL\_MUL\_SYM
+  |- !x y. x * y = y * x
+\ENDTHEOREM
+\THEOREM REAL\_OF\_NUM\_ADD
+  |- !m n. &m + &n = &(m + n)
+\ENDTHEOREM
+\THEOREM REAL\_OF\_NUM\_EQ
+  |- !m n. &m = &n <=> m = n
+\ENDTHEOREM
+\THEOREM REAL\_OF\_NUM\_LE
+  |- !m n. &m <= &n <=> m <= n
+\ENDTHEOREM
+\THEOREM REAL\_OF\_NUM\_MUL
+  |- !m n. &m * &n = &(m * n)
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_0
+  |- abs (&0) = &0
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_1
+  |- abs (&1) = &1
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_ABS
+  |- !x. abs (abs x) = abs x
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_BETWEEN
+  |- !x y d. &0 < d /\ x - d < y /\ y < x + d <=> abs (y - x) < d
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_BETWEEN1
+  |- !x y z. x < z /\ abs (y - x) < z - x ==> y < z
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_BETWEEN2
+  |- !x0 x y0 y.
+         x0 < y0 /\
+         &2 * abs (x - x0) < y0 - x0 /\
+         &2 * abs (y - y0) < y0 - x0
+         ==> x < y
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_BOUND
+  |- !x y d. abs (x - y) < d ==> y < x + d
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_BOUNDS
+  |- !x k. abs x <= k <=> --k <= x /\ x <= k
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_CASES
+  |- !x. x = &0 \/ &0 < abs x
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_CIRCLE
+  |- !x y h. abs h < abs y - abs x ==> abs (x + h) < abs y
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_DIV
+  |- !x y. abs (x / y) = abs x / abs y
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_INV
+  |- !x. abs (inv x) = inv (abs x)
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_LE
+  |- !x. x <= abs x
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_MUL
+  |- !x y. abs (x * y) = abs x * abs y
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_NEG
+  |- !x. abs (--x) = abs x
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_NUM
+  |- !n. abs (&n) = &n
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_NZ
+  |- !x. ~(x = &0) <=> &0 < abs x
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_POS
+  |- !x. &0 <= abs x
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_POW
+  |- !x n. abs (x pow n) = abs x pow n
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_REFL
+  |- !x. abs x = x <=> &0 <= x
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_SIGN
+  |- !x y. abs (x - y) < y ==> &0 < x
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_SIGN2
+  |- !x y. abs (x - y) < --y ==> x < &0
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_STILLNZ
+  |- !x y. abs (x - y) < abs y ==> ~(x = &0)
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_SUB
+  |- !x y. abs (x - y) = abs (y - x)
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_SUB\_ABS
+  |- !x y. abs (abs x - abs y) <= abs (x - y)
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_TRIANGLE
+  |- !x y. abs (x + y) <= abs x + abs y
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_TRIANGLE\_LE
+  |- !x y z. abs x + abs (y - x) <= z ==> abs y <= z
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_TRIANGLE\_LT
+  |- !x y z. abs x + abs (y - x) < z ==> abs y < z
+\ENDTHEOREM
+\THEOREM REAL\_ABS\_ZERO
+  |- !x. abs x = &0 <=> x = &0
+\ENDTHEOREM
+\THEOREM REAL\_ADD2\_SUB2
+  |- !a b c d. (a + b) - (c + d) = a - c + b - d
+\ENDTHEOREM
+\THEOREM REAL\_ADD\_AC
+  |- m + n = n + m /\ (m + n) + p = m + n + p /\ m + n + p = n + m + p
+\ENDTHEOREM
+\THEOREM REAL\_ADD\_RDISTRIB
+  |- !x y z. (x + y) * z = x * z + y * z
+\ENDTHEOREM
+\THEOREM REAL\_ADD\_RID
+  |- !x. x + &0 = x
+\ENDTHEOREM
+\THEOREM REAL\_ADD\_RINV
+  |- !x. x + --x = &0
+\ENDTHEOREM
+\THEOREM REAL\_ADD\_SUB
+  |- !x y. (x + y) - x = y
+\ENDTHEOREM
+\THEOREM REAL\_ADD\_SUB2
+  |- !x y. x - (x + y) = --y
+\ENDTHEOREM
+\THEOREM REAL\_COMPLETE
+  |- !P. (?x. P x) /\ (?M. !x. P x ==> x <= M)
+         ==> (?M. (!x. P x ==> x <= M) /\
+                  (!M'. (!x. P x ==> x <= M') ==> M <= M'))
+\ENDTHEOREM
+\THEOREM REAL\_DIFFSQ
+  |- !x y. (x + y) * (x - y) = x * x - y * y
+\ENDTHEOREM
+\THEOREM REAL\_DIV\_1
+  |- !x. x / &1 = x
+\ENDTHEOREM
+\THEOREM REAL\_DIV\_LMUL
+  |- !x y. ~(y = &0) ==> y * x / y = x
+\ENDTHEOREM
+\THEOREM REAL\_DIV\_POW2
+  |- !x m n.
+         ~(x = &0)
+         ==> x pow m / x pow n =
+             (if n <= m then x pow (m - n) else inv (x pow (n - m)))
+\ENDTHEOREM
+\THEOREM REAL\_DIV\_POW2\_ALT
+  |- !x m n.
+         ~(x = &0)
+         ==> x pow m / x pow n =
+             (if n < m then x pow (m - n) else inv (x pow (n - m)))
+\ENDTHEOREM
+\THEOREM REAL\_DIV\_REFL
+  |- !x. ~(x = &0) ==> x / x = &1
+\ENDTHEOREM
+\THEOREM REAL\_DIV\_RMUL
+  |- !x y. ~(y = &0) ==> x / y * y = x
+\ENDTHEOREM
+\THEOREM REAL\_DOWN
+  |- !d. &0 < d ==> (?e. &0 < e /\ e < d)
+\ENDTHEOREM
+\THEOREM REAL\_DOWN2
+  |- !d1 d2. &0 < d1 /\ &0 < d2 ==> (?e. &0 < e /\ e < d1 /\ e < d2)
+\ENDTHEOREM
+\THEOREM REAL\_ENTIRE
+  |- !x y. x * y = &0 <=> x = &0 \/ y = &0
+\ENDTHEOREM
+\THEOREM REAL\_EQ\_ADD\_LCANCEL
+  |- !x y z. x + y = x + z <=> y = z
+\ENDTHEOREM
+\THEOREM REAL\_EQ\_ADD\_LCANCEL\_0
+  |- !x y. x + y = x <=> y = &0
+\ENDTHEOREM
+\THEOREM REAL\_EQ\_ADD\_RCANCEL
+  |- !x y z. x + z = y + z <=> x = y
+\ENDTHEOREM
+\THEOREM REAL\_EQ\_ADD\_RCANCEL\_0
+  |- !x y. x + y = y <=> x = &0
+\ENDTHEOREM
+\THEOREM REAL\_EQ\_IMP\_LE
+  |- !x y. x = y ==> x <= y
+\ENDTHEOREM
+\THEOREM REAL\_EQ\_LCANCEL\_IMP
+  |- !x y z. ~(z = &0) /\ z * x = z * y ==> x = y
+\ENDTHEOREM
+\THEOREM REAL\_EQ\_LDIV\_EQ
+  |- !x y z. &0 < z ==> (x / z = y <=> x = y * z)
+\ENDTHEOREM
+\THEOREM REAL\_EQ\_MUL\_LCANCEL
+  |- !x y z. x * y = x * z <=> x = &0 \/ y = z
+\ENDTHEOREM
+\THEOREM REAL\_EQ\_MUL\_RCANCEL
+  |- !x y z. x * z = y * z <=> x = y \/ z = &0
+\ENDTHEOREM
+\THEOREM REAL\_EQ\_NEG2
+  |- !x y. --x = --y <=> x = y
+\ENDTHEOREM
+\THEOREM REAL\_EQ\_RCANCEL\_IMP
+  |- !x y z. ~(z = &0) /\ x * z = y * z ==> x = y
+\ENDTHEOREM
+\THEOREM REAL\_EQ\_RDIV\_EQ
+  |- !x y z. &0 < z ==> (x = y / z <=> x * z = y)
+\ENDTHEOREM
+\THEOREM REAL\_EQ\_SUB\_LADD
+  |- !x y z. x = y - z <=> x + z = y
+\ENDTHEOREM
+\THEOREM REAL\_EQ\_SUB\_RADD
+  |- !x y z. x - y = z <=> x = z + y
+\ENDTHEOREM
+\THEOREM REAL\_INV\_1
+  |- inv (&1) = &1
+\ENDTHEOREM
+\THEOREM REAL\_INV\_1\_LE
+  |- !x. &0 < x /\ x <= &1 ==> &1 <= inv x
+\ENDTHEOREM
+\THEOREM REAL\_INV\_DIV
+  |- !x y. inv (x / y) = y / x
+\ENDTHEOREM
+\THEOREM REAL\_INV\_EQ\_0
+  |- !x. inv x = &0 <=> x = &0
+\ENDTHEOREM
+\THEOREM REAL\_INV\_INV
+  |- !x. inv (inv x) = x
+\ENDTHEOREM
+\THEOREM REAL\_INV\_LE\_1
+  |- !x. &1 <= x ==> inv x <= &1
+\ENDTHEOREM
+\THEOREM REAL\_INV\_MUL
+  |- !x y. inv (x * y) = inv x * inv y
+\ENDTHEOREM
+\THEOREM REAL\_INV\_NEG
+  |- !x. inv (--x) = --inv x
+\ENDTHEOREM
+\THEOREM REAL\_LET\_ADD
+  |- !x y. &0 <= x /\ &0 < y ==> &0 < x + y
+\ENDTHEOREM
+\THEOREM REAL\_LET\_ADD2
+  |- !w x y z. w <= x /\ y < z ==> w + y < x + z
+\ENDTHEOREM
+\THEOREM REAL\_LET\_ANTISYM
+  |- !x y. ~(x <= y /\ y < x)
+\ENDTHEOREM
+\THEOREM REAL\_LET\_TOTAL
+  |- !x y. x <= y \/ y < x
+\ENDTHEOREM
+\THEOREM REAL\_LET\_TRANS
+  |- !x y z. x <= y /\ y < z ==> x < z
+\ENDTHEOREM
+\THEOREM REAL\_LE\_01
+  |- &0 <= &1
+\ENDTHEOREM
+\THEOREM REAL\_LE\_ADD
+  |- !x y. &0 <= x /\ &0 <= y ==> &0 <= x + y
+\ENDTHEOREM
+\THEOREM REAL\_LE\_ADD2
+  |- !w x y z. w <= x /\ y <= z ==> w + y <= x + z
+\ENDTHEOREM
+\THEOREM REAL\_LE\_ADDL
+  |- !x y. y <= x + y <=> &0 <= x
+\ENDTHEOREM
+\THEOREM REAL\_LE\_ADDR
+  |- !x y. x <= x + y <=> &0 <= y
+\ENDTHEOREM
+\THEOREM REAL\_LE\_DIV
+  |- !x y. &0 <= x /\ &0 <= y ==> &0 <= x / y
+\ENDTHEOREM
+\THEOREM REAL\_LE\_DIV2\_EQ
+  |- !x y z. &0 < z ==> (x / z <= y / z <=> x <= y)
+\ENDTHEOREM
+\THEOREM REAL\_LE\_DOUBLE
+  |- !x. &0 <= x + x <=> &0 <= x
+\ENDTHEOREM
+\THEOREM REAL\_LE\_INV
+  |- !x. &0 <= x ==> &0 <= inv x
+\ENDTHEOREM
+\THEOREM REAL\_LE\_INV2
+  |- !x y. &0 < x /\ x <= y ==> inv y <= inv x
+\ENDTHEOREM
+\THEOREM REAL\_LE\_INV\_EQ
+  |- !x. &0 <= inv x <=> &0 <= x
+\ENDTHEOREM
+\THEOREM REAL\_LE\_LADD
+  |- !x y z. x + y <= x + z <=> y <= z
+\ENDTHEOREM
+\THEOREM REAL\_LE\_LCANCEL\_IMP
+  |- !x y z. &0 < x /\ x * y <= x * z ==> y <= z
+\ENDTHEOREM
+\THEOREM REAL\_LE\_LDIV\_EQ
+  |- !x y z. &0 < z ==> (x / z <= y <=> x <= y * z)
+\ENDTHEOREM
+\THEOREM REAL\_LE\_LMUL
+  |- !x y z. &0 <= x /\ y <= z ==> x * y <= x * z
+\ENDTHEOREM
+\THEOREM REAL\_LE\_LMUL\_EQ
+  |- !x y z. &0 < z ==> (z * x <= z * y <=> x <= y)
+\ENDTHEOREM
+\THEOREM REAL\_LE\_LNEG
+  |- !x y. --x <= y <=> &0 <= x + y
+\ENDTHEOREM
+\THEOREM REAL\_LE\_LT
+  |- !x y. x <= y <=> x < y \/ x = y
+\ENDTHEOREM
+\THEOREM REAL\_LE\_MAX
+  |- !x y z. z <= max x y <=> z <= x \/ z <= y
+\ENDTHEOREM
+\THEOREM REAL\_LE\_MIN
+  |- !x y z. z <= min x y <=> z <= x /\ z <= y
+\ENDTHEOREM
+\THEOREM REAL\_LE\_MUL2
+  |- !w x y z. &0 <= w /\ w <= x /\ &0 <= y /\ y <= z ==> w * y <= x * z
+\ENDTHEOREM
+\THEOREM REAL\_LE\_NEG
+  |- !x y. --x <= --y <=> y <= x
+\ENDTHEOREM
+\THEOREM REAL\_LE\_NEG2
+  |- !x y. --x <= --y <=> y <= x
+\ENDTHEOREM
+\THEOREM REAL\_LE\_NEGL
+  |- !x. --x <= x <=> &0 <= x
+\ENDTHEOREM
+\THEOREM REAL\_LE\_NEGR
+  |- !x. x <= --x <=> x <= &0
+\ENDTHEOREM
+\THEOREM REAL\_LE\_NEGTOTAL
+  |- !x. &0 <= x \/ &0 <= --x
+\ENDTHEOREM
+\THEOREM REAL\_LE\_POW2
+  |- !n. &1 <= &2 pow n
+\ENDTHEOREM
+\THEOREM REAL\_LE\_RADD
+  |- !x y z. x + z <= y + z <=> x <= y
+\ENDTHEOREM
+\THEOREM REAL\_LE\_RCANCEL\_IMP
+  |- !x y z. &0 < z /\ x * z <= y * z ==> x <= y
+\ENDTHEOREM
+\THEOREM REAL\_LE\_RDIV\_EQ
+  |- !x y z. &0 < z ==> (x <= y / z <=> x * z <= y)
+\ENDTHEOREM
+\THEOREM REAL\_LE\_RMUL
+  |- !x y z. x <= y /\ &0 <= z ==> x * z <= y * z
+\ENDTHEOREM
+\THEOREM REAL\_LE\_RMUL\_EQ
+  |- !x y z. &0 < z ==> (x * z <= y * z <=> x <= y)
+\ENDTHEOREM
+\THEOREM REAL\_LE\_RNEG
+  |- !x y. x <= --y <=> x + y <= &0
+\ENDTHEOREM
+\THEOREM REAL\_LE\_SQUARE
+  |- !x. &0 <= x * x
+\ENDTHEOREM
+\THEOREM REAL\_LE\_SQUARE\_ABS
+  |- !x y. abs x <= abs y <=> x pow 2 <= y pow 2
+\ENDTHEOREM
+\THEOREM REAL\_LE\_SUB\_LADD
+  |- !x y z. x <= y - z <=> x + z <= y
+\ENDTHEOREM
+\THEOREM REAL\_LE\_SUB\_RADD
+  |- !x y z. x - y <= z <=> x <= z + y
+\ENDTHEOREM
+\THEOREM REAL\_LNEG\_UNIQ
+  |- !x y. x + y = &0 <=> x = --y
+\ENDTHEOREM
+\THEOREM REAL\_LTE\_ADD
+  |- !x y. &0 < x /\ &0 <= y ==> &0 < x + y
+\ENDTHEOREM
+\THEOREM REAL\_LTE\_ADD2
+  |- !w x y z. w < x /\ y <= z ==> w + y < x + z
+\ENDTHEOREM
+\THEOREM REAL\_LTE\_ANTISYM
+  |- !x y. ~(x < y /\ y <= x)
+\ENDTHEOREM
+\THEOREM REAL\_LTE\_TOTAL
+  |- !x y. x < y \/ y <= x
+\ENDTHEOREM
+\THEOREM REAL\_LTE\_TRANS
+  |- !x y z. x < y /\ y <= z ==> x < z
+\ENDTHEOREM
+\THEOREM REAL\_LT\_01
+  |- &0 < &1
+\ENDTHEOREM
+\THEOREM REAL\_LT\_ADD
+  |- !x y. &0 < x /\ &0 < y ==> &0 < x + y
+\ENDTHEOREM
+\THEOREM REAL\_LT\_ADD1
+  |- !x y. x <= y ==> x < y + &1
+\ENDTHEOREM
+\THEOREM REAL\_LT\_ADD2
+  |- !w x y z. w < x /\ y < z ==> w + y < x + z
+\ENDTHEOREM
+\THEOREM REAL\_LT\_ADDL
+  |- !x y. y < x + y <=> &0 < x
+\ENDTHEOREM
+\THEOREM REAL\_LT\_ADDNEG
+  |- !x y z. y < x + --z <=> y + z < x
+\ENDTHEOREM
+\THEOREM REAL\_LT\_ADDNEG2
+  |- !x y z. x + --y < z <=> x < z + y
+\ENDTHEOREM
+\THEOREM REAL\_LT\_ADDR
+  |- !x y. x < x + y <=> &0 < y
+\ENDTHEOREM
+\THEOREM REAL\_LT\_ADD\_SUB
+  |- !x y z. x + y < z <=> x < z - y
+\ENDTHEOREM
+\THEOREM REAL\_LT\_ANTISYM
+  |- !x y. ~(x < y /\ y < x)
+\ENDTHEOREM
+\THEOREM REAL\_LT\_DIV
+  |- !x y. &0 < x /\ &0 < y ==> &0 < x / y
+\ENDTHEOREM
+\THEOREM REAL\_LT\_DIV2\_EQ
+  |- !x y z. &0 < z ==> (x / z < y / z <=> x < y)
+\ENDTHEOREM
+\THEOREM REAL\_LT\_GT
+  |- !x y. x < y ==> ~(y < x)
+\ENDTHEOREM
+\THEOREM REAL\_LT\_IMP\_LE
+  |- !x y. x < y ==> x <= y
+\ENDTHEOREM
+\THEOREM REAL\_LT\_IMP\_NE
+  |- !x y. x < y ==> ~(x = y)
+\ENDTHEOREM
+\THEOREM REAL\_LT\_IMP\_NZ
+  |- !x. &0 < x ==> ~(x = &0)
+\ENDTHEOREM
+\THEOREM REAL\_LT\_INV
+  |- !x. &0 < x ==> &0 < inv x
+\ENDTHEOREM
+\THEOREM REAL\_LT\_INV2
+  |- !x y. &0 < x /\ x < y ==> inv y < inv x
+\ENDTHEOREM
+\THEOREM REAL\_LT\_INV\_EQ
+  |- !x. &0 < inv x <=> &0 < x
+\ENDTHEOREM
+\THEOREM REAL\_LT\_LADD
+  |- !x y z. x + y < x + z <=> y < z
+\ENDTHEOREM
+\THEOREM REAL\_LT\_LADD\_IMP
+  |- !x y z. y < z ==> x + y < x + z
+\ENDTHEOREM
+\THEOREM REAL\_LT\_LCANCEL\_IMP
+  |- !x y z. &0 < x /\ x * y < x * z ==> y < z
+\ENDTHEOREM
+\THEOREM REAL\_LT\_LDIV\_EQ
+  |- !x y z. &0 < z ==> (x / z < y <=> x < y * z)
+\ENDTHEOREM
+\THEOREM REAL\_LT\_LE
+  |- !x y. x < y <=> x <= y /\ ~(x = y)
+\ENDTHEOREM
+\THEOREM REAL\_LT\_LMUL
+  |- !x y z. &0 < x /\ y < z ==> x * y < x * z
+\ENDTHEOREM
+\THEOREM REAL\_LT\_LMUL\_EQ
+  |- !x y z. &0 < z ==> (z * x < z * y <=> x < y)
+\ENDTHEOREM
+\THEOREM REAL\_LT\_LNEG
+  |- !x y. --x < y <=> &0 < x + y
+\ENDTHEOREM
+\THEOREM REAL\_LT\_MAX
+  |- !x y z. z < max x y <=> z < x \/ z < y
+\ENDTHEOREM
+\THEOREM REAL\_LT\_MIN
+  |- !x y z. z < min x y <=> z < x /\ z < y
+\ENDTHEOREM
+\THEOREM REAL\_LT\_MUL
+  |- !x y. &0 < x /\ &0 < y ==> &0 < x * y
+\ENDTHEOREM
+\THEOREM REAL\_LT\_MUL2
+  |- !w x y z. &0 <= w /\ w < x /\ &0 <= y /\ y < z ==> w * y < x * z
+\ENDTHEOREM
+\THEOREM REAL\_LT\_NEG
+  |- !x y. --x < --y <=> y < x
+\ENDTHEOREM
+\THEOREM REAL\_LT\_NEG2
+  |- !x y. --x < --y <=> y < x
+\ENDTHEOREM
+\THEOREM REAL\_LT\_NEGTOTAL
+  |- !x. x = &0 \/ &0 < x \/ &0 < --x
+\ENDTHEOREM
+\THEOREM REAL\_LT\_POW2
+  |- !n. &0 < &2 pow n
+\ENDTHEOREM
+\THEOREM REAL\_LT\_RADD
+  |- !x y z. x + z < y + z <=> x < y
+\ENDTHEOREM
+\THEOREM REAL\_LT\_RCANCEL\_IMP
+  |- !x y z. &0 < z /\ x * z < y * z ==> x < y
+\ENDTHEOREM
+\THEOREM REAL\_LT\_RDIV\_EQ
+  |- !x y z. &0 < z ==> (x < y / z <=> x * z < y)
+\ENDTHEOREM
+\THEOREM REAL\_LT\_REFL
+  |- !x. ~(x < x)
+\ENDTHEOREM
+\THEOREM REAL\_LT\_RMUL
+  |- !x y z. x < y /\ &0 < z ==> x * z < y * z
+\ENDTHEOREM
+\THEOREM REAL\_LT\_RMUL\_EQ
+  |- !x y z. &0 < z ==> (x * z < y * z <=> x < y)
+\ENDTHEOREM
+\THEOREM REAL\_LT\_RNEG
+  |- !x y. x < --y <=> x + y < &0
+\ENDTHEOREM
+\THEOREM REAL\_LT\_SQUARE
+  |- !x. &0 < x * x <=> ~(x = &0)
+\ENDTHEOREM
+\THEOREM REAL\_LT\_SUB\_LADD
+  |- !x y z. x < y - z <=> x + z < y
+\ENDTHEOREM
+\THEOREM REAL\_LT\_SUB\_RADD
+  |- !x y z. x - y < z <=> x < z + y
+\ENDTHEOREM
+\THEOREM REAL\_LT\_TOTAL
+  |- !x y. x = y \/ x < y \/ y < x
+\ENDTHEOREM
+\THEOREM REAL\_LT\_TRANS
+  |- !x y z. x < y /\ y < z ==> x < z
+\ENDTHEOREM
+\THEOREM REAL\_MAX\_ACI
+  |- max x y = max y x /\
+     max (max x y) z = max x (max y z) /\
+     max x (max y z) = max y (max x z) /\
+     max x x = x /\
+     max x (max x y) = max x y
+\ENDTHEOREM
+\THEOREM REAL\_MAX\_ASSOC
+  |- !x y z. max x (max y z) = max (max x y) z
+\ENDTHEOREM
+\THEOREM REAL\_MAX\_LE
+  |- !x y z. max x y <= z <=> x <= z /\ y <= z
+\ENDTHEOREM
+\THEOREM REAL\_MAX\_LT
+  |- !x y z. max x y < z <=> x < z /\ y < z
+\ENDTHEOREM
+\THEOREM REAL\_MAX\_MAX
+  |- !x y. x <= max x y /\ y <= max x y
+\ENDTHEOREM
+\THEOREM REAL\_MAX\_MIN
+  |- !x y. max x y = --min (--x) (--y)
+\ENDTHEOREM
+\THEOREM REAL\_MAX\_SYM
+  |- !x y. max x y = max y x
+\ENDTHEOREM
+\THEOREM REAL\_MIN\_ACI
+  |- min x y = min y x /\
+     min (min x y) z = min x (min y z) /\
+     min x (min y z) = min y (min x z) /\
+     min x x = x /\
+     min x (min x y) = min x y
+\ENDTHEOREM
+\THEOREM REAL\_MIN\_ASSOC
+  |- !x y z. min x (min y z) = min (min x y) z
+\ENDTHEOREM
+\THEOREM REAL\_MIN\_LE
+  |- !x y z. min x y <= z <=> x <= z \/ y <= z
+\ENDTHEOREM
+\THEOREM REAL\_MIN\_LT
+  |- !x y z. min x y < z <=> x < z \/ y < z
+\ENDTHEOREM
+\THEOREM REAL\_MIN\_MAX
+  |- !x y. min x y = --max (--x) (--y)
+\ENDTHEOREM
+\THEOREM REAL\_MIN\_MIN
+  |- !x y. min x y <= x /\ min x y <= y
+\ENDTHEOREM
+\THEOREM REAL\_MIN\_SYM
+  |- !x y. min x y = min y x
+\ENDTHEOREM
+\THEOREM REAL\_MUL\_2
+  |- !x. &2 * x = x + x
+\ENDTHEOREM
+\THEOREM REAL\_MUL\_AC
+  |- m * n = n * m /\ (m * n) * p = m * n * p /\ m * n * p = n * m * p
+\ENDTHEOREM
+\THEOREM REAL\_MUL\_LINV\_UNIQ
+  |- !x y. x * y = &1 ==> inv y = x
+\ENDTHEOREM
+\THEOREM REAL\_MUL\_LNEG
+  |- !x y. --x * y = --(x * y)
+\ENDTHEOREM
+\THEOREM REAL\_MUL\_LZERO
+  |- !x. &0 * x = &0
+\ENDTHEOREM
+\THEOREM REAL\_MUL\_RID
+  |- !x. x * &1 = x
+\ENDTHEOREM
+\THEOREM REAL\_MUL\_RINV
+  |- !x. ~(x = &0) ==> x * inv x = &1
+\ENDTHEOREM
+\THEOREM REAL\_MUL\_RINV\_UNIQ
+  |- !x y. x * y = &1 ==> inv x = y
+\ENDTHEOREM
+\THEOREM REAL\_MUL\_RNEG
+  |- !x y. x * --y = --(x * y)
+\ENDTHEOREM
+\THEOREM REAL\_MUL\_RZERO
+  |- !x. x * &0 = &0
+\ENDTHEOREM
+\THEOREM REAL\_NEGNEG
+  |- !x. -- --x = x
+\ENDTHEOREM
+\THEOREM REAL\_NEG\_0
+  |- -- &0 = &0
+\ENDTHEOREM
+\THEOREM REAL\_NEG\_ADD
+  |- !x y. --(x + y) = --x + --y
+\ENDTHEOREM
+\THEOREM REAL\_NEG\_EQ
+  |- !x y. --x = y <=> x = --y
+\ENDTHEOREM
+\THEOREM REAL\_NEG\_EQ\_0
+  |- !x. --x = &0 <=> x = &0
+\ENDTHEOREM
+\THEOREM REAL\_NEG\_GE0
+  |- !x. &0 <= --x <=> x <= &0
+\ENDTHEOREM
+\THEOREM REAL\_NEG\_GT0
+  |- !x. &0 < --x <=> x < &0
+\ENDTHEOREM
+\THEOREM REAL\_NEG\_LE0
+  |- !x. --x <= &0 <=> &0 <= x
+\ENDTHEOREM
+\THEOREM REAL\_NEG\_LMUL
+  |- !x y. --(x * y) = --x * y
+\ENDTHEOREM
+\THEOREM REAL\_NEG\_LT0
+  |- !x. --x < &0 <=> &0 < x
+\ENDTHEOREM
+\THEOREM REAL\_NEG\_MINUS1
+  |- !x. --x = -- &1 * x
+\ENDTHEOREM
+\THEOREM REAL\_NEG\_MUL2
+  |- !x y. --x * --y = x * y
+\ENDTHEOREM
+\THEOREM REAL\_NEG\_NEG
+  |- !x. -- --x = x
+\ENDTHEOREM
+\THEOREM REAL\_NEG\_RMUL
+  |- !x y. --(x * y) = x * --y
+\ENDTHEOREM
+\THEOREM REAL\_NEG\_SUB
+  |- !x y. --(x - y) = y - x
+\ENDTHEOREM
+\THEOREM REAL\_NOT\_EQ
+  |- !x y. ~(x = y) <=> x < y \/ y < x
+\ENDTHEOREM
+\THEOREM REAL\_NOT\_LE
+  |- !x y. ~(x <= y) <=> y < x
+\ENDTHEOREM
+\THEOREM REAL\_NOT\_LT
+  |- !x y. ~(x < y) <=> y <= x
+\ENDTHEOREM
+\THEOREM REAL\_OF\_NUM\_GE
+  |- !m n. &m >= &n <=> m >= n
+\ENDTHEOREM
+\THEOREM REAL\_OF\_NUM\_GT
+  |- !m n. &m > &n <=> m > n
+\ENDTHEOREM
+\THEOREM REAL\_OF\_NUM\_LT
+  |- !m n. &m < &n <=> m < n
+\ENDTHEOREM
+\THEOREM REAL\_OF\_NUM\_POW
+  |- !x n. &x pow n = &(x EXP n)
+\ENDTHEOREM
+\THEOREM REAL\_OF\_NUM\_SUB
+  |- !m n. m <= n ==> &n - &m = &(n - m)
+\ENDTHEOREM
+\THEOREM REAL\_OF\_NUM\_SUC
+  |- !n. &n + &1 = &(SUC n)
+\ENDTHEOREM
+\THEOREM REAL\_POS
+  |- !n. &0 <= &n
+\ENDTHEOREM
+\THEOREM REAL\_POS\_NZ
+  |- !x. &0 < x ==> ~(x = &0)
+\ENDTHEOREM
+\THEOREM REAL\_POW2\_ABS
+  |- !x. abs x pow 2 = x pow 2
+\ENDTHEOREM
+\THEOREM REAL\_POW\_1
+  |- !x. x pow 1 = x
+\ENDTHEOREM
+\THEOREM REAL\_POW\_1\_LE
+  |- !n x. &0 <= x /\ x <= &1 ==> x pow n <= &1
+\ENDTHEOREM
+\THEOREM REAL\_POW\_2
+  |- !x. x pow 2 = x * x
+\ENDTHEOREM
+\THEOREM REAL\_POW\_ADD
+  |- !x m n. x pow (m + n) = x pow m * x pow n
+\ENDTHEOREM
+\THEOREM REAL\_POW\_DIV
+  |- !x y n. (x / y) pow n = x pow n / y pow n
+\ENDTHEOREM
+\THEOREM REAL\_POW\_EQ\_0
+  |- !x n. x pow n = &0 <=> x = &0 /\ ~(n = 0)
+\ENDTHEOREM
+\THEOREM REAL\_POW\_INV
+  |- !x n. inv x pow n = inv (x pow n)
+\ENDTHEOREM
+\THEOREM REAL\_POW\_LE
+  |- !x n. &0 <= x ==> &0 <= x pow n
+\ENDTHEOREM
+\THEOREM REAL\_POW\_LE2
+  |- !n x y. &0 <= x /\ x <= y ==> x pow n <= y pow n
+\ENDTHEOREM
+\THEOREM REAL\_POW\_LE\_1
+  |- !n x. &1 <= x ==> &1 <= x pow n
+\ENDTHEOREM
+\THEOREM REAL\_POW\_LT
+  |- !x n. &0 < x ==> &0 < x pow n
+\ENDTHEOREM
+\THEOREM REAL\_POW\_LT2
+  |- !n x y. ~(n = 0) /\ &0 <= x /\ x < y ==> x pow n < y pow n
+\ENDTHEOREM
+\THEOREM REAL\_POW\_MONO
+  |- !m n x. &1 <= x /\ m <= n ==> x pow m <= x pow n
+\ENDTHEOREM
+\THEOREM REAL\_POW\_MONO\_LT
+  |- !m n x. &1 < x /\ m < n ==> x pow m < x pow n
+\ENDTHEOREM
+\THEOREM REAL\_POW\_MUL
+  |- !x y n. (x * y) pow n = x pow n * y pow n
+\ENDTHEOREM
+\THEOREM REAL\_POW\_NEG
+  |- !x n. --x pow n = (if EVEN n then x pow n else --(x pow n))
+\ENDTHEOREM
+\THEOREM REAL\_POW\_NZ
+  |- !x n. ~(x = &0) ==> ~(x pow n = &0)
+\ENDTHEOREM
+\THEOREM REAL\_POW\_ONE
+  |- !n. &1 pow n = &1
+\ENDTHEOREM
+\THEOREM REAL\_POW\_POW
+  |- !x m n. x pow m pow n = x pow (m * n)
+\ENDTHEOREM
+\THEOREM REAL\_POW\_SUB
+  |- !x m n. ~(x = &0) /\ m <= n ==> x pow (n - m) = x pow n / x pow m
+\ENDTHEOREM
+\THEOREM REAL\_RNEG\_UNIQ
+  |- !x y. x + y = &0 <=> y = --x
+\ENDTHEOREM
+\THEOREM REAL\_SOS\_EQ\_0
+  |- !x y. x pow 2 + y pow 2 = &0 <=> x = &0 /\ y = &0
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_0
+  |- !x y. x - y = &0 <=> x = y
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_ABS
+  |- !x y. abs x - abs y <= abs (x - y)
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_ADD
+  |- !x y. x - y + y = x
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_ADD2
+  |- !x y. y + x - y = x
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_INV
+  |- !x y. ~(x = &0) /\ ~(y = &0) ==> inv x - inv y = (y - x) / (x * y)
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_LDISTRIB
+  |- !x y z. x * (y - z) = x * y - x * z
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_LE
+  |- !x y. &0 <= x - y <=> y <= x
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_LNEG
+  |- !x y. --x - y = --(x + y)
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_LT
+  |- !x y. &0 < x - y <=> y < x
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_LZERO
+  |- !x. &0 - x = --x
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_NEG2
+  |- !x y. --x - --y = y - x
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_RDISTRIB
+  |- !x y z. (x - y) * z = x * z - y * z
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_REFL
+  |- !x. x - x = &0
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_RNEG
+  |- !x y. x - --y = x + y
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_RZERO
+  |- !x. x - &0 = x
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_SUB
+  |- !x y. x - y - x = --y
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_SUB2
+  |- !x y. x - (x - y) = y
+\ENDTHEOREM
+\THEOREM REAL\_SUB\_TRIANGLE
+  |- !a b c. a - b + b - c = a - c
+\ENDTHEOREM
+\THEOREM REAL\_WLOG\_LE
+  |- (!x y. P x y <=> P y x) /\ (!x y. x <= y ==> P x y) ==> (!x y. P x y)
+\ENDTHEOREM
+\THEOREM REAL\_WLOG\_LT
+  |- (!x. P x x) /\ (!x y. P x y <=> P y x) /\ (!x y. x < y ==> P x y)
+     ==> (!x y. P x y)
+\ENDTHEOREM
+\THEOREM real\_abs
+  |- !x. abs x = (if &0 <= x then x else --x)
+\ENDTHEOREM
+\THEOREM real\_div
+  |- !x y. x / y = x * inv y
+\ENDTHEOREM
+\THEOREM real\_ge
+  |- !y x. x >= y <=> y <= x
+\ENDTHEOREM
+\THEOREM real\_gt
+  |- !y x. x > y <=> y < x
+\ENDTHEOREM
+\THEOREM real\_lt
+  |- !y x. x < y <=> ~(y <= x)
+\ENDTHEOREM
+\THEOREM real\_max
+  |- !n m. max m n = (if m <= n then n else m)
+\ENDTHEOREM
+\THEOREM real\_min
+  |- !m n. min m n = (if m <= n then m else n)
+\ENDTHEOREM
+\THEOREM real\_pow
+  |- x pow 0 = &1 /\ (!n. x pow SUC n = x * x pow n)
+\ENDTHEOREM
+\THEOREM real\_sub
+  |- !x y. x - y = x + --y
+\ENDTHEOREM
+
+\section{Theorems about integers}
+\THEOREM INT\_ABS
+  |- !x. abs x = (if &0 <= x then x else --x)
+\ENDTHEOREM
+\THEOREM INT\_ABS\_0
+  |- abs (&0) = &0
+\ENDTHEOREM
+\THEOREM INT\_ABS\_1
+  |- abs (&1) = &1
+\ENDTHEOREM
+\THEOREM INT\_ABS\_ABS
+  |- !x. abs (abs x) = abs x
+\ENDTHEOREM
+\THEOREM INT\_ABS\_BETWEEN
+  |- !x y d. &0 < d /\ x - d < y /\ y < x + d <=> abs (y - x) < d
+\ENDTHEOREM
+\THEOREM INT\_ABS\_BETWEEN1
+  |- !x y z. x < z /\ abs (y - x) < z - x ==> y < z
+\ENDTHEOREM
+\THEOREM INT\_ABS\_BETWEEN2
+  |- !x0 x y0 y.
+         x0 < y0 /\
+         &2 * abs (x - x0) < y0 - x0 /\
+         &2 * abs (y - y0) < y0 - x0
+         ==> x < y
+\ENDTHEOREM
+\THEOREM INT\_ABS\_BOUND
+  |- !x y d. abs (x - y) < d ==> y < x + d
+\ENDTHEOREM
+\THEOREM INT\_ABS\_CASES
+  |- !x. x = &0 \/ &0 < abs x
+\ENDTHEOREM
+\THEOREM INT\_ABS\_CIRCLE
+  |- !x y h. abs h < abs y - abs x ==> abs (x + h) < abs y
+\ENDTHEOREM
+\THEOREM INT\_ABS\_LE
+  |- !x. x <= abs x
+\ENDTHEOREM
+\THEOREM INT\_ABS\_MUL
+  |- !x y. abs (x * y) = abs x * abs y
+\ENDTHEOREM
+\THEOREM INT\_ABS\_MUL\_1
+  |- !x y. abs (x * y) = &1 <=> abs x = &1 /\ abs y = &1
+\ENDTHEOREM
+\THEOREM INT\_ABS\_NEG
+  |- !x. abs (--x) = abs x
+\ENDTHEOREM
+\THEOREM INT\_ABS\_NUM
+  |- !n. abs (&n) = &n
+\ENDTHEOREM
+\THEOREM INT\_ABS\_NZ
+  |- !x. ~(x = &0) <=> &0 < abs x
+\ENDTHEOREM
+\THEOREM INT\_ABS\_POS
+  |- !x. &0 <= abs x
+\ENDTHEOREM
+\THEOREM INT\_ABS\_POW
+  |- !x n. abs (x pow n) = abs x pow n
+\ENDTHEOREM
+\THEOREM INT\_ABS\_REFL
+  |- !x. abs x = x <=> &0 <= x
+\ENDTHEOREM
+\THEOREM INT\_ABS\_SIGN
+  |- !x y. abs (x - y) < y ==> &0 < x
+\ENDTHEOREM
+\THEOREM INT\_ABS\_SIGN2
+  |- !x y. abs (x - y) < --y ==> x < &0
+\ENDTHEOREM
+\THEOREM INT\_ABS\_STILLNZ
+  |- !x y. abs (x - y) < abs y ==> ~(x = &0)
+\ENDTHEOREM
+\THEOREM INT\_ABS\_SUB
+  |- !x y. abs (x - y) = abs (y - x)
+\ENDTHEOREM
+\THEOREM INT\_ABS\_SUB\_ABS
+  |- !x y. abs (abs x - abs y) <= abs (x - y)
+\ENDTHEOREM
+\THEOREM INT\_ABS\_TRIANGLE
+  |- !x y. abs (x + y) <= abs x + abs y
+\ENDTHEOREM
+\THEOREM INT\_ABS\_ZERO
+  |- !x. abs x = &0 <=> x = &0
+\ENDTHEOREM
+\THEOREM INT\_ADD2\_SUB2
+  |- !a b c d. (a + b) - (c + d) = a - c + b - d
+\ENDTHEOREM
+\THEOREM INT\_ADD\_AC
+  |- m + n = n + m /\ (m + n) + p = m + n + p /\ m + n + p = n + m + p
+\ENDTHEOREM
+\THEOREM INT\_ADD\_ASSOC
+  |- !x y z. x + y + z = (x + y) + z
+\ENDTHEOREM
+\THEOREM INT\_ADD\_LDISTRIB
+  |- !x y z. x * (y + z) = x * y + x * z
+\ENDTHEOREM
+\THEOREM INT\_ADD\_LID
+  |- !x. &0 + x = x
+\ENDTHEOREM
+\THEOREM INT\_ADD\_LINV
+  |- !x. --x + x = &0
+\ENDTHEOREM
+\THEOREM INT\_ADD\_RDISTRIB
+  |- !x y z. (x + y) * z = x * z + y * z
+\ENDTHEOREM
+\THEOREM INT\_ADD\_RID
+  |- !x. x + &0 = x
+\ENDTHEOREM
+\THEOREM INT\_ADD\_RINV
+  |- !x. x + --x = &0
+\ENDTHEOREM
+\THEOREM INT\_ADD\_SUB
+  |- !x y. (x + y) - x = y
+\ENDTHEOREM
+\THEOREM INT\_ADD\_SUB2
+  |- !x y. x - (x + y) = --y
+\ENDTHEOREM
+\THEOREM INT\_ADD\_SYM
+  |- !x y. x + y = y + x
+\ENDTHEOREM
+\THEOREM INT\_ARCH
+  |- !x d. ~(d = &0) ==> (?c. x < c * d)
+\ENDTHEOREM
+\THEOREM INT\_DIFFSQ
+  |- !x y. (x + y) * (x - y) = x * x - y * y
+\ENDTHEOREM
+\THEOREM INT\_ENTIRE
+  |- !x y. x * y = &0 <=> x = &0 \/ y = &0
+\ENDTHEOREM
+\THEOREM INT\_EQ\_ADD\_LCANCEL
+  |- !x y z. x + y = x + z <=> y = z
+\ENDTHEOREM
+\THEOREM INT\_EQ\_ADD\_LCANCEL\_0
+  |- !x y. x + y = x <=> y = &0
+\ENDTHEOREM
+\THEOREM INT\_EQ\_ADD\_RCANCEL
+  |- !x y z. x + z = y + z <=> x = y
+\ENDTHEOREM
+\THEOREM INT\_EQ\_ADD\_RCANCEL\_0
+  |- !x y. x + y = y <=> x = &0
+\ENDTHEOREM
+\THEOREM INT\_EQ\_IMP\_LE
+  |- !x y. x = y ==> x <= y
+\ENDTHEOREM
+\THEOREM INT\_EQ\_MUL\_LCANCEL
+  |- !x y z. x * y = x * z <=> x = &0 \/ y = z
+\ENDTHEOREM
+\THEOREM INT\_EQ\_MUL\_RCANCEL
+  |- !x y z. x * z = y * z <=> x = y \/ z = &0
+\ENDTHEOREM
+\THEOREM INT\_EQ\_NEG2
+  |- !x y. --x = --y <=> x = y
+\ENDTHEOREM
+\THEOREM INT\_EQ\_SUB\_LADD
+  |- !x y z. x = y - z <=> x + z = y
+\ENDTHEOREM
+\THEOREM INT\_EQ\_SUB\_RADD
+  |- !x y z. x - y = z <=> x = z + y
+\ENDTHEOREM
+\THEOREM INT\_FORALL\_POS
+  |- (!n. P (&n)) <=> (!i. &0 <= i ==> P i)
+\ENDTHEOREM
+\THEOREM INT\_GE
+  |- !x y. x >= y <=> y <= x
+\ENDTHEOREM
+\THEOREM INT\_GT
+  |- !x y. x > y <=> y < x
+\ENDTHEOREM
+\THEOREM INT\_GT\_DISCRETE
+  |- !x y. x > y <=> x >= y + &1
+\ENDTHEOREM
+\THEOREM INT\_IMAGE
+  |- !x. (?n. x = &n) \/ (?n. x = -- &n)
+\ENDTHEOREM
+\THEOREM INT\_LET\_ADD
+  |- !x y. &0 <= x /\ &0 < y ==> &0 < x + y
+\ENDTHEOREM
+\THEOREM INT\_LET\_ADD2
+  |- !w x y z. w <= x /\ y < z ==> w + y < x + z
+\ENDTHEOREM
+\THEOREM INT\_LET\_ANTISYM
+  |- !x y. ~(x <= y /\ y < x)
+\ENDTHEOREM
+\THEOREM INT\_LET\_TOTAL
+  |- !x y. x <= y \/ y < x
+\ENDTHEOREM
+\THEOREM INT\_LET\_TRANS
+  |- !x y z. x <= y /\ y < z ==> x < z
+\ENDTHEOREM
+\THEOREM INT\_LE\_01
+  |- &0 <= &1
+\ENDTHEOREM
+\THEOREM INT\_LE\_ADD
+  |- !x y. &0 <= x /\ &0 <= y ==> &0 <= x + y
+\ENDTHEOREM
+\THEOREM INT\_LE\_ADD2
+  |- !w x y z. w <= x /\ y <= z ==> w + y <= x + z
+\ENDTHEOREM
+\THEOREM INT\_LE\_ADDL
+  |- !x y. y <= x + y <=> &0 <= x
+\ENDTHEOREM
+\THEOREM INT\_LE\_ADDR
+  |- !x y. x <= x + y <=> &0 <= y
+\ENDTHEOREM
+\THEOREM INT\_LE\_ANTISYM
+  |- !x y. x <= y /\ y <= x <=> x = y
+\ENDTHEOREM
+\THEOREM INT\_LE\_DOUBLE
+  |- !x. &0 <= x + x <=> &0 <= x
+\ENDTHEOREM
+\THEOREM INT\_LE\_LADD
+  |- !x y z. x + y <= x + z <=> y <= z
+\ENDTHEOREM
+\THEOREM INT\_LE\_LADD\_IMP
+  |- !x y z. y <= z ==> x + y <= x + z
+\ENDTHEOREM
+\THEOREM INT\_LE\_LMUL
+  |- !x y z. &0 <= x /\ y <= z ==> x * y <= x * z
+\ENDTHEOREM
+\THEOREM INT\_LE\_LNEG
+  |- !x y. --x <= y <=> &0 <= x + y
+\ENDTHEOREM
+\THEOREM INT\_LE\_LT
+  |- !x y. x <= y <=> x < y \/ x = y
+\ENDTHEOREM
+\THEOREM INT\_LE\_MAX
+  |- !x y z. z <= max x y <=> z <= x \/ z <= y
+\ENDTHEOREM
+\THEOREM INT\_LE\_MIN
+  |- !x y z. z <= min x y <=> z <= x /\ z <= y
+\ENDTHEOREM
+\THEOREM INT\_LE\_MUL
+  |- !x y. &0 <= x /\ &0 <= y ==> &0 <= x * y
+\ENDTHEOREM
+\THEOREM INT\_LE\_NEG
+  |- !x y. --x <= --y <=> y <= x
+\ENDTHEOREM
+\THEOREM INT\_LE\_NEG2
+  |- !x y. --x <= --y <=> y <= x
+\ENDTHEOREM
+\THEOREM INT\_LE\_NEGL
+  |- !x. --x <= x <=> &0 <= x
+\ENDTHEOREM
+\THEOREM INT\_LE\_NEGR
+  |- !x. x <= --x <=> x <= &0
+\ENDTHEOREM
+\THEOREM INT\_LE\_NEGTOTAL
+  |- !x. &0 <= x \/ &0 <= --x
+\ENDTHEOREM
+\THEOREM INT\_LE\_POW2
+  |- !n. &1 <= &2 pow n
+\ENDTHEOREM
+\THEOREM INT\_LE\_RADD
+  |- !x y z. x + z <= y + z <=> x <= y
+\ENDTHEOREM
+\THEOREM INT\_LE\_REFL
+  |- !x. x <= x
+\ENDTHEOREM
+\THEOREM INT\_LE\_RNEG
+  |- !x y. x <= --y <=> x + y <= &0
+\ENDTHEOREM
+\THEOREM INT\_LE\_SQUARE
+  |- !x. &0 <= x * x
+\ENDTHEOREM
+\THEOREM INT\_LE\_SUB\_LADD
+  |- !x y z. x <= y - z <=> x + z <= y
+\ENDTHEOREM
+\THEOREM INT\_LE\_SUB\_RADD
+  |- !x y z. x - y <= z <=> x <= z + y
+\ENDTHEOREM
+\THEOREM INT\_LE\_TOTAL
+  |- !x y. x <= y \/ y <= x
+\ENDTHEOREM
+\THEOREM INT\_LE\_TRANS
+  |- !x y z. x <= y /\ y <= z ==> x <= z
+\ENDTHEOREM
+\THEOREM INT\_LNEG\_UNIQ
+  |- !x y. x + y = &0 <=> x = --y
+\ENDTHEOREM
+\THEOREM INT\_LT
+  |- !x y. x < y <=> ~(y <= x)
+\ENDTHEOREM
+\THEOREM INT\_LTE\_ADD
+  |- !x y. &0 < x /\ &0 <= y ==> &0 < x + y
+\ENDTHEOREM
+\THEOREM INT\_LTE\_ADD2
+  |- !w x y z. w < x /\ y <= z ==> w + y < x + z
+\ENDTHEOREM
+\THEOREM INT\_LTE\_ANTISYM
+  |- !x y. ~(x < y /\ y <= x)
+\ENDTHEOREM
+\THEOREM INT\_LTE\_TOTAL
+  |- !x y. x < y \/ y <= x
+\ENDTHEOREM
+\THEOREM INT\_LTE\_TRANS
+  |- !x y z. x < y /\ y <= z ==> x < z
+\ENDTHEOREM
+\THEOREM INT\_LT\_01
+  |- &0 < &1
+\ENDTHEOREM
+\THEOREM INT\_LT\_ADD
+  |- !x y. &0 < x /\ &0 < y ==> &0 < x + y
+\ENDTHEOREM
+\THEOREM INT\_LT\_ADD1
+  |- !x y. x <= y ==> x < y + &1
+\ENDTHEOREM
+\THEOREM INT\_LT\_ADD2
+  |- !w x y z. w < x /\ y < z ==> w + y < x + z
+\ENDTHEOREM
+\THEOREM INT\_LT\_ADDL
+  |- !x y. y < x + y <=> &0 < x
+\ENDTHEOREM
+\THEOREM INT\_LT\_ADDNEG
+  |- !x y z. y < x + --z <=> y + z < x
+\ENDTHEOREM
+\THEOREM INT\_LT\_ADDNEG2
+  |- !x y z. x + --y < z <=> x < z + y
+\ENDTHEOREM
+\THEOREM INT\_LT\_ADDR
+  |- !x y. x < x + y <=> &0 < y
+\ENDTHEOREM
+\THEOREM INT\_LT\_ADD\_SUB
+  |- !x y z. x + y < z <=> x < z - y
+\ENDTHEOREM
+\THEOREM INT\_LT\_ANTISYM
+  |- !x y. ~(x < y /\ y < x)
+\ENDTHEOREM
+\THEOREM INT\_LT\_DISCRETE
+  |- !x y. x < y <=> x + &1 <= y
+\ENDTHEOREM
+\THEOREM INT\_LT\_GT
+  |- !x y. x < y ==> ~(y < x)
+\ENDTHEOREM
+\THEOREM INT\_LT\_IMP\_LE
+  |- !x y. x < y ==> x <= y
+\ENDTHEOREM
+\THEOREM INT\_LT\_IMP\_NE
+  |- !x y. x < y ==> ~(x = y)
+\ENDTHEOREM
+\THEOREM INT\_LT\_LADD
+  |- !x y z. x + y < x + z <=> y < z
+\ENDTHEOREM
+\THEOREM INT\_LT\_LE
+  |- !x y. x < y <=> x <= y /\ ~(x = y)
+\ENDTHEOREM
+\THEOREM INT\_LT\_LMUL\_EQ
+  |- !x y z. &0 < z ==> (z * x < z * y <=> x < y)
+\ENDTHEOREM
+\THEOREM INT\_LT\_MAX
+  |- !x y z. z < max x y <=> z < x \/ z < y
+\ENDTHEOREM
+\THEOREM INT\_LT\_MIN
+  |- !x y z. z < min x y <=> z < x /\ z < y
+\ENDTHEOREM
+\THEOREM INT\_LT\_MUL
+  |- !x y. &0 < x /\ &0 < y ==> &0 < x * y
+\ENDTHEOREM
+\THEOREM INT\_LT\_NEG
+  |- !x y. --x < --y <=> y < x
+\ENDTHEOREM
+\THEOREM INT\_LT\_NEG2
+  |- !x y. --x < --y <=> y < x
+\ENDTHEOREM
+\THEOREM INT\_LT\_NEGTOTAL
+  |- !x. x = &0 \/ &0 < x \/ &0 < --x
+\ENDTHEOREM
+\THEOREM INT\_LT\_POW2
+  |- !n. &0 < &2 pow n
+\ENDTHEOREM
+\THEOREM INT\_LT\_RADD
+  |- !x y z. x + z < y + z <=> x < y
+\ENDTHEOREM
+\THEOREM INT\_LT\_REFL
+  |- !x. ~(x < x)
+\ENDTHEOREM
+\THEOREM INT\_LT\_RMUL\_EQ
+  |- !x y z. &0 < z ==> (x * z < y * z <=> x < y)
+\ENDTHEOREM
+\THEOREM INT\_LT\_SUB\_LADD
+  |- !x y z. x < y - z <=> x + z < y
+\ENDTHEOREM
+\THEOREM INT\_LT\_SUB\_RADD
+  |- !x y z. x - y < z <=> x < z + y
+\ENDTHEOREM
+\THEOREM INT\_LT\_TOTAL
+  |- !x y. x = y \/ x < y \/ y < x
+\ENDTHEOREM
+\THEOREM INT\_LT\_TRANS
+  |- !x y z. x < y /\ y < z ==> x < z
+\ENDTHEOREM
+\THEOREM INT\_MAX\_ACI
+  |- max x y = max y x /\
+     max (max x y) z = max x (max y z) /\
+     max x (max y z) = max y (max x z) /\
+     max x x = x /\
+     max x (max x y) = max x y
+\ENDTHEOREM
+\THEOREM INT\_MAX\_ASSOC
+  |- !x y z. max x (max y z) = max (max x y) z
+\ENDTHEOREM
+\THEOREM INT\_MAX\_LE
+  |- !x y z. max x y <= z <=> x <= z /\ y <= z
+\ENDTHEOREM
+\THEOREM INT\_MAX\_LT
+  |- !x y z. max x y < z <=> x < z /\ y < z
+\ENDTHEOREM
+\THEOREM INT\_MAX\_MAX
+  |- !x y. x <= max x y /\ y <= max x y
+\ENDTHEOREM
+\THEOREM INT\_MAX\_MIN
+  |- !x y. max x y = --min (--x) (--y)
+\ENDTHEOREM
+\THEOREM INT\_MAX\_SYM
+  |- !x y. max x y = max y x
+\ENDTHEOREM
+\THEOREM INT\_MIN\_ACI
+  |- min x y = min y x /\
+     min (min x y) z = min x (min y z) /\
+     min x (min y z) = min y (min x z) /\
+     min x x = x /\
+     min x (min x y) = min x y
+\ENDTHEOREM
+\THEOREM INT\_MIN\_ASSOC
+  |- !x y z. min x (min y z) = min (min x y) z
+\ENDTHEOREM
+\THEOREM INT\_MIN\_LE
+  |- !x y z. min x y <= z <=> x <= z \/ y <= z
+\ENDTHEOREM
+\THEOREM INT\_MIN\_LT
+  |- !x y z. min x y < z <=> x < z \/ y < z
+\ENDTHEOREM
+\THEOREM INT\_MIN\_MAX
+  |- !x y. min x y = --max (--x) (--y)
+\ENDTHEOREM
+\THEOREM INT\_MIN\_MIN
+  |- !x y. min x y <= x /\ min x y <= y
+\ENDTHEOREM
+\THEOREM INT\_MIN\_SYM
+  |- !x y. min x y = min y x
+\ENDTHEOREM
+\THEOREM INT\_MUL\_AC
+  |- m * n = n * m /\ (m * n) * p = m * n * p /\ m * n * p = n * m * p
+\ENDTHEOREM
+\THEOREM INT\_MUL\_ASSOC
+  |- !x y z. x * y * z = (x * y) * z
+\ENDTHEOREM
+\THEOREM INT\_MUL\_LID
+  |- !x. &1 * x = x
+\ENDTHEOREM
+\THEOREM INT\_MUL\_LNEG
+  |- !x y. --x * y = --(x * y)
+\ENDTHEOREM
+\THEOREM INT\_MUL\_LZERO
+  |- !x. &0 * x = &0
+\ENDTHEOREM
+\THEOREM INT\_MUL\_RID
+  |- !x. x * &1 = x
+\ENDTHEOREM
+\THEOREM INT\_MUL\_RNEG
+  |- !x y. x * --y = --(x * y)
+\ENDTHEOREM
+\THEOREM INT\_MUL\_RZERO
+  |- !x. x * &0 = &0
+\ENDTHEOREM
+\THEOREM INT\_MUL\_SYM
+  |- !x y. x * y = y * x
+\ENDTHEOREM
+\THEOREM INT\_NEGNEG
+  |- !x. -- --x = x
+\ENDTHEOREM
+\THEOREM INT\_NEG\_0
+  |- -- &0 = &0
+\ENDTHEOREM
+\THEOREM INT\_NEG\_ADD
+  |- !x y. --(x + y) = --x + --y
+\ENDTHEOREM
+\THEOREM INT\_NEG\_EQ
+  |- !x y. --x = y <=> x = --y
+\ENDTHEOREM
+\THEOREM INT\_NEG\_EQ\_0
+  |- !x. --x = &0 <=> x = &0
+\ENDTHEOREM
+\THEOREM INT\_NEG\_GE0
+  |- !x. &0 <= --x <=> x <= &0
+\ENDTHEOREM
+\THEOREM INT\_NEG\_GT0
+  |- !x. &0 < --x <=> x < &0
+\ENDTHEOREM
+\THEOREM INT\_NEG\_LE0
+  |- !x. --x <= &0 <=> &0 <= x
+\ENDTHEOREM
+\THEOREM INT\_NEG\_LMUL
+  |- !x y. --(x * y) = --x * y
+\ENDTHEOREM
+\THEOREM INT\_NEG\_LT0
+  |- !x. --x < &0 <=> &0 < x
+\ENDTHEOREM
+\THEOREM INT\_NEG\_MINUS1
+  |- !x. --x = -- &1 * x
+\ENDTHEOREM
+\THEOREM INT\_NEG\_MUL2
+  |- !x y. --x * --y = x * y
+\ENDTHEOREM
+\THEOREM INT\_NEG\_NEG
+  |- !x. -- --x = x
+\ENDTHEOREM
+\THEOREM INT\_NEG\_RMUL
+  |- !x y. --(x * y) = x * --y
+\ENDTHEOREM
+\THEOREM INT\_NEG\_SUB
+  |- !x y. --(x - y) = y - x
+\ENDTHEOREM
+\THEOREM INT\_NOT\_EQ
+  |- !x y. ~(x = y) <=> x < y \/ y < x
+\ENDTHEOREM
+\THEOREM INT\_NOT\_LE
+  |- !x y. ~(x <= y) <=> y < x
+\ENDTHEOREM
+\THEOREM INT\_NOT\_LT
+  |- !x y. ~(x < y) <=> y <= x
+\ENDTHEOREM
+\THEOREM INT\_OF\_NUM\_ADD
+  |- !m n. &m + &n = &(m + n)
+\ENDTHEOREM
+\THEOREM INT\_OF\_NUM\_EQ
+  |- !m n. &m = &n <=> m = n
+\ENDTHEOREM
+\THEOREM INT\_OF\_NUM\_GE
+  |- !m n. &m >= &n <=> m >= n
+\ENDTHEOREM
+\THEOREM INT\_OF\_NUM\_GT
+  |- !m n. &m > &n <=> m > n
+\ENDTHEOREM
+\THEOREM INT\_OF\_NUM\_LE
+  |- !m n. &m <= &n <=> m <= n
+\ENDTHEOREM
+\THEOREM INT\_OF\_NUM\_LT
+  |- !m n. &m < &n <=> m < n
+\ENDTHEOREM
+\THEOREM INT\_OF\_NUM\_MUL
+  |- !m n. &m * &n = &(m * n)
+\ENDTHEOREM
+\THEOREM INT\_OF\_NUM\_OF\_INT
+  |- !x. &0 <= x ==> &(num_of_int x) = x
+\ENDTHEOREM
+\THEOREM INT\_OF\_NUM\_POW
+  |- !x n. &x pow n = &(x EXP n)
+\ENDTHEOREM
+\THEOREM INT\_OF\_NUM\_SUB
+  |- !m n. m <= n ==> &n - &m = &(n - m)
+\ENDTHEOREM
+\THEOREM INT\_OF\_NUM\_SUC
+  |- !n. &n + &1 = &(SUC n)
+\ENDTHEOREM
+\THEOREM INT\_POS
+  |- !n. &0 <= &n
+\ENDTHEOREM
+\THEOREM INT\_POS\_NZ
+  |- !x. &0 < x ==> ~(x = &0)
+\ENDTHEOREM
+\THEOREM INT\_POW
+  |- x pow 0 = &1 /\ (!n. x pow SUC n = x * x pow n)
+\ENDTHEOREM
+\THEOREM INT\_POW2\_ABS
+  |- !x. abs x pow 2 = x pow 2
+\ENDTHEOREM
+\THEOREM INT\_POW\_1
+  |- !x. x pow 1 = x
+\ENDTHEOREM
+\THEOREM INT\_POW\_1\_LE
+  |- !n x. &0 <= x /\ x <= &1 ==> x pow n <= &1
+\ENDTHEOREM
+\THEOREM INT\_POW\_2
+  |- !x. x pow 2 = x * x
+\ENDTHEOREM
+\THEOREM INT\_POW\_ADD
+  |- !x m n. x pow (m + n) = x pow m * x pow n
+\ENDTHEOREM
+\THEOREM INT\_POW\_EQ\_0
+  |- !x n. x pow n = &0 <=> x = &0 /\ ~(n = 0)
+\ENDTHEOREM
+\THEOREM INT\_POW\_LE
+  |- !x n. &0 <= x ==> &0 <= x pow n
+\ENDTHEOREM
+\THEOREM INT\_POW\_LE2
+  |- !n x y. &0 <= x /\ x <= y ==> x pow n <= y pow n
+\ENDTHEOREM
+\THEOREM INT\_POW\_LE\_1
+  |- !n x. &1 <= x ==> &1 <= x pow n
+\ENDTHEOREM
+\THEOREM INT\_POW\_LT
+  |- !x n. &0 < x ==> &0 < x pow n
+\ENDTHEOREM
+\THEOREM INT\_POW\_LT2
+  |- !n x y. ~(n = 0) /\ &0 <= x /\ x < y ==> x pow n < y pow n
+\ENDTHEOREM
+\THEOREM INT\_POW\_MONO
+  |- !m n x. &1 <= x /\ m <= n ==> x pow m <= x pow n
+\ENDTHEOREM
+\THEOREM INT\_POW\_MONO\_LT
+  |- !m n x. &1 < x /\ m < n ==> x pow m < x pow n
+\ENDTHEOREM
+\THEOREM INT\_POW\_MUL
+  |- !x y n. (x * y) pow n = x pow n * y pow n
+\ENDTHEOREM
+\THEOREM INT\_POW\_NEG
+  |- !x n. --x pow n = (if EVEN n then x pow n else --(x pow n))
+\ENDTHEOREM
+\THEOREM INT\_POW\_NZ
+  |- !x n. ~(x = &0) ==> ~(x pow n = &0)
+\ENDTHEOREM
+\THEOREM INT\_POW\_ONE
+  |- !n. &1 pow n = &1
+\ENDTHEOREM
+\THEOREM INT\_POW\_POW
+  |- !x m n. x pow m pow n = x pow (m * n)
+\ENDTHEOREM
+\THEOREM INT\_RNEG\_UNIQ
+  |- !x y. x + y = &0 <=> y = --x
+\ENDTHEOREM
+\THEOREM INT\_SUB
+  |- !x y. x - y = x + --y
+\ENDTHEOREM
+\THEOREM INT\_SUB\_0
+  |- !x y. x - y = &0 <=> x = y
+\ENDTHEOREM
+\THEOREM INT\_SUB\_ABS
+  |- !x y. abs x - abs y <= abs (x - y)
+\ENDTHEOREM
+\THEOREM INT\_SUB\_ADD
+  |- !x y. x - y + y = x
+\ENDTHEOREM
+\THEOREM INT\_SUB\_ADD2
+  |- !x y. y + x - y = x
+\ENDTHEOREM
+\THEOREM INT\_SUB\_LDISTRIB
+  |- !x y z. x * (y - z) = x * y - x * z
+\ENDTHEOREM
+\THEOREM INT\_SUB\_LE
+  |- !x y. &0 <= x - y <=> y <= x
+\ENDTHEOREM
+\THEOREM INT\_SUB\_LNEG
+  |- !x y. --x - y = --(x + y)
+\ENDTHEOREM
+\THEOREM INT\_SUB\_LT
+  |- !x y. &0 < x - y <=> y < x
+\ENDTHEOREM
+\THEOREM INT\_SUB\_LZERO
+  |- !x. &0 - x = --x
+\ENDTHEOREM
+\THEOREM INT\_SUB\_NEG2
+  |- !x y. --x - --y = y - x
+\ENDTHEOREM
+\THEOREM INT\_SUB\_REFL
+  |- !x. x - x = &0
+\ENDTHEOREM
+\THEOREM INT\_SUB\_RNEG
+  |- !x y. x - --y = x + y
+\ENDTHEOREM
+\THEOREM INT\_SUB\_RZERO
+  |- !x. x - &0 = x
+\ENDTHEOREM
+\THEOREM INT\_SUB\_SUB
+  |- !x y. x - y - x = --y
+\ENDTHEOREM
+\THEOREM INT\_SUB\_SUB2
+  |- !x y. x - (x - y) = y
+\ENDTHEOREM
+\THEOREM INT\_SUB\_TRIANGLE
+  |- !a b c. a - b + b - c = a - c
+\ENDTHEOREM
+\THEOREM NUM\_GCD
+  |- !a b. &(gcd (a,b)) = gcd (&a,&b)
+\ENDTHEOREM
+\THEOREM NUM\_OF\_INT
+  |- !x. &0 <= x <=> &(num_of_int x) = x
+\ENDTHEOREM
+\THEOREM NUM\_OF\_INT\_OF\_NUM
+  |- !n. num_of_int (&n) = n
+\ENDTHEOREM
+\THEOREM int\_congruent
+  |- !x y n. (x == y) (mod n) <=> (?d. x - y = n * d)
+\ENDTHEOREM
+\THEOREM int\_coprime
+  |- !a b. coprime (a,b) <=> (?x y. a * x + b * y = &1)
+\ENDTHEOREM
+\THEOREM int\_divides
+  |- !b a. a divides b <=> (?x. b = a * x)
+\ENDTHEOREM
+\THEOREM int\_gcd
+  |- !a b.
+         &0 <= gcd (a,b) /\
+         gcd (a,b) divides a /\
+         gcd (a,b) divides b /\
+         (?x y. gcd (a,b) = a * x + b * y)
+\ENDTHEOREM
+\THEOREM int\_mod
+  |- !n x y. mod n x y <=> n divides x - y
+\ENDTHEOREM
+\THEOREM num\_congruent
+  |- !x y n. (x == y) (mod n) <=> (&x == &y) (mod &n)
+\ENDTHEOREM
+\THEOREM num\_coprime
+  |- !a b. coprime (a,b) <=> coprime (&a,&b)
+\ENDTHEOREM
+\THEOREM num\_divides
+  |- !a b. a divides b <=> &a divides &b
+\ENDTHEOREM
+\THEOREM num\_gcd
+  |- !a b. gcd (a,b) = num_of_int (gcd (&a,&b))
+\ENDTHEOREM
+\THEOREM num\_mod
+  |- !n x y. mod n x y <=> mod &n (&x) (&y)
+\ENDTHEOREM
+
+\section{Theorems about sets and functions}
+\THEOREM ABSORPTION
+  |- !x s. x IN s <=> x INSERT s = s
+\ENDTHEOREM
+\THEOREM BIJ
+  |- !f s t. BIJ f s t <=> INJ f s t /\ SURJ f s t
+\ENDTHEOREM
+\THEOREM BIJECTIONS\_CARD\_EQ
+  |- !s t f g.
+         (FINITE s \/ FINITE t) /\
+         (!x. x IN s ==> f x IN t /\ g (f x) = x) /\
+         (!y. y IN t ==> g y IN s /\ f (g y) = y)
+         ==> CARD s = CARD t
+\ENDTHEOREM
+\THEOREM BIJECTIONS\_HAS\_SIZE
+  |- !s t f g.
+         (!x. x IN s ==> f x IN t /\ g (f x) = x) /\
+         (!y. y IN t ==> g y IN s /\ f (g y) = y) /\
+         s HAS_SIZE n
+         ==> t HAS_SIZE n
+\ENDTHEOREM
+\THEOREM BIJECTIONS\_HAS\_SIZE\_EQ
+  |- !s t f g.
+         (!x. x IN s ==> f x IN t /\ g (f x) = x) /\
+         (!y. y IN t ==> g y IN s /\ f (g y) = y)
+         ==> (!n. s HAS_SIZE n <=> t HAS_SIZE n)
+\ENDTHEOREM
+\THEOREM CARD
+  |- !s. CARD s = ITSET (\x n. SUC n) s 0
+\ENDTHEOREM
+\THEOREM CARD\_CLAUSES
+  |- CARD {} = 0 /\
+     (!x s.
+          FINITE s
+          ==> CARD (x INSERT s) = (if x IN s then CARD s else SUC (CARD s)))
+\ENDTHEOREM
+\THEOREM CARD\_CROSS
+  |- !s t. FINITE s /\ FINITE t ==> CARD (s CROSS t) = CARD s * CARD t
+\ENDTHEOREM
+\THEOREM CARD\_DELETE
+  |- !x s.
+         FINITE s
+         ==> CARD (s DELETE x) = (if x IN s then CARD s - 1 else CARD s)
+\ENDTHEOREM
+\THEOREM CARD\_EQ
+  |- !t s. s CARD_EQ t <=> s CARD_LE t /\ t CARD_LE s
+\ENDTHEOREM
+\THEOREM CARD\_EQ\_0
+  |- !s. FINITE s ==> (CARD s = 0 <=> s = {})
+\ENDTHEOREM
+\THEOREM CARD\_EQ\_BIJECTION
+  |- !s t.
+         FINITE s /\ FINITE t /\ CARD s = CARD t
+         ==> (?f. (!x. x IN s ==> f x IN t) /\
+                  (!y. y IN t ==> (?x. x IN s /\ f x = y)) /\
+                  (!x y. x IN s /\ y IN s /\ f x = f y ==> x = y))
+\ENDTHEOREM
+\THEOREM CARD\_EQ\_BIJECTIONS
+  |- !s t.
+         FINITE s /\ FINITE t /\ CARD s = CARD t
+         ==> (?f g.
+                  (!x. x IN s ==> f x IN t /\ g (f x) = x) /\
+                  (!y. y IN t ==> g y IN s /\ f (g y) = y))
+\ENDTHEOREM
+\THEOREM CARD\_FUNSPACE
+  |- !s t.
+         FINITE s /\ FINITE t
+         ==> CARD
+             {f | (!x. x IN s ==> f x IN t) /\ (!x. ~(x IN s) ==> f x = d)} =
+             CARD t EXP CARD s
+\ENDTHEOREM
+\THEOREM CARD\_GE
+  |- !t s. s CARD_GE t <=> (?f. !y. y IN t ==> (?x. x IN s /\ y = f x))
+\ENDTHEOREM
+\THEOREM CARD\_GE\_REFL
+  |- !s. s CARD_GE s
+\ENDTHEOREM
+\THEOREM CARD\_GE\_TRANS
+  |- !s t u. s CARD_GE t /\ t CARD_GE u ==> s CARD_GE u
+\ENDTHEOREM
+\THEOREM CARD\_GT
+  |- !t s. s CARD_GT t <=> s CARD_GE t /\ ~(t CARD_GE s)
+\ENDTHEOREM
+\THEOREM CARD\_IMAGE\_INJ
+  |- !f s.
+         (!x y. x IN s /\ y IN s /\ f x = f y ==> x = y) /\ FINITE s
+         ==> CARD (IMAGE f s) = CARD s
+\ENDTHEOREM
+\THEOREM CARD\_IMAGE\_INJ\_EQ
+  |- !f s t.
+         FINITE s /\
+         (!x. x IN s ==> f x IN t) /\
+         (!y. y IN t ==> (?!x. x IN s /\ f x = y))
+         ==> CARD t = CARD s
+\ENDTHEOREM
+\THEOREM CARD\_IMAGE\_LE
+  |- !f s. FINITE s ==> CARD (IMAGE f s) <= CARD s
+\ENDTHEOREM
+\THEOREM CARD\_LE
+  |- !t s. s CARD_LE t <=> t CARD_GE s
+\ENDTHEOREM
+\THEOREM CARD\_LE\_INJ
+  |- !s t.
+         FINITE s /\ FINITE t /\ CARD s <= CARD t
+         ==> (?f. IMAGE f s SUBSET t /\
+                  (!x y. x IN s /\ y IN s /\ f x = f y ==> x = y))
+\ENDTHEOREM
+\THEOREM CARD\_LT
+  |- !t s. s CARD_LT t <=> s CARD_LE t /\ ~(t CARD_LE s)
+\ENDTHEOREM
+\THEOREM CARD\_NUMSEG
+  |- !m n. CARD (m..n) = (n + 1) - m
+\ENDTHEOREM
+\THEOREM CARD\_NUMSEG\_1
+  |- !n. CARD (1..n) = n
+\ENDTHEOREM
+\THEOREM CARD\_NUMSEG\_LE
+  |- !n. CARD {m | m <= n} = n + 1
+\ENDTHEOREM
+\THEOREM CARD\_NUMSEG\_LEMMA
+  |- !m d. CARD (m..m + d) = d + 1
+\ENDTHEOREM
+\THEOREM CARD\_NUMSEG\_LT
+  |- !n. CARD {m | m < n} = n
+\ENDTHEOREM
+\THEOREM CARD\_POWERSET
+  |- !s. FINITE s ==> CARD {t | t SUBSET s} = 2 EXP CARD s
+\ENDTHEOREM
+\THEOREM CARD\_PRODUCT
+  |- !s t.
+         FINITE s /\ FINITE t
+         ==> CARD {x,y | x IN s /\ y IN t} = CARD s * CARD t
+\ENDTHEOREM
+\THEOREM CARD\_PSUBSET
+  |- !a b. a PSUBSET b /\ FINITE b ==> CARD a < CARD b
+\ENDTHEOREM
+\THEOREM CARD\_SUBSET
+  |- !a b. a SUBSET b /\ FINITE b ==> CARD a <= CARD b
+\ENDTHEOREM
+\THEOREM CARD\_SUBSET\_EQ
+  |- !a b. FINITE b /\ a SUBSET b /\ CARD a = CARD b ==> a = b
+\ENDTHEOREM
+\THEOREM CARD\_SUBSET\_LE
+  |- !a b. FINITE b /\ a SUBSET b /\ CARD b <= CARD a ==> a = b
+\ENDTHEOREM
+\THEOREM CARD\_UNION
+  |- !s t.
+         FINITE s /\ FINITE t /\ s INTER t = {}
+         ==> CARD (s UNION t) = CARD s + CARD t
+\ENDTHEOREM
+\THEOREM CARD\_UNIONS\_LE
+  |- !s t m n.
+         s HAS_SIZE m /\ (!x. x IN s ==> FINITE (t x) /\ CARD (t x) <= n)
+         ==> CARD (UNIONS {t x | x IN s}) <= m * n
+\ENDTHEOREM
+\THEOREM CARD\_UNION\_EQ
+  |- !s t u.
+         FINITE u /\ s INTER t = {} /\ s UNION t = u
+         ==> CARD s + CARD t = CARD u
+\ENDTHEOREM
+\THEOREM CARD\_UNION\_LE
+  |- !s t. FINITE s /\ FINITE t ==> CARD (s UNION t) <= CARD s + CARD t
+\ENDTHEOREM
+\THEOREM CHOICE
+  |- !s. CHOICE s = (@x. x IN s)
+\ENDTHEOREM
+\THEOREM CHOICE\_DEF
+  |- !s. ~(s = {}) ==> CHOICE s IN s
+\ENDTHEOREM
+\THEOREM CHOOSE\_SUBSET
+  |- !s. FINITE s ==> (!n. n <= CARD s ==> (?t. t SUBSET s /\ t HAS_SIZE n))
+\ENDTHEOREM
+\THEOREM COMPONENT
+  |- !x s. x IN x INSERT s
+\ENDTHEOREM
+\THEOREM COUNTABLE
+  |- !t. COUNTABLE t <=> (:num) CARD_GE t
+\ENDTHEOREM
+\THEOREM CROSS
+  |- !s t. s CROSS t = {x,y | x IN s /\ y IN t}
+\ENDTHEOREM
+\THEOREM DECOMPOSITION
+  |- !s x. x IN s <=> (?t. s = x INSERT t /\ ~(x IN t))
+\ENDTHEOREM
+\THEOREM DELETE
+  |- !s x. s DELETE x = {y | y IN s /\ ~(y = x)}
+\ENDTHEOREM
+\THEOREM DELETE\_COMM
+  |- !x y s. s DELETE x DELETE y = s DELETE y DELETE x
+\ENDTHEOREM
+\THEOREM DELETE\_DELETE
+  |- !x s. s DELETE x DELETE x = s DELETE x
+\ENDTHEOREM
+\THEOREM DELETE\_INSERT
+  |- !x y s.
+         (x INSERT s) DELETE y =
+         (if x = y then s DELETE y else x INSERT (s DELETE y))
+\ENDTHEOREM
+\THEOREM DELETE\_INTER
+  |- !s t x. s DELETE x INTER t = (s INTER t) DELETE x
+\ENDTHEOREM
+\THEOREM DELETE\_NON\_ELEMENT
+  |- !x s. ~(x IN s) <=> s DELETE x = s
+\ENDTHEOREM
+\THEOREM DELETE\_SUBSET
+  |- !x s. s DELETE x SUBSET s
+\ENDTHEOREM
+\THEOREM DIFF
+  |- !s t. s DIFF t = {x | x IN s /\ ~(x IN t)}
+\ENDTHEOREM
+\THEOREM DIFF\_DIFF
+  |- !s t. s DIFF t DIFF t = s DIFF t
+\ENDTHEOREM
+\THEOREM DIFF\_EMPTY
+  |- !s. s DIFF {} = s
+\ENDTHEOREM
+\THEOREM DIFF\_EQ\_EMPTY
+  |- !s. s DIFF s = {}
+\ENDTHEOREM
+\THEOREM DIFF\_INSERT
+  |- !s t x. s DIFF x INSERT t = s DELETE x DIFF t
+\ENDTHEOREM
+\THEOREM DIFF\_UNIV
+  |- !s. s DIFF UNIV = {}
+\ENDTHEOREM
+\THEOREM DISJOINT
+  |- !s t. DISJOINT s t <=> s INTER t = {}
+\ENDTHEOREM
+\THEOREM DISJOINT\_DELETE\_SYM
+  |- !s t x. DISJOINT (s DELETE x) t <=> DISJOINT (t DELETE x) s
+\ENDTHEOREM
+\THEOREM DISJOINT\_EMPTY
+  |- !s. DISJOINT {} s /\ DISJOINT s {}
+\ENDTHEOREM
+\THEOREM DISJOINT\_EMPTY\_REFL
+  |- !s. s = {} <=> DISJOINT s s
+\ENDTHEOREM
+\THEOREM DISJOINT\_INSERT
+  |- !x s t. DISJOINT (x INSERT s) t <=> DISJOINT s t /\ ~(x IN t)
+\ENDTHEOREM
+\THEOREM DISJOINT\_NUMSEG
+  |- !m n p q. DISJOINT (m..n) (p..q) <=> n < p \/ q < m \/ n < m \/ q < p
+\ENDTHEOREM
+\THEOREM DISJOINT\_SYM
+  |- !s t. DISJOINT s t <=> DISJOINT t s
+\ENDTHEOREM
+\THEOREM DISJOINT\_UNION
+  |- !s t u. DISJOINT (s UNION t) u <=> DISJOINT s u /\ DISJOINT t u
+\ENDTHEOREM
+\THEOREM EMPTY
+  |- {} = (\x. F)
+\ENDTHEOREM
+\THEOREM EMPTY\_DELETE
+  |- !x. {} DELETE x = {}
+\ENDTHEOREM
+\THEOREM EMPTY\_DIFF
+  |- !s. {} DIFF s = {}
+\ENDTHEOREM
+\THEOREM EMPTY\_GSPEC
+  |- {x | F} = {}
+\ENDTHEOREM
+\THEOREM EMPTY\_NOT\_UNIV
+  |- ~({} = UNIV)
+\ENDTHEOREM
+\THEOREM EMPTY\_SUBSET
+  |- !s. {} SUBSET s
+\ENDTHEOREM
+\THEOREM EMPTY\_UNION
+  |- !s t. s UNION t = {} <=> s = {} /\ t = {}
+\ENDTHEOREM
+\THEOREM EMPTY\_UNIONS
+  |- !s. UNIONS s = {} <=> (!t. t IN s ==> t = {})
+\ENDTHEOREM
+\THEOREM EQ\_UNIV
+  |- (!x. x IN s) <=> s = UNIV
+\ENDTHEOREM
+\THEOREM EXISTS\_IN\_CLAUSES
+  |- (!P. (?x. x IN {} /\ P x) <=> F) /\
+     (!P a s. (?x. x IN a INSERT s /\ P x) <=> P a \/ (?x. x IN s /\ P x))
+\ENDTHEOREM
+\THEOREM EXISTS\_IN\_IMAGE
+  |- !f s. (?y. y IN IMAGE f s /\ P y) <=> (?x. x IN s /\ P (f x))
+\ENDTHEOREM
+\THEOREM EXTENSION
+  |- !s t. s = t <=> (!x. x IN s <=> x IN t)
+\ENDTHEOREM
+\THEOREM FINITE\_CASES
+  |- !a. FINITE a <=> a = {} \/ (?x s. a = x INSERT s /\ FINITE s)
+\ENDTHEOREM
+\THEOREM FINITE\_CROSS
+  |- !s t. FINITE s /\ FINITE t ==> FINITE (s CROSS t)
+\ENDTHEOREM
+\THEOREM FINITE\_DELETE
+  |- !s x. FINITE (s DELETE x) <=> FINITE s
+\ENDTHEOREM
+\THEOREM FINITE\_DELETE\_IMP
+  |- !s x. FINITE s ==> FINITE (s DELETE x)
+\ENDTHEOREM
+\THEOREM FINITE\_DIFF
+  |- !s t. FINITE s ==> FINITE (s DIFF t)
+\ENDTHEOREM
+\THEOREM FINITE\_FUNSPACE
+  |- !s t.
+         FINITE s /\ FINITE t
+         ==> FINITE
+             {f | (!x. x IN s ==> f x IN t) /\ (!x. ~(x IN s) ==> f x = d)}
+\ENDTHEOREM
+\THEOREM FINITE\_HAS\_SIZE\_LEMMA
+  |- !s. FINITE s ==> (?n. {x | x < n} CARD_GE s)
+\ENDTHEOREM
+\THEOREM FINITE\_IMAGE
+  |- !f s. FINITE s ==> FINITE (IMAGE f s)
+\ENDTHEOREM
+\THEOREM FINITE\_IMAGE\_EXPAND
+  |- !f s. FINITE s ==> FINITE {y | ?x. x IN s /\ y = f x}
+\ENDTHEOREM
+\THEOREM FINITE\_IMAGE\_INJ
+  |- !f A. (!x y. f x = f y ==> x = y) /\ FINITE A ==> FINITE {x | f x IN A}
+\ENDTHEOREM
+\THEOREM FINITE\_IMAGE\_INJ\_EQ
+  |- !f s.
+         (!x y. x IN s /\ y IN s /\ f x = f y ==> x = y)
+         ==> (FINITE (IMAGE f s) <=> FINITE s)
+\ENDTHEOREM
+\THEOREM FINITE\_IMAGE\_INJ\_GENERAL
+  |- !f A s.
+         (!x y. x IN s /\ y IN s /\ f x = f y ==> x = y) /\ FINITE A
+         ==> FINITE {x | x IN s /\ f x IN A}
+\ENDTHEOREM
+\THEOREM FINITE\_INDEX\_NUMBERS
+  |- !s. FINITE s <=>
+         (?k f.
+              (!i j. i IN k /\ j IN k /\ f i = f j ==> i = j) /\
+              FINITE k /\
+              s = IMAGE f k)
+\ENDTHEOREM
+\THEOREM FINITE\_INDEX\_NUMSEG
+  |- !s. FINITE s <=>
+         (?f. (!i j. i IN 1..CARD s /\ j IN 1..CARD s /\ f i = f j ==> i = j) /\
+              s = IMAGE f (1..CARD s))
+\ENDTHEOREM
+\THEOREM FINITE\_INDUCT
+  |- !FINITE'. FINITE' {} /\ (!x s. FINITE' s ==> FINITE' (x INSERT s))
+               ==> (!a. FINITE a ==> FINITE' a)
+\ENDTHEOREM
+\THEOREM FINITE\_INDUCT\_DELETE
+  |- !P. P {} /\
+         (!s. FINITE s /\ ~(s = {})
+              ==> (?x. x IN s /\ (P (s DELETE x) ==> P s)))
+         ==> (!s. FINITE s ==> P s)
+\ENDTHEOREM
+\THEOREM FINITE\_INDUCT\_STRONG
+  |- !P. P {} /\ (!x s. P s /\ ~(x IN s) /\ FINITE s ==> P (x INSERT s))
+         ==> (!s. FINITE s ==> P s)
+\ENDTHEOREM
+\THEOREM FINITE\_INSERT
+  |- !s x. FINITE (x INSERT s) <=> FINITE s
+\ENDTHEOREM
+\THEOREM FINITE\_INTER
+  |- !s t. FINITE s \/ FINITE t ==> FINITE (s INTER t)
+\ENDTHEOREM
+\THEOREM FINITE\_NUMSEG
+  |- !m n. FINITE (m..n)
+\ENDTHEOREM
+\THEOREM FINITE\_NUMSEG\_LE
+  |- !n. FINITE {m | m <= n}
+\ENDTHEOREM
+\THEOREM FINITE\_NUMSEG\_LT
+  |- !n. FINITE {m | m < n}
+\ENDTHEOREM
+\THEOREM FINITE\_POWERSET
+  |- !s. FINITE s ==> FINITE {t | t SUBSET s}
+\ENDTHEOREM
+\THEOREM FINITE\_PRODUCT
+  |- !s t. FINITE s /\ FINITE t ==> FINITE {x,y | x IN s /\ y IN t}
+\ENDTHEOREM
+\THEOREM FINITE\_PRODUCT\_DEPENDENT
+  |- !s t.
+         FINITE s /\ (!x. x IN s ==> FINITE (t x))
+         ==> FINITE {x,y | x IN s /\ y IN t x}
+\ENDTHEOREM
+\THEOREM FINITE\_RECURSION
+  |- !f b.
+         (!x y s. ~(x = y) ==> f x (f y s) = f y (f x s))
+         ==> ITSET f {} b = b /\
+             (!x s.
+                  FINITE s
+                  ==> ITSET f (x INSERT s) b =
+                      (if x IN s then ITSET f s b else f x (ITSET f s b)))
+\ENDTHEOREM
+\THEOREM FINITE\_RECURSION\_DELETE
+  |- !f b.
+         (!x y s. ~(x = y) ==> f x (f y s) = f y (f x s))
+         ==> ITSET f {} b = b /\
+             (!x s.
+                  FINITE s
+                  ==> ITSET f s b =
+                      (if x IN s
+                       then f x (ITSET f (s DELETE x) b)
+                       else ITSET f (s DELETE x) b))
+\ENDTHEOREM
+\THEOREM FINITE\_RESTRICT
+  |- !s p. FINITE s ==> FINITE {x | x IN s /\ P x}
+\ENDTHEOREM
+\THEOREM FINITE\_RULES
+  |- FINITE {} /\ (!x s. FINITE s ==> FINITE (x INSERT s))
+\ENDTHEOREM
+\THEOREM FINITE\_SET\_OF\_LIST
+  |- !l. FINITE (set_of_list l)
+\ENDTHEOREM
+\THEOREM FINITE\_SUBSET
+  |- !s t. FINITE t /\ s SUBSET t ==> FINITE s
+\ENDTHEOREM
+\THEOREM FINITE\_SUBSETS
+  |- !s. FINITE s ==> FINITE {t | t SUBSET s}
+\ENDTHEOREM
+\THEOREM FINITE\_SUBSET\_IMAGE
+  |- !f s t.
+         FINITE t /\ t SUBSET IMAGE f s <=>
+         (?s'. FINITE s' /\ s' SUBSET s /\ t = IMAGE f s')
+\ENDTHEOREM
+\THEOREM FINITE\_SUBSET\_IMAGE\_IMP
+  |- !f s t.
+         FINITE t /\ t SUBSET IMAGE f s
+         ==> (?s'. FINITE s' /\ s' SUBSET s /\ t SUBSET IMAGE f s')
+\ENDTHEOREM
+\THEOREM FINITE\_UNION
+  |- !s t. FINITE (s UNION t) <=> FINITE s /\ FINITE t
+\ENDTHEOREM
+\THEOREM FINITE\_UNIONS
+  |- !s. FINITE s ==> (FINITE (UNIONS s) <=> (!t. t IN s ==> FINITE t))
+\ENDTHEOREM
+\THEOREM FINITE\_UNION\_IMP
+  |- !s t. FINITE s /\ FINITE t ==> FINITE (s UNION t)
+\ENDTHEOREM
+\THEOREM FINREC
+  |- (FINREC f b s a 0 <=> s = {} /\ a = b) /\
+     (FINREC f b s a (SUC n) <=>
+      (?x c. x IN s /\ FINREC f b (s DELETE x) c n /\ a = f x c))
+\ENDTHEOREM
+\THEOREM FINREC\_1\_LEMMA
+  |- !f b s a. FINREC f b s a (SUC 0) <=> (?x. s = {x} /\ a = f x b)
+\ENDTHEOREM
+\THEOREM FINREC\_EXISTS\_LEMMA
+  |- !f b s. FINITE s ==> (?a n. FINREC f b s a n)
+\ENDTHEOREM
+\THEOREM FINREC\_FUN
+  |- !f b.
+         (!x y s. ~(x = y) ==> f x (f y s) = f y (f x s))
+         ==> (?g. g {} = b /\
+                  (!s x. FINITE s /\ x IN s ==> g s = f x (g (s DELETE x))))
+\ENDTHEOREM
+\THEOREM FINREC\_FUN\_LEMMA
+  |- !P R.
+         (!s. P s ==> (?a n. R s a n)) /\
+         (!n1 n2 s a1 a2. R s a1 n1 /\ R s a2 n2 ==> a1 = a2 /\ n1 = n2)
+         ==> (?f. !s a. P s ==> ((?n. R s a n) <=> f s = a))
+\ENDTHEOREM
+\THEOREM FINREC\_SUC\_LEMMA
+  |- !f b.
+         (!x y s. ~(x = y) ==> f x (f y s) = f y (f x s))
+         ==> (!n s z.
+                  FINREC f b s z (SUC n)
+                  ==> (!x. x IN s
+                           ==> (?w. FINREC f b (s DELETE x) w n /\ z = f x w)))
+\ENDTHEOREM
+\THEOREM FINREC\_UNIQUE\_LEMMA
+  |- !f b.
+         (!x y s. ~(x = y) ==> f x (f y s) = f y (f x s))
+         ==> (!n1 n2 s a1 a2.
+                  FINREC f b s a1 n1 /\ FINREC f b s a2 n2
+                  ==> a1 = a2 /\ n1 = n2)
+\ENDTHEOREM
+\THEOREM FORALL\_IN\_CLAUSES
+  |- (!P. (!x. x IN {} ==> P x) <=> T) /\
+     (!P a s. (!x. x IN a INSERT s ==> P x) <=> P a /\ (!x. x IN s ==> P x))
+\ENDTHEOREM
+\THEOREM FORALL\_IN\_IMAGE
+  |- !f s. (!y. y IN IMAGE f s ==> P y) <=> (!x. x IN s ==> P (f x))
+\ENDTHEOREM
+\THEOREM FORALL\_IN\_UNIONS
+  |- !P s. (!x. x IN UNIONS s ==> P x) <=> (!t x. t IN s /\ x IN t ==> P x)
+\ENDTHEOREM
+\THEOREM FUNCTION\_FACTORS\_LEFT
+  |- !f g. (!x y. g x = g y ==> f x = f y) <=> (?h. f = h o g)
+\ENDTHEOREM
+\THEOREM FUNCTION\_FACTORS\_RIGHT
+  |- !f g. (!x. ?y. g y = f x) <=> (?h. f = g o h)
+\ENDTHEOREM
+\THEOREM GSPEC
+  |- !p. GSPEC p = p
+\ENDTHEOREM
+\THEOREM HAS\_SIZE
+  |- !s n. s HAS_SIZE n <=> FINITE s /\ CARD s = n
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_0
+  |- !s n. s HAS_SIZE 0 <=> s = {}
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_CARD
+  |- !s n. s HAS_SIZE n ==> CARD s = n
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_CLAUSES
+  |- (s HAS_SIZE 0 <=> s = {}) /\
+     (s HAS_SIZE SUC n <=>
+      (?a t. t HAS_SIZE n /\ ~(a IN t) /\ s = a INSERT t))
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_CROSS
+  |- !s t m n. s HAS_SIZE m /\ t HAS_SIZE n ==> s CROSS t HAS_SIZE m * n
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_FUNSPACE
+  |- !d n t m s.
+         s HAS_SIZE m /\ t HAS_SIZE n
+         ==> {f | (!x. x IN s ==> f x IN t) /\ (!x. ~(x IN s) ==> f x = d)} HAS_SIZE
+             n EXP m
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_IMAGE\_INJ
+  |- !f s n.
+         (!x y. x IN s /\ y IN s /\ f x = f y ==> x = y) /\ s HAS_SIZE n
+         ==> IMAGE f s HAS_SIZE n
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_INDEX
+  |- !s n.
+         s HAS_SIZE n
+         ==> (?f. (!m. m < n ==> f m IN s) /\
+                  (!x. x IN s ==> (?!m. m < n /\ f m = x)))
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_NUMSEG
+  |- !m n. m..n HAS_SIZE (n + 1) - m
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_NUMSEG\_1
+  |- !n. 1..n HAS_SIZE n
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_NUMSEG\_LE
+  |- !n. {m | m <= n} HAS_SIZE n + 1
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_NUMSEG\_LT
+  |- !n. {m | m < n} HAS_SIZE n
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_POWERSET
+  |- !s n. s HAS_SIZE n ==> {t | t SUBSET s} HAS_SIZE 2 EXP n
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_PRODUCT
+  |- !s m t n.
+         s HAS_SIZE m /\ t HAS_SIZE n
+         ==> {x,y | x IN s /\ y IN t} HAS_SIZE m * n
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_PRODUCT\_DEPENDENT
+  |- !s m t n.
+         s HAS_SIZE m /\ (!x. x IN s ==> t x HAS_SIZE n)
+         ==> {x,y | x IN s /\ y IN t x} HAS_SIZE m * n
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_SUC
+  |- !s n.
+         s HAS_SIZE SUC n <=>
+         ~(s = {}) /\ (!a. a IN s ==> s DELETE a HAS_SIZE n)
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_UNION
+  |- !s t m n.
+         s HAS_SIZE m /\ t HAS_SIZE n /\ DISJOINT s t
+         ==> s UNION t HAS_SIZE m + n
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_UNIONS
+  |- !s t m n.
+         s HAS_SIZE m /\
+         (!x. x IN s ==> t x HAS_SIZE n) /\
+         (!x y. x IN s /\ y IN s /\ ~(x = y) ==> DISJOINT (t x) (t y))
+         ==> UNIONS {t x | x IN s} HAS_SIZE m * n
+\ENDTHEOREM
+\THEOREM IMAGE
+  |- !s f. IMAGE f s = {y | ?x. x IN s /\ y = f x}
+\ENDTHEOREM
+\THEOREM IMAGE\_CLAUSES
+  |- IMAGE f {} = {} /\ IMAGE f (x INSERT s) = f x INSERT IMAGE f s
+\ENDTHEOREM
+\THEOREM IMAGE\_CONST
+  |- !s c. IMAGE (\x. c) s = (if s = {} then {} else {c})
+\ENDTHEOREM
+\THEOREM IMAGE\_DELETE\_INJ
+  |- (!x. f x = f a ==> x = a)
+     ==> IMAGE f (s DELETE a) = IMAGE f s DELETE f a
+\ENDTHEOREM
+\THEOREM IMAGE\_DIFF\_INJ
+  |- (!x y. f x = f y ==> x = y)
+     ==> IMAGE f (s DIFF t) = IMAGE f s DIFF IMAGE f t
+\ENDTHEOREM
+\THEOREM IMAGE\_EQ\_EMPTY
+  |- !f s. IMAGE f s = {} <=> s = {}
+\ENDTHEOREM
+\THEOREM IMAGE\_IMP\_INJECTIVE
+  |- !s f.
+         FINITE s /\ IMAGE f s = s
+         ==> (!x y. x IN s /\ y IN s /\ f x = f y ==> x = y)
+\ENDTHEOREM
+\THEOREM IMAGE\_IMP\_INJECTIVE\_GEN
+  |- !s t f.
+         FINITE s /\ CARD s = CARD t /\ IMAGE f s = t
+         ==> (!x y. x IN s /\ y IN s /\ f x = f y ==> x = y)
+\ENDTHEOREM
+\THEOREM IMAGE\_SUBSET
+  |- !f s t. s SUBSET t ==> IMAGE f s SUBSET IMAGE f t
+\ENDTHEOREM
+\THEOREM IMAGE\_UNION
+  |- !f s t. IMAGE f (s UNION t) = IMAGE f s UNION IMAGE f t
+\ENDTHEOREM
+\THEOREM IMAGE\_o
+  |- !f g s. IMAGE (f o g) s = IMAGE f (IMAGE g s)
+\ENDTHEOREM
+\THEOREM IN
+  |- !P x. x IN P <=> P x
+\ENDTHEOREM
+\THEOREM INFINITE
+  |- !s. INFINITE s <=> ~FINITE s
+\ENDTHEOREM
+\THEOREM INFINITE\_DIFF\_FINITE
+  |- !s t. INFINITE s /\ FINITE t ==> INFINITE (s DIFF t)
+\ENDTHEOREM
+\THEOREM INFINITE\_IMAGE\_INJ
+  |- !f. (!x y. f x = f y ==> x = y)
+         ==> (!s. INFINITE s ==> INFINITE (IMAGE f s))
+\ENDTHEOREM
+\THEOREM INFINITE\_NONEMPTY
+  |- !s. INFINITE s ==> ~(s = {})
+\ENDTHEOREM
+\THEOREM INJ
+  |- !t s f.
+         INJ f s t <=>
+         (!x. x IN s ==> f x IN t) /\
+         (!x y. x IN s /\ y IN s /\ f x = f y ==> x = y)
+\ENDTHEOREM
+\THEOREM INJECTIVE\_LEFT\_INVERSE
+  |- (!x y. f x = f y ==> x = y) <=> (?g. !x. g (f x) = x)
+\ENDTHEOREM
+\THEOREM INJECTIVE\_ON\_LEFT\_INVERSE
+  |- !f s.
+         (!x y. x IN s /\ y IN s /\ f x = f y ==> x = y) <=>
+         (?g. !x. x IN s ==> g (f x) = x)
+\ENDTHEOREM
+\THEOREM INSERT
+  |- x INSERT s = {y | y IN s \/ y = x}
+\ENDTHEOREM
+\THEOREM INSERT\_AC
+  |- x INSERT y INSERT s = y INSERT x INSERT s /\
+     x INSERT x INSERT s = x INSERT s
+\ENDTHEOREM
+\THEOREM INSERT\_COMM
+  |- !x y s. x INSERT y INSERT s = y INSERT x INSERT s
+\ENDTHEOREM
+\THEOREM INSERT\_DEF
+  |- !s x. x INSERT s = (\y. y IN s \/ y = x)
+\ENDTHEOREM
+\THEOREM INSERT\_DELETE
+  |- !x s. x IN s ==> x INSERT (s DELETE x) = s
+\ENDTHEOREM
+\THEOREM INSERT\_DIFF
+  |- !s t x.
+         x INSERT s DIFF t =
+         (if x IN t then s DIFF t else x INSERT (s DIFF t))
+\ENDTHEOREM
+\THEOREM INSERT\_INSERT
+  |- !x s. x INSERT x INSERT s = x INSERT s
+\ENDTHEOREM
+\THEOREM INSERT\_INTER
+  |- !x s t.
+         x INSERT s INTER t =
+         (if x IN t then x INSERT (s INTER t) else s INTER t)
+\ENDTHEOREM
+\THEOREM INSERT\_SUBSET
+  |- !x s t. x INSERT s SUBSET t <=> x IN t /\ s SUBSET t
+\ENDTHEOREM
+\THEOREM INSERT\_UNION
+  |- !x s t.
+         x INSERT s UNION t =
+         (if x IN t then s UNION t else x INSERT (s UNION t))
+\ENDTHEOREM
+\THEOREM INSERT\_UNION\_EQ
+  |- !x s t. x INSERT s UNION t = x INSERT (s UNION t)
+\ENDTHEOREM
+\THEOREM INSERT\_UNIV
+  |- !x. x INSERT UNIV = UNIV
+\ENDTHEOREM
+\THEOREM INTER
+  |- !s t. s INTER t = {x | x IN s /\ x IN t}
+\ENDTHEOREM
+\THEOREM INTERS
+  |- !s. INTERS s = {x | !u. u IN s ==> x IN u}
+\ENDTHEOREM
+\THEOREM INTERS\_0
+  |- INTERS {} = UNIV
+\ENDTHEOREM
+\THEOREM INTERS\_1
+  |- INTERS {s} = s
+\ENDTHEOREM
+\THEOREM INTERS\_2
+  |- INTERS {s, t} = s INTER t
+\ENDTHEOREM
+\THEOREM INTERS\_INSERT
+  |- INTERS (s INSERT u) = s INTER INTERS u
+\ENDTHEOREM
+\THEOREM INTER\_ACI
+  |- p INTER q = q INTER p /\
+     (p INTER q) INTER r = p INTER q INTER r /\
+     p INTER q INTER r = q INTER p INTER r /\
+     p INTER p = p /\
+     p INTER p INTER q = p INTER q
+\ENDTHEOREM
+\THEOREM INTER\_ASSOC
+  |- !s t u. (s INTER t) INTER u = s INTER t INTER u
+\ENDTHEOREM
+\THEOREM INTER\_COMM
+  |- !s t. s INTER t = t INTER s
+\ENDTHEOREM
+\THEOREM INTER\_EMPTY
+  |- (!s. {} INTER s = {}) /\ (!s. s INTER {} = {})
+\ENDTHEOREM
+\THEOREM INTER\_IDEMPOT
+  |- !s. s INTER s = s
+\ENDTHEOREM
+\THEOREM INTER\_OVER\_UNION
+  |- !s t u. s UNION t INTER u = (s UNION t) INTER (s UNION u)
+\ENDTHEOREM
+\THEOREM INTER\_SUBSET
+  |- (!s t. s INTER t SUBSET s) /\ (!s t. t INTER s SUBSET s)
+\ENDTHEOREM
+\THEOREM INTER\_UNIV
+  |- (!s. UNIV INTER s = s) /\ (!s. s INTER UNIV = s)
+\ENDTHEOREM
+\THEOREM IN\_CROSS
+  |- !x y s t. x,y IN s CROSS t <=> x IN s /\ y IN t
+\ENDTHEOREM
+\THEOREM IN\_DELETE
+  |- !s x y. x IN s DELETE y <=> x IN s /\ ~(x = y)
+\ENDTHEOREM
+\THEOREM IN\_DELETE\_EQ
+  |- !s x x'. (x IN s <=> x' IN s) <=> x IN s DELETE x' <=> x' IN s DELETE x
+\ENDTHEOREM
+\THEOREM IN\_DIFF
+  |- !s t x. x IN s DIFF t <=> x IN s /\ ~(x IN t)
+\ENDTHEOREM
+\THEOREM IN\_DISJOINT
+  |- !s t. DISJOINT s t <=> ~(?x. x IN s /\ x IN t)
+\ENDTHEOREM
+\THEOREM IN\_ELIM\_PAIR\_THM
+  |- !P a b. a,b IN {x,y | P x y} <=> P a b
+\ENDTHEOREM
+\THEOREM IN\_ELIM\_THM
+  |- (!P x. x IN GSPEC (\v. P (SETSPEC v)) <=> P (\p t. p /\ x = t)) /\
+     (!p x. x IN {y | p y} <=> p x) /\
+     (!P x. GSPEC (\v. P (SETSPEC v)) x <=> P (\p t. p /\ x = t)) /\
+     (!p x. {y | p y} x <=> p x) /\
+     (!p x. x IN (\y. p y) <=> p x)
+\ENDTHEOREM
+\THEOREM IN\_IMAGE
+  |- !y s f. y IN IMAGE f s <=> (?x. y = f x /\ x IN s)
+\ENDTHEOREM
+\THEOREM IN\_INSERT
+  |- !x y s. x IN y INSERT s <=> x = y \/ x IN s
+\ENDTHEOREM
+\THEOREM IN\_INTER
+  |- !s t x. x IN s INTER t <=> x IN s /\ x IN t
+\ENDTHEOREM
+\THEOREM IN\_INTERS
+  |- !s x. x IN INTERS s <=> (!t. t IN s ==> x IN t)
+\ENDTHEOREM
+\THEOREM IN\_NUMSEG
+  |- !m n p. p IN m..n <=> m <= p /\ p <= n
+\ENDTHEOREM
+\THEOREM IN\_REST
+  |- !x s. x IN REST s <=> x IN s /\ ~(x = CHOICE s)
+\ENDTHEOREM
+\THEOREM IN\_SET\_OF\_LIST
+  |- !x l. x IN set_of_list l <=> MEM x l
+\ENDTHEOREM
+\THEOREM IN\_SING
+  |- !x y. x IN {y} <=> x = y
+\ENDTHEOREM
+\THEOREM IN\_UNION
+  |- !s t x. x IN s UNION t <=> x IN s \/ x IN t
+\ENDTHEOREM
+\THEOREM IN\_UNIONS
+  |- !s x. x IN UNIONS s <=> (?t. t IN s /\ x IN t)
+\ENDTHEOREM
+\THEOREM IN\_UNIV
+  |- !x. x IN UNIV
+\ENDTHEOREM
+\THEOREM ITSET
+  |- !b f s.
+         ITSET f s b =
+         (@g. g {} = b /\
+              (!x s.
+                   FINITE s
+                   ==> g (x INSERT s) = (if x IN s then g s else f x (g s))))
+         s
+\ENDTHEOREM
+\THEOREM ITSET\_EQ
+  |- !s f g b.
+         FINITE s /\
+         (!x. x IN s ==> f x = g x) /\
+         (!x y s. ~(x = y) ==> f x (f y s) = f y (f x s)) /\
+         (!x y s. ~(x = y) ==> g x (g y s) = g y (g x s))
+         ==> ITSET f s b = ITSET g s b
+\ENDTHEOREM
+\THEOREM LENGTH\_LIST\_OF\_SET
+  |- !s. FINITE s ==> LENGTH (list_of_set s) = CARD s
+\ENDTHEOREM
+\THEOREM LIST\_OF\_SET\_PROPERTIES
+  |- !s. FINITE s
+         ==> set_of_list (list_of_set s) = s /\
+             LENGTH (list_of_set s) = CARD s
+\ENDTHEOREM
+\THEOREM MEMBER\_NOT\_EMPTY
+  |- !s. (?x. x IN s) <=> ~(s = {})
+\ENDTHEOREM
+\THEOREM MEM\_LIST\_OF\_SET
+  |- !s. FINITE s ==> (!x. MEM x (list_of_set s) <=> x IN s)
+\ENDTHEOREM
+\THEOREM NOT\_EMPTY\_INSERT
+  |- !x s. ~({} = x INSERT s)
+\ENDTHEOREM
+\THEOREM NOT\_EQUAL\_SETS
+  |- !s t. ~(s = t) <=> (?x. x IN t <=> ~(x IN s))
+\ENDTHEOREM
+\THEOREM NOT\_INSERT\_EMPTY
+  |- !x s. ~(x INSERT s = {})
+\ENDTHEOREM
+\THEOREM NOT\_IN\_EMPTY
+  |- !x. ~(x IN {})
+\ENDTHEOREM
+\THEOREM NOT\_PSUBSET\_EMPTY
+  |- !s. ~(s PSUBSET {})
+\ENDTHEOREM
+\THEOREM NOT\_UNIV\_PSUBSET
+  |- !s. ~(UNIV PSUBSET s)
+\ENDTHEOREM
+\THEOREM NUMSEG\_ADD\_SPLIT
+  |- !m n p. m <= n + 1 ==> m..n + p = (m..n) UNION (n + 1..n + p)
+\ENDTHEOREM
+\THEOREM NUMSEG\_CLAUSES
+  |- (!m. m..0 = (if m = 0 then {0} else {})) /\
+     (!m n. m..SUC n = (if m <= SUC n then SUC n INSERT (m..n) else m..n))
+\ENDTHEOREM
+\THEOREM NUMSEG\_COMBINE\_L
+  |- !m p m. m <= p /\ p <= n ==> (m..p - 1) UNION (p..n) = m..n
+\ENDTHEOREM
+\THEOREM NUMSEG\_COMBINE\_R
+  |- !m p m. m <= p /\ p <= n ==> (m..p) UNION (p + 1..n) = m..n
+\ENDTHEOREM
+\THEOREM NUMSEG\_EMPTY
+  |- !m n. m..n = {} <=> n < m
+\ENDTHEOREM
+\THEOREM NUMSEG\_LREC
+  |- !m n. m <= n ==> m INSERT (m + 1..n) = m..n
+\ENDTHEOREM
+\THEOREM NUMSEG\_OFFSET\_IMAGE
+  |- !m n p. m + p..n + p = IMAGE (\i. i + p) (m..n)
+\ENDTHEOREM
+\THEOREM NUMSEG\_REC
+  |- !m n. m <= SUC n ==> m..SUC n = SUC n INSERT (m..n)
+\ENDTHEOREM
+\THEOREM NUMSEG\_RREC
+  |- !m n. m <= n ==> n INSERT (m..n - 1) = m..n
+\ENDTHEOREM
+\THEOREM NUMSEG\_SING
+  |- !n. n..n = {n}
+\ENDTHEOREM
+\THEOREM PAIRWISE
+  |- (PAIRWISE r [] <=> T) /\
+     (PAIRWISE r (CONS h t) <=> ALL (r h) t /\ PAIRWISE r t)
+\ENDTHEOREM
+\THEOREM PSUBSET
+  |- !s t. s PSUBSET t <=> s SUBSET t /\ ~(s = t)
+\ENDTHEOREM
+\THEOREM PSUBSET\_INSERT\_SUBSET
+  |- !s t. s PSUBSET t <=> (?x. ~(x IN s) /\ x INSERT s SUBSET t)
+\ENDTHEOREM
+\THEOREM PSUBSET\_IRREFL
+  |- !s. ~(s PSUBSET s)
+\ENDTHEOREM
+\THEOREM PSUBSET\_MEMBER
+  |- !s t. s PSUBSET t <=> s SUBSET t /\ (?y. y IN t /\ ~(y IN s))
+\ENDTHEOREM
+\THEOREM PSUBSET\_SUBSET\_TRANS
+  |- !s t u. s PSUBSET t /\ t SUBSET u ==> s PSUBSET u
+\ENDTHEOREM
+\THEOREM PSUBSET\_TRANS
+  |- !s t u. s PSUBSET t /\ t PSUBSET u ==> s PSUBSET u
+\ENDTHEOREM
+\THEOREM PSUBSET\_UNIV
+  |- !s. s PSUBSET UNIV <=> (?x. ~(x IN s))
+\ENDTHEOREM
+\THEOREM REST
+  |- !s. REST s = s DELETE CHOICE s
+\ENDTHEOREM
+\THEOREM SETSPEC
+  |- !P v t. SETSPEC v P t <=> P /\ v = t
+\ENDTHEOREM
+\THEOREM SET\_CASES
+  |- !s. s = {} \/ (?x t. s = x INSERT t /\ ~(x IN t))
+\ENDTHEOREM
+\THEOREM SET\_OF\_LIST\_APPEND
+  |- !l1 l2. set_of_list (APPEND l1 l2) = set_of_list l1 UNION set_of_list l2
+\ENDTHEOREM
+\THEOREM SET\_OF\_LIST\_OF\_SET
+  |- !s. FINITE s ==> set_of_list (list_of_set s) = s
+\ENDTHEOREM
+\THEOREM SET\_RECURSION\_LEMMA
+  |- !f b.
+         (!x y s. ~(x = y) ==> f x (f y s) = f y (f x s))
+         ==> (?g. g {} = b /\
+                  (!x s.
+                       FINITE s
+                       ==> g (x INSERT s) =
+                           (if x IN s then g s else f x (g s))))
+\ENDTHEOREM
+\THEOREM SIMPLE\_IMAGE
+  |- !f s. {f x | x IN s} = IMAGE f s
+\ENDTHEOREM
+\THEOREM SING
+  |- !s. SING s <=> (?x. s = {x})
+\ENDTHEOREM
+\THEOREM SUBSET
+  |- !s t. s SUBSET t <=> (!x. x IN s ==> x IN t)
+\ENDTHEOREM
+\THEOREM SUBSET\_ANTISYM
+  |- !s t. s SUBSET t /\ t SUBSET s ==> s = t
+\ENDTHEOREM
+\THEOREM SUBSET\_DELETE
+  |- !x s t. s SUBSET t DELETE x <=> ~(x IN s) /\ s SUBSET t
+\ENDTHEOREM
+\THEOREM SUBSET\_DIFF
+  |- !s t. s DIFF t SUBSET s
+\ENDTHEOREM
+\THEOREM SUBSET\_EMPTY
+  |- !s. s SUBSET {} <=> s = {}
+\ENDTHEOREM
+\THEOREM SUBSET\_IMAGE
+  |- !f s t. s SUBSET IMAGE f t <=> (?u. u SUBSET t /\ s = IMAGE f u)
+\ENDTHEOREM
+\THEOREM SUBSET\_INSERT
+  |- !x s. ~(x IN s) ==> (!t. s SUBSET x INSERT t <=> s SUBSET t)
+\ENDTHEOREM
+\THEOREM SUBSET\_INSERT\_DELETE
+  |- !x s t. s SUBSET x INSERT t <=> s DELETE x SUBSET t
+\ENDTHEOREM
+\THEOREM SUBSET\_INTER\_ABSORPTION
+  |- !s t. s SUBSET t <=> s INTER t = s
+\ENDTHEOREM
+\THEOREM SUBSET\_NUMSEG
+  |- !m n p q. m..n SUBSET p..q <=> n < m \/ p <= m /\ n <= q
+\ENDTHEOREM
+\THEOREM SUBSET\_PSUBSET\_TRANS
+  |- !s t u. s SUBSET t /\ t PSUBSET u ==> s PSUBSET u
+\ENDTHEOREM
+\THEOREM SUBSET\_REFL
+  |- !s. s SUBSET s
+\ENDTHEOREM
+\THEOREM SUBSET\_RESTRICT
+  |- !s P. {x | x IN s /\ P x} SUBSET s
+\ENDTHEOREM
+\THEOREM SUBSET\_TRANS
+  |- !s t u. s SUBSET t /\ t SUBSET u ==> s SUBSET u
+\ENDTHEOREM
+\THEOREM SUBSET\_UNION
+  |- (!s t. s SUBSET s UNION t) /\ (!s t. s SUBSET t UNION s)
+\ENDTHEOREM
+\THEOREM SUBSET\_UNION\_ABSORPTION
+  |- !s t. s SUBSET t <=> s UNION t = t
+\ENDTHEOREM
+\THEOREM SUBSET\_UNIV
+  |- !s. s SUBSET UNIV
+\ENDTHEOREM
+\THEOREM SURJ
+  |- !t s f.
+         SURJ f s t <=>
+         (!x. x IN s ==> f x IN t) /\
+         (!x. x IN t ==> (?y. y IN s /\ f y = x))
+\ENDTHEOREM
+\THEOREM SURJECTIVE\_IFF\_INJECTIVE
+  |- !s f.
+         FINITE s /\ IMAGE f s SUBSET s
+         ==> ((!y. y IN s ==> (?x. x IN s /\ f x = y)) <=>
+              (!x y. x IN s /\ y IN s /\ f x = f y ==> x = y))
+\ENDTHEOREM
+\THEOREM SURJECTIVE\_IFF\_INJECTIVE\_GEN
+  |- !s t f.
+         FINITE s /\ FINITE t /\ CARD s = CARD t /\ IMAGE f s SUBSET t
+         ==> ((!y. y IN t ==> (?x. x IN s /\ f x = y)) <=>
+              (!x y. x IN s /\ y IN s /\ f x = f y ==> x = y))
+\ENDTHEOREM
+\THEOREM SURJECTIVE\_ON\_RIGHT\_INVERSE
+  |- !f t.
+         (!y. y IN t ==> (?x. x IN s /\ f x = y)) <=>
+         (?g. !y. y IN t ==> g y IN s /\ f (g y) = y)
+\ENDTHEOREM
+\THEOREM SURJECTIVE\_RIGHT\_INVERSE
+  |- (!y. ?x. f x = y) <=> (?g. !y. f (g y) = y)
+\ENDTHEOREM
+\THEOREM UNION
+  |- !s t. s UNION t = {x | x IN s \/ x IN t}
+\ENDTHEOREM
+\THEOREM UNIONS
+  |- !s. UNIONS s = {x | ?u. u IN s /\ x IN u}
+\ENDTHEOREM
+\THEOREM UNIONS\_0
+  |- UNIONS {} = {}
+\ENDTHEOREM
+\THEOREM UNIONS\_1
+  |- UNIONS {s} = s
+\ENDTHEOREM
+\THEOREM UNIONS\_2
+  |- UNIONS {s, t} = s UNION t
+\ENDTHEOREM
+\THEOREM UNIONS\_INSERT
+  |- UNIONS (s INSERT u) = s UNION UNIONS u
+\ENDTHEOREM
+\THEOREM UNION\_ACI
+  |- p UNION q = q UNION p /\
+     (p UNION q) UNION r = p UNION q UNION r /\
+     p UNION q UNION r = q UNION p UNION r /\
+     p UNION p = p /\
+     p UNION p UNION q = p UNION q
+\ENDTHEOREM
+\THEOREM UNION\_ASSOC
+  |- !s t u. (s UNION t) UNION u = s UNION t UNION u
+\ENDTHEOREM
+\THEOREM UNION\_COMM
+  |- !s t. s UNION t = t UNION s
+\ENDTHEOREM
+\THEOREM UNION\_EMPTY
+  |- (!s. {} UNION s = s) /\ (!s. s UNION {} = s)
+\ENDTHEOREM
+\THEOREM UNION\_IDEMPOT
+  |- !s. s UNION s = s
+\ENDTHEOREM
+\THEOREM UNION\_OVER\_INTER
+  |- !s t u. s INTER (t UNION u) = s INTER t UNION s INTER u
+\ENDTHEOREM
+\THEOREM UNION\_SUBSET
+  |- !s t u. s UNION t SUBSET u <=> s SUBSET u /\ t SUBSET u
+\ENDTHEOREM
+\THEOREM UNION\_UNIV
+  |- (!s. UNIV UNION s = UNIV) /\ (!s. s UNION UNIV = UNIV)
+\ENDTHEOREM
+\THEOREM UNIV
+  |- UNIV = (\x. T)
+\ENDTHEOREM
+\THEOREM UNIV\_NOT\_EMPTY
+  |- ~(UNIV = {})
+\ENDTHEOREM
+\THEOREM UNIV\_SUBSET
+  |- !s. UNIV SUBSET s <=> s = UNIV
+\ENDTHEOREM
+\THEOREM list\_of\_set
+  |- !s. list_of_set s = (@l. set_of_list l = s /\ LENGTH l = CARD s)
+\ENDTHEOREM
+\THEOREM num\_FINITE
+  |- !s. FINITE s <=> (?a. !x. x IN s ==> x <= a)
+\ENDTHEOREM
+\THEOREM num\_FINITE\_AVOID
+  |- !s. FINITE s ==> (?a. ~(a IN s))
+\ENDTHEOREM
+\THEOREM num\_INFINITE
+  |- INFINITE (:num)
+\ENDTHEOREM
+\THEOREM numseg
+  |- !m n. m..n = {x | m <= x /\ x <= n}
+\ENDTHEOREM
+\THEOREM pairwise
+  |- !s r. pairwise r s <=> (!x y. x IN s /\ y IN s /\ ~(x = y) ==> r x y)
+\ENDTHEOREM
+\THEOREM set\_of\_list
+  |- set_of_list [] = {} /\ set_of_list (CONS h t) = h INSERT set_of_list t
+\ENDTHEOREM
+
+\section{Theorems about iterated operations}
+\THEOREM CARD\_EQ\_NSUM
+  |- !s. FINITE s ==> CARD s = nsum s (\x. 1)
+\ENDTHEOREM
+\THEOREM CARD\_EQ\_SUM
+  |- !s. FINITE s ==> &(CARD s) = sum s (\x. &1)
+\ENDTHEOREM
+\THEOREM FINITE\_SUPPORT
+  |- !op f s. FINITE s ==> FINITE (support op f s)
+\ENDTHEOREM
+\THEOREM FINITE\_SUPPORT\_DELTA
+  |- !op f a. FINITE (support op (\x. if x = a then f x else neutral op) s)
+\ENDTHEOREM
+\THEOREM IN\_SUPPORT
+  |- !op f x s. x IN support op f s <=> x IN s /\ ~(f x = neutral op)
+\ENDTHEOREM
+\THEOREM ITERATE\_BIJECTION
+  |- !op. monoidal op
+          ==> (!f p s.
+                   (!x. x IN s ==> p x IN s) /\
+                   (!y. y IN s ==> (?!x. x IN s /\ p x = y))
+                   ==> iterate op s f = iterate op s (f o p))
+\ENDTHEOREM
+\THEOREM ITERATE\_CASES
+  |- !op f s.
+         iterate op s f =
+         (if FINITE (support op f s)
+          then iterate op (support op f s) f
+          else neutral op)
+\ENDTHEOREM
+\THEOREM ITERATE\_CLAUSES
+  |- !op. monoidal op
+          ==> (!f. iterate op {} f = neutral op) /\
+              (!f x s.
+                   FINITE s
+                   ==> iterate op (x INSERT s) f =
+                       (if x IN s
+                        then iterate op s f
+                        else op (f x) (iterate op s f)))
+\ENDTHEOREM
+\THEOREM ITERATE\_CLAUSES\_GEN
+  |- !op. monoidal op
+          ==> (!f. iterate op {} f = neutral op) /\
+              (!f x s.
+                   monoidal op /\ FINITE (support op f s)
+                   ==> iterate op (x INSERT s) f =
+                       (if x IN s
+                        then iterate op s f
+                        else op (f x) (iterate op s f)))
+\ENDTHEOREM
+\THEOREM ITERATE\_CLOSED
+  |- !op. monoidal op
+          ==> (!P. P (neutral op) /\ (!x y. P x /\ P y ==> P (op x y))
+                   ==> (!f s.
+                            FINITE s /\ (!x. x IN s ==> P (f x))
+                            ==> P (iterate op s f)))
+\ENDTHEOREM
+\THEOREM ITERATE\_CLOSED\_GEN
+  |- !op. monoidal op
+          ==> (!P. P (neutral op) /\ (!x y. P x /\ P y ==> P (op x y))
+                   ==> (!f s.
+                            FINITE (support op f s) /\
+                            (!x. x IN s /\ ~(f x = neutral op) ==> P (f x))
+                            ==> P (iterate op s f)))
+\ENDTHEOREM
+\THEOREM ITERATE\_DELETE
+  |- !op. monoidal op
+          ==> (!f s a.
+                   FINITE s /\ a IN s
+                   ==> op (f a) (iterate op (s DELETE a) f) = iterate op s f)
+\ENDTHEOREM
+\THEOREM ITERATE\_DELTA
+  |- !op. monoidal op
+          ==> (!f a s.
+                   iterate op s (\x. if x = a then f x else neutral op) =
+                   (if a IN s then f a else neutral op))
+\ENDTHEOREM
+\THEOREM ITERATE\_DIFF
+  |- !op. monoidal op
+          ==> (!f s t.
+                   FINITE s /\ t SUBSET s
+                   ==> op (iterate op (s DIFF t) f) (iterate op t f) =
+                       iterate op s f)
+\ENDTHEOREM
+\THEOREM ITERATE\_DIFF\_GEN
+  |- !op. monoidal op
+          ==> (!f s t.
+                   FINITE (support op f s) /\
+                   support op f t SUBSET support op f s
+                   ==> op (iterate op (s DIFF t) f) (iterate op t f) =
+                       iterate op s f)
+\ENDTHEOREM
+\THEOREM ITERATE\_EQ
+  |- !op. monoidal op
+          ==> (!f g s.
+                   (!x. x IN s ==> f x = g x)
+                   ==> iterate op s f = iterate op s g)
+\ENDTHEOREM
+\THEOREM ITERATE\_EQ\_GENERAL
+  |- !op. monoidal op
+          ==> (!s t f g h.
+                   (!y. y IN t ==> (?!x. x IN s /\ h x = y)) /\
+                   (!x. x IN s ==> h x IN t /\ g (h x) = f x)
+                   ==> iterate op s f = iterate op t g)
+\ENDTHEOREM
+\THEOREM ITERATE\_EQ\_GENERAL\_INVERSES
+  |- !op. monoidal op
+          ==> (!s t f g h k.
+                   (!y. y IN t ==> k y IN s /\ h (k y) = y) /\
+                   (!x. x IN s ==> h x IN t /\ k (h x) = x /\ g (h x) = f x)
+                   ==> iterate op s f = iterate op t g)
+\ENDTHEOREM
+\THEOREM ITERATE\_EQ\_NEUTRAL
+  |- !op. monoidal op
+          ==> (!f s.
+                   (!x. x IN s ==> f x = neutral op)
+                   ==> iterate op s f = neutral op)
+\ENDTHEOREM
+\THEOREM ITERATE\_IMAGE
+  |- !op. monoidal op
+          ==> (!f g s.
+                   (!x y. x IN s /\ y IN s /\ f x = f y ==> x = y)
+                   ==> iterate op (IMAGE f s) g = iterate op s (g o f))
+\ENDTHEOREM
+\THEOREM ITERATE\_INJECTION
+  |- !op. monoidal op
+          ==> (!f p s.
+                   FINITE s /\
+                   (!x. x IN s ==> p x IN s) /\
+                   (!x y. x IN s /\ y IN s /\ p x = p y ==> x = y)
+                   ==> iterate op s (f o p) = iterate op s f)
+\ENDTHEOREM
+\THEOREM ITERATE\_ITERATE\_PRODUCT
+  |- !op. monoidal op
+          ==> (!s t x.
+                   FINITE s /\ (!i. i IN s ==> FINITE (t i))
+                   ==> iterate op s (\i. iterate op (t i) (x i)) =
+                       iterate op {i,j | i IN s /\ j IN t i} (\(i,j). x i j))
+\ENDTHEOREM
+\THEOREM ITERATE\_RELATED
+  |- !op. monoidal op
+          ==> (!R. R (neutral op) (neutral op) /\
+                   (!x1 y1 x2 y2.
+                        R x1 x2 /\ R y1 y2 ==> R (op x1 y1) (op x2 y2))
+                   ==> (!f g s.
+                            FINITE s /\ (!x. x IN s ==> R (f x) (g x))
+                            ==> R (iterate op s f) (iterate op s g)))
+\ENDTHEOREM
+\THEOREM ITERATE\_SING
+  |- !op. monoidal op ==> (!f x. iterate op {x} f = f x)
+\ENDTHEOREM
+\THEOREM ITERATE\_SUPPORT
+  |- !op f s. iterate op (support op f s) f = iterate op s f
+\ENDTHEOREM
+\THEOREM ITERATE\_UNION
+  |- !op. monoidal op
+          ==> (!f s t.
+                   FINITE s /\ FINITE t /\ DISJOINT s t
+                   ==> iterate op (s UNION t) f =
+                       op (iterate op s f) (iterate op t f))
+\ENDTHEOREM
+\THEOREM ITERATE\_UNION\_GEN
+  |- !op. monoidal op
+          ==> (!f s t.
+                   FINITE (support op f s) /\
+                   FINITE (support op f t) /\
+                   DISJOINT (support op f s) (support op f t)
+                   ==> iterate op (s UNION t) f =
+                       op (iterate op s f) (iterate op t f))
+\ENDTHEOREM
+\THEOREM MONOIDAL\_ADD
+  |- monoidal (+)
+\ENDTHEOREM
+\THEOREM MONOIDAL\_MUL
+  |- monoidal (*)
+\ENDTHEOREM
+\THEOREM MONOIDAL\_REAL\_ADD
+  |- monoidal (+)
+\ENDTHEOREM
+\THEOREM MONOIDAL\_REAL\_MUL
+  |- monoidal (*)
+\ENDTHEOREM
+\THEOREM NEUTRAL\_ADD
+  |- neutral (+) = 0
+\ENDTHEOREM
+\THEOREM NEUTRAL\_MUL
+  |- neutral (*) = 1
+\ENDTHEOREM
+\THEOREM NEUTRAL\_REAL\_ADD
+  |- neutral (+) = &0
+\ENDTHEOREM
+\THEOREM NEUTRAL\_REAL\_MUL
+  |- neutral (*) = &1
+\ENDTHEOREM
+\THEOREM NSUM\_0
+  |- !s. nsum s (\n. 0) = 0
+\ENDTHEOREM
+\THEOREM NSUM\_ADD
+  |- !f g s. FINITE s ==> nsum s (\x. f x + g x) = nsum s f + nsum s g
+\ENDTHEOREM
+\THEOREM NSUM\_ADD\_NUMSEG
+  |- !f g m n. nsum (m..n) (\i. f i + g i) = nsum (m..n) f + nsum (m..n) g
+\ENDTHEOREM
+\THEOREM NSUM\_ADD\_SPLIT
+  |- !f m n p.
+         m <= n + 1
+         ==> nsum (m..n + p) f = nsum (m..n) f + nsum (n + 1..n + p) f
+\ENDTHEOREM
+\THEOREM NSUM\_BIJECTION
+  |- !f p s.
+         (!x. x IN s ==> p x IN s) /\
+         (!y. y IN s ==> (?!x. x IN s /\ p x = y))
+         ==> nsum s f = nsum s (f o p)
+\ENDTHEOREM
+\THEOREM NSUM\_BOUND
+  |- !s f b. FINITE s /\ (!x. x IN s ==> f x <= b) ==> nsum s f <= CARD s * b
+\ENDTHEOREM
+\THEOREM NSUM\_BOUND\_GEN
+  |- !s t b.
+         FINITE s /\ ~(s = {}) /\ (!x. x IN s ==> f x <= b DIV CARD s)
+         ==> nsum s f <= b
+\ENDTHEOREM
+\THEOREM NSUM\_BOUND\_LT
+  |- !s f b.
+         FINITE s /\ (!x. x IN s ==> f x <= b) /\ (?x. x IN s /\ f x < b)
+         ==> nsum s f < CARD s * b
+\ENDTHEOREM
+\THEOREM NSUM\_BOUND\_LT\_ALL
+  |- !s f b.
+         FINITE s /\ ~(s = {}) /\ (!x. x IN s ==> f x < b)
+         ==> nsum s f < CARD s * b
+\ENDTHEOREM
+\THEOREM NSUM\_BOUND\_LT\_GEN
+  |- !s t b.
+         FINITE s /\ ~(s = {}) /\ (!x. x IN s ==> f x < b DIV CARD s)
+         ==> nsum s f < b
+\ENDTHEOREM
+\THEOREM NSUM\_CLAUSES
+  |- (!f. nsum {} f = 0) /\
+     (!x f s.
+          FINITE s
+          ==> nsum (x INSERT s) f =
+              (if x IN s then nsum s f else f x + nsum s f))
+\ENDTHEOREM
+\THEOREM NSUM\_CLAUSES\_LEFT
+  |- !f m n. m <= n ==> nsum (m..n) f = f m + nsum (m + 1..n) f
+\ENDTHEOREM
+\THEOREM NSUM\_CLAUSES\_NUMSEG
+  |- (!m. nsum (m..0) f = (if m = 0 then f 0 else 0)) /\
+     (!m n.
+          nsum (m..SUC n) f =
+          (if m <= SUC n then nsum (m..n) f + f (SUC n) else nsum (m..n) f))
+\ENDTHEOREM
+\THEOREM NSUM\_CLAUSES\_RIGHT
+  |- !f m n. 0 < n /\ m <= n ==> nsum (m..n) f = nsum (m..n - 1) f + f n
+\ENDTHEOREM
+\THEOREM NSUM\_CONST
+  |- !c s. FINITE s ==> nsum s (\n. c) = CARD s * c
+\ENDTHEOREM
+\THEOREM NSUM\_CONST\_NUMSEG
+  |- !c m n. nsum (m..n) (\n. c) = ((n + 1) - m) * c
+\ENDTHEOREM
+\THEOREM NSUM\_DELETE
+  |- !f s a. FINITE s /\ a IN s ==> f a + nsum (s DELETE a) f = nsum s f
+\ENDTHEOREM
+\THEOREM NSUM\_DELTA
+  |- !s a. nsum s (\x. if x = a then b else 0) = (if a IN s then b else 0)
+\ENDTHEOREM
+\THEOREM NSUM\_DIFF
+  |- !f s t.
+         FINITE s /\ t SUBSET s ==> nsum (s DIFF t) f = nsum s f - nsum t f
+\ENDTHEOREM
+\THEOREM NSUM\_EQ
+  |- !f g s. (!x. x IN s ==> f x = g x) ==> nsum s f = nsum s g
+\ENDTHEOREM
+\THEOREM NSUM\_EQ\_0
+  |- !f s. (!x. x IN s ==> f x = 0) ==> nsum s f = 0
+\ENDTHEOREM
+\THEOREM NSUM\_EQ\_0\_IFF
+  |- !s. FINITE s ==> (nsum s f = 0 <=> (!x. x IN s ==> f x = 0))
+\ENDTHEOREM
+\THEOREM NSUM\_EQ\_0\_IFF\_NUMSEG
+  |- !f m n. nsum (m..n) f = 0 <=> (!i. m <= i /\ i <= n ==> f i = 0)
+\ENDTHEOREM
+\THEOREM NSUM\_EQ\_0\_NUMSEG
+  |- !f s. (!i. m <= i /\ i <= n ==> f i = 0) ==> nsum (m..n) f = 0
+\ENDTHEOREM
+\THEOREM NSUM\_EQ\_GENERAL
+  |- !s t f g h.
+         (!y. y IN t ==> (?!x. x IN s /\ h x = y)) /\
+         (!x. x IN s ==> h x IN t /\ g (h x) = f x)
+         ==> nsum s f = nsum t g
+\ENDTHEOREM
+\THEOREM NSUM\_EQ\_GENERAL\_INVERSES
+  |- !s t f g h k.
+         (!y. y IN t ==> k y IN s /\ h (k y) = y) /\
+         (!x. x IN s ==> h x IN t /\ k (h x) = x /\ g (h x) = f x)
+         ==> nsum s f = nsum t g
+\ENDTHEOREM
+\THEOREM NSUM\_EQ\_NUMSEG
+  |- !f g m n.
+         (!i. m <= i /\ i <= n ==> f i = g i)
+         ==> nsum (m..n) f = nsum (m..n) g
+\ENDTHEOREM
+\THEOREM NSUM\_EQ\_SUPERSET
+  |- !f s t.
+         FINITE t /\
+         t SUBSET s /\
+         (!x. x IN t ==> f x = g x) /\
+         (!x. x IN s /\ ~(x IN t) ==> f x = 0)
+         ==> nsum s f = nsum t g
+\ENDTHEOREM
+\THEOREM NSUM\_IMAGE
+  |- !f g s.
+         (!x y. x IN s /\ y IN s /\ f x = f y ==> x = y)
+         ==> nsum (IMAGE f s) g = nsum s (g o f)
+\ENDTHEOREM
+\THEOREM NSUM\_IMAGE\_GEN
+  |- !f g s.
+         FINITE s
+         ==> nsum s g = nsum (IMAGE f s) (\y. nsum {x | x IN s /\ f x = y} g)
+\ENDTHEOREM
+\THEOREM NSUM\_INJECTION
+  |- !f p s.
+         FINITE s /\
+         (!x. x IN s ==> p x IN s) /\
+         (!x y. x IN s /\ y IN s /\ p x = p y ==> x = y)
+         ==> nsum s (f o p) = nsum s f
+\ENDTHEOREM
+\THEOREM NSUM\_LE
+  |- !f g s. FINITE s /\ (!x. x IN s ==> f x <= g x) ==> nsum s f <= nsum s g
+\ENDTHEOREM
+\THEOREM NSUM\_LE\_NUMSEG
+  |- !f g m n.
+         (!i. m <= i /\ i <= n ==> f i <= g i)
+         ==> nsum (m..n) f <= nsum (m..n) g
+\ENDTHEOREM
+\THEOREM NSUM\_LMUL
+  |- !f c s. nsum s (\x. c * f x) = c * nsum s f
+\ENDTHEOREM
+\THEOREM NSUM\_LT
+  |- !f g s.
+         FINITE s /\ (!x. x IN s ==> f x <= g x) /\ (?x. x IN s /\ f x < g x)
+         ==> nsum s f < nsum s g
+\ENDTHEOREM
+\THEOREM NSUM\_LT\_ALL
+  |- !f g s.
+         FINITE s /\ ~(s = {}) /\ (!x. x IN s ==> f x < g x)
+         ==> nsum s f < nsum s g
+\ENDTHEOREM
+\THEOREM NSUM\_MULTICOUNT
+  |- !R s t k.
+         FINITE s /\
+         FINITE t /\
+         (!j. j IN t ==> CARD {i | i IN s /\ R i j} = k)
+         ==> nsum s (\i. CARD {j | j IN t /\ R i j}) = k * CARD t
+\ENDTHEOREM
+\THEOREM NSUM\_MULTICOUNT\_GEN
+  |- !R s t k.
+         FINITE s /\
+         FINITE t /\
+         (!j. j IN t ==> CARD {i | i IN s /\ R i j} = k j)
+         ==> nsum s (\i. CARD {j | j IN t /\ R i j}) = nsum t (\i. k i)
+\ENDTHEOREM
+\THEOREM NSUM\_NSUM\_PRODUCT
+  |- !s t x.
+         FINITE s /\ (!i. i IN s ==> FINITE (t i))
+         ==> nsum s (\i. nsum (t i) (x i)) =
+             nsum {i,j | i IN s /\ j IN t i} (\(i,j). x i j)
+\ENDTHEOREM
+\THEOREM NSUM\_NSUM\_RESTRICT
+  |- !R f s t.
+         FINITE s /\ FINITE t
+         ==> nsum s (\x. nsum {y | y IN t /\ R x y} (\y. f x y)) =
+             nsum t (\y. nsum {x | x IN s /\ R x y} (\x. f x y))
+\ENDTHEOREM
+\THEOREM NSUM\_OFFSET
+  |- !f m p. nsum (m + p..n + p) f = nsum (m..n) (\i. f (i + p))
+\ENDTHEOREM
+\THEOREM NSUM\_OFFSET\_0
+  |- !f m n. m <= n ==> nsum (m..n) f = nsum (0..n - m) (\i. f (i + m))
+\ENDTHEOREM
+\THEOREM NSUM\_POS\_BOUND
+  |- !f b s. FINITE s /\ nsum s f <= b ==> (!x. x IN s ==> f x <= b)
+\ENDTHEOREM
+\THEOREM NSUM\_RESTRICT
+  |- !f s. FINITE s ==> nsum s (\x. if x IN s then f x else 0) = nsum s f
+\ENDTHEOREM
+\THEOREM NSUM\_RESTRICT\_SET
+  |- !s f r.
+         FINITE s
+         ==> nsum {x | x IN s /\ P x} f = nsum s (\x. if P x then f x else 0)
+\ENDTHEOREM
+\THEOREM NSUM\_RMUL
+  |- !f c s. nsum s (\x. f x * c) = nsum s f * c
+\ENDTHEOREM
+\THEOREM NSUM\_SING
+  |- !f x. nsum {x} f = f x
+\ENDTHEOREM
+\THEOREM NSUM\_SING\_NUMSEG
+  |- !f n. nsum (n..n) f = f n
+\ENDTHEOREM
+\THEOREM NSUM\_SUBSET
+  |- !u v f.
+         FINITE u /\ FINITE v /\ (!x. x IN u DIFF v ==> f x = 0)
+         ==> nsum u f <= nsum v f
+\ENDTHEOREM
+\THEOREM NSUM\_SUBSET\_SIMPLE
+  |- !u v f. FINITE v /\ u SUBSET v ==> nsum u f <= nsum v f
+\ENDTHEOREM
+\THEOREM NSUM\_SUPERSET
+  |- !f u v.
+         FINITE u /\ u SUBSET v /\ (!x. x IN v /\ ~(x IN u) ==> f x = 0)
+         ==> nsum v f = nsum u f
+\ENDTHEOREM
+\THEOREM NSUM\_SUPPORT
+  |- !f s. nsum (support (+) f s) f = nsum s f
+\ENDTHEOREM
+\THEOREM NSUM\_SWAP
+  |- !f s t.
+         FINITE s /\ FINITE t
+         ==> nsum s (\i. nsum t (f i)) = nsum t (\j. nsum s (\i. f i j))
+\ENDTHEOREM
+\THEOREM NSUM\_SWAP\_NUMSEG
+  |- !a b c d f.
+         nsum (a..b) (\i. nsum (c..d) (f i)) =
+         nsum (c..d) (\j. nsum (a..b) (\i. f i j))
+\ENDTHEOREM
+\THEOREM NSUM\_TRIV\_NUMSEG
+  |- !f m n. n < m ==> nsum (m..n) f = 0
+\ENDTHEOREM
+\THEOREM NSUM\_UNION
+  |- !f s t.
+         FINITE s /\ FINITE t /\ DISJOINT s t
+         ==> nsum (s UNION t) f = nsum s f + nsum t f
+\ENDTHEOREM
+\THEOREM NSUM\_UNION\_EQ
+  |- !s t u.
+         FINITE u /\ s INTER t = {} /\ s UNION t = u
+         ==> nsum s f + nsum t f = nsum u f
+\ENDTHEOREM
+\THEOREM NSUM\_UNION\_LZERO
+  |- !f u v.
+         FINITE v /\ (!x. x IN u /\ ~(x IN v) ==> f x = 0)
+         ==> nsum (u UNION v) f = nsum v f
+\ENDTHEOREM
+\THEOREM NSUM\_UNION\_RZERO
+  |- !f u v.
+         FINITE u /\ (!x. x IN v /\ ~(x IN u) ==> f x = 0)
+         ==> nsum (u UNION v) f = nsum u f
+\ENDTHEOREM
+\THEOREM REAL\_OF\_NUM\_SUM
+  |- !f s. FINITE s ==> &(nsum s f) = sum s (\x. &(f x))
+\ENDTHEOREM
+\THEOREM REAL\_OF\_NUM\_SUM\_NUMSEG
+  |- !f m n. &(nsum (m..n) f) = sum (m..n) (\i. &(f i))
+\ENDTHEOREM
+\THEOREM SUM\_0
+  |- !s. sum s (\n. &0) = &0
+\ENDTHEOREM
+\THEOREM SUM\_ABS
+  |- !f s. FINITE s ==> abs (sum s f) <= sum s (\x. abs (f x))
+\ENDTHEOREM
+\THEOREM SUM\_ABS\_BOUND
+  |- !s f b.
+         FINITE s /\ (!x. x IN s ==> abs (f x) <= b)
+         ==> abs (sum s f) <= &(CARD s) * b
+\ENDTHEOREM
+\THEOREM SUM\_ABS\_NUMSEG
+  |- !f m n. abs (sum (m..n) f) <= sum (m..n) (\i. abs (f i))
+\ENDTHEOREM
+\THEOREM SUM\_ADD
+  |- !f g s. FINITE s ==> sum s (\x. f x + g x) = sum s f + sum s g
+\ENDTHEOREM
+\THEOREM SUM\_ADD\_NUMSEG
+  |- !f g m n. sum (m..n) (\i. f i + g i) = sum (m..n) f + sum (m..n) g
+\ENDTHEOREM
+\THEOREM SUM\_ADD\_SPLIT
+  |- !f m n p.
+         m <= n + 1
+         ==> sum (m..n + p) f = sum (m..n) f + sum (n + 1..n + p) f
+\ENDTHEOREM
+\THEOREM SUM\_BIJECTION
+  |- !f p s.
+         (!x. x IN s ==> p x IN s) /\
+         (!y. y IN s ==> (?!x. x IN s /\ p x = y))
+         ==> sum s f = sum s (f o p)
+\ENDTHEOREM
+\THEOREM SUM\_BOUND
+  |- !s f b.
+         FINITE s /\ (!x. x IN s ==> f x <= b) ==> sum s f <= &(CARD s) * b
+\ENDTHEOREM
+\THEOREM SUM\_BOUND\_GEN
+  |- !s t b.
+         FINITE s /\ ~(s = {}) /\ (!x. x IN s ==> f x <= b / &(CARD s))
+         ==> sum s f <= b
+\ENDTHEOREM
+\THEOREM SUM\_BOUND\_LT
+  |- !s f b.
+         FINITE s /\ (!x. x IN s ==> f x <= b) /\ (?x. x IN s /\ f x < b)
+         ==> sum s f < &(CARD s) * b
+\ENDTHEOREM
+\THEOREM SUM\_BOUND\_LT\_ALL
+  |- !s f b.
+         FINITE s /\ ~(s = {}) /\ (!x. x IN s ==> f x < b)
+         ==> sum s f < &(CARD s) * b
+\ENDTHEOREM
+\THEOREM SUM\_BOUND\_LT\_GEN
+  |- !s t b.
+         FINITE s /\ ~(s = {}) /\ (!x. x IN s ==> f x < b / &(CARD s))
+         ==> sum s f < b
+\ENDTHEOREM
+\THEOREM SUM\_CLAUSES
+  |- (!f. sum {} f = &0) /\
+     (!x f s.
+          FINITE s
+          ==> sum (x INSERT s) f =
+              (if x IN s then sum s f else f x + sum s f))
+\ENDTHEOREM
+\THEOREM SUM\_CLAUSES\_LEFT
+  |- !f m n. m <= n ==> sum (m..n) f = f m + sum (m + 1..n) f
+\ENDTHEOREM
+\THEOREM SUM\_CLAUSES\_NUMSEG
+  |- (!m. sum (m..0) f = (if m = 0 then f 0 else &0)) /\
+     (!m n.
+          sum (m..SUC n) f =
+          (if m <= SUC n then sum (m..n) f + f (SUC n) else sum (m..n) f))
+\ENDTHEOREM
+\THEOREM SUM\_CLAUSES\_RIGHT
+  |- !f m n. 0 < n /\ m <= n ==> sum (m..n) f = sum (m..n - 1) f + f n
+\ENDTHEOREM
+\THEOREM SUM\_CONST
+  |- !c s. FINITE s ==> sum s (\n. c) = &(CARD s) * c
+\ENDTHEOREM
+\THEOREM SUM\_CONST\_NUMSEG
+  |- !c m n. sum (m..n) (\n. c) = &((n + 1) - m) * c
+\ENDTHEOREM
+\THEOREM SUM\_DELETE
+  |- !f s a. FINITE s /\ a IN s ==> sum (s DELETE a) f = sum s f - f a
+\ENDTHEOREM
+\THEOREM SUM\_DELTA
+  |- !s a. sum s (\x. if x = a then b else &0) = (if a IN s then b else &0)
+\ENDTHEOREM
+\THEOREM SUM\_DIFF
+  |- !f s t. FINITE s /\ t SUBSET s ==> sum (s DIFF t) f = sum s f - sum t f
+\ENDTHEOREM
+\THEOREM SUM\_EQ
+  |- !f g s. (!x. x IN s ==> f x = g x) ==> sum s f = sum s g
+\ENDTHEOREM
+\THEOREM SUM\_EQ\_0
+  |- !f s. (!x. x IN s ==> f x = &0) ==> sum s f = &0
+\ENDTHEOREM
+\THEOREM SUM\_EQ\_0\_NUMSEG
+  |- !f s. (!i. m <= i /\ i <= n ==> f i = &0) ==> sum (m..n) f = &0
+\ENDTHEOREM
+\THEOREM SUM\_EQ\_GENERAL
+  |- !s t f g h.
+         (!y. y IN t ==> (?!x. x IN s /\ h x = y)) /\
+         (!x. x IN s ==> h x IN t /\ g (h x) = f x)
+         ==> sum s f = sum t g
+\ENDTHEOREM
+\THEOREM SUM\_EQ\_GENERAL\_INVERSES
+  |- !s t f g h k.
+         (!y. y IN t ==> k y IN s /\ h (k y) = y) /\
+         (!x. x IN s ==> h x IN t /\ k (h x) = x /\ g (h x) = f x)
+         ==> sum s f = sum t g
+\ENDTHEOREM
+\THEOREM SUM\_EQ\_NUMSEG
+  |- !f g m n.
+         (!i. m <= i /\ i <= n ==> f i = g i) ==> sum (m..n) f = sum (m..n) g
+\ENDTHEOREM
+\THEOREM SUM\_EQ\_SUPERSET
+  |- !f s t.
+         FINITE t /\
+         t SUBSET s /\
+         (!x. x IN t ==> f x = g x) /\
+         (!x. x IN s /\ ~(x IN t) ==> f x = &0)
+         ==> sum s f = sum t g
+\ENDTHEOREM
+\THEOREM SUM\_IMAGE
+  |- !f g s.
+         (!x y. x IN s /\ y IN s /\ f x = f y ==> x = y)
+         ==> sum (IMAGE f s) g = sum s (g o f)
+\ENDTHEOREM
+\THEOREM SUM\_IMAGE\_GEN
+  |- !f g s.
+         FINITE s
+         ==> sum s g = sum (IMAGE f s) (\y. sum {x | x IN s /\ f x = y} g)
+\ENDTHEOREM
+\THEOREM SUM\_INJECTION
+  |- !f p s.
+         FINITE s /\
+         (!x. x IN s ==> p x IN s) /\
+         (!x y. x IN s /\ y IN s /\ p x = p y ==> x = y)
+         ==> sum s (f o p) = sum s f
+\ENDTHEOREM
+\THEOREM SUM\_LE
+  |- !f g s. FINITE s /\ (!x. x IN s ==> f x <= g x) ==> sum s f <= sum s g
+\ENDTHEOREM
+\THEOREM SUM\_LE\_NUMSEG
+  |- !f g m n.
+         (!i. m <= i /\ i <= n ==> f i <= g i)
+         ==> sum (m..n) f <= sum (m..n) g
+\ENDTHEOREM
+\THEOREM SUM\_LMUL
+  |- !f c s. sum s (\x. c * f x) = c * sum s f
+\ENDTHEOREM
+\THEOREM SUM\_LT
+  |- !f g s.
+         FINITE s /\ (!x. x IN s ==> f x <= g x) /\ (?x. x IN s /\ f x < g x)
+         ==> sum s f < sum s g
+\ENDTHEOREM
+\THEOREM SUM\_LT\_ALL
+  |- !f g s.
+         FINITE s /\ ~(s = {}) /\ (!x. x IN s ==> f x < g x)
+         ==> sum s f < sum s g
+\ENDTHEOREM
+\THEOREM SUM\_MULTICOUNT
+  |- !R s t k.
+         FINITE s /\
+         FINITE t /\
+         (!j. j IN t ==> CARD {i | i IN s /\ R i j} = k)
+         ==> sum s (\i. &(CARD {j | j IN t /\ R i j})) = &(k * CARD t)
+\ENDTHEOREM
+\THEOREM SUM\_MULTICOUNT\_GEN
+  |- !R s t k.
+         FINITE s /\
+         FINITE t /\
+         (!j. j IN t ==> CARD {i | i IN s /\ R i j} = k j)
+         ==> sum s (\i. &(CARD {j | j IN t /\ R i j})) = sum t (\i. &(k i))
+\ENDTHEOREM
+\THEOREM SUM\_NEG
+  |- !f s. sum s (\x. --f x) = --sum s f
+\ENDTHEOREM
+\THEOREM SUM\_OFFSET
+  |- !f m p. sum (m + p..n + p) f = sum (m..n) (\i. f (i + p))
+\ENDTHEOREM
+\THEOREM SUM\_OFFSET\_0
+  |- !f m n. m <= n ==> sum (m..n) f = sum (0..n - m) (\i. f (i + m))
+\ENDTHEOREM
+\THEOREM SUM\_POS\_BOUND
+  |- !f b s.
+         FINITE s /\ (!x. x IN s ==> &0 <= f x) /\ sum s f <= b
+         ==> (!x. x IN s ==> f x <= b)
+\ENDTHEOREM
+\THEOREM SUM\_POS\_EQ\_0
+  |- !f s.
+         FINITE s /\ (!x. x IN s ==> &0 <= f x) /\ sum s f = &0
+         ==> (!x. x IN s ==> f x = &0)
+\ENDTHEOREM
+\THEOREM SUM\_POS\_EQ\_0\_NUMSEG
+  |- !f m n.
+         (!p. m <= p /\ p <= n ==> &0 <= f p) /\ sum (m..n) f = &0
+         ==> (!p. m <= p /\ p <= n ==> f p = &0)
+\ENDTHEOREM
+\THEOREM SUM\_POS\_LE
+  |- !f s. FINITE s /\ (!x. x IN s ==> &0 <= f x) ==> &0 <= sum s f
+\ENDTHEOREM
+\THEOREM SUM\_POS\_LE\_NUMSEG
+  |- !m n f. (!p. m <= p /\ p <= n ==> &0 <= f p) ==> &0 <= sum (m..n) f
+\ENDTHEOREM
+\THEOREM SUM\_RESTRICT
+  |- !f s. FINITE s ==> sum s (\x. if x IN s then f x else &0) = sum s f
+\ENDTHEOREM
+\THEOREM SUM\_RESTRICT\_SET
+  |- !s f r.
+         FINITE s
+         ==> sum {x | x IN s /\ P x} f = sum s (\x. if P x then f x else &0)
+\ENDTHEOREM
+\THEOREM SUM\_RMUL
+  |- !f c s. sum s (\x. f x * c) = sum s f * c
+\ENDTHEOREM
+\THEOREM SUM\_SING
+  |- !f x. sum {x} f = f x
+\ENDTHEOREM
+\THEOREM SUM\_SING\_NUMSEG
+  |- !f n. sum (n..n) f = f n
+\ENDTHEOREM
+\THEOREM SUM\_SUB
+  |- !f g s. FINITE s ==> sum s (\x. f x - g x) = sum s f - sum s g
+\ENDTHEOREM
+\THEOREM SUM\_SUBSET
+  |- !u v f.
+         FINITE u /\
+         FINITE v /\
+         (!x. x IN u DIFF v ==> f x <= &0) /\
+         (!x. x IN v DIFF u ==> &0 <= f x)
+         ==> sum u f <= sum v f
+\ENDTHEOREM
+\THEOREM SUM\_SUBSET\_SIMPLE
+  |- !u v f.
+         FINITE v /\ u SUBSET v /\ (!x. x IN v DIFF u ==> &0 <= f x)
+         ==> sum u f <= sum v f
+\ENDTHEOREM
+\THEOREM SUM\_SUB\_NUMSEG
+  |- !f g m n. sum (m..n) (\i. f i - g i) = sum (m..n) f - sum (m..n) g
+\ENDTHEOREM
+\THEOREM SUM\_SUM\_PRODUCT
+  |- !s t x.
+         FINITE s /\ (!i. i IN s ==> FINITE (t i))
+         ==> sum s (\i. sum (t i) (x i)) =
+             sum {i,j | i IN s /\ j IN t i} (\(i,j). x i j)
+\ENDTHEOREM
+\THEOREM SUM\_SUM\_RESTRICT
+  |- !R f s t.
+         FINITE s /\ FINITE t
+         ==> sum s (\x. sum {y | y IN t /\ R x y} (\y. f x y)) =
+             sum t (\y. sum {x | x IN s /\ R x y} (\x. f x y))
+\ENDTHEOREM
+\THEOREM SUM\_SUPERSET
+  |- !f u v.
+         FINITE u /\ u SUBSET v /\ (!x. x IN v /\ ~(x IN u) ==> f x = &0)
+         ==> sum v f = sum u f
+\ENDTHEOREM
+\THEOREM SUM\_SUPPORT
+  |- !f s. sum (support (+) f s) f = sum s f
+\ENDTHEOREM
+\THEOREM SUM\_SWAP
+  |- !f s t.
+         FINITE s /\ FINITE t
+         ==> sum s (\i. sum t (f i)) = sum t (\j. sum s (\i. f i j))
+\ENDTHEOREM
+\THEOREM SUM\_SWAP\_NUMSEG
+  |- !a b c d f.
+         sum (a..b) (\i. sum (c..d) (f i)) =
+         sum (c..d) (\j. sum (a..b) (\i. f i j))
+\ENDTHEOREM
+\THEOREM SUM\_TRIV\_NUMSEG
+  |- !f m n. n < m ==> sum (m..n) f = &0
+\ENDTHEOREM
+\THEOREM SUM\_UNION
+  |- !f s t.
+         FINITE s /\ FINITE t /\ DISJOINT s t
+         ==> sum (s UNION t) f = sum s f + sum t f
+\ENDTHEOREM
+\THEOREM SUM\_UNION\_EQ
+  |- !s t u.
+         FINITE u /\ s INTER t = {} /\ s UNION t = u
+         ==> sum s f + sum t f = sum u f
+\ENDTHEOREM
+\THEOREM SUM\_UNION\_LZERO
+  |- !f u v.
+         FINITE v /\ (!x. x IN u /\ ~(x IN v) ==> f x = &0)
+         ==> sum (u UNION v) f = sum v f
+\ENDTHEOREM
+\THEOREM SUM\_UNION\_RZERO
+  |- !f u v.
+         FINITE u /\ (!x. x IN v /\ ~(x IN u) ==> f x = &0)
+         ==> sum (u UNION v) f = sum u f
+\ENDTHEOREM
+\THEOREM SUPPORT\_CLAUSES
+  |- (!f. support op f {} = {}) /\
+     (!f x s.
+          support op f (x INSERT s) =
+          (if f x = neutral op
+           then support op f s
+           else x INSERT support op f s)) /\
+     (!f x s. support op f (s DELETE x) = support op f s DELETE x) /\
+     (!f s t. support op f (s UNION t) = support op f s UNION support op f t) /\
+     (!f s t. support op f (s INTER t) = support op f s INTER support op f t) /\
+     (!f s t. support op f (s DIFF t) = support op f s DIFF support op f t) /\
+     (!f g s. support op g (IMAGE f s) = IMAGE f (support op (g o f) s))
+\ENDTHEOREM
+\THEOREM SUPPORT\_DELTA
+  |- !op s f a.
+         support op (\x. if x = a then f x else neutral op) s =
+         (if a IN s then support op f {a} else {})
+\ENDTHEOREM
+\THEOREM SUPPORT\_EMPTY
+  |- !op f s. (!x. x IN s ==> f x = neutral op) <=> support op f s = {}
+\ENDTHEOREM
+\THEOREM SUPPORT\_SUBSET
+  |- !op f s. support op f s SUBSET s
+\ENDTHEOREM
+\THEOREM SUPPORT\_SUPPORT
+  |- !op f s. support op f (support op f s) = support op f s
+\ENDTHEOREM
+\THEOREM iterate
+  |- !f s op.
+         iterate op s f =
+         (if FINITE (support op f s)
+          then ITSET (\x a. op (f x) a) (support op f s) (neutral op)
+          else neutral op)
+\ENDTHEOREM
+\THEOREM monoidal
+  |- !op. monoidal op <=>
+          (!x y. op x y = op y x) /\
+          (!x y z. op x (op y z) = op (op x y) z) /\
+          (!x. op (neutral op) x = x)
+\ENDTHEOREM
+\THEOREM neutral
+  |- !op. neutral op = (@x. !y. op x y = y /\ op y x = y)
+\ENDTHEOREM
+\THEOREM nsum
+  |- nsum = iterate (+)
+\ENDTHEOREM
+\THEOREM sum
+  |- sum = iterate (+)
+\ENDTHEOREM
+\THEOREM support
+  |- !s f op. support op f s = {x | x IN s /\ ~(f x = neutral op)}
+\ENDTHEOREM
+
+\section{Theorems about cartesian powers}
+\THEOREM CARD\_FINITE\_IMAGE
+  |- !s. CARD (:(A)finite_image) = dimindex s
+\ENDTHEOREM
+\THEOREM CART\_EQ
+  |- !x y. x = y <=> (!i. 1 <= i /\ i <= dimindex (:N) ==> x$i = y$i)
+\ENDTHEOREM
+\THEOREM DIMINDEX\_1
+  |- dimindex (:1) = 1
+\ENDTHEOREM
+\THEOREM DIMINDEX\_2
+  |- dimindex (:2) = 2
+\ENDTHEOREM
+\THEOREM DIMINDEX\_3
+  |- dimindex (:3) = 3
+\ENDTHEOREM
+\THEOREM DIMINDEX\_FINITE\_IMAGE
+  |- !s t. dimindex s = dimindex t
+\ENDTHEOREM
+\THEOREM DIMINDEX\_FINITE\_SUM
+  |- dimindex (:(M,N)finite_sum) = dimindex (:M) + dimindex (:N)
+\ENDTHEOREM
+\THEOREM DIMINDEX\_GE\_1
+  |- !s. 1 <= dimindex s
+\ENDTHEOREM
+\THEOREM DIMINDEX\_HAS\_SIZE\_FINITE\_SUM
+  |- (:(M,N)finite_sum) HAS_SIZE dimindex (:M) + dimindex (:N)
+\ENDTHEOREM
+\THEOREM DIMINDEX\_NONZERO
+  |- !s. ~(dimindex s = 0)
+\ENDTHEOREM
+\THEOREM DIMINDEX\_UNIQUE
+  |- (:N) HAS_SIZE n ==> dimindex (:N) = n
+\ENDTHEOREM
+\THEOREM DIMINDEX\_UNIV
+  |- !s. dimindex s = dimindex (:N)
+\ENDTHEOREM
+\THEOREM EXISTS\_PASTECART
+  |- (?p. P p) <=> (?x y. P (pastecart x y))
+\ENDTHEOREM
+\THEOREM FINITE\_FINITE\_IMAGE
+  |- FINITE (:(A)finite_image)
+\ENDTHEOREM
+\THEOREM FINITE\_IMAGE\_IMAGE
+  |- (:(A)finite_image) = IMAGE finite_index (1..dimindex (:N))
+\ENDTHEOREM
+\THEOREM FINITE\_INDEX\_INJ
+  |- !i j.
+         1 <= i /\ i <= dimindex (:N) /\ 1 <= j /\ j <= dimindex (:N)
+         ==> (finite_index i = finite_index j <=> i = j)
+\ENDTHEOREM
+\THEOREM FINITE\_INDEX\_WORKS
+  |- !i. ?!n. 1 <= n /\ n <= dimindex (:N) /\ finite_index n = i
+\ENDTHEOREM
+\THEOREM FINITE\_SUM\_IMAGE
+  |- (:(M,N)finite_sum) =
+     IMAGE mk_finite_sum (1..dimindex (:M) + dimindex (:N))
+\ENDTHEOREM
+\THEOREM FORALL\_FINITE\_INDEX
+  |- (!k. P k) <=> (!i. 1 <= i /\ i <= dimindex (:N) ==> P (finite_index i))
+\ENDTHEOREM
+\THEOREM FORALL\_PASTECART
+  |- (!p. P p) <=> (!x y. P (pastecart x y))
+\ENDTHEOREM
+\THEOREM FSTCART\_PASTECART
+  |- !x y. fstcart (pastecart x y) = x
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_1
+  |- (:1) HAS_SIZE 1
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_2
+  |- (:2) HAS_SIZE 2
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_3
+  |- (:3) HAS_SIZE 3
+\ENDTHEOREM
+\THEOREM HAS\_SIZE\_FINITE\_IMAGE
+  |- !s. (:(A)finite_image) HAS_SIZE dimindex s
+\ENDTHEOREM
+\THEOREM LAMBDA\_BETA
+  |- !i. 1 <= i /\ i <= dimindex (:N) ==> (lambda) g$i = g i
+\ENDTHEOREM
+\THEOREM LAMBDA\_ETA
+  |- !g. (lambda i. g$i) = g
+\ENDTHEOREM
+\THEOREM LAMBDA\_UNIQUE
+  |- !f g.
+         (!i. 1 <= i /\ i <= dimindex (:N) ==> f$i = g i) <=> (lambda) g = f
+\ENDTHEOREM
+\THEOREM PASTECART\_EQ
+  |- !x y. x = y <=> fstcart x = fstcart y /\ sndcart x = sndcart y
+\ENDTHEOREM
+\THEOREM PASTECART\_FST\_SND
+  |- !z. pastecart (fstcart z) (sndcart z) = z
+\ENDTHEOREM
+\THEOREM SNDCART\_PASTECART
+  |- !x y. sndcart (pastecart x y) = y
+\ENDTHEOREM
+\THEOREM cart\_tybij
+  |- (!a. mk_cart (dest_cart a) = a) /\ (!r. T <=> dest_cart (mk_cart r) = r)
+\ENDTHEOREM
+\THEOREM dimindex
+  |- !s. dimindex s = (if FINITE (:N) then CARD (:N) else 1)
+\ENDTHEOREM
+\THEOREM finite\_image\_tybij
+  |- (!a. finite_index (dest_finite_image a) = a) /\
+     (!r. r IN 1..dimindex (:N) <=> dest_finite_image (finite_index r) = r)
+\ENDTHEOREM
+\THEOREM finite\_index
+  |- !x i. x$i = dest_cart x (finite_index i)
+\ENDTHEOREM
+\THEOREM finite\_sum\_tybij
+  |- (!a. mk_finite_sum (dest_finite_sum a) = a) /\
+     (!r. r IN 1..dimindex (:M) + dimindex (:N) <=>
+          dest_finite_sum (mk_finite_sum r) = r)
+\ENDTHEOREM
+\THEOREM fstcart
+  |- !f. fstcart f = (lambda i. f$i)
+\ENDTHEOREM
+\THEOREM lambda
+  |- !g. (lambda) g = (@f. !i. 1 <= i /\ i <= dimindex (:N) ==> f$i = g i)
+\ENDTHEOREM
+\THEOREM pastecart
+  |- !f g.
+         pastecart f g =
+         (lambda i. if i <= dimindex (:M) then f$i else g$(i - dimindex (:M)))
+\ENDTHEOREM
+\THEOREM sndcart
+  |- !f. sndcart f = (lambda i. f$(i + dimindex (:M)))
+\ENDTHEOREM

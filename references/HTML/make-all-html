@@ -1,0 +1,1 @@
+for i in `ls -a ../Help | grep '.hlp$' | sort -f`; do ./make-html $i; done

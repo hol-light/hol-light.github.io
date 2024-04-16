@@ -1,0 +1,28 @@
+/*************************************************
+*       The E text editor - 2nd incarnation      *
+*************************************************/
+
+/* Copyright (c) University of Cambridge, 1991, 1992, 1993 */
+
+/* Written by Philip Hazel, starting November 1991 */
+/* This file last modified: June 1994 */
+
+/* This file contains system-specific definitions to be
+included in the main E header file. This is the RISC OS
+version. */
+
+#define SIGHUP  -1
+
+#define FILE_CASELESS        /* File names are caseless */
+
+#define sys_malloc   sys_Malloc
+#define sys_free     sys_Free
+#define sys_free_all sys_Free_all
+
+#define store_allocation_unit   32*1024
+
+extern void *sys_Malloc(int);
+extern void sys_Free(void *);
+extern void sys_Free_all(void);
+
+/* End of elocal.ros */

@@ -1,0 +1,32 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>INT_REM_DOWN_CONV : conv</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Combines nested <SPAN CLASS=BRKT>rem</SPAN> terms into a single toplevel one.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+When applied to a term containing integer arithmetic operations of
+negation, addition, subtraction, multiplication and exponentiation,
+interspersed with applying <SPAN CLASS=BRKT>rem</SPAN> with a fixed modulus <SPAN CLASS=BRKT>n</SPAN>, and a toplevel
+<SPAN CLASS=BRKT>... rem n</SPAN> too, the conversion <SPAN CLASS=BRKT>INT_REM_DOWN_CONV</SPAN> proves that this is equal
+to a simplified term with only the toplevel <SPAN CLASS=BRKT>rem</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Never fails but may have no effect
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # let tm = `((x rem n) + (y rem n * &amp;3) pow 2) rem n`;;
+  val tm : term = `(x rem n + (y rem n * &amp;3) pow 2) rem n`
+
+  # INT_REM_DOWN_CONV tm;;
+  val it : thm =
+    |- (x rem n + (y rem n * &amp;3) pow 2) rem n = (x + (y * &amp;3) pow 2) rem n
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="MOD_DOWN_CONV.html">MOD_DOWN_CONV</A>.
+
+
+</DL>

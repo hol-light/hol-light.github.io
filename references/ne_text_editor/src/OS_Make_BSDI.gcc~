@@ -1,0 +1,11 @@
+# System-dependent Unix makefile for the NE editor.
+# Version for Linux using the gcc compiler.
+
+FLAGS   = CC=gcc-12 \
+          CFLAGS="-Dunixwinsz -DHAVE_TERMCAP \
+            -ansi -funsigned-char" \
+          LIB_TERMINAL=-ltermcap 
+        
+newne:;   @make -f BaseMake $(FLAGS) $(TARGET)
+
+# End

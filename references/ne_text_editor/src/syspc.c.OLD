@@ -1,0 +1,990 @@
+/*************************************************
+*       The E text editor - 2nd incarnation      *
+*************************************************/
+
+/* Copyright (c) University of Cambridge, 1991-1994           *
+ *                                                            *
+ * Written by Philip Hazel, starting November 1991            *
+ * Adapted for the PC by Brian Holley, starting November 1993 *
+ * This file last modified: Nov 1994                          *
+ *                                                            *
+ * This PC version is designed for Borland C++ (C code only)  *
+ * versions 3.1 or 4.0                                        *
+ *                                                            *
+ * This file contains the system-specific routines for the PC */
+
+#include "ehdr.h"
+#include "shdr.h"
+#include "scomhdr.h"
+#include "keyhdr.h"
+
+#include <conio.h>
+#include <dos.h>
+#include <bios.h>
+#include <dir.h>
+
+extern unsigned _stklen = 16384;
+extern int _wscroll;
+extern int directvideo = 1 ;
+
+/* Function declarations */
+
+static int nextchar(int *type);
+static int getachar(void);
+static void pc_cls(int bottom, int left, int top, int right);
+static void pc_move(int x, int y);
+static void pc_rendition(int r);
+static void pc_putc(int c);
+/*static void pc_hscroll(int left, int bottom, int right, int top, int amount);*/
+static void pc_vscroll(int bottom, int top, int amount, BOOL deleting);
+static void setupterminal(void);
+static void pc_flush(void);
+
+#ifndef Debug
+  #ifndef TraceStore
+	 #define this_version "/PC-DOS 1.01"
+	#else
+	 #define this_version "/PC-DOS 1.01 (Tracing)"
+	#endif
+#else
+	#define this_version "/PC-DOS 1.01 (Debugging)"
+#endif
+
+#define sh  s_f_shiftbit
+#define ct  s_f_ctrlbit
+#define shc (s_f_shiftbit + s_f_ctrlbit)
+
+#ifndef __BORLANDC__
+
+struct text_info {
+    unsigned char winleft;
+	 unsigned char wintop;
+    unsigned char winright;
+    unsigned char winbottom;
+    unsigned char attribute;
+    unsigned char normattr;
+    unsigned char currmode;
+    unsigned char screenheight;
+    unsigned char screenwidth;
+    unsigned char curx;
+    unsigned char cury;
+};
+
+#endif
+
+static struct text_info scrn_info;
+static char ESCAPED;
+extern char *arg_zero;
+FILE *helpfile;
+
+/* Control keystrokes to return for keys that are not
+dealt with locally nor are ctrls. */
+
+/* Offsets into the table are keyboard scan codes minus 14 */
+
+static short int ControlKeystroke[] = {
+						s_f_bsp,           /* 7F   */
+  s_f_tab,                                              /* 0x0f.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x10.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x14.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x18.. */
+  s_f_ret,    s_f_user,   s_f_user,   s_f_user,         /* 0x1c.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x20.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x24.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x28.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x2c.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x30.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x34.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_umax+1,       /* 0x38.. */
+  s_f_umax+2, s_f_umax+3, s_f_umax+4, s_f_umax+5,       /* 0x3c.. */
+  s_f_umax+6, s_f_umax+7, s_f_umax+8, s_f_umax+9,       /* 0x40.. */
+  s_f_umax+10,s_f_user,   s_f_user,   s_f_hom,          /* 0x44.. */
+  s_f_cup,    s_f_pup,    s_f_user,   s_f_clf,          /* 0x48.. */
+  s_f_user,   s_f_crt,    s_f_user,   s_f_end,          /* 0x4c.. */
+  s_f_cdn,    s_f_pdn,    s_f_ins,    s_f_del,          /* 0x50.. */
+  s_f_umax+11,s_f_umax+12,s_f_umax+13,s_f_umax+14,      /* 0x54.. */
+  s_f_umax+15,s_f_umax+16,s_f_umax+17,s_f_umax+18,      /* 0x58.. */
+  s_f_umax+19,s_f_umax+20,s_f_umax+21,s_f_umax+22,      /* 0x5c.. */
+  s_f_umax+23,s_f_umax+24,s_f_umax+25,s_f_umax+26,      /* 0x60.. */
+  s_f_umax+27,s_f_umax+28,s_f_umax+29,s_f_umax+30,      /* 0x64.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x68.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x6c.. */
+	s_f_user,   s_f_user,   s_f_user,   s_f_wordlf,       /* 0x70.. */
+	s_f_wordrt, s_f_end+ct, s_f_pdn+ct, s_f_hom+ct,       /* 0x74.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x78.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x7c.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x80.. */
+  s_f_pup+ct, s_f_user,   s_f_user,   s_f_user,         /* 0x84.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x88.. */
+  s_f_user,   s_f_cup+ct, s_f_user,   s_f_user,         /* 0x8c.. */
+  s_f_user,   s_f_cdn+ct, s_f_ins+ct, s_f_del+ct,       /* 0x90.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x94.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x98.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0x9c.. */
+  s_f_user,   s_f_user,   s_f_user,   s_f_user,         /* 0xa0.. */
+  s_f_user,   s_f_user,   s_f_user,                     /* 0xa4..0xa6 */
+
+/* 0xa7 onwards are pseudo key codes - shifted edit keys */
+						s_f_hom+sh,	/*   0xa7 */
+  s_f_cup+sh, s_f_pup+sh, s_f_user+sh,s_f_clf+sh,       /* 0xa8.. */
+  s_f_user+sh,s_f_crt+sh, s_f_user+sh,s_f_end+sh,       /* 0xac.. */
+  s_f_cdn+sh, s_f_pdn+sh, s_f_ins+sh, s_f_del+sh,       /* 0xb0.. */
+  s_f_bsp+sh, s_f_tab+sh, s_f_bsp+ct, s_f_tab+ct,		  /* 0xb4.. */
+  s_f_ret+sh, s_f_ret+ct};                              /* 0xb8.. */
+
+/* List of signals to be trapped for buffer dumping on
+crashes to be effective. Names are for use in messages. */
+
+int signal_list[] = {
+  SIGABRT, SIGILL, SIGFPE, SIGSEGV, SIGTERM, -1 };
+
+char *signal_names[] = {
+  "SIGABRT", "SIGILL", "SIGFPE", "SIGSEGV", "SIGTERM", "" };
+
+
+/*************************************************
+*               Static data                      *
+*************************************************/
+
+/* The following keystrokes are not available and so their default
+settings must be squashed. Note that we leave "ctrl/tab", because
+esc tab maps to it and is suitable translated for output. For some
+known terminals (e.g. Archimedes ttp) tsome of hese keys are not
+squashed, because they are built into this code. There are special
+versions of the table for these. */
+/*
+static unsigned char non_keys[] = {
+  s_f_copykey, s_f_copykey+sh, s_f_copykey+ct,
+  s_f_cup+sh, s_f_cup+sh+ct, s_f_cdn+sh,  s_f_cdn+sh+ct,
+  s_f_clf+sh, s_f_clf+sh+ct, s_f_crt+sh,  s_f_crt+sh+ct,
+  s_f_del+sh, s_f_del+sh+ct, s_f_bsp+sh,  s_f_bsp+sh+ct,
+  s_f_ret+sh, s_f_ret+sh+ct, s_f_tab+sh,  s_f_tab+sh+ct,
+  s_f_ins+sh, s_f_ins+sh+ct, s_f_hom+sh,  s_f_hom+sh+ct,
+  s_f_pup+sh, s_f_pup+sh+ct, s_f_pdn+sh,  s_f_pdn+sh+ct,
+  s_f_end+sh, s_f_end+sh+ct,
+  s_f_tab+ct, s_f_ins+ct,  s_f_del+ct,    s_f_bsp+ct,
+  0 };
+*/
+static unsigned char non_keys[] = {
+  s_f_copykey, s_f_copykey+sh, s_f_copykey+ct,
+  s_f_cup+sh+ct, s_f_cdn+sh+ct,
+  s_f_clf+sh+ct, s_f_crt+sh+ct,
+  s_f_del+sh+ct, s_f_bsp+sh+ct,
+  s_f_tab+sh+ct,
+  s_f_ins+sh+ct, s_f_hom+sh+ct,
+  s_f_pup+sh+ct, s_f_pdn+sh+ct,
+  s_f_end+sh+ct,
+  0 };
+/*************************************************
+*          Add to arg string if needed           *
+*************************************************/
+
+/* This function permits the system-specific code to add additional
+argument definitions to the arg string which will be used to decode
+the command line. */
+
+char *sys_argstring(char *s)
+{ return s;
+}
+
+
+/*************************************************
+*      Deal with local argument settings         *
+*************************************************/
+
+/* This procedure is called when the command line has been decoded,
+to enable the system-specific code to deal with its own argument
+settings. The first argument points to the rdargs results structure,
+while the second is the number of the first local argument. This is
+called before the system-independent arguments are examined. */
+
+void sys_takeargs(arg_result *result, int n)
+{ int destination, source;
+  struct ffblk fileinfo;
+  char *ptr, *new_arg_buff;
+  if (result[0].data.text != NULL)
+  { for (destination = 1; destination < 9; destination++)
+		if (result[destination].data.text == NULL) break;
+	 if (destination<9)
+	 { for (source=0;source<destination;source++)
+		{ if (strchr(result[source].data.text,'*')
+				|| strchr(result[source].data.text,'?'))
+		  { ptr=result[source].data.text;
+			 if (findfirst(ptr,&fileinfo,0)==NULL)
+			 { new_arg_buff=store_Xget(strlen(ptr)+16L);
+				strcpy(new_arg_buff,ptr);
+				ptr=strrchr(new_arg_buff,'\\');
+				if (ptr==NULL) strrchr(new_arg_buff,':');
+				if (ptr) ptr++;
+				else ptr=new_arg_buff;
+				strcpy(ptr,fileinfo.ff_name);
+				result[source].data.text=new_arg_buff;
+				while (findnext(&fileinfo)==NULL && destination<9)
+				{ ptr=result[source].data.text;
+				  new_arg_buff=store_Xget(strlen(ptr)+16);
+				  strcpy(new_arg_buff,result[source].data.text);
+				  ptr=strrchr(new_arg_buff,'\\');
+				  if (ptr==NULL) strrchr(new_arg_buff,':');
+				  if (ptr) ptr++;
+				  else ptr=new_arg_buff;
+				  strcpy(ptr,fileinfo.ff_name);
+				  result[destination++].data.text=new_arg_buff;
+				}
+			 }
+		  }
+		}
+	 }
+  }
+}
+
+
+/*************************************************
+*       Generate names for special keys          *
+*************************************************/
+
+/* This procedure is used to generate names for odd key
+combinations that are used to represent keystrokes that
+can't be generated normally. Return TRUE if the name
+has been generated, else FALSE. */
+
+BOOL sys_makespecialname(int key, char *buff)
+{ return 0;
+}
+
+
+/*************************************************
+*         Additional special key text            *
+*************************************************/
+
+/* This function is called after outputting info about
+special keys, to allow any system-specific comments to
+be included. */
+
+void sys_specialnotes(void)
+{;
+}
+
+
+/*************************************************
+*  Find a filename somewhere in the current PATH *
+*************************************************/
+
+/* Returns pointer to open file, or NULL if not found */
+
+static FILE *find_in_path(char *fname)
+{ char *endptr;
+  char *ptr;
+  char *sys_env_path;
+  char fullname[128];
+  static FILE *fs;
+  sys_env_path = getenv("PATH");
+  ptr = sys_env_path;
+  while (ptr<sys_env_path+strlen(sys_env_path) && !fs)
+  { endptr=strchr(ptr,PATH_DIR_SEPARATOR);
+	 if (!endptr) endptr=sys_env_path+strlen(sys_env_path);
+    strncpy(fullname,ptr,(int)(endptr-ptr));
+    fullname[(int)(endptr-ptr)]=PATH_SEPARATOR;
+    fullname[(int)(endptr-ptr)+1]=0;
+    strcat(fullname,fname);
+    fs=fopen(fullname,"r");
+    ptr=endptr+1;
+  }
+  return (fs);
+}
+
+/*************************************************
+*              Local initialization              *
+*************************************************/
+
+/* This is called first thing in main() for doing vital system-
+specific early things, especially those concerned with any
+special store handling. */
+
+void sys_init1(void)
+{ main_tabs = getenv("NETABS");   /* Set default */
+  if (main_tabs == NULL) main_tabs = getenv("ETABS");   /* Set default */
+  main_backupfiles=TRUE;
+}
+
+
+/* This is called after argument decoding is complete to allow
+any system-specific over-riding to take place. Main_screenmode
+will be TRUE unless -line or -with was specified. */
+
+void sys_init2(void)
+{ int keycount = 0;
+  char *ptr;
+  char helpname[128];
+/* find help file - search current directory, then directory from
+	which .EXE file is launched, then in each directory in the PATH */
+
+  if ((helpfile = fopen(HELP_FILE_NAME,"r")) == NULL)
+  { if (strlen(arg_zero))
+	 { strcpy(helpname,arg_zero);
+		if ((ptr = strrchr(helpname,PATH_SEPARATOR)) != NULL) *(ptr + 1) = 0;
+		else helpname[0] = 0;
+		strcat(helpname,HELP_FILE_NAME);
+		helpfile = fopen(helpname,"r");
+    }
+    if (!helpfile) helpfile = find_in_path(HELP_FILE_NAME);
+  }
+  main_einit= getenv("NEINIT");   /* Set default */
+  if (main_einit == NULL) main_einit = getenv("EINIT");
+  if (main_einit[0]=='"' && main_einit[strlen(main_einit)-1]=='"')
+  { strcpy(main_einit,main_einit+1);
+	 main_einit[strlen(main_einit)-1]=0;
+  }
+  scommon_select();  /* connect to common screen driver */
+
+  key_controlmap    = 0xFFFFFFFEL;    /* exclude nothing */
+  key_functionmap   = 0x7FFFFFFEL;    /* allow 1-30 */
+
+/*
+bit order is: (ms to ls)
+copy key, end, page down, page up, home, ins, tab, return, backspace, del
+arrows
+*/
+  key_specialmap[0] = 0x00001FFFL;
+  key_specialmap[1] = 0x00001FFFL;
+  key_specialmap[2] = 0x00001FFFL;
+  key_specialmap[3] = 0x0L;
+
+  while (non_keys[keycount] != 0)
+	 key_table[non_keys[keycount++]] = 0;
+  key_table[s_f_ins] = 60;
+  key_table[s_f_hom] = ka_csls;         /* cursor to (true) line start */
+  key_table[s_f_end] = ka_csle;         /* cursor to (true) line end */
+  key_table[s_f_tab+sh] = ka_csptab;    /* cursor to previous tab position */
+  key_table[s_f_del] = ka_dc;           /* delete character */
+  key_table[s_f_del+sh] = ka_cl;        /* closeup */
+  key_table[s_f_del+ct] = ka_dar;       /* delete right */
+  key_table[s_f_pdn] = ka_scdown;       /* scroll down */
+  key_table[s_f_pup] = ka_scup;         /* scroll up */
+  key_table[s_f_pup+ct] = ka_sctop;     /* document top*/
+  key_table[s_f_pdn+ct] = ka_scbot;     /* document bottom */
+  key_table[s_f_cup+ct] = ka_sctop;     /* document top*/
+  key_table[s_f_cdn+ct] = ka_scbot;     /* document bottom */
+
+  main_eightbit=TRUE;
+  screen_suspend=FALSE;
+}
+
+
+
+/*************************************************
+*                Munge return code               *
+*************************************************/
+
+/* This procedure is called just before exiting, to enable a
+return code to be set according to the OS's conventions. */
+
+int sys_rc(int rc)
+{ return rc;
+}
+
+
+/*************************************************
+*             Report local version               *
+*************************************************/
+
+/* This procedure is passed the global version string,
+and should append to it the version of this local module,
+together with the version(s) of any screen drivers. */
+
+void sys_setversion(char *s)
+{ strcat(s, this_version);
+}
+
+
+/*************************************************
+*             Generate crash file name           *
+*************************************************/
+
+char *sys_crashfilename(int which)
+{ return which? "NEcrash" : "NEcrash.log";
+}
+
+
+/*************************************************
+*              Open a file                       *
+*          (ignore file type)                    *
+*************************************************/
+
+FILE *sys_fopen(char *name, char *type, int *filetype)
+{ char typecpy[3];
+  strcpy(typecpy,type);
+  if (main_binary) strcat(typecpy,"b");
+
+/* Handle optional automatic backup for output files. We change
+extension to .BAK, as is common with MS-DOS. */
+
+if (main_backupfiles && type[0] == 'w' && !file_written(name))
+  {
+  char bakname[80],*dotptr,*slashptr;
+  strcpy(bakname, name);
+  dotptr = strrchr(bakname,'.');
+  slashptr = strrchr(bakname,'\\');
+  if (dotptr)
+    if(dotptr > slashptr)
+      *dotptr = 0;
+  strcat(bakname, ".bak");
+  remove(bakname);
+  rename(name, bakname);
+  file_setwritten(name);
+  }
+
+  return fopen(name, typecpy);
+}
+
+
+/*************************************************
+*              Check file name                   *
+*************************************************/
+
+char *sys_checkfilename(char *s, BOOL reading)
+{unsigned char *p = (unsigned char *)s;
+unsigned char illegals[]="*+=[];\",/?<>|";
+
+while (*p != 0)
+	{
+	if (*p == ' ')
+		{
+		while (*(++p) != 0)
+			{
+			if (*p != ' ') return "(contains a space)";
+			}
+		break;
+		}
+	if (*p < ' ' || *p > '~') return "(contains a non-printing character)";
+	p++;
+	}
+if ((p=strpbrk(s,illegals))!=NULL)
+	{
+	char msg[]="contains illegal character \" \"";
+	msg[strlen(msg)-2]=*p;                              
+	return (msg);
+	}
+return NULL;
+
+}
+
+/*************************************************
+*            Set a file's type                   *
+*************************************************/
+
+/* MSDOS does not use file types. */
+
+void sys_setfiletype(char *name, int type)
+{ ;
+}
+
+/*************************************************
+*         Give number of characters for newline  *
+*************************************************/
+
+int sys_crlfcount(void)
+{ return (2);
+}
+
+
+/*************************************************
+*            Write to message stream             *
+*************************************************/
+
+/* Output to msgs_fid is passed through here, so that it can
+be handled system-specifically - under MS-DOS allows colours. */
+
+void sys_mprintf(FILE *f, char *format, ...)
+{
+char outpt[132],margin_char;
+va_list ap;
+va_start(ap, format);
+if (main_screenmode)
+{ vsprintf(outpt,format,ap);
+	if (strlen(outpt)>1)
+	{ if (wherex()+strlen(outpt)>screen_max_col)
+		{ margin_char = outpt[screen_max_col-wherex()+1];
+			outpt[screen_max_col-wherex()+1] = 0;
+			cprintf("%s\r\n%c",outpt,margin_char);
+			if (outpt[screen_max_col-wherex()+2])
+				cprintf("%s",outpt+(screen_max_col-wherex()+2));
+		}
+		else
+			cprintf("%s", outpt);
+	}
+	else
+	{ if (wherex()<=screen_max_col)
+			cprintf("%s",outpt);
+		else
+			cprintf("%s\r\n",outpt);
+	}
+}
+else vfprintf(f, format, ap);
+va_end(ap);
+}
+
+
+
+/*************************************************
+*            Give reason for key refusal         *
+*************************************************/
+
+/* This procedure gives reasons for the setting of bits
+in the maps that forbid certain keys being set. */
+
+char *sys_keyreason(int key)
+{ switch (key & ~(s_f_shiftbit+s_f_ctrlbit))
+  {
+  case s_f_ret: return "return is equivalent to ctrl/m";
+	default:      return "not available on keyboard";
+  }
+}
+
+
+/*************************************************
+*           System-specific help info            *
+*************************************************/
+
+BOOL sys_help(char *s)
+{ BOOL show=FALSE, shown=FALSE;
+  char helpline[128],lastline[128];
+  int linelen;
+  if (helpfile)
+  { if (!s)
+    {/* error_printf("Use, e.g. 'help a' for help items beginning 'a'\n");*/
+      fseek(helpfile, 0L, SEEK_SET);
+      linelen = 0;
+      lastline[0]=0;
+      error_printf("Help is available on: \n\n");
+      while (fgets(helpline,128,helpfile))
+      { if (strlen(helpline))
+	  if (helpline[0]>' ')
+	  { if (strchr(helpline,' ')) *(strchr(helpline,' '))=0;
+	    else if (strchr(helpline,'\n')) *(strchr(helpline,'\n'))=0;
+	    if (strcmp(helpline,lastline))
+	    { if (linelen>0) error_printf(", ");
+	      linelen+=strlen(helpline)+2;
+				if (linelen>screen_max_col-1)
+				{ error_printf("\n");
+		linelen=strlen(helpline)+2;
+				}
+	      error_printf("%s", helpline);
+	    }
+	    strcpy(lastline,helpline);
+	  }
+      }
+      if (linelen>0) error_printf("\n");
+      error_printf("\nUse:\n\nHELP <topic>\n\nwhere <topic> can be an abbreviation.\n");
+      shown=TRUE;
+    }
+    else
+    { fseek(helpfile, 0L, SEEK_SET);
+      while (fgets(helpline,128,helpfile))
+      { if (strlen(helpline))
+	  if (helpline[0]>' ')
+            if (!strnicmp(helpline,s,strlen(s))) show=shown=TRUE;
+	    else show=FALSE;
+	if (show) error_printf("%s",helpline);
+	if (strlen(s)==1) show = FALSE;
+      }
+    }
+    if (!shown) error_printf("** Sorry, no help available on %s\n", s);
+    return TRUE;
+  }
+  else return FALSE;
+ }
+
+
+/* This is called from main_interrupted(). This in turn is called only
+when the main part of NE is in control, not during screen editing operations.
+We have to check for ^C by steam, as we are running in raw terminal mode.
+
+It turns out that kbhit can be very slow, so we don't actually want
+to do it for every line in, e.g., an m command. NE now maintains a count of
+calls to main_interrupted(), reset when a command line is read, and it also
+passes over the kind of processing that is taking place:
+
+  ci_move     m, f, bf, or g command
+  ci_type     t or tl command
+  ci_read     reading command line or data for i command
+  ci_cmd      about to obey a command
+  ci_delete   deleting all lines of a buffer
+  ci_scan     scanning lines (e.g. for show wordcount)
+  ci_loop     about to obey the body of a loop
+
+These are successive integer values, starting from zero. */
+
+
+/* This vector of masks is used to mask the counter; if the result is
+zero, the ioctl is done. Thereby we have different intervals for different
+types of activity with very little cost. The numbers are pulled out of the
+air... */
+
+static int ci_masks[] = {
+    1023,    /* ci_move - every 1024 lines*/
+    0,       /* ci_type - every time */
+    0,       /* ci_read - every time */
+    15,      /* ci_cmd  - every 16 commands */
+    127,     /* ci_delete - every 128 lines */
+    1023,    /* ci_scan - every 1024 lines */
+    15       /* ci_loop - every 16 commands */
+};
+
+void sys_checkinterrupt(int type)
+{ if (!main_escape_pressed && main_screenmode &&
+      (main_cicount & ci_masks[type]) == 0)
+  { if (kbhit())
+      if (getch() == 3)
+      { main_escape_pressed = TRUE;
+	main_repaint=TRUE;
+      }
+  }
+}
+
+
+
+/*************************************************
+*           Tidy up after interrupted fgets      *
+*************************************************/
+
+void sys_after_interrupted_fgets(BOOL buffergiven, char *buffer)
+{;
+}
+
+
+/*************************************************
+*              Accept keystroke                  *
+*************************************************/
+
+void sys_keystroke(int key)
+{ if (setjmp(error_jmpbuf) == 0)
+  { error_longjmpOK = TRUE;
+    if (key && key < 32) key_handle_function(key);
+      else if (key == 0)
+	{ key=getachar();
+	  key_handle_function(ControlKeystroke[key-14]);
+        }
+      else if (key == 127) key_handle_function(ControlKeystroke[0]);
+      else key_handle_data(key);
+  }
+  error_longjmpOK = FALSE;
+}
+
+
+
+/*************************************************
+*       Get keystroke for command line           *
+*************************************************/
+
+/* This function is called when reading a command line in screen
+mode. It must return a type and a value. */
+
+int sys_cmdkeystroke(int *type)
+{ int key = nextchar(type);
+  if (*type == -1)
+  { if (key && key < 32) *type = ktype_ctrl;
+	 else
+		if (key == 0)
+		{ key = getachar();
+		  *type = ktype_function;
+		  key = ControlKeystroke[key-14];
+		  if (key==s_f_ret) key='\r';
+		}
+		else if (key == 127)
+		{ *type = ktype_function;
+		  key = ControlKeystroke[0];
+      }
+      else *type = ktype_data;
+  }
+  return key;
+}
+
+
+
+
+/*************************************************
+*         Position to screen bottom for crash    *
+*************************************************/
+
+/* This function is called when about to issue a disaster error message.
+It should position the cursor to a clear point at the screen bottom, and
+reset the terminal if necessary. */
+
+void sys_crashposition(void)
+{ pc_rendition(s_r_normal);
+	pc_move(0, screen_max_row);
+	main_screenmode = FALSE;
+}
+
+
+
+
+
+/*************************************************
+*       Entry point for non-window screen run    *
+*************************************************/
+
+void sys_runscreen(void)
+{ FILE *fid = NULL;
+  char *fromname = arg_from_name;
+  char *toname = (arg_to_name == NULL)? arg_from_name : arg_to_name;
+  int ftype;
+  sys_w_cls = pc_cls;
+  sys_w_move = pc_move;
+  sys_w_rendition = pc_rendition;
+  sys_w_putc = pc_putc;
+
+  sys_setupterminal = setupterminal;
+  sys_resetterminal = NULL;
+
+  sys_w_hscroll = NULL;
+
+  sys_w_vscroll = pc_vscroll;
+  sys_w_flush = pc_flush;
+  arg_from_name = arg_to_name = NULL;
+  currentbuffer = main_bufferchain = NULL;
+  setupterminal();
+
+/* If a file name is given, check for its existence before setting up
+   the screen. */
+
+  if (fromname != NULL && strcmp(fromname, "-") != 0)
+  { fid = sys_fopen(fromname, "r", &ftype);
+    if (fid == NULL)
+    { printf("** The file \"%s\" could not be opened.\n", fromname);
+      printf("** NE abandoned.\n");
+      main_rc = 16;
+      return;
+    }
+  }
+
+/* Set up the screen and cause windows to be defined */
+
+  s_init(screen_max_row, screen_max_col, TRUE);
+  scrn_init(TRUE);
+  scrn_windows();                     /* cause windows to be defined */
+  main_screenOK = TRUE;
+
+  if (init_init(fid, fromname, 0, toname, main_stream))
+  { int x, y;
+
+    if (!main_noinit && main_einit != NULL) cmd_obey(main_einit);
+    main_initialized = TRUE;
+    if (main_opt != NULL)
+    { int yield;
+      scrn_display(FALSE);
+      s_selwindow(message_window, 0, 0);
+      s_rendition(s_r_normal);
+      s_flush();
+      yield = cmd_obey(main_opt);
+      if (yield != done_continue && yield != done_finish)
+      { //scrn_hint(sh_redraw, 0, NULL);
+	screen_forcecls=TRUE;
+	scrn_rdline(TRUE, FALSE, "Press RETURN to continue ");
+      }
+      if (yield==done_finish) return;
+    }
+    if (!main_done)
+    { scrn_display(FALSE);
+      x = s_x();
+      y = s_y();
+
+      s_selwindow(message_window, 0, 0);
+      s_printf("E version %s %s", version_string, version_date);
+      main_shownlogo = TRUE;
+      s_selwindow(first_window, x, y);
+      setcbrk(0);
+    }
+    while (!main_done)
+    { int type;
+      int c = nextchar(&type);
+
+      main_rc = error_count = 0;           /* reset at each interaction */
+
+		if (type < 0) sys_keystroke(c); else key_handle_data(c);
+    }
+  }
+}
+
+static int nextchar(int *type)
+{ int c;
+
+  c = getachar();                       /* Get next key */
+
+  *type = -1;                   /* unset - set only for forced data */
+  if (c == 27)
+  { ESCAPED=TRUE;
+    c = getachar();
+    *type = ktype_data;
+    if (c == 0) c = getachar();
+  }
+  else ESCAPED=FALSE;
+  return c;
+}
+
+/* Use enhanced keyboard codes, if available */
+
+#define ENHANCED_KB_FLAG ((char far *)(0x400096L))
+
+static int getachar(void)
+{ static int ch, flag, kbstatus;
+  if (flag !=-1)
+  { ch = bioskey(*(ENHANCED_KB_FLAG) & 0x10);
+    kbstatus = (bioskey(2+ (*(ENHANCED_KB_FLAG) & 0x10))) & 0xf;
+	 if (ESCAPED)
+		ESCAPED=FALSE;
+	 else
+	 { if ((ch & 0xff00) == 0x0e00)
+		{ ch = 0x0e00;										// backsp as scan
+	if (kbstatus > 0 && kbstatus < 4) ch=0xb400;
+	if (kbstatus == 4) ch=0xb600;
+		}
+		if ((ch & 0xff00) == 0x0f00)
+		{ ch = 0x0f00;                            // tab as scan
+	if (kbstatus > 0 && kbstatus < 4) ch=0xb500;
+	if (kbstatus == 4) ch=0xb700;
+		}
+		if ((ch & 0xff00) == 0x1c00)
+		{ ch = 0x1c00;                            // ret as scan
+	if (kbstatus > 0 && kbstatus < 4) ch=0xb800;
+	if (kbstatus == 4) ch=0xb900;
+		}
+	 }
+	 if ((ch < 0x5400) && (ch > 0x46e0) && (ch & 0xff)==0xe0
+	 && kbstatus > 0 && kbstatus < 4)
+		ch = ch + 0x6000;
+	 if ((ch & 0xff) == 0xe0) ch = ch & 0xff00;
+	 if ((ch & 0xff) == 0) flag = -1;
+	 else flag = 0;
+	 return (ch & 0xff);
+  }
+  else
+  { flag = 0;
+	 return ((ch >> 8) & 0xff);
+  }
+}
+
+static void pc_cls(int bottom, int left, int top, int right)
+{ int i,j;
+  struct text_info info;
+  gettextinfo(&info);
+  window(left+1,top+1,right+1,bottom+1);
+/*  for (j=1;j<bottom-top+1;j++)
+  { gotoxy(1,j);
+    for (i=1;i<right-left+2;i++) putch(' ');
+  } */
+  clrscr();
+  window(info.winleft,info.wintop,info.winright,info.winbottom);
+
+/*  for (i=top;i<=bottom;i++)
+  { pc_move(left,i);
+    clreol();
+  }
+  pc_move(left,top); */
+}
+
+static void pc_move(int x, int y)
+{ gotoxy(x+1,y+1);
+}
+
+static void pc_rendition(int r)
+{ if (r==s_r_normal)
+  { textattr(scrn_info.normattr);
+  }
+  else
+  { textattr(scrn_info.attribute);
+  }
+}
+
+
+static void pc_putc(int c)
+{ strchr("\7\b\n\r",c) ? putch(0xfe): putch(c);
+}
+
+/*
+static void pc_hscroll(int left, int bottom, int right, int top, int amount)
+{ ;
+}
+*/
+
+static void pc_vscroll(int bottom, int top, int amount, BOOL deleting)
+{ int i,j;
+  if (amount<0)
+  { movetext(1,top+1-amount,screen_max_col+1,bottom+1,1,top+1);
+    for (i=bottom;i>bottom+amount;i--)
+    { pc_move(0,i);
+/*      for (j=0;j<screen_max_col;j++) putch(' ');*/
+      clreol();
+    }
+  }
+  else
+	{ movetext(1,top+1,screen_max_col+1,bottom-amount+1,1,top+1+amount);
+    for (i=top;i<top+amount;i++)
+		{ pc_move(0,i);
+/*      for (j=0;j<screen_max_col;j++) putch(' ');*/
+      clreol();
+    }
+  }
+}
+
+/*************************************************
+*                  Set screen                    *
+*************************************************/
+
+static void setupterminal(void)
+{ char *ne_colour,*next_colour,*colour,fgbg[4],colr,i=0,colourcpy[64];
+  char colours[]=" black   blue    green   cyan    red     magenta brown   white   grey    pink    yellow  ";
+  gettextinfo(&scrn_info);
+  screen_max_row = scrn_info.screenheight-1;
+  screen_max_col = default_rmargin = scrn_info.screenwidth-1;
+  scrn_info.attribute = ((scrn_info.normattr%16*16) & 127)+scrn_info.normattr/16;
+  ne_colour = getenv("NECOL");	      /* get any colour setting */
+  fgbg[0] = fgbg[1] = fgbg[2] = fgbg[3] = 127;
+  if (ne_colour)
+    if (strlen(ne_colour)<64)
+    { strcpy(colourcpy,ne_colour);
+      next_colour = strtok(colourcpy, ", ");
+      do
+      { colr = 127;
+	if (!strncmp(next_colour,"light_",6))
+	{ colour = strstr(colours,next_colour+6);
+	  if (colour && (i % 2) == 0) colr = ((int)(colour-colours))/8 + 8;
+	}
+	else
+	{ colour = strstr(colours,next_colour);
+	  if (colour)
+	  { colr = ((int)(colour-colours))/8;
+	    if (colr > 8) colr = colr + 4;
+	  }
+	}
+	next_colour = strtok(NULL, ", ");
+	fgbg[i++] = colr;
+			} while (next_colour && i<4);
+      if (fgbg[0]!=127 && fgbg[1]!=127) scrn_info.normattr = (fgbg[1]<<4)+fgbg[0];
+      if (fgbg[2]!=127 && fgbg[3]!=127) scrn_info.attribute = (fgbg[3]<<4)+fgbg[2];
+    }
+    else
+    {;
+    }
+  pc_rendition(s_r_normal);
+  _wscroll=0;
+}
+
+/*************************************************
+*                  Unset terminal state          *
+*************************************************/
+
+/*
+static void resetterminal(void)
+{ ;
+}
+*/
+
+static void pc_flush(void)
+{ textattr(scrn_info.normattr);
+}
+
+void  sys_hourglass(BOOL onoff)
+{ ;
+}
+

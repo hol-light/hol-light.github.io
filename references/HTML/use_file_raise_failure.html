@@ -1,0 +1,78 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>use_file_raise_failure : bool ref</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Flag determining whether unsuccessful loading of an OCaml file must raise
+<SPAN CLASS=BRKT>Failure</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+The reference variable <SPAN CLASS=BRKT>use_file_raise_failure</SPAN> is used by the function
+<SPAN CLASS=BRKT>use_file</SPAN> to determine whether an unsuccessful loading of a source file must
+raise <SPAN CLASS=BRKT>Failure</SPAN> or simply print an error message on the screen.
+The default value is <SPAN CLASS=BRKT>false</SPAN>.
+The behavior of <SPAN CLASS=BRKT>loads</SPAN> and <SPAN CLASS=BRKT>loadt</SPAN> are also affected by this flag because they
+internally invoke <SPAN CLASS=BRKT>use_file</SPAN>.
+
+If this flag is set to <SPAN CLASS=BRKT>true</SPAN>, recursive loading will immediately fail after any
+unsuccessful loading of a source file.
+This is helpful for pinpointing the failing location from loading multiple source
+files.
+On the other hand, this will cause Toplevel forget all OCaml bindings
+(`<SPAN CLASS=BRKT>let .. = ..;;</SPAN>') that have been made during the load before the erroneous point,
+leading to a state whose OCaml definitions and constant definitions in HOL Light
+are inconsistent.
+
+If this flag is set to <SPAN CLASS=BRKT>false</SPAN>, unsuccessful loading will simply print a error
+message and continue to the next statement.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Not applicable.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+Consider <SPAN CLASS=BRKT>a.ml</SPAN> that has the following text:
+<DIV class=XMPL><PRE>
+   loadt "b.ml";;
+   print_endline "b.ml loaded";;
+</PRE></DIV>
+and <SPAN CLASS=BRKT>b.ml</SPAN>:
+<DIV class=XMPL><PRE>
+   undefined_var := 3;; (* Raises a failure *)
+</PRE></DIV>
+
+If <SPAN CLASS=BRKT>use_file_raise_failure</SPAN> is set to <SPAN CLASS=BRKT>false</SPAN> (which is default), the message
+in <SPAN CLASS=BRKT>a.ml</SPAN> is printed even if <SPAN CLASS=BRKT>b.ml</SPAN> fails.
+<DIV class=XMPL><PRE>
+   # loadt "a.ml";;
+   File "/home/ubuntu/hol-light-aqjune/b.ml", line 1, characters 0-13:
+                              1 | undefined_var := 3;; (* Raises a failure *)
+                                  ^^^^^^^^^^^^^
+                              Error: Unbound value undefined_var
+   Error in included file /home/ubuntu/hol-light-aqjune/b.ml
+   - : unit = ()
+   b.ml loaded
+   - : unit = ()
+   val it : unit = ()
+</PRE></DIV>
+However, if it is set to <SPAN CLASS=BRKT>true</SPAN>, the message is not printed because loading
+<SPAN CLASS=BRKT>a.ml</SPAN> also fails immediately after loading <SPAN CLASS=BRKT>b.ml</SPAN>.
+Also, the stack trace is printed because the failure reaches to the top level.
+<DIV class=XMPL><PRE>
+   # use_file_raise_failure := true;;
+   val it : unit = ()
+   # loadt "a.ml";;
+   File "/home/ubuntu/hol-light-aqjune/b.ml", line 1, characters 0-13:
+   1 | undefined_var := 3;; (* Raises a failure *)
+       ^^^^^^^^^^^^^
+   Error: Unbound value undefined_var
+   Exception:
+   Failure "Error in included file /home/ubuntu/hol-light-aqjune/b.ml".
+   Exception:
+   Failure "Error in included file /home/ubuntu/hol-light-aqjune/a.ml".
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="use_file.html">use_file</A>, <A href="loads.html">loads</A>, <A href="loadt.html">loadt</A>.
+
+
+</DL>

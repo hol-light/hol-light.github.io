@@ -1,0 +1,38 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>STRING_EQ_CONV : term -&gt; thm</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Proves equality or inequality of two HOL string literals.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+If <SPAN CLASS=BRKT>"s"</SPAN> and <SPAN CLASS=BRKT>"t"</SPAN> are two string literals in the HOL logic,
+<SPAN CLASS=BRKT>STRING_EQ_CONV `"s" = "t"`</SPAN> returns:
+
+<DIV class=XMPL><PRE>
+   |- "s" = "t" <=> T       or       |- "s" = "t" <=> F
+</PRE></DIV>
+depending on whether the string literals are equal or not equal,
+respectively.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+<SPAN CLASS=BRKT>STRING_EQ_CONV tm</SPAN> fails if <SPAN CLASS=BRKT>tm</SPAN> is not of the specified form, an equation
+between string literals.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # STRING_EQ_CONV `"same" = "same"`;;
+  val it : thm = |- "same" = "same" <=> T
+
+  # STRING_EQ_CONV `"knowledge" = "power"`;;
+  val it : thm = |- "knowledge" = "power" <=> F
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>USES</SPAN><DD>
+Performing basic equality reasoning while producing string-related proofs.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="dest_string.html">dest_string</A>, <A href="CHAR_EQ_CONV.html">CHAR_EQ_CONV</A>, <A href="mk_string.html">mk_string</A>, <A href="NUM_EQ_CONV.html">NUM_EQ_CONV</A>.
+
+
+</DL>

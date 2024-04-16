@@ -1,0 +1,118 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>TARGET_REWRITE_TAC : thm list -&gt; thm -&gt; tactic</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Performs target implicational rewriting.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Given a theorem <SPAN CLASS=BRKT>th</SPAN> (the ``support theorem''), and another theorem <SPAN CLASS=BRKT>uh</SPAN> (the
+``target theorem''), target rewriting generates all the goals that can be
+obtained by rewriting with <SPAN CLASS=BRKT>th</SPAN>, until it becomes possible to rewrite with
+<SPAN CLASS=BRKT>uh</SPAN>. Contrarily to standard rewriting techniques, only one position is
+rewritten at a time (<SPAN CLASS=BRKT>REWRITE_TAC</SPAN>, <SPAN CLASS=BRKT>SIMP_TAC</SPAN>, <SPAN CLASS=BRKT>IMP_REWRITE_TAC</SPAN>, or even
+<SPAN CLASS=BRKT>ONCE_REWRITE_TAC</SPAN> apply rewriting to several parallel positions if
+applicable). Therefore only the rewrites that are useful for the application
+of the theorem <SPAN CLASS=BRKT>uh</SPAN> are achieved in the end. More precisely, given a list of
+theorems <SPAN CLASS=BRKT>[th_1;...;th_k]</SPAN> of the form <SPAN CLASS=BRKT>!x_1... x_n. P ==> !y_1... y_m. l = r</SPAN>,
+and a theorem <SPAN CLASS=BRKT>uh</SPAN> of the form <SPAN CLASS=BRKT>!x_1... x_n. Q ==> !y_1... y_m. l' = r'</SPAN>,
+<SPAN CLASS=BRKT>TARGET_REWRITE_TAC [th_1;...;th_k] uh</SPAN> applies target implicational rewriting,
+i.e. tries all the possible implicational rewrites with <SPAN CLASS=BRKT>th_1</SPAN>, ..., <SPAN CLASS=BRKT>th_k</SPAN>
+until it obtains a goal where implicational rewrite with <SPAN CLASS=BRKT>uh</SPAN> becomes possible.
+
+To understand better the difference with <SPAN CLASS=BRKT>REWRITE_TAC</SPAN> and the need for a
+target theorem, consider a goal g where more than one subterm can be rewritten
+using <SPAN CLASS=BRKT>th</SPAN>: with <SPAN CLASS=BRKT>REWRITE_TAC</SPAN>, all such subterms are rewritten simultaneously;
+whereas, with <SPAN CLASS=BRKT>TARGET_REWRITE_TAC</SPAN>, every of these subterms are rewritten
+independently, thus yielding as many goals. If one of these goals can be
+rewritten (in one position or more) by <SPAN CLASS=BRKT>uh</SPAN>, then the tactic returns this goal.
+Otherwise, the ``one-subterm rewriting'' is applied again on every of the new
+goals, iteratively until a goal which can be rewritten by <SPAN CLASS=BRKT>uh</SPAN> is obtained.
+
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if no rewrite can be achieved using the support theorems.
+It may also fail if no path is found to apply the target theorem,
+but, most of the time, it does not terminate in this situation.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+This is a simple example:
+<DIV class=XMPL><PRE>
+  # REAL_ADD_RINV;;
+  val it : thm = |- !x. x + --x = &amp;0
+  # g `!x y z. --y + x + y = &amp;0`;;
+  Warning: inventing type variables
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!x y z. --y + x + y = &amp;0`
+
+  # e(TARGET_REWRITE_TAC[REAL_ADD_AC] REAL_ADD_RINV);;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!x. x + &amp;0 = &amp;0`
+</PRE></DIV>
+And a slightly more complex one:
+<DIV class=XMPL><PRE>
+  # REAL_MUL_RINV;;
+  val it : thm = |- !x. ~(x = &amp;0) ==> x * inv x = &amp;1
+  # g `!x y. inv y * x * y = x`;;
+  Warning: inventing type variables
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!x y z. inv y * x * y = x`
+
+  # e(TARGET_REWRITE_TAC[REAL_MUL_AC] REAL_MUL_RINV);;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!x y. x * &amp;1 = x / ~(y = &amp;0)`
+</PRE></DIV>
+Let us finally consider an example which does not involve associativity and
+commutativity. Consider the following goal:
+<DIV class=XMPL><PRE>
+  # g `!z. norm (cnj z) = norm z`;;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!z. norm (cnj z) = norm z`
+</PRE></DIV>
+A preliminary step here is to decompose the left-side z into its polar
+coordinates. This can be done by applying the following theorem:
+<DIV class=XMPL><PRE>
+  # ARG;;
+  val it : thm =
+  |- !z. &amp;0 <= Arg z /\ Arg z < &amp;2 * pi /\ z = Cx (norm z) * cexp (ii * Cx (Arg z))
+</PRE></DIV>
+But using standard rewriting would rewrite both sides and would not terminate
+(or actually, in the current implementation of <SPAN CLASS=BRKT>REWRITE_TAC</SPAN>, simply would not
+apply). Instead we can use <SPAN CLASS=BRKT>TARGET_REWRITE_TAC</SPAN> by noting that we actually plan
+to decompose into polar coordinates with the intention of using <SPAN CLASS=BRKT>CNJ_MUL</SPAN>
+afterwards, which yields:
+<DIV class=XMPL><PRE>
+  # e(TARGET_REWRITE_TAC[ARG] CNJ_MUL);;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!z. norm (cnj (Cx (norm z)) * cnj (cexp (ii * Cx (Arg z)))) = norm z`
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>USES</SPAN><DD>
+This tactic is useful each time someone does not want to rewrite a theorem
+everywhere or if a rewriting diverges. Therefore, it can replace most calls to
+<SPAN CLASS=BRKT>ONCE_REWRITE_TAC</SPAN> or <SPAN CLASS=BRKT>GEN_REWRITE_TAC</SPAN>: most of the time, these tactics are
+used to control rewriting more precisely than <SPAN CLASS=BRKT>REWRITE_TAC</SPAN>. However, their use
+is tedious and time-consuming whereas the corresponding reasoning is not
+complex. In addition, even when the user manages to come out with a working
+tactic, this tactic is generally very fragile. Instead, with
+<SPAN CLASS=BRKT>TARGET_REWRITE_TAC</SPAN>, the user does not have to think about the low-level
+control of rewriting but just gives the theorem which corresponds to the next
+step in the proof (see examples): this is extremely simple and fast to devise.
+Note in addition that, contrarily to an explicit (and therefore fragile) path,
+the target theorem represents a reasoning step which has few chances to change
+in further refinements of the script.
+
+When using associativity-commutativity theorems as support theorems, this
+tactic allows to achieve AC-rewriting.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="CASE_REWRITE_TAC.html">CASE_REWRITE_TAC</A>, <A href="IMP_REWRITE_TAC.html">IMP_REWRITE_TAC</A>, <A href="REWRITE_TAC.html">REWRITE_TAC</A>, <A href="SEQ_IMP_REWRITE_TAC.html">SEQ_IMP_REWRITE_TAC</A>, <A href="SIMP_TAC.html">SIMP_TAC</A>.
+
+
+</DL>

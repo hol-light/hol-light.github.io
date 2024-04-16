@@ -1,0 +1,47 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>MK_COMB : thm * thm -&gt; thm</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Proves equality of combinations constructed from equal
+functions and operands.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+When applied to theorems <SPAN CLASS=BRKT>A1 |- f = g</SPAN> and <SPAN CLASS=BRKT>A2 |- x = y</SPAN>, the inference
+rule <SPAN CLASS=BRKT>MK_COMB</SPAN> returns the theorem <SPAN CLASS=BRKT>A1 u A2 |- f x = g y</SPAN>.
+<DIV class=XMPL><PRE>
+    A1 |- f = g   A2 |- x = y
+   ---------------------------  MK_COMB
+       A1 u A2 |- f x = g y
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails unless both theorems are equational and <SPAN CLASS=BRKT>f</SPAN> and <SPAN CLASS=BRKT>g</SPAN> are
+functions whose domain types are the same as the types of <SPAN CLASS=BRKT>x</SPAN> and <SPAN CLASS=BRKT>y</SPAN>
+respectively.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # let th1 = ABS `n:num` (ARITH_RULE `SUC n = n + 1`)
+    and th2 = NUM_REDUCE_CONV `2 + 2`;;
+  val th1 : thm = |- (\n. SUC n) = (\n. n + 1)
+  val th2 : thm = |- 2 + 2 = 4
+  # let th3 = MK_COMB(th1,th2);;
+  val th3 : thm = |- (\n. SUC n) (2 + 2) = (\n. n + 1) 4
+
+  # let th1 = NOT_DEF and th2 = TAUT `p /\ p <=> p`;;
+  val th1 : thm = |- (~) = (\p. p ==> F)
+  val th2 : thm = |- p /\ p <=> p
+  # MK_COMB(th1,th2);;
+  val it : thm = |- ~(p /\ p) <=> (\p. p ==> F) p
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>COMMENTS</SPAN><DD>
+This is one of HOL Light's 10 primitive inference rules. It underlies, among
+other things, the replacement of subterms in rewriting.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="AP_TERM.html">AP_TERM</A>, <A href="AP_THM.html">AP_THM</A>, <A href="BETA_CONV.html">BETA_CONV</A>, <A href="TRANS.html">TRANS</A>.
+
+
+</DL>

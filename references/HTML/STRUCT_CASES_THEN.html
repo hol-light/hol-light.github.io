@@ -1,0 +1,55 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>STRUCT_CASES_THEN : thm_tactic -&gt; thm_tactic</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Performs structural case analysis, applying theorem-tactic to results.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+When it is applied to a theorem-tactic <SPAN CLASS=BRKT>ttac</SPAN> and a theorem <SPAN CLASS=BRKT>th</SPAN> of the form:
+<DIV class=XMPL><PRE>
+   th = A' |- ?y11...y1m. x = t1 /\ (B11 /\ ... /\ B1k) \/ ... \/
+              ?yn1...ynp. x = tn /\ (Bn1 /\ ... /\ Bnp)
+</PRE></DIV>
+in which there may be no existential quantifiers where a `vector' of
+them is shown above, <SPAN CLASS=BRKT>STRUCT_CASES_THEN ttac th</SPAN> splits a goal <SPAN CLASS=BRKT>A ?- s</SPAN> into
+<SPAN CLASS=BRKT>n</SPAN> subgoals, where goal <SPAN CLASS=BRKT>k</SPAN> results the initial goal by applying <SPAN CLASS=BRKT>ttac</SPAN> to the
+theorem <SPAN CLASS=BRKT>x = tn |- x = tn</SPAN>. That is, it performs a case split over the possible
+constructions (the <SPAN CLASS=BRKT>ti</SPAN>) of a term and applies <SPAN CLASS=BRKT>ttac</SPAN> to the resulting case
+assumptions. Note that unless <SPAN CLASS=BRKT>A'</SPAN> is a subset of <SPAN CLASS=BRKT>A</SPAN>, this is an invalid
+tactic.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails unless the theorem has the above form, namely a conjunction of
+(possibly multiply existentially quantified) terms which assert the equality
+of the same variable <SPAN CLASS=BRKT>x</SPAN> and the given terms.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+Suppose we have the goal:
+<DIV class=XMPL><PRE>
+  # g `n > 0 ==> PRE(n) + 1 = n`;;
+</PRE></DIV>
+We can use the inbuilt theorem <SPAN CLASS=BRKT>num_CASES</SPAN> to perform a case analysis
+on <SPAN CLASS=BRKT>n</SPAN>, adding each case as a new assumption by <SPAN CLASS=BRKT>ASSUME_TAC</SPAN> like this:
+<DIV class=XMPL><PRE>
+  # e(STRUCT_CASES_THEN ASSUME_TAC (SPEC `n:num` num_CASES));;
+  val it : goalstack = 2 subgoals (2 total)
+
+    0 [`n = SUC n'`]
+
+  `n > 0 ==> PRE n + 1 = n`
+
+    0 [`n = 0`]
+
+  `n > 0 ==> PRE n + 1 = n`
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>USES</SPAN><DD>
+Generating a case split from the axioms specifying a structure.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="ASM_CASES_TAC.html">ASM_CASES_TAC</A>, <A href="BOOL_CASES_TAC.html">BOOL_CASES_TAC</A>, <A href="COND_CASES_TAC.html">COND_CASES_TAC</A>, <A href="DISJ_CASES_TAC.html">DISJ_CASES_TAC</A>,
+<A href="STRUCT_CASES_TAC.html">STRUCT_CASES_TAC</A>.
+
+
+</DL>

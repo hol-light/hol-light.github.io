@@ -1,0 +1,28 @@
+# System-dependent Unix makefile for the NE editor.
+# Version for SunOS4 using Sun's acc.
+
+# As NE is written in ANSI C, in theory one should use the 5lib
+# library under SunOS 4. However, this interacts badly with
+# the termcap library. Sigh. NE has been modified not to rely on
+# ANSI-isms in the normal library (I hope!) so it should be OK
+# with termcap, but in fact terminfo is the standard one to use
+# with SunOS, and that is what this file specifies (by not setting
+# the HAVE_TERMCAP flag).
+
+# NE supports either termcap or terminfo. Under SunOS 4 you
+# *must* use the 5lib curses library, it seems, if you are taking
+# the terminfo option. Also the 5include.
+
+# The call that initializes the terminfo library (setupterm()) turns
+# on tab handling in the terminal (at least under SunOS 4). There
+# doesn't seem any way of preventing this. More Sigh.
+
+FLAGS   = CC=acc \
+          CFLAGS="-O -Dunixwinsz" \
+          LFLAGS="-L/usr/5lib" \
+          INCLUDE="-I/usr/5include" \
+          LIB_TERMINAL=-lcurses 
+        
+newne:;   @make -f BaseMake $(FLAGS) $(TARGET)
+
+# End

@@ -1,0 +1,10 @@
+# System-dependent Unix makefile for the NE editor.
+# Version for IRIX 5.
+
+FLAGS   = CC=cc \
+          CFLAGS="-Dunixwinsz -O" \
+          LIB_TERMINAL=-lcurses 
+        
+newne:;   @make -f BaseMake $(FLAGS) $(TARGET)
+
+# End

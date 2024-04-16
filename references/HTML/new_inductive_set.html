@@ -1,0 +1,89 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>new_inductive_set : term -&gt; thm * thm * thm</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Define a set or family of sets inductively.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+The function <SPAN CLASS=BRKT>new_inductive_set</SPAN> is applied to a conjunction of ``rules'', each
+of the form <SPAN CLASS=BRKT>!x1...xn. Pi ==> ti IN Sk</SPAN>. This conjunction is interpreted as an
+inductive definition of a family of sets <SPAN CLASS=BRKT>Sk</SPAN> (however many appear in the
+consequents of the rules). That is, the sets are defined to be the smallest
+ones closed under the rules. The function <SPAN CLASS=BRKT>new_inductive_set</SPAN> will convert this
+into explicit definitions, define a new constant for each <SPAN CLASS=BRKT>Sk</SPAN>, and return a
+triple of theorems. The first one will be the ``rule'' theorem, which
+essentially matches the input clauses except that the <SPAN CLASS=BRKT>Si</SPAN> are now the new
+constants; this simply says that the new sets are indeed closed under the
+rules. The second theorem is an induction theorem, asserting that the sets are
+the least ones closed under the rules. Finally, the cases theorem gives a case
+analysis theorem showing how each set of values satisfying the set may be
+composed.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the clauses are malformed, if the constants are already in use, or if
+there are unproven monotonicity hypotheses. See <SPAN CLASS=BRKT>new_inductive_definition</SPAN> for
+more detailed discussion in the similar case of indunctive relations.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+A classic example where we have mutual induction is the set of even and odd
+numbers:
+<DIV class=XMPL><PRE>
+  # let EO_RULES, EO_INDUCT, EO_CASES = new_inductive_set
+    `0 IN even_numbers /\
+     (!n. n IN even_numbers ==> SUC n IN odd_numbers) /\
+     1 IN odd_numbers /\
+     (!n. n IN odd_numbers ==> SUC n IN even_numbers)`;;
+  val EO_RULES : thm =
+    |- 0 IN even_numbers /\
+       (!n. n IN even_numbers ==> SUC n IN odd_numbers) /\
+       1 IN odd_numbers /\
+       (!n. n IN odd_numbers ==> SUC n IN even_numbers)
+  val EO_INDUCT : thm =
+    |- !odd_numbers' even_numbers'.
+           even_numbers' 0 /\
+           (!n. even_numbers' n ==> odd_numbers' (SUC n)) /\
+           odd_numbers' 1 /\
+           (!n. odd_numbers' n ==> even_numbers' (SUC n))
+           ==> (!a0. a0 IN odd_numbers ==> odd_numbers' a0) /\
+               (!a1. a1 IN even_numbers ==> even_numbers' a1)
+  val EO_CASES : thm =
+    |- (!a0. a0 IN odd_numbers <=>
+             (?n. a0 = SUC n /\ n IN even_numbers) \/ a0 = 1) /\
+       (!a1. a1 IN even_numbers <=>
+             a1 = 0 \/ (?n. a1 = SUC n /\ n IN odd_numbers))
+</PRE></DIV>
+Note that the `rules' theorem corresponds exactly to the input, and says that
+indeed the sets do satisfy the rules. The `induction' theorem says that
+the sets are the minimal ones satisfying the rules. You can use this to
+prove properties by induction, e.g. the relationship with the pre-defined
+concepts of odd and even:
+<DIV class=XMPL><PRE>
+  # g `(!n. n IN odd_numbers ==> ODD(n)) /\
+       (!n. n IN even_numbers ==> EVEN(n))`;;
+</PRE></DIV>
+applying the induction theorem:
+<DIV class=XMPL><PRE>
+  # e(MATCH_MP_TAC EO_INDUCT);;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `EVEN 0 /\
+   (!n. EVEN n ==> ODD (SUC n)) /\
+   ODD 1 /\
+   (!n. ODD n ==> EVEN (SUC n))`
+</PRE></DIV>
+This is easily finished off by, for example:
+<DIV class=XMPL><PRE>
+  # e(REWRITE_TAC[GSYM NOT_EVEN; EVEN; ARITH]);;
+  val it : goalstack = No subgoals
+</PRE></DIV>
+
+This function uses <SPAN CLASS=BRKT>new_inductive_relation</SPAN> internally, and the documentation
+for that function gives additional information and other relevant examples.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="derive_strong_induction.html">derive_strong_induction</A>, <A href="new_inductive_definition.html">new_inductive_definition</A>,
+<A href="prove_inductive_relations_exist.html">prove_inductive_relations_exist</A>, <A href="prove_monotonicity_hyps.html">prove_monotonicity_hyps</A>.
+
+
+</DL>

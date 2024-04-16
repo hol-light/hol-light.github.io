@@ -1,0 +1,242 @@
+# Make file for NE on RISC OS
+
+W = -DWindowing
+
+OBJ = o.eversion o.ecrash o.debug o.ecmdarg o.ecmdcomp o.ecmdsub o.ecutcopy \
+  o.edisplay o.eerror o.ee1 o.ee2 o.ee3 o.ee4 o.efile o.eglobals \
+  o.einit o.ekey o.ekeysub o.eline o.ematch o.erdseqs \
+  o.escrnrdl o.escrnsub o.estore \
+  o.rdargs \
+  o.scommon o.sros o.sysros o.scrw o.wros o.wimpsubs o.xs \
+  o.ecompP o.pcre o.chartables
+#  o.ecompR o.ematchR 
+
+# For normal NE, swap the two lines above, and change MakeViaP below
+# to MakeViaN.
+
+!ne.!runimage: $(OBJ)
+              link $(L) -o !ne.!RunImage -via MakeViaP $.clib.o.stubs
+              delete o.eversion
+              info !ne.!runImage
+              squeeze !ne.!RunImage
+              info !ne.!runImage
+              settype !ne.!Runimage absolute
+
+o.eversion:   c.eversion
+              cc -DRETYPE=P $(C) $(W) -c eversion
+              
+o.pcre:       c.pcre
+              cc $(C) -c pcre 
+              
+o.chartables: c.chartables
+              cc $(C) -c chartables 
+
+o.rdargs:     c.rdargs
+              cc $(C) $(W) -c rdargs
+
+o.debug:      c.debug
+              cc $(C) $(W) -c debug
+
+o.ecrash:     c.ecrash
+              cc $(C) $(W) -c ecrash
+
+o.ecmdarg:    c.ecmdarg
+              cc $(C) $(W) -c ecmdarg
+
+o.ecmdcomp:   c.ecmdcomp
+              cc $(C) $(W) -c ecmdcomp
+
+o.ecmdsub:    c.ecmdsub
+              cc $(C) $(W) -c ecmdsub
+
+o.ecompR:     c.ecompR
+              cc $(C) $(W) -c ecompR
+
+o.ecompP:     c.ecompP
+              cc $(C) $(W) -c ecompP
+
+o.ecutcopy:   c.ecutcopy
+              cc $(C) $(W) -c ecutcopy
+
+o.edisplay:   c.edisplay
+              cc $(C) $(W) -c edisplay
+
+o.eerror:     c.eerror
+              cc $(C) $(W) -c eerror
+
+o.ee4:        c.ee4
+              cc $(C) $(W) -c ee4
+
+o.ee3:        c.ee3
+              cc $(C) $(W) -c ee3
+
+o.ee2:        c.ee2
+              cc $(C) $(W) -c ee2
+
+o.ee1:        c.ee1
+              cc $(C) $(W) -c ee1
+
+o.efile:      c.efile
+              cc $(C) $(W) -c efile
+
+o.eglobals:   c.eglobals
+              cc $(C) $(W) -c eglobals
+
+o.einit:      c.einit
+              cc $(C) $(W) -c einit
+
+o.ekey:       c.ekey
+              cc $(C) $(W) -c ekey
+
+o.ekeysub:    c.ekeysub
+              cc $(C) $(W) -c ekeysub
+
+o.eline:      c.eline
+              cc $(C) $(W) -c eline
+
+o.ematch:     c.ematch
+              cc $(C) $(W) -c ematch
+
+o.ematchR:    c.ematchR
+              cc $(C) $(W) -c ematchR
+
+o.erdseqs:    c.erdseqs
+              cc $(C) $(W) -c erdseqs
+
+o.escrnrdl:   c.escrnrdl
+              cc $(C) $(W) -c escrnrdl
+
+o.escrnsub:   c.escrnsub
+              cc $(C) $(W) -c escrnsub
+
+o.estore:     c.estore
+              cc $(C) $(W) -c estore
+
+o.scommon:    c.scommon
+              cc $(C) $(W) -c scommon
+
+o.sros:       c.sros
+              cc $(C) $(W) -c sros
+
+o.sysros:     c.sysros
+              cc $(C) $(W) -c sysros
+
+o.scrw:       c.scrw
+              cc $(C) $(W) -c scrw               
+
+o.wros:       c.wros
+              cc $(C) $(W) -c wros
+
+o.wimpsubs:   c.wimpsubs
+              cc $(C) $(W) -c wimpsubs
+              
+o.xs:         c.xs
+              cc $(C) $(W) -c xs 
+              
+backup:;      copy Makefile      :0.*     nfl~c
+              copy MakeVia       :0.*     nfl~c
+              copy !ne.!boot     :0.!ne.* nfl~c
+              copy !ne.!run      :0.!ne.* nfl~c
+              copy !ne.!sprites  :0.!ne.* nfl~c
+              copy !ne.templates :0.!ne.* nfl~c
+              copy h.*           :0.h.*   nfl~c
+              copy c.*           :0.c.*   nfl~c
+
+clean:;       wipe o.*
+
+unixcopy:
+              copy Makefile    nfs::ph10.NE.src.Make/riscos     nfl~c
+              copy ChangeLog   nfs::ph10.NE.doc.ChangeLog       nfl~c
+              copy c.debug     nfs::ph10.NE.src.debug/c         nfl~c
+              copy c.ecmdarg   nfs::ph10.NE.src.ecmdarg/c       nfl~c
+              copy c.ecmdcomp  nfs::ph10.NE.src.ecmdcomp/c      nfl~c
+              copy c.ecmdsub   nfs::ph10.NE.src.ecmdsub/c       nfl~c
+              copy c.ecompR    nfs::ph10.NE.src.ecompR/c        nfl~c
+              copy c.ecrash    nfs::ph10.NE.src.ecrash/c        nfl~c
+              copy c.ecutcopy  nfs::ph10.NE.src.ecutcopy/c      nfl~c
+              copy c.edisplay  nfs::ph10.NE.src.edisplay/c      nfl~c
+              copy c.eerror    nfs::ph10.NE.src.eerror/c        nfl~c
+              copy c.ee1       nfs::ph10.NE.src.ee1/c           nfl~c
+              copy c.ee2       nfs::ph10.NE.src.ee2/c           nfl~c
+              copy c.ee3       nfs::ph10.NE.src.ee3/c           nfl~c
+              copy c.ee4       nfs::ph10.NE.src.ee4/c           nfl~c
+              copy c.efile     nfs::ph10.NE.src.efile/c         nfl~c
+              copy c.eglobals  nfs::ph10.NE.src.eglobals/c      nfl~c
+              copy c.einit     nfs::ph10.NE.src.einit/c         nfl~c
+              copy c.ekey      nfs::ph10.NE.src.ekey/c          nfl~c
+              copy c.ekeysub   nfs::ph10.NE.src.ekeysub/c       nfl~c
+              copy c.eline     nfs::ph10.NE.src.eline/c         nfl~c
+              copy c.ematch    nfs::ph10.NE.src.ematch/c        nfl~c
+              copy c.ematchR   nfs::ph10.NE.src.ematchR/c       nfl~c
+              copy c.erdseqs   nfs::ph10.NE.src.erdseqs/c       nfl~c
+              copy c.escrnrdl  nfs::ph10.NE.src.escrnrdl/c      nfl~c
+              copy c.escrnsub  nfs::ph10.NE.src.escrnsub/c      nfl~c
+              copy c.estore    nfs::ph10.NE.src.estore/c        nfl~c
+              copy c.eversion  nfs::ph10.NE.src.eversion/c      nfl~c
+              copy c.rdargs    nfs::ph10.NE.src.rdargs/c        nfl~c
+              copy c.scommon   nfs::ph10.NE.src.scommon/c       nfl~c
+              copy c.sros      nfs::ph10.NE.src.sros/c          nfl~c
+              copy c.sysros    nfs::ph10.NE.src.sysros/c        nfl~c
+              copy c.wros      nfs::ph10.NE.src.wros/c          nfl~c
+              copy c.scrw      nfs::ph10.NE.src.scrw/c          nfl~c
+              copy c.wimpsubs  nfs::ph10.NE.src.wimpsubs/c      nfs~c  
+              copy c.xs        nfs::ph10.NE.src.xs/c            nfs~c 
+              copy h.cmdhdr    nfs::ph10.NE.src.cmdhdr/h        nfl~c
+              copy h.ehdr      nfs::ph10.NE.src.ehdr/h          nfl~c
+              copy h.elocal    nfs::ph10.NE.src.elocal/ros      nfl~c 
+              copy h.keyhdr    nfs::ph10.NE.src.keyhdr/h        nfl~c
+              copy h.rehdr     nfs::ph10.NE.src.rehdr/h         nfl~c
+              copy h.scomhdr   nfs::ph10.NE.src.scomhdr/h       nfl~c
+              copy h.shdr      nfs::ph10.NE.src.shdr/h          nfl~c
+              copy h.structs   nfs::ph10.NE.src.structs/h       nfl~c
+              copy h.roshdr    nfs::ph10.NE.src.roshdr/h        nfl~c
+              copy h.scrw      nfs::ph10.NE.src.scrw/h          nfl~c
+              copy h.wimphdr   nfs::ph10.NE.src.wimphdr/h       nfl~c  
+
+unixfetch:
+              copy nfs::ph10.NE.src.ChangeLog       ChangeLog   nfl~c
+              copy nfs::ph10.NE.src.debug/c         c.debug     nfl~c
+              copy nfs::ph10.NE.src.ecmdarg/c       c.ecmdarg   nfl~c
+              copy nfs::ph10.NE.src.ecmdcomp/c      c.ecmdcomp  nfl~c
+              copy nfs::ph10.NE.src.ecmdsub/c       c.ecmdsub   nfl~c
+              copy nfs::ph10.NE.src.ecompR/c        c.ecompR    nfl~c
+              copy nfs::ph10.NE.src.ecrash/c        c.ecrash    nfl~c
+              copy nfs::ph10.NE.src.ecutcopy/c      c.ecutcopy  nfl~c
+              copy nfs::ph10.NE.src.edisplay/c      c.edisplay  nfl~c
+              copy nfs::ph10.NE.src.eerror/c        c.eerror    nfl~c
+              copy nfs::ph10.NE.src.ee1/c           c.ee1       nfl~c
+              copy nfs::ph10.NE.src.ee2/c           c.ee2       nfl~c
+              copy nfs::ph10.NE.src.ee3/c           c.ee3       nfl~c
+              copy nfs::ph10.NE.src.ee4/c           c.ee4       nfl~c
+              copy nfs::ph10.NE.src.efile/c         c.efile     nfl~c
+              copy nfs::ph10.NE.src.eglobals/c      c.eglobals  nfl~c
+              copy nfs::ph10.NE.src.einit/c         c.einit     nfl~c
+              copy nfs::ph10.NE.src.ekey/c          c.ekey      nfl~c
+              copy nfs::ph10.NE.src.ekeysub/c       c.ekeysub   nfl~c
+              copy nfs::ph10.NE.src.eline/c         c.eline     nfl~c
+              copy nfs::ph10.NE.src.ematch/c        c.ematch    nfl~c
+              copy nfs::ph10.NE.src.ematchR/c       c.ematchR   nfl~c
+              copy nfs::ph10.NE.src.erdseqs/c       c.erdseqs   nfl~c
+              copy nfs::ph10.NE.src.escrnrdl/c      c.escrnrdl  nfl~c
+              copy nfs::ph10.NE.src.escrnsub/c      c.escrnsub  nfl~c
+              copy nfs::ph10.NE.src.estore/c        c.estore    nfl~c
+              copy nfs::ph10.NE.src.eversion/c      c.eversion  nfl~c
+              copy nfs::ph10.NE.src.rdargs/c        c.rdargs    nfl~c
+              copy nfs::ph10.NE.src.scommon/c       c.scommon   nfl~c
+              copy nfs::ph10.NE.src.sros/c          c.sros      nfl~c
+              copy nfs::ph10.NE.src.sysros/c        c.sysros    nfl~c
+              copy nfs::ph10.NE.src.wros/c          c.wros      nfl~c
+              copy nfs::ph10.NE.src.scrw/c          c.scrw      nfl~c
+              copy nfs::ph10.NE.src.wimpsubs/c      c.wimpsubs  nfs~c  
+              copy nfs::ph10.NE.src.xs/c            c.xs        nfs~c 
+              copy nfs::ph10.NE.src.cmdhdr/h        h.cmdhdr    nfl~c
+              copy nfs::ph10.NE.src.ehdr/h          h.ehdr      nfl~c
+              copy nfs::ph10.NE.src.elocal/riscos/h h.elocal    nfl~c 
+              copy nfs::ph10.NE.src.keyhdr/h        h.keyhdr    nfl~c
+              copy nfs::ph10.NE.src.rehdr/h         h.rehdr     nfl~c
+              copy nfs::ph10.NE.src.scomhdr/h       h.scomhdr   nfl~c
+              copy nfs::ph10.NE.src.shdr/h          h.shdr      nfl~c
+              copy nfs::ph10.NE.src.structs/h       h.structs   nfl~c
+              copy nfs::ph10.NE.src.roshdr/h        h.roshdr    nfl~c
+              copy nfs::ph10.NE.src.scrw/h          h.scrw      nfl~c
+              copy nfs::ph10.NE.src.wimphdr/h       h.wimphdr   nfl~c  

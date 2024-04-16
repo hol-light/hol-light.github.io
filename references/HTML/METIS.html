@@ -1,0 +1,41 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>METIS : thm list -&gt; term -&gt; thm</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Attempt to prove a term by first-order proof search using Metis algorithm.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+A call <SPAN CLASS=BRKT>METIS[theorems] `tm`</SPAN> will attempt to prove <SPAN CLASS=BRKT>tm</SPAN> using pure first-order
+reasoning, taking <SPAN CLASS=BRKT>theorems</SPAN> as the starting-point. It will usually either
+prove it completely or run for an infeasibly long time, but it may sometimes
+fail quickly.
+
+Although <SPAN CLASS=BRKT>METIS</SPAN> is capable of some fairly non-obvious pieces of first-order
+reasoning, and will handle equality adequately, it does purely logical
+reasoning. It will exploit no special properties of the constants in the goal,
+other than equality and logical primitives. Any properties that are needed must
+be supplied explicitly in the theorem list, e.g. <SPAN CLASS=BRKT>LE_REFL</SPAN> to tell it that <SPAN CLASS=BRKT><=</SPAN>
+on natural numbers is reflexive, or <SPAN CLASS=BRKT>REAL_ADD_SYM</SPAN> to tell it that addition on
+real numbers is symmetric.
+
+Sometimes the similar <SPAN CLASS=BRKT>MESON</SPAN> rule is faster, especially on simpler problems.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the term is unprovable within the search bounds.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+A typical application is to prove some elementary logical lemma for use inside
+a tactic proof:
+<DIV class=XMPL><PRE>
+  # METIS[num_CASES] `(!n. P n) <=> P 0 /\ (!n. P (SUC n))`;;
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>USES</SPAN><DD>
+Generating simple logical lemmas as part of a large proof.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="ASM_METIS_TAC.html">ASM_METIS_TAC</A>, <A href="LEANCOP.html">LEANCOP</A>, <A href="MESON.html">MESON</A>, <A href="METIS_TAC.html">METIS_TAC</A>, <A href="NANOCOP.html">NANOCOP</A>.
+
+
+</DL>

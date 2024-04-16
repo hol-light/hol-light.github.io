@@ -1,0 +1,10 @@
+# System-dependent Unix makefile for the NE editor.
+# Version for Ultrix running on MIPS hardware.
+
+FLAGS   = CC=gcc \
+          CFLAGS="-O -Dunixwinsz -DNO_VDISCARD -DHAVE_TERMCAP" \
+          LIB_TERMINAL=-ltermcap
+
+newne:;   @make -f BaseMake $(FLAGS) $(TARGET)
+
+# End

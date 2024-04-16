@@ -1,0 +1,11 @@
+# System-dependent Unix makefile for the NE editor.
+# Version for HP-UX.
+
+FLAGS   = CC=gcc \
+          CFLAGS="-Dunixwinsz -DHAVE_TERMCAP -DNO_VDISCARD \
+            -O -ansi -funsigned-char" \
+          LIB_TERMINAL=-ltermcap 
+        
+newne:;   @make -f BaseMake $(FLAGS) $(TARGET)
+
+# End

@@ -1,0 +1,89 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>INTRO_TAC : string -&gt; tactic</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Breaks down outer quantifiers in goal, introducing variables and named
+hypotheses.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Given a string <SPAN CLASS=BRKT>s</SPAN>, <SPAN CLASS=BRKT>INTRO_TAC s</SPAN> breaks down outer universal quantifiers and
+implications in the goal, fixing variables and introducing assumptions with
+names. It combines several forms of introduction of logical connectives. The
+introduction pattern uses the following syntax:
+
+<ul>
+
+<li> <SPAN CLASS=BRKT>! fix_pattern</SPAN> introduces universally quantified variables as with
+   <SPAN CLASS=BRKT>FIX_TAC</SPAN>
+
+<li> a destruct pattern introduces and destructs an implication as with
+   <SPAN CLASS=BRKT>DESTRUCT_TAC</SPAN>
+
+<li> <SPAN CLASS=BRKT>#n</SPAN> selects disjunct <SPAN CLASS=BRKT>n</SPAN> in the goal
+
+</ul>
+
+Several fix patterns and destruct patterns can be combined sequentially,
+separed by semicolons `;'.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the pattern is ill-formed or does not match the form of the goal.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+Here we introduce the universally quantified outer variables, assume the
+antecedent, splitting apart conjunctions and disjunctions:
+<DIV class=XMPL><PRE>
+  # g `!p q r. p \/ (q /\ r) ==> p /\ q \/ p /\ r`;;
+  # e (INTRO_TAC "!p q r; p | q r");;
+  val it : goalstack = 2 subgoals (2 total)
+
+    0 [`q`] (q)
+    1 [`r`] (r)
+
+  `p /\ q \/ p /\ r`
+
+    0 [`p`] (p)
+
+  `p /\ q \/ p /\ r`
+</PRE></DIV>
+Now a further step will select the first disjunct to prove in the top goal:
+<DIV class=XMPL><PRE>
+  # e (INTRO_TAC "#1");;
+  val it : goalstack = 1 subgoal (2 total)
+
+    0 [`p`] (p)
+
+  `p /\ q`
+</PRE></DIV>
+
+In the next example we introduce an alternation of universally quantified
+variables and antecedents.  Along the way we split a disjunction and rename
+variables x1, x2 into n, n'.  All is done in a single tactic invocation.
+<DIV class=XMPL><PRE>
+  # g `!a. ~(a = 0) ==> ONE_ONE (\n. a * n)`;;
+  # e (REWRITE_TAC[ONE_ONE; EQ_MULT_LCANCEL]);;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!a. ~(a = 0) ==> (!x1 x2. a = 0 \/ x1 = x2 ==> x1 = x2)`
+
+  # e (INTRO_TAC "!a; anz; ![n] [n']; az | eq");;
+  val it : goalstack = 2 subgoals (2 total)
+
+    0 [`~(a = 0)`] (anz)
+    1 [`n = n'`] (eq)
+
+  `n = n'`
+
+    0 [`~(a = 0)`] (anz)
+    1 [`a = 0`] (az)
+
+  `n = n'`
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="DESTRUCT_TAC.html">DESTRUCT_TAC</A>, <A href="DISCH_TAC.html">DISCH_TAC</A>, <A href="FIX_TAC.html">FIX_TAC</A>, <A href="GEN_TAC.html">GEN_TAC</A>, <A href="LABEL_TAC.html">LABEL_TAC</A>, <A href="REMOVE_THEN.html">REMOVE_THEN</A>,
+<A href="STRIP_TAC.html">STRIP_TAC</A>, <A href="USE_THEN.html">USE_THEN</A>.
+
+
+</DL>

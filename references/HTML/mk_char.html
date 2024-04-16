@@ -1,0 +1,30 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>mk_char : char -&gt; term</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Constructs object-level character from OCaml character.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+<SPAN CLASS=BRKT>mk_char 'c'</SPAN> produces the HOL term of type <SPAN CLASS=BRKT>char</SPAN> corresponding to the OCaml
+character <SPAN CLASS=BRKT>c</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Never fails
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # mk_char 'c';;
+  val it : term = `ASCII F T T F F F T T`
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>COMMENTS</SPAN><DD>
+There is no particularly convenient parser/printer support for the HOL <SPAN CLASS=BRKT>char</SPAN>
+type, but when combined into lists they are considered as strings and provided
+with more intuitive parser/printer support.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="dest_char.html">dest_char</A>, <A href="dest_string.html">dest_string</A>, <A href="mk_string.html">mk_string</A>.
+
+
+</DL>

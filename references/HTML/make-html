@@ -1,0 +1,2 @@
+echo Making HTML for $1
+../../ne_text_editor/src/nenew -from ../Help/$1 -to `echo $1 | sed -e 's/.hlp/.html/'` -with .escript

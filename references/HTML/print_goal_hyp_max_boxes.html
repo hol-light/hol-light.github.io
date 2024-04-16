@@ -1,0 +1,63 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>print_goal_hyp_max_boxes : int option ref</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Flag determining the maximum number of boxes used to pretty-print each hypothesis
+of a goal.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+The reference variable <SPAN CLASS=BRKT>print_goal_hyp_max_boxes</SPAN> is a parameter controlling
+the maximum number of boxes used to pretty-print each hypothesis of a goal.
+This reference variable is used by <SPAN CLASS=BRKT>pp_print_goal</SPAN>.
+A box is a logical unit for pretty-printing an object and it is used by OCaml's
+<SPAN CLASS=BRKT>Format</SPAN> module.
+When it is set to <SPAN CLASS=BRKT>Some k</SPAN>, <SPAN CLASS=BRKT>k</SPAN> is used as the maximum number of boxes and
+terms in a hypothesis that need more than <SPAN CLASS=BRKT>k</SPAN> boxes are abbreviated by a
+dot (<SPAN CLASS=BRKT>.</SPAN>).
+When it is set to <SPAN CLASS=BRKT>None</SPAN>, the maximum number of boxes configured in OCaml's
+default formatter is used.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Not applicable.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+   # g `1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 = 10
+        ==> 2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 = 20`;;
+   val it : goalstack = 1 subgoal (1 total)
+
+   `1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 = 10
+   ==> 2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 = 20`
+
+   # e(STRIP_TAC);;
+   val it : goalstack = 1 subgoal (1 total)
+
+   0 [`1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 = 10`]
+
+   `2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 = 20`
+
+   # print_goal_hyp_max_boxes := Some 5;;
+   val it : unit = ()
+   # p();;
+   val it : goalstack = 1 subgoal (1 total)
+
+   0 [`. = 10`]
+
+   `2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 = 20`
+
+   # print_goal_hyp_max_boxes := None;;
+   val it : unit = ()
+   # p();;
+   val it : goalstack = 1 subgoal (1 total)
+
+   0 [`1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 = 10`]
+
+   `2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 = 20`
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="pp_print_goal.html">pp_print_goal</A>, <A href="print_all_thm.html">print_all_thm</A>.
+
+
+</DL>

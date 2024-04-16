@@ -1,0 +1,37 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>LEANCOP_TAC : thm list -&gt; tactic</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Automated first-order proof search tactic using leanCoP algorithm.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+A call to <SPAN CLASS=BRKT>LEANCOP_TAC[theorems]</SPAN> will attempt to establish the current goal
+using pure first-order reasoning, taking <SPAN CLASS=BRKT>theorems</SPAN> as the starting-point.
+It will usually either solve the goal completely or run for an infeasibly long
+time, but it may sometimes fail quickly. This tactic is analogous to
+<SPAN CLASS=BRKT>MESON_TAC</SPAN>, and many of the same general comments apply.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the goal is unprovable within the search bounds.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+Here is a simple fact about natural number sums as a goal:
+<DIV class=XMPL><PRE>
+  # g `!f u v.
+         FINITE u /\ (!x. x IN v /\ ~(x IN u) ==> f x = 0)
+         ==> nsum (u UNION v) f = nsum u f`;;
+
+</PRE></DIV>
+It is solved in a fraction of a second by <SPAN CLASS=BRKT>LEANCOP_TAC</SPAN> with some relevant
+lemmas:
+<DIV class=XMPL><PRE>
+  # e(LEANCOP_TAC[SUBSET; NSUM_SUPERSET; IN_UNION]);;
+  val it : goalstack = No subgoals
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="LEANCOP.html">LEANCOP</A>, <A href="MESON_TAC.html">MESON_TAC</A>, <A href="METIS_TAC.html">METIS_TAC</A>, <A href="NANOCOP_TAC.html">NANOCOP_TAC</A>.
+
+
+</DL>

@@ -1,0 +1,63 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>CLAIM_TAC : string -&gt; term -&gt; tactic</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Breaks down and labels an intermediate claim in a proof.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Given a Boolean term <SPAN CLASS=BRKT>t</SPAN> and a string <SPAN CLASS=BRKT>s</SPAN> of the form expected by
+<SPAN CLASS=BRKT>DESTRUCT_TAC</SPAN> indicating how to break down and label that assertion,
+<SPAN CLASS=BRKT>CLAIM_TAC s t</SPAN> breaks the current goal into two or more subgoals. One of
+these is to establish <SPAN CLASS=BRKT>t</SPAN> using the current context and the others are to
+establish the original goal with the broken-down form of <SPAN CLASS=BRKT>t</SPAN> as additional
+assumptions.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the term is not Boolean or the pattern is ill-formed or does not match
+the form of the theorem.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+Here we show how we can attack a propositional goal (admittedly trivial with
+<SPAN CLASS=BRKT>TAUT</SPAN>).
+<DIV class=XMPL><PRE>
+  # g `(p <=> q) ==> p \/ ~q`;;
+
+  val it : goalstack = 1 subgoal (1 total)
+
+  `(p <=> q) ==> p \/ ~q`
+
+  # e DISCH_TAC;;
+  val it : goalstack = 1 subgoal (1 total)
+
+    0 [`p <=> q`]
+
+  `p \/ ~q`
+</PRE></DIV>
+
+We establish the intermediate goal <SPAN CLASS=BRKT>p /\ q \/ ~p /\ ~q</SPAN>, the disjunction being
+in turn broken down into two labelled hypotheses <SPAN CLASS=BRKT>yes</SPAN> and <SPAN CLASS=BRKT>no</SPAN>:
+<DIV class=XMPL><PRE>
+  # e(CLAIM_TAC "yes|no" `p /\ q \/ ~p /\ ~q`);;
+  val it : goalstack = 3 subgoals (3 total)
+
+    0 [`p <=> q`]
+    1 [`~p /\ ~q`] (no)
+
+  `p \/ ~q`
+
+    0 [`p <=> q`]
+    1 [`p /\ q`] (yes)
+
+  `p \/ ~q`
+
+    0 [`p <=> q`]
+
+  `p /\ q \/ ~p /\ ~q`
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="DESTRUCT_TAC.html">DESTRUCT_TAC</A>, <A href="SUBGOAL_TAC.html">SUBGOAL_TAC</A>, <A href="SUBGOAL_THEN.html">SUBGOAL_THEN</A>.
+
+
+</DL>

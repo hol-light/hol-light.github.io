@@ -1,0 +1,44 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>CHAR_EQ_CONV : term -&gt; thm</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Proves equality or inequality of two HOL character literals.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+If <SPAN CLASS=BRKT>s</SPAN> and <SPAN CLASS=BRKT>t</SPAN> are two character literal terms in the HOL logic,
+<SPAN CLASS=BRKT>CHAR_EQ_CONV `s = t`</SPAN> returns:
+
+<DIV class=XMPL><PRE>
+   |- s = t <=> T       or       |- s = t <=> F
+</PRE></DIV>
+depending on whether the character literals are equal or not equal,
+respectively.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+<SPAN CLASS=BRKT>CHAR_EQ_CONV tm</SPAN> fails f <SPAN CLASS=BRKT>tm</SPAN> is not of the specified form, an equation
+between character literals.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # let t = mk_eq(mk_char 'A',mk_char 'A');;
+  val t : term = `ASCII F T F F F F F T = ASCII F T F F F F F T`
+
+  # CHAR_EQ_CONV t;;
+  val it : thm = |- ASCII F T F F F F F T = ASCII F T F F F F F T <=> T
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>USES</SPAN><DD>
+Performing basic equality reasoning while producing a proof about characters.
+
+<P><DT><SPAN CLASS=FIELD-NAME>COMMENTS</SPAN><DD>
+There is no particularly convenient parser/printer support for the HOL <SPAN CLASS=BRKT>char</SPAN>
+type, but when combined into lists they are considered as strings and provided
+with more intuitive parser/printer support. There is a corresponding proof rule
+<SPAN CLASS=BRKT>STRING_EQ_CONV</SPAN> for strings.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="dest_char.html">dest_char</A>, <A href="mk_char.html">mk_char</A>, <A href="NUM_EQ_CONV.html">NUM_EQ_CONV</A>, <A href="STRING_EQ_CONV.html">STRING_EQ_CONV</A>.
+
+
+</DL>

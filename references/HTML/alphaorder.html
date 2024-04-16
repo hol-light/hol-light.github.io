@@ -1,0 +1,42 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>alphaorder : term -&gt; term -&gt; int</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Total ordering on terms respecting alpha-equivalence.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+The function <SPAN CLASS=BRKT>alphaorder</SPAN> implements a total order on terms, using <SPAN CLASS=BRKT>-1</SPAN>, <SPAN CLASS=BRKT>0</SPAN> or
+<SPAN CLASS=BRKT>+1</SPAN> to indicate that the first term argument is respectively `less than',
+`equal to' or `greater than' the second term argument. The ordering is largely
+arbitrary, but it is transitive and (in contrast to the inbuilt OCaml
+polymorphic ordering) respects alpha-equivalence, i.e. returns <SPAN CLASS=BRKT>0</SPAN> if and only
+if the two terms are alpha-convertible.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Never fails.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+Any two terms can be compared, and swapping the arguments negates the result:
+<DIV class=XMPL><PRE>
+  # alphaorder `x + 1` `p ==> q`;;
+  val it : int = -1
+
+  # alphaorder `p ==> q` `x + 1`;;
+  val it : int = 1
+</PRE></DIV>
+while alpha-equivalent terms, and only alpha-convertible terms, are
+`equal':
+<DIV class=XMPL><PRE>
+  # alphaorder `!x. ?y. x + 1 < y` `!y. ?z. y + 1 < z`;;
+  val it : int = 0
+
+  # alphaorder `!x. ?y. x + 1 < y` `!x. ?y. x + 1 < y + 1`;;
+  val it : int = -1
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="aconv.html">aconv</A>.
+
+
+</DL>

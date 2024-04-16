@@ -1,0 +1,33 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>atoms : term -&gt; term list</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Returns a list of the atomic propositions in a Boolean term
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+When applied to a term of Boolean type, <SPAN CLASS=BRKT>atoms</SPAN> returns a list of the atomic
+fomulas, considering the term as a propositional formula built up recursively
+with negation, conjunction, disjunction, implication and logical equivalence,
+treating all other subterms (e.g. quantified ones) as atomic.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the term does not have type <SPAN CLASS=BRKT>:bool</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+Here the atomic formulas are simply variables:
+<DIV class=XMPL><PRE>
+  # atoms `p \/ q ==> r`;;
+  val it : term list = [`r`; `p`; `q`]
+</PRE></DIV>
+while here the atomic formulas are composite:
+<DIV class=XMPL><PRE>
+  # atoms `x < 1 \/ x > 1 ==> ~(x = 1)`;;
+  val it : term list = [`x < 1`; `x > 1`; `x = 1`]
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="frees.html">frees</A>, <A href="freesl.html">freesl</A>, <A href="free_in.html">free_in</A>, <A href="thm_frees.html">thm_frees</A>, <A href="variables.html">variables</A>.
+
+
+</DL>

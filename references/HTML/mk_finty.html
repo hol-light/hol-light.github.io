@@ -1,0 +1,26 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>mk_finty :num -&gt; hol_type</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Converts an integer to a standard finite type.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Finite types parsed and printed as numerals are provided, and this operation
+when applied to a number gives a type of that size.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the number is not a strictly positive integer.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+Here we use a 6-element type:
+<DIV class=XMPL><PRE>
+  # mk_finty (Int 6);;
+  val it : hol_type = `:6`
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="dest_finty.html">dest_finty</A>, <A href="DIMINDEX_CONV.html">DIMINDEX_CONV</A>, <A href="DIMINDEX_TAC.html">DIMINDEX_TAC</A>, <A href="HAS_SIZE_DIMINDEX_RULE.html">HAS_SIZE_DIMINDEX_RULE</A>, <A href="mk_type.html">mk_type</A>.
+
+
+</DL>

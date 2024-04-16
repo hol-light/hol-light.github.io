@@ -1,0 +1,31 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>subtract' : ('a -&gt; 'a -&gt; bool) -&gt; 'a list -&gt; 'a list -&gt; 'a list</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Subtraction of sets modulo an equivalence.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+The call <SPAN CLASS=BRKT>subtract' r l1 l2</SPAN> removes from the list <SPAN CLASS=BRKT>l1</SPAN> all elements <SPAN CLASS=BRKT>x</SPAN> such
+that there is an <SPAN CLASS=BRKT>x'</SPAN> in <SPAN CLASS=BRKT>l2</SPAN> with <SPAN CLASS=BRKT>r x x'</SPAN>. If <SPAN CLASS=BRKT>l1</SPAN> and <SPAN CLASS=BRKT>l2</SPAN> were free of
+equivalents under <SPAN CLASS=BRKT>r</SPAN>, the resulting list will be too, so this is a set
+operation modulo an equivalence. The function <SPAN CLASS=BRKT>subtract</SPAN> is the special case
+where the relation is just equality.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails only if the function <SPAN CLASS=BRKT>r</SPAN> fails.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # subtract' (fun x y -> abs(x) = abs(y)) [-1; 2; 1] [-2; -3; 4; -4];;
+  val it : int list = [-1; 1]
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>USES</SPAN><DD>
+Maintaining sets modulo an equivalence such as alpha-equivalence.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="insert_prime.html">insert'</A>, <A href="mem_prime.html">mem'</A>, <A href="union.html">union</A>, <A href="union_prime.html">union'</A>, <A href="unions_prime.html">unions'</A>.
+
+
+</DL>

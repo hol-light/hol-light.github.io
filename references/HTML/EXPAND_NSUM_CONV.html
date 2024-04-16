@@ -1,0 +1,35 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>EXPAND_NSUM_CONV : conv</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Expands a natural number sum over an explicit interval of numerals
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+The conversion <SPAN CLASS=BRKT>EXPAND_NSUM_CONV</SPAN> applied to a term of the form
+<SPAN CLASS=BRKT>`nsum (m..n) f`</SPAN> where <SPAN CLASS=BRKT>m</SPAN> and <SPAN CLASS=BRKT>n</SPAN> are explicit numerals (the double-dot being
+an infix set construction for a range), returns an expansion theorem
+<SPAN CLASS=BRKT>|- nsum (m..n) f = f(m) + ... + f(n)</SPAN>. In the common case where <SPAN CLASS=BRKT>f</SPAN> is a
+lambda-term, each application <SPAN CLASS=BRKT>f(i)</SPAN> will be beta-reduced at the top level.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+<SPAN CLASS=BRKT>EXPAND_NSUM_CONV tm</SPAN> fails if <SPAN CLASS=BRKT>tm</SPAN> is not a sum of the specified form.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+The following is a typical use of the conversion:
+<DIV class=XMPL><PRE>
+  # EXPAND_NSUM_CONV `nsum (1..5) (\n. n * n)`;;
+  val it : thm =
+    |- nsum (1..5) (\n. n * n) = 1 * 1 + 2 * 2 + 3 * 3 + 4 * 4 + 5 * 5
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>COMMENTS</SPAN><DD>
+As well as the real-number version <SPAN CLASS=BRKT>EXPAND_SUM_CONV</SPAN> in the core HOL Light, the
+library file <SPAN CLASS=BRKT>Library/isum.ml</SPAN> contains a corresponding form for integer sums
+<SPAN CLASS=BRKT>EXPAND_ISUM_CONV</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="EXPAND_CASES_CONV.html">EXPAND_CASES_CONV</A>, <A href="EXPAND_SUM_CONV.html">EXPAND_SUM_CONV</A>, <A href="NUMSEG_CONV.html">NUMSEG_CONV</A>.
+
+
+</DL>

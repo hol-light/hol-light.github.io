@@ -1,0 +1,28 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>unions' : ('a -&gt; 'a -&gt; bool) -&gt; 'a list list -&gt; 'a list</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Compute union of a family of sets modulo an equivalence.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+If <SPAN CLASS=BRKT>r</SPAN> is an equivalence relation an <SPAN CLASS=BRKT>l</SPAN> a list of lists, the call
+<SPAN CLASS=BRKT>unions' r l</SPAN> returns a list with one representative of each <SPAN CLASS=BRKT>r</SPAN>-equivalence
+class occurring in any of the members. It thus gives a union of a family of
+sets with no duplicates under the equivalence <SPAN CLASS=BRKT>r</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails only if the relation <SPAN CLASS=BRKT>r</SPAN> fails.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # unions' (fun x y -> abs(x) = abs(y))
+     [[-1; 2; 3]; [-2; -3; -4]; [4; 5; -6]];;
+  val it : int list = [-1; -2; -3; 4; 5; -6]
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="insert_prime.html">insert'</A>, <A href="mem_prime.html">mem'</A>, <A href="subtract_prime.html">subtract'</A>, <A href="union_prime.html">union'</A>, <A href="unions.html">unions</A>.
+
+
+</DL>

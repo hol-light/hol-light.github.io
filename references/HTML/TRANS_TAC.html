@@ -1,0 +1,55 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>TRANS_TAC : thm -&gt; term -&gt; tactic</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Applies transitivity theorem to goal with chosen intermediate term.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+When applied to a `transitivity' theorem, i.e. one of the form
+<DIV class=XMPL><PRE>
+   |- !xs. R1 x y /\ R2 y z ==> R3 x z
+</PRE></DIV>
+and a term <SPAN CLASS=BRKT>t</SPAN>, <SPAN CLASS=BRKT>TRANS_TAC</SPAN> produces a tactic that reduces a goal
+with conclusion of the form <SPAN CLASS=BRKT>R3 s u</SPAN> to one with conclusion <SPAN CLASS=BRKT>R1 s t /\ R2 t u</SPAN>.
+<DIV class=XMPL><PRE>
+       A ?- R3 s u
+  ========================  TRANS_TAC (|- !xs. R1 x y /\ R2 y z ==> R3 x z) `t`
+   A ?- R1 s t /\ R2 t u
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+Consider the simple inequality goal:
+<DIV class=XMPL><PRE>
+  # g `n < (m + 2) * (n + 1)`;;
+</PRE></DIV>
+We can use the following transitivity theorem
+<DIV class=XMPL><PRE>
+  # LET_TRANS;;
+  val it : thm = |- !m n p. m <= n /\ n < p ==> m < p
+</PRE></DIV>
+<DIV class=XMPL><PRE>
+  # e(TRANS_TAC LET_TRANS `1 * (n + 1)`);;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `n <= 1 * (n + 1) /\ 1 * (n + 1) < (m + 2) * (n + 1)`
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails unless the input theorem is of the expected form (some of the
+relations <SPAN CLASS=BRKT>R1</SPAN>, <SPAN CLASS=BRKT>R2</SPAN> and <SPAN CLASS=BRKT>R3</SPAN> may be, and often are, the same) and the
+conclusion matches the goal, in the usual sense of higher-order matching.
+
+<P><DT><SPAN CLASS=FIELD-NAME>COMMENTS</SPAN><DD>
+The effect of <SPAN CLASS=BRKT>TRANS_TAC th t</SPAN> can often be replicated by the more primitive
+tactic sequence <SPAN CLASS=BRKT>MATCH_MP_TAC th THEN EXISTS_TAC t</SPAN>. The use of <SPAN CLASS=BRKT>TRANS_TAC</SPAN> is
+not only less verbose, but it is also more general in that it ensures correct
+type-instantiation of the theorem, whereas in highly polymorphic theorems the
+use of <SPAN CLASS=BRKT>MATCH_MP_TAC</SPAN> may leave the wrong types for the subsequent <SPAN CLASS=BRKT>EXISTS_TAC</SPAN>
+step.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="MATCH_MP_TAC.html">MATCH_MP_TAC</A>, <A href="TRANS.html">TRANS</A>.
+
+
+</DL>

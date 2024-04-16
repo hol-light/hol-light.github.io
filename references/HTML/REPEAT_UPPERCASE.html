@@ -1,0 +1,43 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>REPEAT : tactic -&gt; tactic</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Repeatedly applies a tactic until it fails.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+The tactic <SPAN CLASS=BRKT>REPEAT t</SPAN> is a tactic which applies <SPAN CLASS=BRKT>t</SPAN> to a goal, and while it
+succeeds, continues applying it to all subgoals generated.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+The application of <SPAN CLASS=BRKT>REPEAT</SPAN> to a tactic never fails, and neither does the
+composite tactic, even if the basic tactic fails immediately, unless it raises
+an exception other that <SPAN CLASS=BRKT>Failure ...</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+If we start with a goal having many universal quantifiers:
+<DIV class=XMPL><PRE>
+  # g `!w x y z. w < z /\ x < y ==> w * x + 1 <= y * z`;;
+</PRE></DIV>
+then <SPAN CLASS=BRKT>GEN_TAC</SPAN> will strip them off one at a time:
+<DIV class=XMPL><PRE>
+  # e GEN_TAC;;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!x y z. w < z /\ x < y ==> w * x + 1 <= y * z`
+</PRE></DIV>
+and <SPAN CLASS=BRKT>REPEAT GEN_TAC</SPAN> will strip them off as far as possible:
+<DIV class=XMPL><PRE>
+  # e(REPEAT GEN_TAC);;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `w < z /\ x < y ==> w * x + 1 <= y * z`
+</PRE></DIV>
+Similarly, <SPAN CLASS=BRKT>REPEAT COND_CASES_TAC</SPAN> will eliminate all free conditionals in the
+goal instead of just one.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="EVERY.html">EVERY</A>, <A href="FIRST.html">FIRST</A>, <A href="ORELSE.html">ORELSE</A>, <A href="THEN.html">THEN</A>, <A href="THENL.html">THENL</A>.
+
+
+</DL>

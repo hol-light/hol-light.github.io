@@ -1,0 +1,34 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>BINOP2_CONV : conv -&gt; conv -&gt; conv</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Applies conversions to the two arguments of a binary operator.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+If <SPAN CLASS=BRKT>c1</SPAN> is a conversion where <SPAN CLASS=BRKT>c1 `l`</SPAN> returns <SPAN CLASS=BRKT>|- l = l'</SPAN> and <SPAN CLASS=BRKT>c2</SPAN> is a
+conversion where <SPAN CLASS=BRKT>c2 `r`</SPAN> returns <SPAN CLASS=BRKT>|- r = r'</SPAN>, then
+<SPAN CLASS=BRKT>BINOP2_CONV c1 c2 `op l r`</SPAN> returns <SPAN CLASS=BRKT>|- op l r = op l' r'</SPAN>. The
+term <SPAN CLASS=BRKT>op</SPAN> is arbitrary, but is often a constant such as addition or
+conjunction.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Never fails when applied to the conversion. But may fail when applied to the
+term if one of the core conversions fails or returns an inappropriate theorem
+on the subterms.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # BINOP2_CONV NUM_ADD_CONV NUM_SUB_CONV `(3 + 3) * (10 - 3)`;;
+  val it : thm = |- (3 + 3) * (10 - 3) = 6 * 7
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>COMMENTS</SPAN><DD>
+The special case when the two conversions are the same is more briefly achieved
+using <SPAN CLASS=BRKT>BINOP_CONV</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="ABS_CONV.html">ABS_CONV</A>, <A href="BINOP_CONV.html">BINOP_CONV</A>, <A href="COMB_CONV.html">COMB_CONV</A>, <A href="COMB2_CONV.html">COMB2_CONV</A>, <A href="RAND_CONV.html">RAND_CONV</A>, <A href="RATOR_CONV.html">RATOR_CONV</A>.
+
+
+</DL>

@@ -1,0 +1,71 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>FIX_TAC : string -&gt; tactic</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Fixes universally quantified variables in goal.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+
+Given a string <SPAN CLASS=BRKT>s</SPAN> indicating a sequence of variable names, <SPAN CLASS=BRKT>FIX_TAC s</SPAN>
+performs the introduction of the indicated universally quantified variables.
+It is not required to specify the variables in any particular order. The
+syntax for the string argument s allows the following patterns:
+
+<ul>
+
+<li> a variable name <SPAN CLASS=BRKT>varname</SPAN> (meaning introduce the variable varname)
+
+<li> a pattern <SPAN CLASS=BRKT>[newname/varname]</SPAN> (meaning introduce <SPAN CLASS=BRKT>varname</SPAN> and call it
+   <SPAN CLASS=BRKT>newname</SPAN>)
+
+<li> a pattern <SPAN CLASS=BRKT>[newname]</SPAN> (meaning introduce the outermost variable and
+   call it <SPAN CLASS=BRKT>newname</SPAN>)
+
+<li> a final <SPAN CLASS=BRKT>*</SPAN> (meaning introduce the remaining outermost universal
+   quantified variables)
+
+</ul>
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the string specifying the variables is ill-formed or if some of the
+indicated variables are not present as outer universal quantifiers in the goal.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+Here we fix just the variable <SPAN CLASS=BRKT>a</SPAN>:
+<DIV class=XMPL><PRE>
+  # g `!x a. a + x = x + a`;;
+  # e (FIX_TAC "a");;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!x. a + x = x + a`
+</PRE></DIV>
+while here we rename one of the variables and fix all the others:
+<DIV class=XMPL><PRE>
+  # g `!a b x. a + b + x = (a + b) + x`;;
+  # e (FIX_TAC "[d/x] *");;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `a + b + d = (a + b) + d`
+</PRE></DIV>
+
+Here we fix an automatically generated variable and choose a meaningful name
+for it
+<DIV class=XMPL><PRE>
+  # g `(@x. x = 0) + 0 = 0`;;
+  # e SELECT_ELIM_TAC;;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!_75605. (!x. x = 0 ==> _75605 = 0) ==> _75605 + 0 = 0`
+
+  # e (FIX_TAC "[y]");;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `(!x. x = 0 ==> y = 0) ==> y + 0 = 0`
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="GEN.html">GEN</A>, <A href="GEN_TAC.html">GEN_TAC</A>, <A href="INTRO_TAC.html">INTRO_TAC</A>, <A href="STRIP_TAC.html">STRIP_TAC</A>, <A href="X_GEN_TAC.html">X_GEN_TAC</A>.
+
+
+</DL>

@@ -1,0 +1,58 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>SEQ_IMP_REWRITE_TAC : thm list -&gt; tactic</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Performs sequential implicational rewriting, adding new assumptions if
+necessary.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+This tactic is closely related to <SPAN CLASS=BRKT>IMP_REWRITE_TAC</SPAN> but uses the provided
+theorems sequentially instead of simultaneously: given a list of theorems
+<SPAN CLASS=BRKT>[th_1;...;th_k]</SPAN>, the tactic call <SPAN CLASS=BRKT>SEQ_IMP_REWRITE_TAC [th_1;...;th_k]</SPAN>
+applies as many implicational rewriting as it can with <SPAN CLASS=BRKT>th_1</SPAN>, then with
+<SPAN CLASS=BRKT>th_2</SPAN>, etc. When <SPAN CLASS=BRKT>th_k</SPAN> is reached, start over from <SPAN CLASS=BRKT>th_1</SPAN>. Repeat till no
+more rewrite can be achieved.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if no rewrite can be achieved. If the usual behavior of leaving the goal unchanged
+is desired, one can wrap the coal in <SPAN CLASS=BRKT>TRY_TAC</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+This uses the basic <SPAN CLASS=BRKT>IMP_REWRITE_TAC</SPAN>:
+<DIV class=XMPL><PRE>
+  # g `!a b c. a < b ==> (a - b) / (a - b) * c = c`;;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!a b c. a < b ==> (a - b) / (a - b) * c = c`
+
+  # e(IMP_REWRITE_TAC[REAL_DIV_REFL;REAL_MUL_LID;REAL_SUB_0; REAL_LT_IMP_NE]);;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!a b. ~(a < b)`
+</PRE></DIV>
+But with <SPAN CLASS=BRKT>SEQ_IMP_REWRITE_TAC</SPAN>, the same sequence of theorems solves the goal:
+<DIV class=XMPL><PRE>
+  # e(SEQ_IMP_REWRITE_TAC[REAL_DIV_REFL;REAL_MUL_LID;REAL_SUB_0; REAL_LT_IMP_NE]);;
+  val it : goalstack = No subgoals
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>USES</SPAN><DD>
+This addresses a problem which happens already with <SPAN CLASS=BRKT>REWRITE_TAC</SPAN> or
+<SPAN CLASS=BRKT>SIMP_TAC</SPAN>: one generally rewrites with one theorem, then with another, etc.
+and, in the end, once every step is done, (s)he packs everything in a list and
+provides this list to <SPAN CLASS=BRKT>IMP_REWRITE_TAC</SPAN>; but it then happens that some
+surprises happen at this point because the simultaneous use of all theorems
+does not yield the same result as their subsequent use. A usual solution is
+simply to decompose the call into two calls by identifying manually which
+theorems are the source of the unexpected behavior when used together. Or one
+can simply use <SPAN CLASS=BRKT>SEQ_IMP_REWRITE_TAC</SPAN>. Note that this is however a lot slower
+than <SPAN CLASS=BRKT>IMP_REWRITE_TAC</SPAN>. The user may prefer to first use <SPAN CLASS=BRKT>IMP_REWRITE_TAC</SPAN> and
+if it does not work like the sequential use of single implicational rewrites
+then use <SPAN CLASS=BRKT>SEQ_IMP_REWRITE_TAC</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="IMP_REWRITE_TAC.html">IMP_REWRITE_TAC</A>, <A href="REWRITE_TAC.html">REWRITE_TAC</A>, <A href="SIMP_TAC.html">SIMP_TAC</A>.
+
+
+</DL>

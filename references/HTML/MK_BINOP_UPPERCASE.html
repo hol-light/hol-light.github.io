@@ -1,0 +1,30 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>MK_BINOP : term -&gt; thm * thm -&gt; thm</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Compose equational theorems with binary operator.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Given a term <SPAN CLASS=BRKT>op</SPAN> and the pair of theorems <SPAN CLASS=BRKT>(|- l = l'),(|- r = r')</SPAN>, the
+function <SPAN CLASS=BRKT>MK_BINOP</SPAN> returns the theorem <SPAN CLASS=BRKT>|- op l r = op l' r'</SPAN>, provided the
+types are compatible.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the types are incompatible for the term <SPAN CLASS=BRKT>op l r</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # let th1 = NUM_REDUCE_CONV `2 * 2`
+    and th2 = NUM_REDUCE_CONV `2 EXP 2`;;
+  val th1 : thm = |- 2 * 2 = 4
+  val th2 : thm = |- 2 EXP 2 = 4
+  # MK_BINOP `(+):num->num->num` (th1,th2);;
+  val it : thm = |- 2 * 2 + 2 EXP 2 = 4 + 4
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="BINOP_CONV.html">BINOP_CONV</A>, <A href="DEPTH_BINOP_CONV.html">DEPTH_BINOP_CONV</A>, <A href="MK_COMB_UPPERCASE.html">MK_COMB</A>.
+
+
+</DL>

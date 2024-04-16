@@ -1,0 +1,28 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>mk_string : string -&gt; term</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Constructs object-level string from OCaml string.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+<SPAN CLASS=BRKT>mk_string "..."</SPAN> produces the HOL term of type <SPAN CLASS=BRKT>string</SPAN> (which is an
+abbreviation for <SPAN CLASS=BRKT>char list</SPAN>) corresponding to the OCaml string <SPAN CLASS=BRKT>"..."</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Never fails
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # mk_string "hello";;
+  val it : term = `"hello"`
+
+  # type_of it;;
+  val it : hol_type = `:(char)list`
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="dest_char.html">dest_char</A>, <A href="dest_list.html">dest_list</A>, <A href="dest_string.html">dest_string</A>, <A href="mk_char.html">mk_char</A>, <A href="mk_list.html">mk_list</A>.
+
+
+</DL>

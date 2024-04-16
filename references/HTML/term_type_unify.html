@@ -1,0 +1,26 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>term_type_unify : term -&gt; term -&gt; instantiation -&gt; instantiation</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Unify two terms including their type variables
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Given two terms <SPAN CLASS=BRKT>tm1</SPAN> and <SPAN CLASS=BRKT>tm2</SPAN> and an existing instantiation <SPAN CLASS=BRKT>i</SPAN> of type and
+term variables, a call <SPAN CLASS=BRKT>term_type_unify tm1 tm2 i</SPAN> attempts to find an
+augmentation of the instantiation <SPAN CLASS=BRKT>i</SPAN> that makes the terms alpha-equivalent.
+The unification is purely first-order.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the two terms are not first-order unifiable by instantiating the given
+variables and type variables.
+
+<P><DT><SPAN CLASS=FIELD-NAME>COMMENTS</SPAN><DD>
+The more restrictive <SPAN CLASS=BRKT>term_unify</SPAN> does a similar job when the type variables
+are already compatible and only terms need to be instantiated.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="INSTANTIATE_UPPERCASE.html">instantiate</A>, <A href="term_match.html">term_match</A>, <A href="term_unify.html">term_unify</A>, <A href="type_unify.html">type_unify</A>.
+
+
+</DL>

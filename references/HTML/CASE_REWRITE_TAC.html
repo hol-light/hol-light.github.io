@@ -1,0 +1,46 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>CASE_REWRITE_TAC : thm -&gt; tactic</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Performs casewise rewriting.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Same usage as <SPAN CLASS=BRKT>IMP_REWRITE_TAC</SPAN> but applies case rewriting instead of
+implicational rewriting, i.e. given a theorem of the form
+<SPAN CLASS=BRKT>!x_1... x_n. P ==> !y_1... y_m. l = r</SPAN> and a goal with an atom <SPAN CLASS=BRKT>A</SPAN> containing
+a subterm matching <SPAN CLASS=BRKT>l</SPAN>, turns the atom into <SPAN CLASS=BRKT>(P' ==> A') /\ (~P' ==> A)</SPAN> where
+<SPAN CLASS=BRKT>A'</SPAN> is the atom in which the matching subterm of <SPAN CLASS=BRKT>l</SPAN> is rewritten, and where
+<SPAN CLASS=BRKT>P'</SPAN> is the instantiation of <SPAN CLASS=BRKT>P</SPAN> so that the rewrite is valid. Note that this
+tactic takes only one theorem since in practice there is seldom a need to
+apply it subsequently with several theorems.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if no subterm matching <SPAN CLASS=BRKT>l</SPAN> occurs in the goal.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # g ‘!a b c. a < b ==> (a - b) / (a - b) * c = c‘;;
+  val it : goalstack = 1 subgoal (1 total)
+
+  ‘!a b c. a < b ==> (a - b) / (a - b) * c = c‘
+
+  # e(CASE_REWRITE_TAC REAL_DIV_REFL);;
+  val it : goalstack = 1 subgoal (1 total)
+
+  ‘!a b c.
+    a < b
+      ==> (~(a - b = &amp;0) ==> &amp;1 * c = c) /\
+        (a - b = &amp;0 ==> (a - b) / (a - b) * c = c)‘
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>USES</SPAN><DD>
+Similar to <SPAN CLASS=BRKT>IMP_REWRITE_TAC</SPAN>, but instead of assuming that a precondition
+holds, one just wants to make a distinction between the case where this
+precondition holds, and the one where it does not.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="IMP_REWRITE_TAC.html">IMP_REWRITE_TAC</A>, <A href="REWRITE_TAC.html">REWRITE_TAC</A>, <A href="SIMP_TAC.html">SIMP_TAC</A>, <A href="SEQ_IMP_REWRITE_TAC.html">SEQ_IMP_REWRITE_TAC</A>, <A href="TARGET_REWRITE_TAC.html">TARGET_REWRITE_TAC</A>.
+
+
+</DL>

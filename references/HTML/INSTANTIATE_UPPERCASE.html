@@ -1,0 +1,38 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>INSTANTIATE : instantiation -&gt; thm -&gt; thm</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Apply a higher-order instantiation to conclusion of a theorem.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+The call <SPAN CLASS=BRKT>INSTANTIATE i t</SPAN>, where <SPAN CLASS=BRKT>i</SPAN> is an instantiation as returned by
+<SPAN CLASS=BRKT>term_match</SPAN>, will perform the instantiation indicated by <SPAN CLASS=BRKT>i</SPAN> in the conclusion
+of the theorem <SPAN CLASS=BRKT>th</SPAN>: types and terms will be instantiated and the
+beta-reductions that are part of higher-order matching will be applied.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the instantiation is impossible because of free term or type variables
+in the hypotheses.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # let t = lhs(concl(SPEC_ALL NOT_FORALL_THM));;
+  val t : term = `~(!x. P x)`
+  # let i = term_match [] t `~(!n. prime(n) ==> ODD(n))`;;
+  val i : instantiation =
+    ([(1, `P`)], [(`\n. prime n ==> ODD n`, `P`)], [(`:num`, `:A`)])
+
+  # INSTANTIATE i (SPEC_ALL NOT_FORALL_THM);;
+  val it : thm = |- ~(!x. prime x ==> ODD x) <=> (?x. ~(prime x ==> ODD x))
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>COMMENTS</SPAN><DD>
+This is not intended for general use. <SPAN CLASS=BRKT>PART_MATCH</SPAN> is generally a more
+convenient packaging.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="INSTANTIATE_UPPERCASE.html">instantiate</A>, <A href="INSTANTIATE_ALL.html">INSTANTIATE_ALL</A>, <A href="PART_MATCH.html">PART_MATCH</A>, <A href="term_match.html">term_match</A>.
+
+
+</DL>

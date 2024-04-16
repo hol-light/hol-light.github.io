@@ -1,0 +1,70 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>HYP_TAC : string -&gt; (thm -&gt; thm) -&gt; tactic</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Applies a rule to a named hypothesis.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+
+Given a string <SPAN CLASS=BRKT>s</SPAN> and a rule <SPAN CLASS=BRKT>r</SPAN>, <SPAN CLASS=BRKT>HYP_TAC s r</SPAN> applies <SPAN CLASS=BRKT>r</SPAN> to the hypothesis
+labeled <SPAN CLASS=BRKT>l</SPAN> as specified by the pattern <SPAN CLASS=BRKT>s</SPAN> which can be of one of the
+following form:
+
+<ul>
+
+<li> "<SPAN CLASS=BRKT>l</SPAN> : <SPAN CLASS=BRKT>patt</SPAN>", meaning apply <SPAN CLASS=BRKT>r</SPAN> to hypothesis <SPAN CLASS=BRKT>l</SPAN> and destruct it
+  with <SPAN CLASS=BRKT>patt</SPAN>, like <SPAN CLASS=BRKT>REMOVE_THEN l (DESTRUCT_TAC patt o r)</SPAN>
+
+<li> a label <SPAN CLASS=BRKT>"l"</SPAN>, meaning apply <SPAN CLASS=BRKT>r</SPAN> to the hypothesis <SPAN CLASS=BRKT>l</SPAN>, a shorthand for
+  <SPAN CLASS=BRKT>HYP_TAC "l : l" r</SPAN>
+
+<li> "<SPAN CLASS=BRKT>l</SPAN> : <SPAN CLASS=BRKT>patt</SPAN>", meaning apply <SPAN CLASS=BRKT>r</SPAN> to hypothesis <SPAN CLASS=BRKT>l</SPAN> and destruct it
+  with <SPAN CLASS=BRKT>patt</SPAN> but keep hypothesis <SPAN CLASS=BRKT>l</SPAN>, like
+  <SPAN CLASS=BRKT>USE_THEN l (DESTRUCT_TAC patt o r)</SPAN>
+
+</ul>
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Applied to its arguments fails if the pattern is ill-formed.  When executed
+as a tactic, fails if it refers to non-existent hypothesis or the rule fails
+or do not produce a theorem of a suitable form.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+Here we use the theorem <SPAN CLASS=BRKT>MEMBER_NOT_EMPTY</SPAN> to obtain an element <SPAN CLASS=BRKT>a</SPAN> from a
+non empty set <SPAN CLASS=BRKT>s</SPAN>
+<DIV class=XMPL><PRE>
+  # g `!s. ~(s = <SPAN CLASS=BRKT></SPAN>) ==> (minimal n. n IN s) IN s`;;
+  # e (INTRO_TAC "!s; s");;
+  # e (HYP_TAC "s : @a. +" (REWRITE_RULE[GSYM MEMBER_NOT_EMPTY]));;
+  val it : goalstack = 1 subgoal (1 total)
+
+    `a IN s ==> (minimal n. n IN s) IN s`
+</PRE></DIV>
+next we can finish with this goal with
+<DIV class=XMPL><PRE>
+  # e (MESON_TAC[MINIMAL]);;
+</PRE></DIV>
+
+Here we derive that a strictly positive number is a non negative number
+<DIV class=XMPL><PRE>
+  # g `!x. &amp;0 < x ==> &amp;0 <= inv x`;;
+  # e (INTRO_TAC "!x; xgt");;
+  # e (HYP_TAC "xgt -> xge" (MATCH_MP REAL_LT_IMP_LE));;
+  val it : goalstack = 1 subgoal (1 total)
+
+    0 [`&amp;0 < x`] (xgt)
+    1 [`&amp;0 <= x`] (xge)
+
+  `&amp;0 <= inv x`
+</PRE></DIV>
+then we can solve the goal with
+<DIV class=XMPL><PRE>
+  # e (HYP SIMP_TAC "xge" [REAL_LE_INV]);;
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="DESTRUCT_TAC.html">DESTRUCT_TAC</A>, <A href="HYP_UPPERCASE.html">HYP</A>, <A href="LABEL_TAC.html">LABEL_TAC</A>, <A href="REMOVE_THEN.html">REMOVE_THEN</A>, <A href="USE_THEN.html">USE_THEN</A>
+
+
+</DL>

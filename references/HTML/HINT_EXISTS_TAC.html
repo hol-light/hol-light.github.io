@@ -1,0 +1,52 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>HINT_EXISTS_TAC : tactic</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Attemps to instantiate existential goals from context.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Given a goal which contains some subformula of the form
+<SPAN CLASS=BRKT>?x_1... x_k. P_1 y^1_1 ... y^1_m1 /\ ... /\ P_n y^n_1 ... y^n_mn</SPAN> in a
+context where <SPAN CLASS=BRKT>P_i t_1 ... t_mi</SPAN> holds for some <SPAN CLASS=BRKT>t_1,...,t_mi</SPAN>, then
+instantiates <SPAN CLASS=BRKT>x_i1,...,x_i_mi</SPAN> with <SPAN CLASS=BRKT>t_1,...,t_mi</SPAN>. The ``context'' consists in
+the assumptions or in the premisses of the implications where the existential
+subformula occurs.
+
+Note: it is enough that just P t holds, not the complete existentially
+quantified formula. As the name suggests, we just use the context as a ``hint''
+but it is (in most general uses) not sufficient to solve the existential
+completely: if this is doable automatically, then other techniques can do the
+job in a better way (typically <SPAN CLASS=BRKT>MESON</SPAN>).
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if no instantiation is found from the context.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # g `!P Q R S. P 1 /\ Q 2 /\ R 3 ==> ?x y. P x /\ R y /\ S x y`;;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!P Q R S. P 1 /\ Q 2 /\ R 3 ==> (?x y. P x /\ R y /\ S x y)`
+
+  # e HINT_EXISTS_TAC;;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `!P Q R S. P 1 /\ Q 2 /\ R 3 ==> S 1 3`
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>USES</SPAN><DD>
+When facing an existential goal, it happens often that the context ``suggests''
+a candidate to be a witness. In many cases, this is because the existential
+goal is partly satisfied by a proposition in the context. However, often, the
+context does not allow to automatically prove completely the existential using
+this witness. Therefore, usual automation tactics are useless. Usually, in such
+circumstances, one has to provide the witness explicitly. This is tedious and
+time-consuming whereas this witness can be found automatically from the
+context, this is what this tactic allows to do.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="EXISTS_TAC.html">EXISTS_TAC</A>, <A href="IMP_REWRITE_TAC.html">IMP_REWRITE_TAC</A>, <A href="SIMP_TAC.html">SIMP_TAC</A>.
+
+
+</DL>
