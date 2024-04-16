@@ -1,1 +1,0 @@
-elocal.linux.c
