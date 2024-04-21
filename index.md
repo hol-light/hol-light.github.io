@@ -42,6 +42,7 @@ in the distribution for detailed installation instructions.
   as [one PDF file](references/reference.pdf)
 - Quick Reference Guide compiled by Freek Wiedijk ([text](holchart/holchart.txt), [PDF](holchart/holchart.pdf), [Postscript](holchart/holchart.ps), [DVI](holchart/holchart.dvi), [LaTeX](holchart/holchart.teX))
 - Summary of many HOL source files, written by Carl Witty ([text](summary.txt))
+- [A VSCode plugin for HOL Light](https://github.com/monadius/vscode-hol-light), written by Alexey Solovyev.
 - [Notes for beginners](https://github.com/aqjune/hol-light-materials/tree/main), written by Juneyoung Lee
 
 ## Applications of HOL Light
