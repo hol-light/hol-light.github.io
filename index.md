@@ -47,7 +47,7 @@ in the distribution for detailed installation instructions.
 
 ## Applications of HOL Light
 
-- The [Flyspeck project](http://code.google.com/p/flyspeck/) to machine-check [Tom Hales](http://www.math.pitt.edu/~thales/)'s proof of the Kepler conjecture.
+- The [Flyspeck project](https://github.com/flyspeck/flyspeck) to machine-check [Tom Hales](https://www.mathematics.pitt.edu/people/thomas-hales)'s proof of the Kepler conjecture.
 Tom has already proved the Jordan Curve Theorem and other relevant results in HOL Light.
 - The [s2n-bignum project](https://github.com/awslabs/s2n-bignum/) of Amazon Web Services. This is a collection of bignum arithmetic routines
 designed for cryptographic applications.
@@ -55,5 +55,5 @@ designed for cryptographic applications.
 See [this paper](http://www.cl.cam.ac.uk/~jrh13/papers/iday.html) for a quick summary and more references,
 and [this one](http://www.cl.cam.ac.uk/~jrh13/papers/sfm.html) for a more detailed presentation.
 - Many other mathematical results of varying degrees of difficulty have been verified in HOL Light.
-See for example the HOL Light entries on the Formalizing 100 Theorems page.
+See for example the HOL Light entries on the [Formalizing 100 Theorems page](https://www.cs.ru.nl/~freek/100/).
 
