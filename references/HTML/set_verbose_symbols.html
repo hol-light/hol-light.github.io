@@ -1,0 +1,62 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>set_verbose_symbols : unit -&gt; unit</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Enables more verbose descriptive names for quantifiers and logical constants
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+A call to <SPAN CLASS=BRKT>set_verbose_symbols()</SPAN> enables a more verbose syntax for the logical
+quantifiers and constants. These are all just interface mappings, the
+underlying constant names in the abstract syntax of the logic being unchanged.
+But the more descriptive names are applied by default when printing and
+are accepted when parsing terms as synonyms of the symbolic names. The new
+names are:
+
+<ul>
+
+<li> The universal quantifier `<SPAN CLASS=BRKT>!</SPAN>' is now parsed and printed as `<SPAN CLASS=BRKT>forall</SPAN>'
+
+<li> The existential quantifier `<SPAN CLASS=BRKT>?</SPAN>' is now parsed and printed as `<SPAN CLASS=BRKT>exists</SPAN>'
+
+<li> The exists-unique quantifier `<SPAN CLASS=BRKT>?!</SPAN>' is now parsed and printed as
+`<SPAN CLASS=BRKT>existsunique</SPAN>'
+
+<li> The logical constant `<SPAN CLASS=BRKT>T</SPAN>' is now parsed and printed as `<SPAN CLASS=BRKT>true</SPAN>'
+
+<li> The logical constant `<SPAN CLASS=BRKT>F</SPAN>' is now parsed and printed as `<SPAN CLASS=BRKT>false</SPAN>'
+
+</ul>
+
+The effect can be reverse by a call to the dual function
+<SPAN CLASS=BRKT>unset_verbose_symbols()</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+Notice how the printing of theorems changes from using the symbolic names for
+quantifiers
+<DIV class=XMPL><PRE>
+  # unset_verbose_symbols();;
+  val it : unit = ()
+  # num_Axiom;;
+  val it : thm = |- !e f. ?!fn. fn 0 = e /\ (!n. fn (SUC n) = f (fn n) n)
+</PRE></DIV>
+to the more verbose and descriptive names:
+<DIV class=XMPL><PRE>
+  # set_verbose_symbols();;
+  val it : unit = ()
+  # num_Axiom;;
+  val it : thm =
+    |- forall e f.
+           existsunique fn. fn 0 = e /\ (forall n. fn (SUC n) = f (fn n) n)
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Only fails if some of the names have already been used for incompatible
+constants.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="overload_interface.html">overload_interface</A>, <A href="override_interface.html">override_interface</A>, <A href="remove_interface.html">remove_interface</A>,
+<A href="the_interface.html">the_interface</A>, <A href="unset_verbose_symbols.html">unset_verbose_symbols</A>.
+
+
+</DL>

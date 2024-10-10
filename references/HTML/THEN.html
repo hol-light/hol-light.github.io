@@ -15,6 +15,11 @@ The application of <SPAN CLASS=BRKT>THEN</SPAN> to a pair of tactics never fails
 The resulting tactic fails if <SPAN CLASS=BRKT>t1</SPAN> fails when applied to the goal, or if
 <SPAN CLASS=BRKT>t2</SPAN> does when applied to any of the resulting subgoals.
 
+If <SPAN CLASS=BRKT>unset_then_multiple_subgoals</SPAN> is used, <SPAN CLASS=BRKT>THEN</SPAN> is configured to fail
+when <SPAN CLASS=BRKT>t1</SPAN> generates more than one subgoal.
+This is useful when one wants to check whether a proof written using <SPAN CLASS=BRKT>THEN</SPAN> can
+be syntactically converted to the `e` form.
+
 <P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
 Suppose we want to prove the inbuilt theorem <SPAN CLASS=BRKT>DELETE_INSERT</SPAN> ourselves:
 <DIV class=XMPL><PRE>
@@ -58,7 +63,7 @@ If using this several times in succession, remember that <SPAN CLASS=BRKT>THEN</
 left-associative.
 
 <P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
-<A href="EVERY.html">EVERY</A>, <A href="ORELSE.html">ORELSE</A>, <A href="THENL.html">THENL</A>.
+<A href="EVERY.html">EVERY</A>, <A href="ORELSE.html">ORELSE</A>, <A href="THENL.html">THENL</A>, <A href="unset_then_multiple_subgoals.html">unset_then_multiple_subgoals</A>
 
 
 </DL>

@@ -19950,15 +19950,15 @@ Never fails.
 search.
 
 \ENDDOC
-\DOC{NAME{\_}ASSUMS{\_}LIST}
+\DOC{NAME{\_}ASSUMS{\_}TAC}
 
-\TYPE {\small\verb%NAME_ASSUMS_LIST : tactic%}\egroup
+\TYPE {\small\verb%NAME_ASSUMS_TAC : tactic%}\egroup
 
 \SYNOPSIS
 Label unnamed assumptions.
 
 \DESCRIBE
-{\small\verb%NAME_ASSUMS_LIST%} labels unnamed assumptions with "H0", "H1", ....
+{\small\verb%NAME_ASSUMS_TAC%} labels unnamed assumptions with "H0", "H1", ....
 It skips named assumptions.
 
 \FAILURE
@@ -31180,6 +31180,71 @@ Given the following goal:
 ASM, MESON, MESON_TAC, SET_RULE.
 
 \ENDDOC
+\DOC{set{\_}verbose{\_}symbols}
+
+\TYPE {\small\verb%set_verbose_symbols : unit -> unit%}\egroup
+
+\SYNOPSIS
+Enables more verbose descriptive names for quantifiers and logical constants
+
+\DESCRIBE
+A call to {\small\verb%set_verbose_symbols()%} enables a more verbose syntax for the logical
+quantifiers and constants. These are all just interface mappings, the
+underlying constant names in the abstract syntax of the logic being unchanged.
+But the more descriptive names are applied by default when printing and
+are accepted when parsing terms as synonyms of the symbolic names. The new
+names are:
+
+\begin{itemize}
+
+\item The universal quantifier `{\small\verb%!%}' is now parsed and printed as `{\small\verb%forall%}'
+
+\item The existential quantifier `{\small\verb%?%}' is now parsed and printed as `{\small\verb%exists%}'
+
+\item The exists-unique quantifier `{\small\verb%?!%}' is now parsed and printed as
+`{\small\verb%existsunique%}'
+
+\item The logical constant `{\small\verb%T%}' is now parsed and printed as `{\small\verb%true%}'
+
+\item The logical constant `{\small\verb%F%}' is now parsed and printed as `{\small\verb%false%}'
+
+\end{itemize}
+
+The effect can be reverse by a call to the dual function
+{\small\verb%unset_verbose_symbols()%}.
+
+\EXAMPLE
+Notice how the printing of theorems changes from using the symbolic names for
+quantifiers
+{\par\samepage\setseps\small
+\begin{verbatim}
+  # unset_verbose_symbols();;
+  val it : unit = ()
+  # num_Axiom;;
+  val it : thm = |- !e f. ?!fn. fn 0 = e /\ (!n. fn (SUC n) = f (fn n) n)
+\end{verbatim}
+}
+\noindent to the more verbose and descriptive names:
+{\par\samepage\setseps\small
+\begin{verbatim}
+  # set_verbose_symbols();;
+  val it : unit = ()
+  # num_Axiom;;
+  val it : thm =
+    |- forall e f.
+           existsunique fn. fn 0 = e /\ (forall n. fn (SUC n) = f (fn n) n)
+\end{verbatim}
+}
+
+\FAILURE
+Only fails if some of the names have already been used for incompatible
+constants.
+
+\SEEALSO
+overload_interface, override_interface, remove_interface,
+the_interface, unset_verbose_symbols.
+
+\ENDDOC
 \DOC{shareout}
 
 \TYPE {\small\verb%shareout : 'a list list -> 'b list -> 'b list list%}\egroup
@@ -34155,6 +34220,11 @@ The application of {\small\verb%THEN%} to a pair of tactics never fails.
 The resulting tactic fails if {\small\verb%t1%} fails when applied to the goal, or if
 {\small\verb%t2%} does when applied to any of the resulting subgoals.
 
+If {\small\verb%unset_then_multiple_subgoals%} is used, {\small\verb%THEN%} is configured to fail
+when {\small\verb%t1%} generates more than one subgoal.
+This is useful when one wants to check whether a proof written using {\small\verb%THEN%} can
+be syntactically converted to the `e` form.
+
 \EXAMPLE
 Suppose we want to prove the inbuilt theorem {\small\verb%DELETE_INSERT%} ourselves:
 {\par\samepage\setseps\small
@@ -34210,7 +34280,7 @@ If using this several times in succession, remember that {\small\verb%THEN%} is
 left-associative.
 
 \SEEALSO
-EVERY, ORELSE, THENL.
+EVERY, ORELSE, THENL, unset_then_multiple_subgoals
 
 \ENDDOC
 \DOC{THENC}
@@ -36339,6 +36409,131 @@ great care, since then various elementary constructs may fail to parse.
 
 \SEEALSO
 is_reserved_word, reserved_words, reserve_words.
+
+\ENDDOC
+\DOC{unset{\_}jrh{\_}lexer}
+
+\TYPE {\small\verb%unset_jrh_lexer : (preprocessor keyword)%}\egroup
+
+\SYNOPSIS
+Updates the HOL Light preprocessor to respect OCaml's identifier convention.
+
+\DESCRIBE
+If a preprocessor reads {\small\verb%unset_jrh_lexer%}, it switches its lexer to
+use OCaml's identifier convention. This makes an identifier starting with a
+capiter letter unusable as the name of a let binding, but enables using it as a
+module constructor.
+Modulo this side effect, {\small\verb%unset_jrh_lexer%} is simply identical to {\small\verb%false%}.
+The lexer can be enabled again using {\small\verb%set_jrh_lexer%}, which is identical to
+{\small\verb%true%} after preprocessing.
+
+\EXAMPLE
+{\par\samepage\setseps\small
+\begin{verbatim}
+  # module OrdInt = struct type t = int let compare = (-) end;;
+  Toplevel input:
+  # module OrdInt = struct type t = int let compare = (-) end;;
+          ^^^^^^
+  Parse error: 'type' or [ext_attributes] expected after 'module' (in
+    [str_item])
+  # unset_jrh_lexer;;
+  val it : bool = false
+  # module OrdInt = struct type t = int let compare = (-) end;;
+  module OrdInt : sig type t = int val compare : int -> int -> int end
+\end{verbatim}
+}
+
+\FAILURE
+Never fails.
+
+\ENDDOC
+\DOC{unset{\_}then{\_}multiple{\_}subgoals}
+
+\TYPE {\small\verb%unset_then_multiple_subgoals : (preprocessor keyword)%}\egroup
+
+\SYNOPSIS
+Updates the HOL Light preprocessor to read {\small\verb%THEN%} as an alternative operator
+which fails if the first tactic creates more than one subgoal.
+
+\DESCRIBE
+If a preprocessor reads {\small\verb%unset_then_multiple_subgoals%}, it starts to translate
+{\small\verb%t1 THEN t2%} into {\small\verb%then1_ t1 t2%} which fails when {\small\verb%t1%} generates more than one
+subgoal.
+This is useful when one wants to check whether a proof written using {\small\verb%THEN%} can
+be syntactically converted to the `e`-`g` form.
+If this setting is on, {\small\verb%t1 THEN t2 THEN ..%} and {\small\verb%e(t1);; e(t2);; ...%}
+have the same meaning (modulo the validity check).
+After preprocessing, {\small\verb%unset_then_multiple_subgoals%} is identical to the {\small\verb%false%}
+constant in OCaml.
+To roll back the behavior of {\small\verb%THEN%}, use {\small\verb%set_then_multiple_subgoals%},
+which is identical to {\small\verb%true%} modulo its side effect.
+
+This command is only available for OCaml 4.xx and above.
+
+\EXAMPLE
+{\par\samepage\setseps\small
+\begin{verbatim}
+  # prove(`x + 1 = 1 + x /\ x + 2 = 2 + x`, CONJ_TAC THEN ARITH_TAC);;
+  val it : thm = |- x + 1 = 1 + x /\ x + 2 = 2 + x
+
+  # unset_then_multiple_subgoals;;
+  val it : bool = false
+  # prove(`x + 1 = 1 + x /\ x + 2 = 2 + x`, CONJ_TAC THEN ARITH_TAC);;
+  Exception: Failure "seqapply: Length mismatch".
+  # prove(`x + 1 = 1 + x /\ x + 2 = 2 + x`, CONJ_TAC THENL [ARITH_TAC; ARITH_TAC]);;
+  val it : thm = |- x + 1 = 1 + x /\ x + 2 = 2 + x
+  # prove(`x + 1 = 1 + x /\ x + 2 = 2 + x`, CONJ_TAC THENL (replicate ARITH_TAC 2));;
+  val it : thm = |- x + 1 = 1 + x /\ x + 2 = 2 + x
+\end{verbatim}
+}
+
+\FAILURE
+Never fails.
+
+\SEEALSO
+e, THEN, VALID.
+
+\ENDDOC
+\DOC{unset{\_}verbose{\_}symbols}
+
+\TYPE {\small\verb%unset_verbose_symbols : unit -> unit%}\egroup
+
+\SYNOPSIS
+Disables more verbose descriptive names for quantifiers and logical constants
+
+\DESCRIBE
+A call to {\small\verb%unset_verbose_symbols()%} disables the more verbose syntax for the
+logical quantifiers and constants that is set up by default and can be
+explicitly enabled by the dual function {\small\verb%set_verbose_symbols()%}.
+
+\EXAMPLE
+Notice how the printing of theorems changes from using the verbose descriptive
+names for quantifiers by default:
+{\par\samepage\setseps\small
+\begin{verbatim}
+  # num_Axiom;;
+  val it : thm =
+    |- forall e f.
+           existsunique fn. fn 0 = e /\ (forall n. fn (SUC n) = f (fn n) n)
+\end{verbatim}
+}
+\noindent to using the more concise symbolic names
+{\par\samepage\setseps\small
+\begin{verbatim}
+  # unset_verbose_symbols();;
+  val it : unit = ()
+  # num_Axiom;;
+  val it : thm = |- !e f. ?!fn. fn 0 = e /\ (!n. fn (SUC n) = f (fn n) n)
+\end{verbatim}
+}
+
+\FAILURE
+Only fails if some of the names have already been used for incompatible
+constants.
+
+\SEEALSO
+overload_interface, override_interface, remove_interface, set_verbose_symbols,
+the_interface.
 
 \ENDDOC
 \DOC{unspaced{\_}binops}

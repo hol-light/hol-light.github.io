@@ -1,0 +1,39 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>unset_verbose_symbols : unit -&gt; unit</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Disables more verbose descriptive names for quantifiers and logical constants
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+A call to <SPAN CLASS=BRKT>unset_verbose_symbols()</SPAN> disables the more verbose syntax for the
+logical quantifiers and constants that is set up by default and can be
+explicitly enabled by the dual function <SPAN CLASS=BRKT>set_verbose_symbols()</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+Notice how the printing of theorems changes from using the verbose descriptive
+names for quantifiers by default:
+<DIV class=XMPL><PRE>
+  # num_Axiom;;
+  val it : thm =
+    |- forall e f.
+           existsunique fn. fn 0 = e /\ (forall n. fn (SUC n) = f (fn n) n)
+</PRE></DIV>
+to using the more concise symbolic names
+<DIV class=XMPL><PRE>
+  # unset_verbose_symbols();;
+  val it : unit = ()
+  # num_Axiom;;
+  val it : thm = |- !e f. ?!fn. fn 0 = e /\ (!n. fn (SUC n) = f (fn n) n)
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Only fails if some of the names have already been used for incompatible
+constants.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="overload_interface.html">overload_interface</A>, <A href="override_interface.html">override_interface</A>, <A href="remove_interface.html">remove_interface</A>, <A href="set_verbose_symbols.html">set_verbose_symbols</A>,
+<A href="the_interface.html">the_interface</A>.
+
+
+</DL>

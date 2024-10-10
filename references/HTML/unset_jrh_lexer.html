@@ -1,0 +1,35 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>unset_jrh_lexer : (preprocessor keyword)</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Updates the HOL Light preprocessor to respect OCaml's identifier convention.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+If a preprocessor reads <SPAN CLASS=BRKT>unset_jrh_lexer</SPAN>, it switches its lexer to
+use OCaml's identifier convention. This makes an identifier starting with a
+capiter letter unusable as the name of a let binding, but enables using it as a
+module constructor.
+Modulo this side effect, <SPAN CLASS=BRKT>unset_jrh_lexer</SPAN> is simply identical to <SPAN CLASS=BRKT>false</SPAN>.
+The lexer can be enabled again using <SPAN CLASS=BRKT>set_jrh_lexer</SPAN>, which is identical to
+<SPAN CLASS=BRKT>true</SPAN> after preprocessing.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # module OrdInt = struct type t = int let compare = (-) end;;
+  Toplevel input:
+  # module OrdInt = struct type t = int let compare = (-) end;;
+          ^^^^^^
+  Parse error: 'type' or [ext_attributes] expected after 'module' (in
+    [str_item])
+  # unset_jrh_lexer;;
+  val it : bool = false
+  # module OrdInt = struct type t = int let compare = (-) end;;
+  module OrdInt : sig type t = int val compare : int -> int -> int end
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Never fails.
+
+
+</DL>
