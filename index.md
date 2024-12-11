@@ -51,6 +51,7 @@ opam install hol_light hol_light_module
 - Summary of many HOL source files, written by Carl Witty ([text](summary.txt))
 - [A VS Code extension for HOL Light](https://marketplace.visualstudio.com/items?itemName=monadius.hol-light-simple), written by Alexey Solovyev.
 - [Notes for beginners](https://github.com/aqjune/hol-light-materials/tree/main), written by Juneyoung Lee
+- [HOL Light Zulip Chat](https://hol-light.zulipchat.com/)
 
 ## Applications of HOL Light
 
