@@ -9060,6 +9060,22 @@ write:
 ASSUME, VALID.
 
 \ENDDOC
+\DOC{find{\_}index}
+
+\TYPE {\small\verb%find_index : ('a -> bool) -> 'a list -> int option%}\egroup
+
+\SYNOPSIS
+Returns position of an element in list satisfying the predicate.
+
+\DESCRIBE
+The call {\small\verb%find_index p l%} where l is a list returns the position number of the
+first instance in the list satifying {\small\verb%p%}, or returns {\small\verb%None%} if there is none.
+The indices start at zero, corresponding to {\small\verb%el%}.
+
+\SEEALSO
+el, find, index.
+
+\ENDDOC
 \DOC{find{\_}path}
 
 \TYPE {\small\verb%find_path : (term -> bool) -> term -> string%}\egroup
@@ -12118,7 +12134,7 @@ This is a sort of inverse to the indexing into a string by {\small\verb%el%}:
 }
 
 \SEEALSO
-el, find.
+el, find, find_index.
 
 \ENDDOC
 \DOC{inductive{\_}type{\_}store}
@@ -16658,6 +16674,10 @@ The function {\small\verb%loadt%} takes a string indicating an OCaml file name a
 argument and loads it. If the filename is relative, it is found on the load
 path {\small\verb%load_path%}, and it is then loaded, updating the list of loaded files.
 
+Additional paths can be added to {\small\verb%load_path%} by setting the
+{\small\verb%HOLLIGHT_LOAD_PATH%} environment variable. Each path must be separated by
+an OS-specific delimiter (':' for Unix and ';' for Windows).
+
 \FAILURE
 {\small\verb%loadt%} will fail if the file named by the argument does not exist in
 the search path. It will of course fail if the file is not a valid OCaml
@@ -16726,6 +16746,10 @@ files with {\small\verb%loadt%}, it will try these places in order on all non-ab
 filenames. An initial dollar sign {\small\verb%$%} in each path is interpreted as a
 reference to the current setting of {\small\verb%hol_dir%}. To get an actual {\small\verb%$%} character
 at the start of the filename, use two dollar signs {\small\verb%$$%}.
+
+Additional paths can be added to {\small\verb%load_path%} by setting the
+{\small\verb%HOLLIGHT_LOAD_PATH%} environment variable. Each path must be separated by
+an OS-specific delimiter (':' for Unix and ';' for Windows).
 
 \FAILURE
 Not applicable.
@@ -24995,7 +25019,7 @@ to standard output.
 Never fails.
 
 \SEEALSO
-print_goal, print_goalstack, print_term
+print_goal, print_goalstack, print_term, PRINT_TERM_CONV, REMARK_TAC
 
 \ENDDOC
 \DOC{print{\_}num}
@@ -25082,6 +25106,23 @@ interactively.
 
 \SEEALSO
 pp_print_qterm, pp_print_term, print_qterm.
+
+\ENDDOC
+\DOC{PRINT{\_}TERM{\_}CONV}
+
+\TYPE {\small\verb%PRINT_TERM_CONV : conv%}\egroup
+
+\SYNOPSIS
+Prints the term to standard output.
+
+\DESCRIBE
+The conversion {\small\verb%PRINT_TERM_CONV%} prints the current term to standard output.
+
+\FAILURE
+Never fails.
+
+\SEEALSO
+print_term, PRINT_GOAL_TAC, REMARK_TAC
 
 \ENDDOC
 \DOC{print{\_}thm}
@@ -29069,7 +29110,26 @@ Never fails.
 }
 
 \SEEALSO
-report, verbose.
+report, verbose, REMARK_TAC.
+
+\ENDDOC
+\DOC{REMARK{\_}TAC}
+
+\TYPE {\small\verb%REMARK_TAC : string -> tactic%}\egroup
+
+\SYNOPSIS
+A tactic version of {\small\verb%remark%}.
+
+\DESCRIBE
+Given any goal {\small\verb%A ?- p%}, the tactic {\small\verb%REMARK_TAC s%} prints the string s
+to standard output.
+As {\small\verb%remark%} does, this outputs a string only if {\small\verb%verbose%} flag is set.
+
+\FAILURE
+Never fails.
+
+\SEEALSO
+PRINT_GOAL_TAC, remark, verbose
 
 \ENDDOC
 \DOC{remove}
