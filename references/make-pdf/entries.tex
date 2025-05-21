@@ -5261,6 +5261,28 @@ string.
 install_parser, installed_parsers, try_user_parser.
 
 \ENDDOC
+\DOC{delete{\_}user{\_}color{\_}printer}
+
+\TYPE {\small\verb%delete_user_color_printer : string -> unit%}\egroup
+
+\SYNOPSIS
+Remove user-defined color printer from the HOL Light term printing.
+
+\DESCRIBE
+HOL Light allows arbitrary user printers to be inserted into the toplevel
+printer so that they are invoked on all applicable subterms (see
+{\small\verb%install_user_printer%} and {\small\verb%install_user_color_printer%}).
+The call {\small\verb%delete_user_color_printer s%} removes any such printer
+associated with the tag {\small\verb%s%} that is registered by {\small\verb%install_user_color_printer%}.
+
+\FAILURE
+Never fails, even if there is no printer with the given tag.
+
+\SEEALSO
+delete_user_printer, install_user_color_printer, install_user_printer,
+try_user_color_printer, try_user_printer.
+
+\ENDDOC
 \DOC{delete{\_}user{\_}printer}
 
 \TYPE {\small\verb%delete_user_printer : string -> unit%}\egroup
@@ -5288,7 +5310,8 @@ If a user printer has been installed as in the example given for
 }
 
 \SEEALSO
-install_user_printer, try_user_printer.
+delete_user_color_printer, install_user_color_printer, install_user_printer,
+try_user_color_printer, try_user_printer.
 
 \ENDDOC
 \DOC{denominator}
@@ -7685,6 +7708,38 @@ processed.
 \SEEALSO
 ++, |||, >>, a, atleast, finished, fix, leftbin, listof, many, nothing,
 possibly, rightbin, some.
+
+\ENDDOC
+\DOC{EL{\_}CONV}
+
+\TYPE {\small\verb%EL_CONV : conv%}\egroup
+
+\SYNOPSIS
+Evaluate the list nth-element element function applied to a specific list.
+
+\DESCRIBE
+When applied to a term {\small\verb%`EL k [t1; ...; tn]`%} where {\small\verb%k%} is a specific
+numeral and the list a concrete list (though not necessarily with constant
+or ground elements) the conversion {\small\verb%EL_CONV%} returns the appropriate
+theorem {\small\verb%|- EL k [t1; ...; tn] = tk%}.
+
+\FAILURE
+Fails if the term is not of the expected form or if the numeral {\small\verb%k%} is greater
+than or equal to the list length (equal because the numbering is from zero).
+
+\EXAMPLE
+{\par\samepage\setseps\small
+\begin{verbatim}
+  # EL_CONV `EL 4 [1;2;3;4;5]`;;
+  val it : thm = |- EL 4 [1; 2; 3; 4; 5] = 5
+
+  # EL_CONV `EL 0 [a;one;c]`;;
+  val it : thm = |- EL 0 [a; one; c] = a
+\end{verbatim}
+}
+
+\SEEALSO
+LENGTH_CONV, LIST_CONV, LIST_OF_SEQ_CONV, REVERSE_CONV.
 
 \ENDDOC
 \DOC{empty{\_}net}
@@ -12478,6 +12533,39 @@ Never fails.
 delete_parser, installed_parsers, try_user_parser.
 
 \ENDDOC
+\DOC{install{\_}user{\_}color{\_}printer}
+
+\TYPE {\small\verb%install_user_color_printer : string * (formater -> term -> unit) -> unit%}\egroup
+
+\SYNOPSIS
+Install a user-defined color printing function into the HOL Light term printer.
+
+\DESCRIBE
+The call {\small\verb%install_user_color_printer(s,pr)%} sets up {\small\verb%pr%} inside the HOL Light
+toplevel printer. When a term is to be color-printed, on each subterm encountered,
+{\small\verb%pr%} will be tried first.
+if it fails with {\small\verb%Failure ...%}, HOL Light will try its non-coloring user printer
+registered with {\small\verb%install_user_printer%}.
+If it fails again with {\small\verb%Failure ...%} will the normal HOL Light printing be
+invoked. The additional string argument {\small\verb%s%} is just to provide a convenient
+handle for later removal through {\small\verb%delete_user_color_printer%}. However, any previous
+user printer with the same string tag will be removed when
+{\small\verb%install_user_color_printer%} is called. The printing function takes two arguments,
+the second being the term to print and the first being the formatter to be
+used; this ensures that the printer will automatically have its output sent to
+the current formatter by the overall printer.
+
+\FAILURE
+Never fails.
+
+\EXAMPLE
+Analogous to the example of {\small\verb%install_user_printer%}.
+
+\SEEALSO
+delete_user_color_printer, delete_user_printer, install_user_printer,
+try_user_color_printer, try_user_printer.
+
+\ENDDOC
 \DOC{install{\_}user{\_}printer}
 
 \TYPE {\small\verb%install_user_printer : string * (formater -> term -> unit) -> unit%}\egroup
@@ -12531,7 +12619,8 @@ generate exceptions other than {\small\verb%Failure ...%} or the toplevel printe
 to fail.
 
 \SEEALSO
-delete_user_printer, try_user_printer.
+delete_user_color_printer, delete_user_printer, install_user_color_printer,
+try_user_color_printer, try_user_printer.
 
 \ENDDOC
 \DOC{instantiate}
@@ -15653,6 +15742,40 @@ Computes the length of a list: {\small\verb%length [x1;...;xn]%} returns {\small
 Never fails.
 
 \ENDDOC
+\DOC{LENGTH{\_}CONV}
+
+\TYPE {\small\verb%LENGTH_CONV : conv%}\egroup
+
+\SYNOPSIS
+Evaluate the list {\small\verb%LENGTH%} function when applied to a specific list.
+
+\DESCRIBE
+When applied to a term {\small\verb%`LENGTH [t1; ...; tn]`%} the conversion
+{\small\verb%LENGTH_CONV%} returns the theorem {\small\verb%|- LENGTH [t1; ...; tn] = n%}. The
+elements of the list do not have to be constants or ground terms.
+
+\FAILURE
+Fails if the term is not of the expected form.
+
+\EXAMPLE
+{\par\samepage\setseps\small
+\begin{verbatim}
+  # LENGTH_CONV `LENGTH [1;2;3;4;5]`;;
+  val it : thm = |- LENGTH [1; 2; 3; 4; 5] = 5
+
+  # LENGTH_CONV `LENGTH [a;one;c]`;;
+  val it : thm = |- LENGTH [a; one; c] = 3
+\end{verbatim}
+}
+
+\USES
+Evaluating {\small\verb%LENGTH%} in a more efficient and focused way than unfolding its
+definition.
+
+\SEEALSO
+EL_CONV, LIST_CONV, LIST_OF_SEQ_CONV, REVERSE_CONV.
+
+\ENDDOC
 \DOC{let{\_}CONV}
 
 \TYPE {\small\verb%let_CONV : term -> thm%}\egroup
@@ -16202,8 +16325,8 @@ Fails if the conversion fails on any list element.
 Applying a conversion more delicately than simply by {\small\verb%DEPTH_CONV%} etc.
 
 \SEEALSO
-DEPTH_BINOP_CONV, DEPTH_CONV, ONCE_DEPTH_CONV, REDEPTH_CONV, TOP_DEPTH_CONV,
-TOP_SWEEP_CONV.
+DEPTH_BINOP_CONV, DEPTH_CONV, EL_CONV, LENGTH_CONV, LIST_OF_SEQ_CONV,
+ONCE_DEPTH_CONV, REDEPTH_CONV, REVERSE_CONV, TOP_DEPTH_CONV, TOP_SWEEP_CONV.
 
 \ENDDOC
 \DOC{LIST{\_}INDUCT{\_}TAC}
@@ -16601,6 +16724,38 @@ first.
 
 \SEEALSO
 list_mk_comb, mk_mconst, mk_icomb.
+
+\ENDDOC
+\DOC{LIST{\_}OF{\_}SEQ{\_}CONV}
+
+\TYPE {\small\verb%LIST_OF_SEQ_CONV : conv%}\egroup
+
+\SYNOPSIS
+Evaluate the list construction function {\small\verb%list_of_seq%} on specific numeral.
+
+\DESCRIBE
+When applied to  a term {\small\verb%`list_of_seq f k`%} where {\small\verb%k%} is a specific
+numeral, the conversion {\small\verb%LIST_OF_SEQ_CONV%} returns the appropriate
+theorem {\small\verb%|- list_of_seq f k = [f 0; ...; f(k-1)]%}. If the function
+{\small\verb%f%} is a lambda-abstraction, then beta-reduction will also be applied
+to each term {\small\verb%f i%}.
+
+\FAILURE
+Fails if the term is not of the expected form.
+
+\EXAMPLE
+{\par\samepage\setseps\small
+\begin{verbatim}
+  # LIST_OF_SEQ_CONV `list_of_seq (f:num->A) 3`;;
+  val it : thm = |- list_of_seq f 3 = [f 0; f 1; f 2]
+
+  # LIST_OF_SEQ_CONV `list_of_seq (\n. f n > 0) 3`;;
+  val it : thm = |- list_of_seq (\n. f n > 0) 3 = [f 0 > 0; f 1 > 0; f 2 > 0]
+\end{verbatim}
+}
+
+\SEEALSO
+EL_CONV, LENGTH_CONV, LIST_CONV, REVERSE_CONV.
 
 \ENDDOC
 \DOC{loaded{\_}files}
@@ -24520,6 +24675,132 @@ Never fails.
 pow10.
 
 \ENDDOC
+\DOC{pp{\_}print{\_}colored{\_}qterm}
+
+\TYPE {\small\verb%pp_print_colored_qterm : formatter -> term -> unit%}\egroup
+
+\SYNOPSIS
+Prints a term with surrounding quotes and colors to formatter.
+
+\DESCRIBE
+The call {\small\verb%pp_print_colored_qterm fmt tm%} prints the colored representation of the
+term {\small\verb%tm%} to the formatter {\small\verb%fmt%}, in the form {\small\verb%`tm`%}.
+To print without colors, use {\small\verb%pp_print_qterm%}.
+
+For its color configuration, see {\small\verb%pp_print_colored_term%}.
+
+\FAILURE
+Should never fail unless the formatter does.
+
+\SEEALSO
+pp_print_colored_term, pp_print_term, pp_print_qterm, print_qterm, print_term, set_color_printer.
+
+\ENDDOC
+\DOC{pp{\_}print{\_}colored{\_}qtype}
+
+\TYPE {\small\verb%pp_print_colored_qtype : formatter -> hol_type -> unit%}\egroup
+
+\SYNOPSIS
+Prints a type with initial colon, surrounding quotes and colors to formatter.
+
+\DESCRIBE
+The call {\small\verb%pp_print_colored_qtype fmt ty%} prints the colored representation of the
+type {\small\verb%ty%} to the formatter {\small\verb%fmt%}, in the form {\small\verb%`:ty`%}.
+To print without colors, use {\small\verb%pp_print_type%}.
+
+For its color configuration, see {\small\verb%pp_print_colored_type%}.
+
+\FAILURE
+Should never fail unless the formatter does.
+
+\SEEALSO
+pp_print_colored_type, pp_print_type, print_qtype, print_type, set_color_printer.
+
+\ENDDOC
+\DOC{pp{\_}print{\_}colored{\_}term}
+
+\TYPE {\small\verb%pp_print_colored_term : formatter -> term -> unit%}\egroup
+
+\SYNOPSIS
+Prints a term (without quotes) with colors to formatter.
+
+\DESCRIBE
+The call {\small\verb%pp_print_colored_term fmt tm%} prints the colored representation of the
+term {\small\verb%tm%} to the formatter {\small\verb%fmt%}. The string is just {\small\verb%tm%} not {\small\verb%`tm`%}.
+To print without colors, use {\small\verb%pp_print_term%}.
+
+Colors can be changed by setting OCaml reference variables of optional strings
+describing the ANSI color code.
+If set to {\small\verb%None%}, the default color of the terminal is used.
+
+- {\small\verb%printer_color_const%}: a text color for constants.
+
+- {\small\verb%printer_color_resword%}: a text color for reserved words (see {\small\verb%is_reserved_word%}).
+
+- {\small\verb%printer_color_binder%}: a text color for binders (see {\small\verb%parses_as_binder%}).
+
+- {\small\verb%printer_color_infix%}: a text color for infix operators (see {\small\verb%get_infix_status%}).
+
+- {\small\verb%printer_color_prefix%}: a text color for prefix operators (see {\small\verb%is_prefix%}).
+
+\FAILURE
+Should never fail unless the formatter does.
+
+\SEEALSO
+get_infix_status, is_prefix, is_reserved_word, parses_as_binder,
+pp_print_colored_qterm, pp_print_term, pp_print_qterm, print_qterm, print_term, set_color_printer
+
+\ENDDOC
+\DOC{pp{\_}print{\_}colored{\_}thm}
+
+\TYPE {\small\verb%pp_print_colored_thm : formatter -> thm -> unit%}\egroup
+
+\SYNOPSIS
+Prints a theorem to formatter.
+
+\DESCRIBE
+The call {\small\verb%pp_print_colored_thm fmt th%} prints the colored representation of the
+theorem {\small\verb%th%} to the formatter {\small\verb%fmt%}.
+To print without colors, use {\small\verb%pp_print_thm%}.
+
+For its color configuration, see {\small\verb%pp_print_colored_type%} and {\small\verb%pp_print_colored_term%}.
+
+\FAILURE
+Should never fail unless the formatter does.
+
+\SEEALSO
+pp_print_colored_term, pp_print_colored_type, pp_print_thm, print_thm, set_color_printer.
+
+\ENDDOC
+\DOC{pp{\_}print{\_}colored{\_}type}
+
+\TYPE {\small\verb%pp_print_colored_type : formatter -> hol_type -> unit%}\egroup
+
+\SYNOPSIS
+Prints a type (without colon or quotes) with colors to formatter.
+
+\DESCRIBE
+The call {\small\verb%pp_print_colored_type fmt ty%} prints the colored representation of the
+type {\small\verb%ty%} to the formatter {\small\verb%fmt%}. The string is just {\small\verb%ty%} not {\small\verb%`:ty`%}.
+To print without colors, use {\small\verb%pp_print_type%}.
+
+Colors can be changed by setting OCaml reference variables of optional strings
+describing the ANSI color code.
+If set to {\small\verb%None%}, the default color of the terminal is used.
+
+- {\small\verb%printer_color_typevar%}: a text color for type variables.
+
+- {\small\verb%printer_color_itypevar%}: a text color for invented type variables.
+
+- {\small\verb%printer_color_type%}: a text color for generic type expressions.
+
+\FAILURE
+Should never fail unless the formatter does.
+
+\SEEALSO
+pp_print_colored_qtype, pp_print_type, pp_print_qtype, print_qtype, print_type, set_color_printer.
+
+\ENDDOC
 \DOC{pp{\_}print{\_}fpf}
 
 \TYPE {\small\verb%pp_print_fpf : Format.formatter -> ('a, 'b) func -> unit%}\egroup
@@ -24577,6 +24858,8 @@ Prints a term with surrounding quotes to formatter.
 The call {\small\verb%pp_print_term fmt tm%} prints the usual textual representation of the
 term {\small\verb%tm%} to the formatter {\small\verb%fmt%}, in the form {\small\verb%`tm`%}.
 
+To print a term with colors, use {\small\verb%pp_print_colored_qterm%}.
+
 \FAILURE
 Should never fail unless the formatter does.
 
@@ -24584,7 +24867,7 @@ Should never fail unless the formatter does.
 The usual case where the formatter is the standard output is {\small\verb%print_qterm%}.
 
 \SEEALSO
-pp_print_term, print_qterm, print_term.
+pp_print_colored_term, pp_print_colored_qterm, pp_print_term, print_qterm, print_term.
 
 \ENDDOC
 \DOC{pp{\_}print{\_}qtype}
@@ -24598,6 +24881,8 @@ Prints a type with initial colon and surrounding quotes to formatter.
 The call {\small\verb%pp_print_type fmt ty%} prints the usual textual representation of the
 type {\small\verb%ty%} to the formatter {\small\verb%fmt%}, in the form {\small\verb%`:ty`%}.
 
+To print a type with colors, use {\small\verb%pp_print_colored_qtype%}.
+
 \FAILURE
 Should never fail unless the formatter does.
 
@@ -24605,7 +24890,7 @@ Should never fail unless the formatter does.
 The usual case where the formatter is the standard output is {\small\verb%print_qtype%}.
 
 \SEEALSO
-pp_print_type, print_qtype, print_type.
+pp_print_colored_type, pp_print_colored_qtype, pp_print_type, print_qtype, print_type.
 
 \ENDDOC
 \DOC{pp{\_}print{\_}term}
@@ -24619,6 +24904,8 @@ Prints a term (without quotes) to formatter.
 The call {\small\verb%pp_print_term fmt tm%} prints the usual textual representation of the
 term {\small\verb%tm%} to the formatter {\small\verb%fmt%}. The string is just {\small\verb%tm%} not {\small\verb%`tm`%}.
 
+To print a term with colors, use {\small\verb%pp_print_colored_term%}.
+
 \FAILURE
 Should never fail unless the formatter does.
 
@@ -24626,7 +24913,7 @@ Should never fail unless the formatter does.
 The usual case where the formatter is the standard output is {\small\verb%print_term%}.
 
 \SEEALSO
-pp_print_qterm, print_qterm, print_term.
+pp_print_colored_term, pp_print_colored_qterm, pp_print_qterm, print_qterm, print_term,
 
 \ENDDOC
 \DOC{pp{\_}print{\_}thm}
@@ -24647,7 +24934,7 @@ Should never fail unless the formatter does.
 The usual case where the formatter is the standard output is {\small\verb%print_thm%}.
 
 \SEEALSO
-print_thm.
+pp_print_colored_thm, print_thm.
 
 \ENDDOC
 \DOC{pp{\_}print{\_}type}
@@ -24661,6 +24948,8 @@ Prints a type (without colon or quotes) to formatter.
 The call {\small\verb%pp_print_type fmt ty%} prints the usual textual representation of the
 type {\small\verb%ty%} to the formatter {\small\verb%fmt%}. The string is just {\small\verb%ty%} not {\small\verb%`:ty`%}.
 
+To print a type with colors, use {\small\verb%pp_print_colored_type%}.
+
 \FAILURE
 Should never fail unless the formatter does.
 
@@ -24668,7 +24957,7 @@ Should never fail unless the formatter does.
 The usual case where the formatter is the standard output is {\small\verb%print_type%}.
 
 \SEEALSO
-pp_print_qtype, print_qtype, print_type.
+pp_print_colored_type, pp_print_colored_qtype, pp_print_qtype, print_qtype, print_type.
 
 \ENDDOC
 \DOC{prebroken{\_}binops}
@@ -29626,6 +29915,36 @@ Reverses a list.
 Never fails.
 
 \ENDDOC
+\DOC{REVERSE{\_}CONV}
+
+\TYPE {\small\verb%REVERSE_CONV : conv%}\egroup
+
+\SYNOPSIS
+Evaluate the list reversal function applied to a specific list.
+
+\DESCRIBE
+When applied to a term {\small\verb%`REVERSE [t1; ...; tn]`%} with a concrete list (though
+not necessarily with constant or ground elements) the conversion {\small\verb%REVERSE_CONV%}
+returns the appropriate theorem {\small\verb%|- REVERSE [t1; ...; tn] = [tn; ...; t1]%}.
+
+\FAILURE
+Fails if the term is not of the expected form.
+
+\EXAMPLE
+{\par\samepage\setseps\small
+\begin{verbatim}
+  # REVERSE_CONV `REVERSE [1;2;3]`;;
+  val it : thm = |- REVERSE [1; 2; 3] = [3; 2; 1]
+
+  # REVERSE_CONV `REVERSE [one;two;three]`;;
+  val it : thm = |- REVERSE [one; two; three] = [three; two; one]
+\end{verbatim}
+}
+
+\SEEALSO
+EL_CONV, LENGTH_CONV, LIST_CONV, LIST_OF_SEQ_CONV.
+
+\ENDDOC
 \DOC{reverse{\_}interface{\_}mapping}
 
 \TYPE {\small\verb%reverse_interface_mapping : bool ref%}\egroup
@@ -31085,6 +31404,23 @@ Users will most likely want to extend the existing set by
 
 \SEEALSO
 basic_rewrites, extend_basic_convs, set_basic_convs.
+
+\ENDDOC
+\DOC{set{\_}color{\_}printer}
+
+\TYPE {\small\verb%set_color_printer : bool -> unit%}\egroup
+
+\SYNOPSIS
+Installs or uninstalls color printers.
+
+\DESCRIBE
+The call {\small\verb%set_color_printer b%} installs color pretty printers
+{\small\verb%pp_print_colored_qterm%}, {\small\verb%pp_print_colored_qtype%}, {\small\verb%pp_print_colored_thm%},
+{\small\verb%pp_print_colored_goal%} and {\small\verb%pp_print_colored_goalstack%} if {\small\verb%b%} is {\small\verb%true%}.
+If {\small\verb%b%} is {\small\verb%false%}, it installs pretty printers that do not use colors.
+
+\FAILURE
+Should never fail.
 
 \ENDDOC
 \DOC{set{\_}eq}
@@ -35416,6 +35752,31 @@ Never fails.
 ALL_CONV.
 
 \ENDDOC
+\DOC{try{\_}user{\_}color{\_}printer}
+
+\TYPE {\small\verb%try_user_color_printer : formatter -> term -> unit%}\egroup
+
+\SYNOPSIS
+Try user-defined color printers on a term.
+
+\DESCRIBE
+HOL Light allows arbitrary user printers to be inserted into the toplevel
+printer so that they are invoked on all applicable subterms (see
+{\small\verb%install_user_printer%} and {\small\verb%install_user_color_printer%}).
+The call {\small\verb%try_user_color_printer fmt tm%} attempts all
+installed user printers on the term {\small\verb%tm%} in an implementation-defined order,
+sending output to the formatter {\small\verb%fmt%}. If one succeeds, the call returns {\small\verb%()%},
+and otherwise it fails.
+
+\FAILURE
+Fails if no user printer is applicable to the given term (e.g. if no user
+printers have been installed).
+
+\SEEALSO
+delete_user_color_printer, delete_user_printer, install_user_color_printer,
+install_user_printer, try_user_printer.
+
+\ENDDOC
 \DOC{try{\_}user{\_}parser}
 
 \TYPE {\small\verb%try_user_parser : lexcode list -> preterm * lexcode list%}\egroup
@@ -35469,7 +35830,8 @@ After installing the printer for variables with types in the example for
 }
 
 \SEEALSO
-delete_user_printer, install_user_printer.
+delete_user_color_printer, delete_user_printer, install_user_color_printer,
+install_user_printer, try_user_color_printer.
 
 \ENDDOC
 \DOC{types}

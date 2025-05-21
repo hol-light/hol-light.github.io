@@ -1,0 +1,33 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>LENGTH_CONV : conv</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Evaluate the list <SPAN CLASS=BRKT>LENGTH</SPAN> function when applied to a specific list.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+When applied to a term <SPAN CLASS=BRKT>`LENGTH [t1; ...; tn]`</SPAN> the conversion
+<SPAN CLASS=BRKT>LENGTH_CONV</SPAN> returns the theorem <SPAN CLASS=BRKT>|- LENGTH [t1; ...; tn] = n</SPAN>. The
+elements of the list do not have to be constants or ground terms.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the term is not of the expected form.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # LENGTH_CONV `LENGTH [1;2;3;4;5]`;;
+  val it : thm = |- LENGTH [1; 2; 3; 4; 5] = 5
+
+  # LENGTH_CONV `LENGTH [a;one;c]`;;
+  val it : thm = |- LENGTH [a; one; c] = 3
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>USES</SPAN><DD>
+Evaluating <SPAN CLASS=BRKT>LENGTH</SPAN> in a more efficient and focused way than unfolding its
+definition.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="EL_CONV.html">EL_CONV</A>, <A href="LIST_CONV.html">LIST_CONV</A>, <A href="LIST_OF_SEQ_CONV.html">LIST_OF_SEQ_CONV</A>, <A href="REVERSE_CONV.html">REVERSE_CONV</A>.
+
+
+</DL>

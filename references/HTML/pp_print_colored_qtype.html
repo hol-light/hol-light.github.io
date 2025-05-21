@@ -1,0 +1,22 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>pp_print_colored_qtype : formatter -&gt; hol_type -&gt; unit</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Prints a type with initial colon, surrounding quotes and colors to formatter.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+The call <SPAN CLASS=BRKT>pp_print_colored_qtype fmt ty</SPAN> prints the colored representation of the
+type <SPAN CLASS=BRKT>ty</SPAN> to the formatter <SPAN CLASS=BRKT>fmt</SPAN>, in the form <SPAN CLASS=BRKT>`:ty`</SPAN>.
+To print without colors, use <SPAN CLASS=BRKT>pp_print_type</SPAN>.
+
+For its color configuration, see <SPAN CLASS=BRKT>pp_print_colored_type</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Should never fail unless the formatter does.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="pp_print_colored_type.html">pp_print_colored_type</A>, <A href="pp_print_type.html">pp_print_type</A>, <A href="print_qtype.html">print_qtype</A>, <A href="print_type.html">print_type</A>, <A href="set_color_printer.html">set_color_printer</A>.
+
+
+</DL>

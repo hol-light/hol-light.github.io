@@ -1,0 +1,31 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>LIST_OF_SEQ_CONV : conv</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Evaluate the list construction function <SPAN CLASS=BRKT>list_of_seq</SPAN> on specific numeral.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+When applied to  a term <SPAN CLASS=BRKT>`list_of_seq f k`</SPAN> where <SPAN CLASS=BRKT>k</SPAN> is a specific
+numeral, the conversion <SPAN CLASS=BRKT>LIST_OF_SEQ_CONV</SPAN> returns the appropriate
+theorem <SPAN CLASS=BRKT>|- list_of_seq f k = [f 0; ...; f(k-1)]</SPAN>. If the function
+<SPAN CLASS=BRKT>f</SPAN> is a lambda-abstraction, then beta-reduction will also be applied
+to each term <SPAN CLASS=BRKT>f i</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the term is not of the expected form.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # LIST_OF_SEQ_CONV `list_of_seq (f:num->A) 3`;;
+  val it : thm = |- list_of_seq f 3 = [f 0; f 1; f 2]
+
+  # LIST_OF_SEQ_CONV `list_of_seq (\n. f n > 0) 3`;;
+  val it : thm = |- list_of_seq (\n. f n > 0) 3 = [f 0 > 0; f 1 > 0; f 2 > 0]
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="EL_CONV.html">EL_CONV</A>, <A href="LENGTH_CONV.html">LENGTH_CONV</A>, <A href="LIST_CONV.html">LIST_CONV</A>, <A href="REVERSE_CONV.html">REVERSE_CONV</A>.
+
+
+</DL>

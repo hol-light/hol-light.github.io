@@ -1,0 +1,23 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>delete_user_color_printer : string -&gt; unit</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Remove user-defined color printer from the HOL Light term printing.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+HOL Light allows arbitrary user printers to be inserted into the toplevel
+printer so that they are invoked on all applicable subterms (see
+<SPAN CLASS=BRKT>install_user_printer</SPAN> and <SPAN CLASS=BRKT>install_user_color_printer</SPAN>).
+The call <SPAN CLASS=BRKT>delete_user_color_printer s</SPAN> removes any such printer
+associated with the tag <SPAN CLASS=BRKT>s</SPAN> that is registered by <SPAN CLASS=BRKT>install_user_color_printer</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Never fails, even if there is no printer with the given tag.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="delete_user_printer.html">delete_user_printer</A>, <A href="install_user_color_printer.html">install_user_color_printer</A>, <A href="install_user_printer.html">install_user_printer</A>,
+<A href="try_user_color_printer.html">try_user_color_printer</A>, <A href="try_user_printer.html">try_user_printer</A>.
+
+
+</DL>

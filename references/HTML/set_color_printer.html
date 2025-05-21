@@ -1,0 +1,18 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>set_color_printer : bool -&gt; unit</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Installs or uninstalls color printers.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+The call <SPAN CLASS=BRKT>set_color_printer b</SPAN> installs color pretty printers
+<SPAN CLASS=BRKT>pp_print_colored_qterm</SPAN>, <SPAN CLASS=BRKT>pp_print_colored_qtype</SPAN>, <SPAN CLASS=BRKT>pp_print_colored_thm</SPAN>,
+<SPAN CLASS=BRKT>pp_print_colored_goal</SPAN> and <SPAN CLASS=BRKT>pp_print_colored_goalstack</SPAN> if <SPAN CLASS=BRKT>b</SPAN> is <SPAN CLASS=BRKT>true</SPAN>.
+If <SPAN CLASS=BRKT>b</SPAN> is <SPAN CLASS=BRKT>false</SPAN>, it installs pretty printers that do not use colors.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Should never fail.
+
+
+</DL>

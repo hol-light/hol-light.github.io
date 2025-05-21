@@ -1,0 +1,34 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>install_user_color_printer : string * (formater -&gt; term -&gt; unit) -&gt; unit</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Install a user-defined color printing function into the HOL Light term printer.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+The call <SPAN CLASS=BRKT>install_user_color_printer(s,pr)</SPAN> sets up <SPAN CLASS=BRKT>pr</SPAN> inside the HOL Light
+toplevel printer. When a term is to be color-printed, on each subterm encountered,
+<SPAN CLASS=BRKT>pr</SPAN> will be tried first.
+if it fails with <SPAN CLASS=BRKT>Failure ...</SPAN>, HOL Light will try its non-coloring user printer
+registered with <SPAN CLASS=BRKT>install_user_printer</SPAN>.
+If it fails again with <SPAN CLASS=BRKT>Failure ...</SPAN> will the normal HOL Light printing be
+invoked. The additional string argument <SPAN CLASS=BRKT>s</SPAN> is just to provide a convenient
+handle for later removal through <SPAN CLASS=BRKT>delete_user_color_printer</SPAN>. However, any previous
+user printer with the same string tag will be removed when
+<SPAN CLASS=BRKT>install_user_color_printer</SPAN> is called. The printing function takes two arguments,
+the second being the term to print and the first being the formatter to be
+used; this ensures that the printer will automatically have its output sent to
+the current formatter by the overall printer.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Never fails.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+Analogous to the example of <SPAN CLASS=BRKT>install_user_printer</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="delete_user_color_printer.html">delete_user_color_printer</A>, <A href="delete_user_printer.html">delete_user_printer</A>, <A href="install_user_printer.html">install_user_printer</A>,
+<A href="try_user_color_printer.html">try_user_color_printer</A>, <A href="try_user_printer.html">try_user_printer</A>.
+
+
+</DL>

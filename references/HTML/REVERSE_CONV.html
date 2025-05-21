@@ -1,0 +1,29 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>REVERSE_CONV : conv</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Evaluate the list reversal function applied to a specific list.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+When applied to a term <SPAN CLASS=BRKT>`REVERSE [t1; ...; tn]`</SPAN> with a concrete list (though
+not necessarily with constant or ground elements) the conversion <SPAN CLASS=BRKT>REVERSE_CONV</SPAN>
+returns the appropriate theorem <SPAN CLASS=BRKT>|- REVERSE [t1; ...; tn] = [tn; ...; t1]</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the term is not of the expected form.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # REVERSE_CONV `REVERSE [1;2;3]`;;
+  val it : thm = |- REVERSE [1; 2; 3] = [3; 2; 1]
+
+  # REVERSE_CONV `REVERSE [one;two;three]`;;
+  val it : thm = |- REVERSE [one; two; three] = [three; two; one]
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="EL_CONV.html">EL_CONV</A>, <A href="LENGTH_CONV.html">LENGTH_CONV</A>, <A href="LIST_CONV.html">LIST_CONV</A>, <A href="LIST_OF_SEQ_CONV.html">LIST_OF_SEQ_CONV</A>.
+
+
+</DL>

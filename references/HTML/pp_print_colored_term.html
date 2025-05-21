@@ -1,0 +1,35 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>pp_print_colored_term : formatter -&gt; term -&gt; unit</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Prints a term (without quotes) with colors to formatter.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+The call <SPAN CLASS=BRKT>pp_print_colored_term fmt tm</SPAN> prints the colored representation of the
+term <SPAN CLASS=BRKT>tm</SPAN> to the formatter <SPAN CLASS=BRKT>fmt</SPAN>. The string is just <SPAN CLASS=BRKT>tm</SPAN> not <SPAN CLASS=BRKT>`tm`</SPAN>.
+To print without colors, use <SPAN CLASS=BRKT>pp_print_term</SPAN>.
+
+Colors can be changed by setting OCaml reference variables of optional strings
+describing the ANSI color code.
+If set to <SPAN CLASS=BRKT>None</SPAN>, the default color of the terminal is used.
+
+- <SPAN CLASS=BRKT>printer_color_const</SPAN>: a text color for constants.
+
+- <SPAN CLASS=BRKT>printer_color_resword</SPAN>: a text color for reserved words (see <SPAN CLASS=BRKT>is_reserved_word</SPAN>).
+
+- <SPAN CLASS=BRKT>printer_color_binder</SPAN>: a text color for binders (see <SPAN CLASS=BRKT>parses_as_binder</SPAN>).
+
+- <SPAN CLASS=BRKT>printer_color_infix</SPAN>: a text color for infix operators (see <SPAN CLASS=BRKT>get_infix_status</SPAN>).
+
+- <SPAN CLASS=BRKT>printer_color_prefix</SPAN>: a text color for prefix operators (see <SPAN CLASS=BRKT>is_prefix</SPAN>).
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Should never fail unless the formatter does.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="get_infix_status.html">get_infix_status</A>, <A href="is_prefix.html">is_prefix</A>, <A href="is_reserved_word.html">is_reserved_word</A>, <A href="parses_as_binder.html">parses_as_binder</A>,
+<A href="pp_print_colored_qterm.html">pp_print_colored_qterm</A>, <A href="pp_print_term.html">pp_print_term</A>, <A href="pp_print_qterm.html">pp_print_qterm</A>, <A href="print_qterm.html">print_qterm</A>, <A href="print_term.html">print_term</A>, <A href="set_color_printer.html">set_color_printer</A>
+
+
+</DL>
