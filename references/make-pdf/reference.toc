@@ -1,13 +1,13 @@
 \contentsline {chapter}{\numberline {1}Pre-defined ML Identifiers}{1}{}%
-\contentsline {chapter}{\numberline {2}Pre-proved Theorems}{821}{}%
-\contentsline {section}{\numberline {2.1}Theorems about basic logical notions}{822}{}%
-\contentsline {section}{\numberline {2.2}Theorems about elementary constructs}{829}{}%
-\contentsline {section}{\numberline {2.3}Theorems about pairs}{831}{}%
-\contentsline {section}{\numberline {2.4}Theorems about wellfoundedness}{832}{}%
-\contentsline {section}{\numberline {2.5}Theorems about natural number arithmetic}{834}{}%
-\contentsline {section}{\numberline {2.6}Theorems about lists}{849}{}%
-\contentsline {section}{\numberline {2.7}Theorems about real numbers}{855}{}%
-\contentsline {section}{\numberline {2.8}Theorems about integers}{873}{}%
-\contentsline {section}{\numberline {2.9}Theorems about sets and functions}{888}{}%
-\contentsline {section}{\numberline {2.10}Theorems about iterated operations}{912}{}%
-\contentsline {section}{\numberline {2.11}Theorems about cartesian powers}{929}{}%
+\contentsline {chapter}{\numberline {2}Pre-proved Theorems}{823}{}%
+\contentsline {section}{\numberline {2.1}Theorems about basic logical notions}{824}{}%
+\contentsline {section}{\numberline {2.2}Theorems about elementary constructs}{831}{}%
+\contentsline {section}{\numberline {2.3}Theorems about pairs}{833}{}%
+\contentsline {section}{\numberline {2.4}Theorems about wellfoundedness}{834}{}%
+\contentsline {section}{\numberline {2.5}Theorems about natural number arithmetic}{836}{}%
+\contentsline {section}{\numberline {2.6}Theorems about lists}{851}{}%
+\contentsline {section}{\numberline {2.7}Theorems about real numbers}{857}{}%
+\contentsline {section}{\numberline {2.8}Theorems about integers}{875}{}%
+\contentsline {section}{\numberline {2.9}Theorems about sets and functions}{890}{}%
+\contentsline {section}{\numberline {2.10}Theorems about iterated operations}{914}{}%
+\contentsline {section}{\numberline {2.11}Theorems about cartesian powers}{931}{}%

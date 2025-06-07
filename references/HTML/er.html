@@ -1,0 +1,76 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<DIV class=TYPE><PRE>er : tactic -&gt; goalstack</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Applies a tactic to the current goal and rotates to the next subgoal.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+The function <SPAN CLASS=BRKT>er</SPAN> is part of the subgoal package. It sequentially applies a
+tactic to the current goal to give a new proof state using <SPAN CLASS=BRKT>e</SPAN>, then applies
+<SPAN CLASS=BRKT>r</SPAN> to rotate to the next subgoal. If <SPAN CLASS=BRKT>e</SPAN> created <SPAN CLASS=BRKT>n</SPAN> subgoals, it rotates
+<SPAN CLASS=BRKT>n</SPAN> times. When <SPAN CLASS=BRKT>verbose</SPAN> is set to true, <SPAN CLASS=BRKT>er</SPAN> prints the goal state after
+<SPAN CLASS=BRKT>e</SPAN>, prints the number of subgoals to rotate, then returns the final goalstate.
+
+This command is useful when you want to interactively try a list of tactics
+after <SPAN CLASS=BRKT>THENL</SPAN>. For example, given a proof `<SPAN CLASS=BRKT>TAC THENL [ TAC_A; TAC_B; .. ]</SPAN>',
+statements `<SPAN CLASS=BRKT>e TAC;; er TAC_A;;</SPAN>' will execute <SPAN CLASS=BRKT>TAC</SPAN>, execute <SPAN CLASS=BRKT>TAC_A</SPAN>, then
+switch to the second subgoal of `<SPAN CLASS=BRKT>e TAC</SPAN>' which will be the input goalstate of
+<SPAN CLASS=BRKT>TAC_B</SPAN>.
+
+If the proof of <SPAN CLASS=BRKT>THEN</SPAN> form does not have any `<SPAN CLASS=BRKT>a THEN b</SPAN>' where <SPAN CLASS=BRKT>a</SPAN> generates
+multiple subgoals (which can be checked by enabling
+<SPAN CLASS=BRKT>unset_then_multiple_subgoals</SPAN> and running the proof), the whole <SPAN CLASS=BRKT>THEN</SPAN> proof
+can be easily converted to a series of <SPAN CLASS=BRKT>e</SPAN> and <SPAN CLASS=BRKT>er</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+<SPAN CLASS=BRKT>er tac</SPAN> fails if its internal invoation <SPAN CLASS=BRKT>e tac</SPAN> failed.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+
+  # prove(`x + 1 = 1 + x /\ 1 + 1 = 2`,
+      CONJ_TAC THENL [ALL_TAC; ARITH_TAC] THEN REWRITE_TAC[ADD_SYM]);;
+  val it : thm = |- x + 1 = 1 + x /\ 1 + 1 = 2
+
+  # g `x + 1 = 1 + x /\ 1 + 1 = 2`;;
+  Warning: Free variables in goal: x
+  val it : goalstack = 1 subgoal (1 total)
+
+  `x + 1 = 1 + x /\ 1 + 1 = 2`
+
+  # e(CONJ_TAC);;
+  val it : goalstack = 2 subgoals (2 total)
+
+  `1 + 1 = 2`
+
+  `x + 1 = 1 + x`
+
+  # er(ALL_TAC);; (* rotates 1 subgoal *)
+  1 subgoal (2 total)
+
+  `x + 1 = 1 + x`
+
+  (Rotating 1 subgoal...)
+
+  val it : goalstack = 1 subgoal (2 total)
+
+  `1 + 1 = 2`
+
+  # e(ARITH_TAC);;
+  val it : goalstack = 1 subgoal (1 total)
+
+  `x + 1 = 1 + x`
+
+  # e(REWRITE_TAC[ADD_SYM]);;
+  val it : goalstack = No subgoals
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>USES</SPAN><DD>
+Doing a step in an interactive goal-directed proof.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="b.html">b</A>, <A href="e.html">e</A>, <A href="g.html">g</A>, <A href="p.html">p</A>, <A href="r.html">r</A>, <A href="set_goal.html">set_goal</A>, <A href="top_goal.html">top_goal</A>, <A href="top_thm.html">top_thm</A>, <A href="unset_then_multiple_subgoals.html">unset_then_multiple_subgoals</A>.
+
+
+</DL>
