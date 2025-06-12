@@ -50,7 +50,7 @@ opam install hol_light hol_light_module
 - Quick Reference Guide compiled by Freek Wiedijk ([text](holchart/holchart.txt), [PDF](holchart/holchart.pdf), [Postscript](holchart/holchart.ps), [DVI](holchart/holchart.dvi), [LaTeX](holchart/holchart.teX))
 - Summary of many HOL source files, written by Carl Witty ([text](summary.txt))
 - [A VS Code extension for HOL Light](https://marketplace.visualstudio.com/items?itemName=monadius.hol-light-simple), written by Alexey Solovyev.
-- [Notes for beginners](https://github.com/aqjune/hol-light-materials/tree/main), written by Juneyoung Lee
+- [HOL Light: HOW-TO](https://github.com/aqjune/hol-light-materials/tree/main), written by Juneyoung Lee
 - [HOL Light Zulip Chat](https://hol-light.zulipchat.com/)
 
 ## Applications of HOL Light
