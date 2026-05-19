@@ -1,6 +1,6 @@
 ### How-to
 
-Update the date in `make-pdf/title.tex`, then run the following command:
+Run the following command:
 
 ```
 ./build.sh
