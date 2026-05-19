@@ -1,4 +1,5 @@
 <link rel = "stylesheet" href = "hollightref.css">
+<A href="index.html">Go back to the list</A><BR><BR>
 <DIV class=TYPE><PRE>theorems : (string * thm) list ref</PRE></DIV>
 <DL>
 
@@ -21,7 +22,7 @@ In the initial HOL Light state we see:
 <DIV class=XMPL><PRE>
   # theorems;;
   val it : (string * thm) list ref =
-    <SPAN CLASS=BRKT>contents =
+    {contents =
       [("ABSORPTION", |- !x s. x IN s <=> x INSERT s = s);
        ("ABS_SIMP", |- !t1 t2. (\x. t1) t2 = t1);
        ("ADD", |- (!n. 0 + n = n) /\ (!m n. SUC m + n = SUC (m + n)));

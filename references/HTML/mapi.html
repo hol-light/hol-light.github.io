@@ -1,0 +1,30 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<A href="index.html">Go back to the list</A><BR><BR>
+<DIV class=TYPE><PRE>mapi : (int -&gt; 'a -&gt; 'b) -&gt; 'a list -&gt; 'b list</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Applies a function to every element of a list, supplying the element's index.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+<SPAN CLASS=BRKT>mapi f [x0;...;xn]</SPAN> returns <SPAN CLASS=BRKT>[f 0 x0; f 1 x1;...;f n xn]</SPAN>. The function <SPAN CLASS=BRKT>f</SPAN>
+receives the zero-based index of each element as its first argument.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Never fails.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # mapi (fun i x -> (i, x)) ["a"; "b"; "c"];;
+  val it : (int * string) list = [(0, "a"); (1, "b"); (2, "c")]
+  # mapi (fun i x -> x + i) [10; 20; 30];;
+  val it : int list = [10; 21; 32]
+  # mapi (fun i _ -> i) [5; 5; 5; 5];;
+  val it : int list = [0; 1; 2; 3]
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="map.html">map</A>, <A href="map2.html">map2</A>.
+
+
+</DL>
