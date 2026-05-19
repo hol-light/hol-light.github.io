@@ -1,4 +1,5 @@
 <link rel = "stylesheet" href = "hollightref.css">
+<A href="index.html">Go back to the list</A><BR><BR>
 <DIV class=TYPE><PRE>new_basic_type_definition : string -&gt; string * string -&gt; thm -&gt; thm * thm</PRE></DIV>
 <DL>
 
@@ -18,9 +19,10 @@ The theorem is needed to ensure that that set is nonempty; all types in HOL are
 nonempty.
 
 <P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
-Fails if any of the type or constant names is already in use, if the theorem
-has a nonempty list of hypotheses, if the conclusion of the theorem is not a
-combination, or if its rator <SPAN CLASS=BRKT>P</SPAN> contains free variables.
+Fails if any of the type or constant names is already in use, if the two names
+<SPAN CLASS=BRKT>mk</SPAN> and <SPAN CLASS=BRKT>dest</SPAN> are the same, if the theorem has a nonempty list of hypotheses,
+if the conclusion of the theorem is not a combination, or if its rator <SPAN CLASS=BRKT>P</SPAN>
+contains free variables.
 
 <P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
 Here we define a basic type with 32 elements:

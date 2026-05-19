@@ -1,4 +1,5 @@
 <link rel = "stylesheet" href = "hollightref.css">
+<A href="index.html">Go back to the list</A><BR><BR>
 <DIV class=TYPE><PRE>the_inductive_definitions : thm list ref</PRE></DIV>
 <DL>
 
@@ -19,10 +20,10 @@ inductive definition is finiteness of a set:
 <DIV class=XMPL><PRE>
   # !the_inductive_definitions;;
   val it : (thm * thm * thm) list =
-    [(|- FINITE <SPAN CLASS=BRKT></SPAN> /\ (!x s. FINITE s ==> FINITE (x INSERT s)),
-      |- !FINITE'. FINITE' <SPAN CLASS=BRKT></SPAN> /\ (!x s. FINITE' s ==> FINITE' (x INSERT s))
+    [(|- FINITE {} /\ (!x s. FINITE s ==> FINITE (x INSERT s)),
+      |- !FINITE'. FINITE' {} /\ (!x s. FINITE' s ==> FINITE' (x INSERT s))
                    ==> (!a. FINITE a ==> FINITE' a),
-      |- !a. FINITE a <=> a = <SPAN CLASS=BRKT></SPAN> \/ (?x s. a = x INSERT s /\ FINITE s));
+      |- !a. FINITE a <=> a = {} \/ (?x s. a = x INSERT s /\ FINITE s));
      ...
      ...]
 </PRE></DIV>

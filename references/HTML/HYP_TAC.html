@@ -1,4 +1,5 @@
 <link rel = "stylesheet" href = "hollightref.css">
+<A href="index.html">Go back to the list</A><BR><BR>
 <DIV class=TYPE><PRE>HYP_TAC : string -&gt; (thm -&gt; thm) -&gt; tactic</PRE></DIV>
 <DL>
 
@@ -34,7 +35,7 @@ or do not produce a theorem of a suitable form.
 Here we use the theorem <SPAN CLASS=BRKT>MEMBER_NOT_EMPTY</SPAN> to obtain an element <SPAN CLASS=BRKT>a</SPAN> from a
 non empty set <SPAN CLASS=BRKT>s</SPAN>
 <DIV class=XMPL><PRE>
-  # g `!s. ~(s = <SPAN CLASS=BRKT></SPAN>) ==> (minimal n. n IN s) IN s`;;
+  # g `!s. ~(s = {}) ==> (minimal n. n IN s) IN s`;;
   # e (INTRO_TAC "!s; s");;
   # e (HYP_TAC "s : @a. +" (REWRITE_RULE[GSYM MEMBER_NOT_EMPTY]));;
   val it : goalstack = 1 subgoal (1 total)

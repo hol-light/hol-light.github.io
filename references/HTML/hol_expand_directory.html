@@ -1,4 +1,5 @@
 <link rel = "stylesheet" href = "hollightref.css">
+<A href="index.html">Go back to the list</A><BR><BR>
 <DIV class=TYPE><PRE>hol_expand_directory : string -&gt; string</PRE></DIV>
 <DL>
 
@@ -18,7 +19,7 @@ Never fails.
 <P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
 <DIV class=XMPL><PRE>
   # hol_dir;;
-  val it : string ref = <SPAN CLASS=BRKT>contents = "/home/johnh/holl"</SPAN>
+  val it : string ref = {contents = "/home/johnh/holl"}
   # hol_expand_directory "$/Help";;
   val it : string = "/home/johnh/holl/Help"
 </PRE></DIV>

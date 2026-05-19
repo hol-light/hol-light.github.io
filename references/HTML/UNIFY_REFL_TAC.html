@@ -1,0 +1,59 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<A href="index.html">Go back to the list</A><BR><BR>
+<DIV class=TYPE><PRE>UNIFY_REFL_TAC : tactic</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Unify term(s) and metavariable(s) in the equality of the goal.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Given a goal <SPAN CLASS=BRKT>_ ?- x = y</SPAN> where <SPAN CLASS=BRKT>y</SPAN> is a metavariable, the tactic
+<SPAN CLASS=BRKT>UNIFY_REFL_TAC</SPAN> attempts to unify <SPAN CLASS=BRKT>y</SPAN> with <SPAN CLASS=BRKT>x</SPAN>.
+If <SPAN CLASS=BRKT>y</SPAN> is function application <SPAN CLASS=BRKT>f a b c</SPAN> and <SPAN CLASS=BRKT>f</SPAN> is a metavariable,
+<SPAN CLASS=BRKT>UNIFY_REFL_TAC</SPAN> attemps to unify <SPAN CLASS=BRKT>f</SPAN> with <SPAN CLASS=BRKT>\a b c. x</SPAN> (the number of arguments
+can vary).
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if no unification will work.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # g `?x. 1 = x`;;
+  ...
+
+  # e META_EXISTS_TAC;;
+	val it : goalstack = 1 subgoal (1 total)
+																					
+	`1 = x`
+
+	# e UNIFY_REFL_TAC;;
+
+	val it : goalstack = No subgoals
+</PRE></DIV>
+If the RHS is function application:
+<DIV class=XMPL><PRE>
+	# g `?f. y + z = f y z`;;
+	...
+
+	# e (META_EXISTS_TAC THEN UNIFY_REFL_TAC);;
+	val it : goalstack = No subgoals
+</PRE></DIV>
+The arguments to <SPAN CLASS=BRKT>f</SPAN> can be constants, but <SPAN CLASS=BRKT>UNIFY_REFL_TAC</SPAN> will
+print a warning.
+<DIV class=XMPL><PRE>
+	# g `?f. y + 1 = f y 0`;;
+	...
+
+	# e (META_EXISTS_TAC THEN UNIFY_REFL_TAC);;
+	UNIFY_REFL_TAC: warning: this isn't var: 0
+	val it : goalstack = No subgoals
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>USES</SPAN><DD>
+Terminating proof search when using metavariables.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="UNIFY_ACCEPT_TAC.html">UNIFY_ACCEPT_TAC</A>
+
+
+</DL>

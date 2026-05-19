@@ -1,4 +1,5 @@
 <link rel = "stylesheet" href = "hollightref.css">
+<A href="index.html">Go back to the list</A><BR><BR>
 <DIV class=TYPE><PRE>new_type_definition : string -&gt; string * string -&gt; thm -&gt; thm</PRE></DIV>
 <DL>
 
@@ -45,9 +46,10 @@ a unary type constructor:
 so now types like <SPAN CLASS=BRKT>:(num)finiteset</SPAN> make sense.
 
 <P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
-Fails if any of the type or constant names is already in use, if the theorem
-has a nonempty list of hypotheses, if the conclusion of the theorem is not an
-existentially quantified term, or the conclusion contains free variables.
+Fails if any of the type or constant names is already in use, if the two names
+<SPAN CLASS=BRKT>mk</SPAN> and <SPAN CLASS=BRKT>dest</SPAN> are the same, if the theorem has a nonempty list of hypotheses,
+if the conclusion of the theorem is not an existentially quantified term, or
+the conclusion contains free variables.
 
 <P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
 <A href="define_type.html">define_type</A>, <A href="new_basic_type_definition.html">new_basic_type_definition</A>, <A href="new_type_abbrev.html">new_type_abbrev</A>.
