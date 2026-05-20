@@ -5,6 +5,7 @@ set -e
 rm -rf hol-light
 git clone https://github.com/jrh13/hol-light.git
 
+rm -rf HTML
 python3 hlp2html.py hol-light/Help HTML
 cp hollightref.css HTML/
 

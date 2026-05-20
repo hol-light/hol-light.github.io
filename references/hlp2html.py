@@ -7,17 +7,17 @@ import sys
 from pathlib import Path
 
 FILENAME_MAP = {
-    "=?": ".eqq",
-    ">=?": ".geq",
-    ">?": ".gtq",
-    "++": ".joinparsers",
-    "<=?": ".leq",
-    "<?": ".ltq",
-    "|||": ".orparser",
-    ">>": ".pipeparser",
-    "|=>": ".singlefun",
-    "--": ".upto",
-    "|->": ".valmod",
+    "=?": "_eqq",
+    ">=?": "_geq",
+    ">?": "_gtq",
+    "++": "_joinparsers",
+    "<=?": "_leq",
+    "<?": "_ltq",
+    "|||": "_orparser",
+    ">>": "_pipeparser",
+    "|=>": "_singlefun",
+    "--": "_upto",
+    "|->": "_valmod",
     "insert'": "insert_prime",
     "mem'": "mem_prime",
     "subtract'": "subtract_prime",
@@ -43,7 +43,10 @@ FILENAME_MAP = {
 
 def name_to_html_filename(name):
     """Convert a HOL Light identifier to its HTML filename (without .html)."""
-    return FILENAME_MAP.get(name, name)
+    mapped = FILENAME_MAP.get(name, name)
+    if mapped.startswith('.'):
+        mapped = '_' + mapped[1:]
+    return mapped
 
 
 def html_escape(text):
