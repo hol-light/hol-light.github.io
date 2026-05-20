@@ -16,6 +16,9 @@ make4ht -u -d "$OUTPUT_DIR" tutorial.tex "mathml,fn-in" "" "" "-interaction=nons
 # Remove intermediate footnote files
 rm -f "$OUTPUT_DIR"/tutorial[0-9]*.html
 
+# Append custom CSS (make4ht overwrites tutorial.css each time)
+cat custom.css >> "$OUTPUT_DIR/tutorial.css"
+
 echo ""
 echo "=== Build complete ==="
 echo "Output: $OUTPUT_DIR/tutorial.html"
