@@ -1,0 +1,27 @@
+BODY {
+        PADDING-RIGHT: 1em; PADDING-LEFT: 1em; PADDING-BOTTOM: 0.5em;
+        PADDING-TOP: 0.5em; BACKGROUND-COLOR: white }
+
+DIV.TYPE {
+           PADDING-RIGHT: 0.5em; PADDING-LEFT: 0.5em; FONT-WEIGHT: bold;
+           FONT-SIZE: large; BORDER-LEFT-COLOR: black;
+           BORDER-BOTTOM-COLOR: black; COLOR: crimson;
+           BORDER-TOP-STYLE: solid; BORDER-TOP-COLOR: black;
+           FONT-FAMILY: Courier, monospace; BORDER-RIGHT-STYLE: solid;
+           BORDER-LEFT-STYLE: solid;
+           BORDER-RIGHT-COLOR: black; BORDER-BOTTOM-STYLE: solid }
+
+DIV.FIELD-BODY {
+        MARGIN-BOTTOM: 1em }
+
+DIV.XMPL {
+        COLOR: blue; MARGIN-BOTTOM: 1em; FONT-FAMILY: Courier, monospace }
+
+SPAN.BRKT {
+        COLOR: blue; FONT-FAMILY: Courier, monospace }
+
+SPAN.FIELD-NAME {
+        FONT-WEIGHT: bold; COLOR: black }
+
+DIV.HOL {
+        FONT-STYLE: italic }
