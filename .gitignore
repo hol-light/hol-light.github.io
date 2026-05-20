@@ -1,5 +1,6 @@
 references/ne_text_editor
 references/hol-light
+.DS_Store
 */*.log
 */*.aux
 */*.dvi
