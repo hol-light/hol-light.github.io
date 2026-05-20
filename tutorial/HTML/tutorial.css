@@ -243,3 +243,37 @@ p + figcaption, img + figcaption{margin-top: 1em;}
 .rotatebox{display: inline-block;}
 /* end css.sty */
 
+/* Restyle boxed verbatim blocks as gray code boxes */
+div.flushleft div.tabular table.tabular[rules] {
+  border: none !important;
+  border-collapse: collapse;
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  padding: 0.8em 1em;
+  display: block;
+  margin: 1em 0;
+  overflow-x: auto;
+}
+@media (prefers-color-scheme: dark) {
+  div.flushleft div.tabular table.tabular[rules] {
+    background-color: #2a2a2a;
+  }
+}
+div.flushleft div.tabular table.tabular[rules] *,
+div.flushleft div.tabular table.tabular[rules] td,
+div.flushleft div.tabular table.tabular[rules] tr,
+div.flushleft div.tabular table.tabular[rules] colgroup,
+div.flushleft div.tabular table.tabular[rules] col,
+div.flushleft div.tabular table.tabular[rules] tbody {
+  border: none !important;
+  text-align: left;
+}
+div.flushleft div.tabular table.tabular[rules] pre.verbatim {
+  margin: 0;
+  padding: 0;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+div.flushleft {
+  text-align: left;
+}
