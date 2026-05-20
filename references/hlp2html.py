@@ -6,18 +6,17 @@ import re
 import sys
 from pathlib import Path
 
+# Maps HOL Light identifier names (as they appear in \DOC and \SEEALSO sections)
+# to URL-safe HTML filenames. Not related to .hlp filenames on disk.
 FILENAME_MAP = {
-    "=?": "_eqq",
-    ">=?": "_geq",
-    ">?": "_gtq",
-    "++": "_joinparsers",
-    "<=?": "_leq",
-    "<?": "_ltq",
-    "|||": "_orparser",
-    ">>": "_pipeparser",
-    "|=>": "_singlefun",
-    "--": "_upto",
-    "|->": "_valmod",
+    "++": "DOT_joinparsers",
+    "<?": "DOT_ltq",
+    "|||": "DOT_orparser",
+    ">>": "DOT_pipeparser",
+    "|=>": "DOT_singlefun",
+    "--": "DOT_upto",
+    "|->": "DOT_valmod",
+    "=?": "DOT_eqq",
     "insert'": "insert_prime",
     "mem'": "mem_prime",
     "subtract'": "subtract_prime",
@@ -45,7 +44,7 @@ def name_to_html_filename(name):
     """Convert a HOL Light identifier to its HTML filename (without .html)."""
     mapped = FILENAME_MAP.get(name, name)
     if mapped.startswith('.'):
-        mapped = '_' + mapped[1:]
+        mapped = 'DOT_' + mapped[1:]
     return mapped
 
 
