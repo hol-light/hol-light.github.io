@@ -44,7 +44,7 @@ opam install hol_light hol_light_module
 
 ## Available documentation and resources
 
-- [Tutorial](tutorial.pdf), which tries to teach HOL Light through examples.
+- Tutorial ([HTML](tutorial/HTML/tutorial.html), [pdf](tutorial.pdf)), which tries to teach HOL Light through examples.
 - Reference Manual available as [online crosslinked HTML](references/HTML/index.html) or
   as [one PDF file](references/reference.pdf)
 - Quick Reference Guide compiled by Freek Wiedijk ([text](holchart/holchart.txt), [PDF](holchart/holchart.pdf), [Postscript](holchart/holchart.ps), [DVI](holchart/holchart.dvi), [LaTeX](holchart/holchart.teX))
