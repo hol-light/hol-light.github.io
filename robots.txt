@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /
+
+Allow: /$
+Allow: /holchart/holchart.pdf
+Allow: /tutorial.pdf
+Allow: /summary.txt
+Allow: /references/HTML/
+Allow: /tutorial/HTML/
+
+Sitemap: https://hol-light.github.io/sitemap.xml
