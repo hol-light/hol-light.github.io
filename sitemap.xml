@@ -1,0 +1,28 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://hol-light.github.io/</loc>
+  </url>
+  <url>
+    <loc>https://hol-light.github.io/holchart/holchart.pdf</loc>
+  </url>
+  <url>
+    <loc>https://hol-light.github.io/tutorial.pdf</loc>
+  </url>
+  <url>
+    <loc>https://hol-light.github.io/summary.txt</loc>
+  </url>
+{% for page in site.static_files %}{% if page.path contains 'references/HTML/' and page.extname == '.html' %}
+  <url>
+    <loc>https://hol-light.github.io{{ page.path }}</loc>
+  </url>
+{% endif %}{% endfor %}
+{% for page in site.static_files %}{% if page.path contains 'tutorial/HTML/' and page.extname == '.html' %}
+  <url>
+    <loc>https://hol-light.github.io{{ page.path }}</loc>
+  </url>
+{% endif %}{% endfor %}
+</urlset>
