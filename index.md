@@ -1,7 +1,7 @@
 # The HOL Light theorem prover
 
 [HOL Light](https://github.com/jrh13/hol-light) is a computer program written
-by [John Harrison](https://www.cl.cam.ac.uk/~jrh13/hol-light/) to help users
+by [John Harrison](https://www.cl.cam.ac.uk/~jrh13/) to help users
 prove interesting mathematical theorems completely formally in higher order logic.
 It sets a very exacting standard of correctness, but provides a
 number of automated tools and pre-proved mathematical theorems (e.g. about
