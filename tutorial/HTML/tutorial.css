@@ -7,6 +7,11 @@
 .cmmi-10{font-style: italic;}
 .cmsy-5{font-size:50%;}
 .cmsy-7{font-size:70%;}
+.ptmr7t-{font-family: monospace,monospace;}
+.ptmr7t-{font-family: monospace,monospace;}
+.ptmr7t-{font-family: monospace,monospace;}
+.ptmr7t-{font-family: monospace,monospace;}
+.ptmr7t-{font-family: monospace,monospace;}
 .cmbsy-10{font-weight: bold;}
 .cmbsy-10{font-weight: bold;}
 .cmbsy-10{font-weight: bold;}
@@ -22,11 +27,6 @@
 .msam-5{font-size:50%;}
 .msbm-7{font-size:70%;}
 .msbm-5{font-size:50%;}
-.ptmr7t-{font-family: monospace,monospace;}
-.ptmr7t-{font-family: monospace,monospace;}
-.ptmr7t-{font-family: monospace,monospace;}
-.ptmr7t-{font-family: monospace,monospace;}
-.ptmr7t-{font-family: monospace,monospace;}
 .ptmr7t-x-x-172{font-size:172%;font-family: monospace,monospace;}
 .ptmr7t-x-x-172{font-family: monospace,monospace;}
 .ptmr7t-x-x-172{font-family: monospace,monospace;}
@@ -45,12 +45,12 @@
 .cmex-8{font-size:80%;}
 .msam-10x-x-80{font-size:80%;}
 .msbm-10x-x-80{font-size:80%;}
-.pcrr7t-x-x-120{font-size:120%; font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-120{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-120{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-120{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-120{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-120{ font-family: 'Nimbus Mono L', monospace,monospace;}
+.pcrr7t-x-x-120{font-size:120%; font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-120{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-120{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-120{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-120{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-120{ font-family: 'Nimbus Mono L', serif;}
 .ptmr7t-x-x-90{font-size:90%;font-family: monospace,monospace;}
 .ptmr7t-x-x-90{font-family: monospace,monospace;}
 .ptmr7t-x-x-90{font-family: monospace,monospace;}
@@ -59,12 +59,12 @@
 .ptmb7t-x-x-90{font-size:90%; font-weight: bold;}
 .ptmb7t-x-x-90{ font-weight: bold;}
 .ptmb7t-x-x-90{ font-weight: bold;}
-.pcrr7t-{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-{ font-family: 'Nimbus Mono L', monospace,monospace;}
+.pcrr7t-{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-{ font-family: 'Nimbus Mono L', serif;}
 .ptmb7t-x-x-120{font-size:120%; font-weight: bold;}
 .ptmb7t-x-x-120{ font-weight: bold;}
 .ptmb7t-x-x-120{ font-weight: bold;}
@@ -72,37 +72,37 @@
 .ptmb7t-{ font-weight: bold;}
 .ptmb7t-{ font-weight: bold;}
 .ptmb7t-{ font-weight: bold;}
-.pcrr7t-x-x-70{font-size:70%; font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-70{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-70{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-70{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-70{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-70{ font-family: 'Nimbus Mono L', monospace,monospace;}
+.pcrr7t-x-x-70{font-size:70%; font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-70{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-70{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-70{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-70{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-70{ font-family: 'Nimbus Mono L', serif;}
 .ptmr7t-x-x-80{font-size:80%;font-family: monospace,monospace;}
 .ptmr7t-x-x-80{font-family: monospace,monospace;}
 .ptmr7t-x-x-80{font-family: monospace,monospace;}
 .ptmr7t-x-x-80{font-family: monospace,monospace;}
 .ptmr7t-x-x-80{font-family: monospace,monospace;}
-.pcrr7t-x-x-80{font-size:80%; font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-80{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-80{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-80{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-80{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-80{ font-family: 'Nimbus Mono L', monospace,monospace;}
+.pcrr7t-x-x-80{font-size:80%; font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-80{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-80{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-80{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-80{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-80{ font-family: 'Nimbus Mono L', serif;}
 .ptmri7t-x-x-80{font-size:80%;font-style: italic;}
-.pcrr7t-x-x-90{font-size:90%; font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-90{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-90{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-90{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-90{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-90{ font-family: 'Nimbus Mono L', monospace,monospace;}
+.pcrr7t-x-x-90{font-size:90%; font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-90{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-90{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-90{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-90{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-90{ font-family: 'Nimbus Mono L', serif;}
 .cmmi-12x-x-120{font-size:144%;font-style: italic;}
-.pcrr7t-x-x-172{font-size:172%; font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-172{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-172{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-172{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-172{ font-family: 'Nimbus Mono L', monospace,monospace;}
-.pcrr7t-x-x-172{ font-family: 'Nimbus Mono L', monospace,monospace;}
+.pcrr7t-x-x-172{font-size:172%; font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-172{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-172{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-172{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-172{ font-family: 'Nimbus Mono L', serif;}
+.pcrr7t-x-x-172{ font-family: 'Nimbus Mono L', serif;}
 p{margin-top:0;margin-bottom:0}
 p.indent{text-indent:0;}
 p + p{margin-top:1em;}
@@ -125,7 +125,6 @@ h1,h2,h3,h4,h5 { line-height:1.2; }
 .subsectionHead, .likesubsectionHead { font-size: 1.3195em; }
 .subsubsectionHead, .likesubsubsectionHead { font-size: 1.1487em; }
  @media (prefers-color-scheme: dark) { img[src^="tutorial"]{filter: invert(1); } } 
- body { background-color: Canvas; color: CanvasText; color-scheme: light dark; } 
 li p.indent { text-indent: 0em }
 li p:first-child{ margin-top:0em; }
 li p:last-child, li div:last-child { margin-bottom:0.5em; }
@@ -185,6 +184,7 @@ table[rules] {border-left:solid black 0.4pt; border-right:solid black 0.4pt; }
 .hline hr, .cline hr{border:none;border-top:1px solid black;}
 .hline {border-top: 1px solid black;}
 .hline + .vspace:last-child{display:none;}
+.hline:first-child{border-bottom:1px solid black;border-top:none;}
 .tabbing-right {text-align:right;}
 div.float, div.figure {margin-left: auto; margin-right: auto;}
 div.float img {text-align:center;}
@@ -199,6 +199,7 @@ div.math-display, div.par-math-display{text-align:center;}
 .array-hline,.array-cline{ border-top: 1px solid black; height:0px; }
 .array-hline + .array-vspace:last-child{display:none;}
 .hline-mtd, .array-hline td{ display:none }
+.array-hline + .array-row:last-child{display:none;}
 .array-hline:first-child{border-bottom:1px solid black;border-top:none;}
 math .texttt { font-family: monospace; }
 math .textit { font-style: italic; }
@@ -211,7 +212,7 @@ mi + mo.MathClass-op{margin-left:0.3em}
  math mstyle[mathvariant="normal"] { font-weight: normal; font-style: normal; } 
 .partToc a, .partToc, .likepartToc a, .likepartToc {line-height: 200%; font-weight:bold; font-size:110%;}
 .index-item, .index-subitem, .index-subsubitem {display:block}
-div.caption {text-indent:-2em; margin-left:3em; margin-right:1em; text-align:center; margin-top: 0.5rem;}
+div.caption {text-indent:-2em; margin-left:3em; margin-right:1em; text-align:left;}
 div.caption span.id{font-weight: bold; white-space: nowrap; }
 h1.partHead{text-align: center}
 p.bibitem { text-indent: -2em; margin-left: 2em; margin-top:0.6em; margin-bottom:0.6em; }
@@ -253,6 +254,7 @@ div.flushleft div.tabular table.tabular[rules] {
   display: block;
   margin: 1em 0;
   overflow-x: auto;
+  rules: none;
 }
 @media (prefers-color-scheme: dark) {
   div.flushleft div.tabular table.tabular[rules] {
