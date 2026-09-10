@@ -4840,6 +4840,67 @@ rather than `{\small\verb%x%}' here:
 alpha, PART_MATCH.
 
 \ENDDOC
+\DOC{define{\_}auto{\_}record{\_}type}
+
+\TYPE {\small\verb%define_auto_record_type : string -> thm * thm * thm%}\egroup
+
+\SYNOPSIS
+Defines a record type and registers all its component properties.
+
+\DESCRIBE
+The function {\small\verb%define_auto_record_type%} takes a record type specification in the
+same syntax as {\small\verb%define_record_type%}, namely
+{\par\samepage\setseps\small
+\begin{verbatim}
+   "op = {\small\verb% fld1 : ty1 ; fld2 : ty2 ; ... ; fldn : tyn %}"
+\end{verbatim}
+}
+\noindent It first calls {\small\verb%define_record_type%} to define the type {\small\verb%op%}, its
+single constructor {\small\verb%op%}{\small\verb%_RECORD%} and the {\small\verb%read%}/{\small\verb%write%} component for each
+field, returning the same triple {\small\verb%(ith,rth,cth)%} of induction, recursion and
+component-characterization theorems.
+
+In addition, it derives and adds to the relevant global databases the standard
+properties of the fields as components, so that subsequent automation (for
+instance component-based simplification and orthogonality reasoning) can use
+them without further manual proof. Specifically it registers, for every field:
+the read-over-write theorems ({\small\verb%record_read_write_thms%}), the strongly-valid,
+valid, extensionally-valid and weakly-valid component theorems, and the
+orthogonality theorems for each pair of distinct fields
+({\small\verb%record_orthogonality_thms%}).
+
+Because it is layered on {\small\verb%define_record_type%}, re-issuing an identical
+definition is benign in the same way (see {\small\verb%define_record_type%}); note however
+that the component database entries are re-added on each such call.
+
+\FAILURE
+Fails under the same conditions as {\small\verb%define_record_type%}: an ill-formed
+specification, a clash with an existing unrelated definition of the type or a
+field constant, or a redefinition of the type name with a different field list.
+
+\EXAMPLE
+{\par\samepage\setseps\small
+\begin{verbatim}
+  # needs "Library/records.ml";;
+  # let point_INDUCT,point_RECURSION,point_COMPONENTS =
+      define_auto_record_type "point = {\small\verb% xc: num; yc: num %}";;
+  ...
+\end{verbatim}
+}
+\noindent After this, the read-over-write and orthogonality laws for {\small\verb%xc%} and
+{\small\verb%yc%} are available to component-based automation, and can also be obtained
+explicitly:
+{\par\samepage\setseps\small
+\begin{verbatim}
+  # record_read_write_thms (point_INDUCT,point_COMPONENTS);;
+  # record_orthogonality_thms (point_INDUCT,point_COMPONENTS);;
+\end{verbatim}
+}
+
+\SEEALSO
+define_record_type, define_type.
+
+\ENDDOC
 \DOC{define{\_}quotient{\_}type}
 
 \TYPE {\small\verb%define_quotient_type : string -> string * string -> term -> thm * thm%}\egroup
@@ -4913,6 +4974,98 @@ be usable.
 
 \SEEALSO
 lift_function, lift_theorem.
+
+\ENDDOC
+\DOC{define{\_}record{\_}type}
+
+\TYPE {\small\verb%define_record_type : string -> thm * thm * thm%}\egroup
+
+\SYNOPSIS
+Defines a record type with named fields and their read/write components.
+
+\DESCRIBE
+Given a string specifying a record type, {\small\verb%define_record_type%} defines a new
+single-constructor inductive type together with a {\small\verb%read%}/{\small\verb%write%} component (see
+{\small\verb%Library/components.ml%}) for each field. The input string has the form
+{\par\samepage\setseps\small
+\begin{verbatim}
+   "op = {\small\verb% fld1 : ty1 ; fld2 : ty2 ; ... ; fldn : tyn %}"
+\end{verbatim}
+}
+\noindent where {\small\verb%op%} is the name of the type operator to be defined, {\small\verb%fld1%},
+..., {\small\verb%fldn%} are the field names and {\small\verb%ty1%}, ..., {\small\verb%tyn%} are the corresponding
+types. As with {\small\verb%define_type%}, the number of distinct type variables among the
+{\small\verb%tyi%} determines the arity of the type operator {\small\verb%op%}.
+
+The underlying type is defined with a single constructor called {\small\verb%op%}{\small\verb%_RECORD%},
+taking the field types as arguments in order. For each
+field {\small\verb%fldi%} a constant of that name is introduced by {\small\verb%new_specification%},
+characterized as a component: {\small\verb%read fldi%} projects out the field and
+{\small\verb%write fldi%} updates it. The function returns a triple {\small\verb%(ith,rth,cth)%}: the
+induction theorem, the recursion theorem and the conjunction of the component
+read/write characterizations.
+
+The type name is recorded, so that a subsequent call to {\small\verb%define_record_type%}
+with the same type name is benign: if the fields are identical the previously
+computed theorems are returned (with a warning), rather than the constants
+being redeclared. See {\small\verb%\FAILURE%} for the case of a clashing redefinition.
+
+To additionally register all the standard component properties (read-over-write
+laws, validity and orthogonality) with the component database, use
+{\small\verb%define_auto_record_type%}.
+
+\FAILURE
+Fails if the string is not a syntactically valid record specification, if the
+type {\small\verb%op%}{\small\verb%_RECORD%} or one of the field constants is already in use for an
+unrelated definition, or if the type name has already been used by
+{\small\verb%define_record_type%} with a different list of fields (in which case the error
+message is {\small\verb%"define_record_type: type op already defined with different
+fields"%}).
+
+\EXAMPLE
+Here we define a record type of two-dimensional points with natural-number
+coordinates:
+{\par\samepage\setseps\small
+\begin{verbatim}
+  # needs "Library/records.ml";;
+  # define_record_type "point = {\small\verb% xc: num; yc: num %}";;
+  val it : thm * thm * thm =
+    (|- !P. (!a0 a1. P (point_RECORD a0 a1)) ==> (!x. P x),
+     |- !f. ?fn. !a0 a1. fn (point_RECORD a0 a1) = f a0 a1,
+     |- (!a0 a1. read xc (point_RECORD a0 a1) = a0) /\
+        (!a0' a0 a1. write xc a0' (point_RECORD a0 a1) = point_RECORD a0' a1) /\
+        (!a0 a1. read yc (point_RECORD a0 a1) = a1) /\
+        (!a1' a0 a1. write yc a1' (point_RECORD a0 a1) = point_RECORD a0 a1'))
+\end{verbatim}
+}
+\noindent Re-issuing the identical definition is benign and returns the same
+theorems:
+{\par\samepage\setseps\small
+\begin{verbatim}
+  # define_record_type "point = {\small\verb% xc: num; yc: num %}";;
+  Warning: Benign redefinition of record type
+  val it : thm * thm * thm = ...
+\end{verbatim}
+}
+\noindent Since the field types here mention two distinct type variables {\small\verb%A%}
+and {\small\verb%B%}, the following defines {\small\verb%pair%} as a binary type operator rather than a
+type constant:
+{\par\samepage\setseps\small
+\begin{verbatim}
+  # define_record_type "pair = {\small\verb% fst_c: A; snd_c: B %}";;
+  val it : thm * thm * thm =
+    (|- !P. (!a0 a1. P (pair_RECORD a0 a1)) ==> (!x. P x),
+     |- !f. ?fn. !a0 a1. fn (pair_RECORD a0 a1) = f a0 a1,
+     |- (!a0 a1. read fst_c (pair_RECORD a0 a1) = a0) /\
+        (!a0' a0 a1. write fst_c a0' (pair_RECORD a0 a1) = pair_RECORD a0' a1) /\
+        (!a0 a1. read snd_c (pair_RECORD a0 a1) = a1) /\
+        (!a1' a0 a1. write snd_c a1' (pair_RECORD a0 a1) = pair_RECORD a0 a1'))
+\end{verbatim}
+}
+\noindent so that, for example, {\small\verb%`p:(num,bool)pair`%} is a well-formed type.
+
+\SEEALSO
+define_auto_record_type, define_type.
 
 \ENDDOC
 \DOC{define{\_}type{\_}raw}

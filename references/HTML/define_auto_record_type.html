@@ -1,0 +1,57 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<A href="index.html">Go back to the list</A><BR><BR>
+<DIV class=TYPE><PRE>define_auto_record_type : string -&gt; thm * thm * thm</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Defines a record type and registers all its component properties.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+The function <SPAN CLASS=BRKT>define_auto_record_type</SPAN> takes a record type specification in the
+same syntax as <SPAN CLASS=BRKT>define_record_type</SPAN>, namely
+<DIV class=XMPL><PRE>
+   "op = { fld1 : ty1 ; fld2 : ty2 ; ... ; fldn : tyn }"
+</PRE></DIV>
+It first calls <SPAN CLASS=BRKT>define_record_type</SPAN> to define the type <SPAN CLASS=BRKT>op</SPAN>, its
+single constructor <SPAN CLASS=BRKT>op</SPAN><SPAN CLASS=BRKT>_RECORD</SPAN> and the <SPAN CLASS=BRKT>read</SPAN>/<SPAN CLASS=BRKT>write</SPAN> component for each
+field, returning the same triple <SPAN CLASS=BRKT>(ith,rth,cth)</SPAN> of induction, recursion and
+component-characterization theorems.
+
+In addition, it derives and adds to the relevant global databases the standard
+properties of the fields as components, so that subsequent automation (for
+instance component-based simplification and orthogonality reasoning) can use
+them without further manual proof. Specifically it registers, for every field:
+the read-over-write theorems (<SPAN CLASS=BRKT>record_read_write_thms</SPAN>), the strongly-valid,
+valid, extensionally-valid and weakly-valid component theorems, and the
+orthogonality theorems for each pair of distinct fields
+(<SPAN CLASS=BRKT>record_orthogonality_thms</SPAN>).
+
+Because it is layered on <SPAN CLASS=BRKT>define_record_type</SPAN>, re-issuing an identical
+definition is benign in the same way (see <SPAN CLASS=BRKT>define_record_type</SPAN>); note however
+that the component database entries are re-added on each such call.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails under the same conditions as <SPAN CLASS=BRKT>define_record_type</SPAN>: an ill-formed
+specification, a clash with an existing unrelated definition of the type or a
+field constant, or a redefinition of the type name with a different field list.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+<DIV class=XMPL><PRE>
+  # needs "Library/records.ml";;
+  # let point_INDUCT,point_RECURSION,point_COMPONENTS =
+      define_auto_record_type "point = { xc: num; yc: num }";;
+  ...
+</PRE></DIV>
+After this, the read-over-write and orthogonality laws for <SPAN CLASS=BRKT>xc</SPAN> and
+<SPAN CLASS=BRKT>yc</SPAN> are available to component-based automation, and can also be obtained
+explicitly:
+<DIV class=XMPL><PRE>
+  # record_read_write_thms (point_INDUCT,point_COMPONENTS);;
+  # record_orthogonality_thms (point_INDUCT,point_COMPONENTS);;
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="define_record_type.html">define_record_type</A>, <A href="define_type.html">define_type</A>.
+
+
+</DL>

@@ -1,0 +1,86 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<A href="index.html">Go back to the list</A><BR><BR>
+<DIV class=TYPE><PRE>define_record_type : string -&gt; thm * thm * thm</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Defines a record type with named fields and their read/write components.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+Given a string specifying a record type, <SPAN CLASS=BRKT>define_record_type</SPAN> defines a new
+single-constructor inductive type together with a <SPAN CLASS=BRKT>read</SPAN>/<SPAN CLASS=BRKT>write</SPAN> component (see
+<SPAN CLASS=BRKT>Library/components.ml</SPAN>) for each field. The input string has the form
+<DIV class=XMPL><PRE>
+   "op = { fld1 : ty1 ; fld2 : ty2 ; ... ; fldn : tyn }"
+</PRE></DIV>
+where <SPAN CLASS=BRKT>op</SPAN> is the name of the type operator to be defined, <SPAN CLASS=BRKT>fld1</SPAN>,
+..., <SPAN CLASS=BRKT>fldn</SPAN> are the field names and <SPAN CLASS=BRKT>ty1</SPAN>, ..., <SPAN CLASS=BRKT>tyn</SPAN> are the corresponding
+types. As with <SPAN CLASS=BRKT>define_type</SPAN>, the number of distinct type variables among the
+<SPAN CLASS=BRKT>tyi</SPAN> determines the arity of the type operator <SPAN CLASS=BRKT>op</SPAN>.
+
+The underlying type is defined with a single constructor called <SPAN CLASS=BRKT>op</SPAN><SPAN CLASS=BRKT>_RECORD</SPAN>,
+taking the field types as arguments in order. For each
+field <SPAN CLASS=BRKT>fldi</SPAN> a constant of that name is introduced by <SPAN CLASS=BRKT>new_specification</SPAN>,
+characterized as a component: <SPAN CLASS=BRKT>read fldi</SPAN> projects out the field and
+<SPAN CLASS=BRKT>write fldi</SPAN> updates it. The function returns a triple <SPAN CLASS=BRKT>(ith,rth,cth)</SPAN>: the
+induction theorem, the recursion theorem and the conjunction of the component
+read/write characterizations.
+
+The type name is recorded, so that a subsequent call to <SPAN CLASS=BRKT>define_record_type</SPAN>
+with the same type name is benign: if the fields are identical the previously
+computed theorems are returned (with a warning), rather than the constants
+being redeclared. See <SPAN CLASS=BRKT>\FAILURE</SPAN> for the case of a clashing redefinition.
+
+To additionally register all the standard component properties (read-over-write
+laws, validity and orthogonality) with the component database, use
+<SPAN CLASS=BRKT>define_auto_record_type</SPAN>.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if the string is not a syntactically valid record specification, if the
+type <SPAN CLASS=BRKT>op</SPAN><SPAN CLASS=BRKT>_RECORD</SPAN> or one of the field constants is already in use for an
+unrelated definition, or if the type name has already been used by
+<SPAN CLASS=BRKT>define_record_type</SPAN> with a different list of fields (in which case the error
+message is <SPAN CLASS=BRKT>"define_record_type: type op already defined with different
+fields"</SPAN>).
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+Here we define a record type of two-dimensional points with natural-number
+coordinates:
+<DIV class=XMPL><PRE>
+  # needs "Library/records.ml";;
+  # define_record_type "point = { xc: num; yc: num }";;
+  val it : thm * thm * thm =
+    (|- !P. (!a0 a1. P (point_RECORD a0 a1)) ==> (!x. P x),
+     |- !f. ?fn. !a0 a1. fn (point_RECORD a0 a1) = f a0 a1,
+     |- (!a0 a1. read xc (point_RECORD a0 a1) = a0) /\
+        (!a0' a0 a1. write xc a0' (point_RECORD a0 a1) = point_RECORD a0' a1) /\
+        (!a0 a1. read yc (point_RECORD a0 a1) = a1) /\
+        (!a1' a0 a1. write yc a1' (point_RECORD a0 a1) = point_RECORD a0 a1'))
+</PRE></DIV>
+Re-issuing the identical definition is benign and returns the same
+theorems:
+<DIV class=XMPL><PRE>
+  # define_record_type "point = { xc: num; yc: num }";;
+  Warning: Benign redefinition of record type
+  val it : thm * thm * thm = ...
+</PRE></DIV>
+Since the field types here mention two distinct type variables <SPAN CLASS=BRKT>A</SPAN>
+and <SPAN CLASS=BRKT>B</SPAN>, the following defines <SPAN CLASS=BRKT>pair</SPAN> as a binary type operator rather than a
+type constant:
+<DIV class=XMPL><PRE>
+  # define_record_type "pair = { fst_c: A; snd_c: B }";;
+  val it : thm * thm * thm =
+    (|- !P. (!a0 a1. P (pair_RECORD a0 a1)) ==> (!x. P x),
+     |- !f. ?fn. !a0 a1. fn (pair_RECORD a0 a1) = f a0 a1,
+     |- (!a0 a1. read fst_c (pair_RECORD a0 a1) = a0) /\
+        (!a0' a0 a1. write fst_c a0' (pair_RECORD a0 a1) = pair_RECORD a0' a1) /\
+        (!a0 a1. read snd_c (pair_RECORD a0 a1) = a1) /\
+        (!a1' a0 a1. write snd_c a1' (pair_RECORD a0 a1) = pair_RECORD a0 a1'))
+</PRE></DIV>
+so that, for example, <SPAN CLASS=BRKT>`p:(num,bool)pair`</SPAN> is a well-formed type.
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="define_auto_record_type.html">define_auto_record_type</A>, <A href="define_type.html">define_type</A>.
+
+
+</DL>
