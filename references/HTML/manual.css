@@ -1,0 +1,73 @@
+/* Layout for index.html only; the entry pages use hollightref.css alone. */
+body.manual {
+  margin: 0; padding: 0; height: 100vh; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+
+/* Only the chrome around an entry takes the system font.  The entry itself is
+   left with the browser's own font and colour, the way it comes out on its own
+   page, so that reading it here and reading it there look the same. */
+#top, #sidebar {
+  color: #16181d;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+               Arial, sans-serif;
+}
+#top {
+  flex: 0 0 auto; display: flex; flex-wrap: wrap; align-items: center;
+  gap: 0.6rem; padding: 0.5rem 0.9rem; background: white;
+  border-bottom: 1px solid #d8dbe0;
+}
+#top h1 { margin: 0; font-size: 1rem; font-weight: 600; white-space: nowrap; }
+#top h1 a { color: inherit; text-decoration: none; }
+#search {
+  flex: 1 1 14rem; min-width: 8rem; font: inherit; padding: 0.35rem 0.5rem;
+  border: 1px solid #d8dbe0; border-radius: 4px;
+}
+#search:focus { outline: 2px solid #0b5cad; outline-offset: -1px; }
+#top .pdf { font-size: 0.85rem; white-space: nowrap; }
+#layout { flex: 1 1 auto; display: flex; min-height: 0; }
+#sidebar {
+  flex: 0 0 21rem; min-width: 12rem; background: #f7f8fa;
+  overflow-y: auto; overflow-x: hidden; border-right: 1px solid #d8dbe0;
+}
+#result-count {
+  position: sticky; top: 0; background: #f7f8fa; font-size: 0.75rem;
+  color: #61666e; padding: 0.4rem 0.8rem; border-bottom: 1px solid #d8dbe0;
+}
+#entry-list { list-style: none; margin: 0; padding: 0.25rem 0; }
+#entry-list li.group {
+  padding: 0.8rem 0.8rem 0.2rem; font-size: 0.7rem; color: #61666e;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+#entry-list a {
+  display: block; padding: 0.15rem 0.8rem; color: #16181d;
+  text-decoration: none;
+}
+#entry-list a:hover { background: #e8ebf0; }
+#entry-list a.selected { box-shadow: inset 3px 0 0 #0b5cad; }
+#entry-list a.current { background: #0b5cad; color: white; }
+#entry-list .name {
+  display: block; font-family: Courier, monospace;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+#entry-list .synopsis {
+  display: block; font-size: 0.75rem; color: #61666e;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+#entry-list a.current .synopsis { color: #dbe6f3; }
+#entry { flex: 1 1 auto; overflow: auto; padding: 1rem 1.5rem 4rem; }
+#entry > * { max-width: 62rem; }
+#entry .note { color: #61666e; }
+#entry DL.backlinks {
+  margin-top: 2.5rem; padding-top: 0.5rem; border-top: 1px solid #d8dbe0;
+}
+kbd {
+  font-family: Courier, monospace; font-size: 0.85em; padding: 0 0.25em;
+  border: 1px solid #d8dbe0; border-radius: 3px; background: #f7f8fa;
+}
+@media (max-width: 700px) {
+  #layout { flex-direction: column; }
+  #sidebar {
+    flex: 0 0 40vh; border-right: none; border-bottom: 1px solid #d8dbe0;
+  }
+}
