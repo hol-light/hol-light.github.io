@@ -1,0 +1,168 @@
+/* ---------------------------------------------------------------------------
+   "Try Online": styling for the runnable session lines and the side pane
+   that hosts HOL Light in the browser.  Driven by tryonline.js, which
+   build-html.sh copies into HTML/ next to this file.
+
+   Everything here is namespaced under #holweb-* / .holweb-*, so it cannot
+   collide with tex4ht's generated class names.
+   --------------------------------------------------------------------------- */
+
+:root {
+  /* Set from JS (persisted across visits); the value here only matters for
+     the flash before tryonline.js runs. */
+  --holweb-pane-width: 480px;
+  --holweb-accent: #1f6feb;
+  --holweb-accent-soft: rgba(31, 111, 235, 0.13);
+  --holweb-chrome-bg: #f0f0f2;
+  --holweb-chrome-fg: #333;
+  --holweb-chrome-border: rgba(0, 0, 0, 0.18);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --holweb-accent: #61afef;
+    --holweb-accent-soft: rgba(97, 175, 239, 0.20);
+    --holweb-chrome-bg: #26262a;
+    --holweb-chrome-fg: #ddd;
+    --holweb-chrome-border: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* ---- The launcher ------------------------------------------------------- */
+
+#holweb-launch {
+  position: fixed;
+  top: 0.6em;
+  right: 0.8em;
+  z-index: 40;
+  font: inherit;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  padding: 0.45em 0.8em;
+  cursor: pointer;
+  color: #fff;
+  background: var(--holweb-accent);
+  border: 1px solid var(--holweb-accent);
+  border-radius: 999px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+#holweb-launch:hover { filter: brightness(1.1); }
+html.holweb-open #holweb-launch { display: none; }
+
+/* ---- Runnable lines inside the printed sessions ------------------------- */
+
+.holweb-phrase {
+  cursor: pointer;
+  border-radius: 3px;
+  /* A phrase can span several printed lines; keep the highlight contiguous. */
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.holweb-phrase:hover,
+.holweb-phrase:focus-visible {
+  background: var(--holweb-accent-soft);
+  outline: 1px solid var(--holweb-accent);
+  outline-offset: 0;
+}
+/* The "#" prompt, colored to advertise that the line is clickable. */
+.holweb-prompt {
+  color: var(--holweb-accent);
+  font-weight: bold;
+}
+
+/* ---- Per-block "run the whole session" button --------------------------- */
+
+.holweb-host { position: relative; }
+.holweb-runblock {
+  position: absolute;
+  top: 0.9em;
+  right: 0.3em;
+  z-index: 5;
+  font: inherit;
+  font-size: 0.7rem;
+  line-height: 1;
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+  opacity: 0.35;
+  color: var(--holweb-chrome-fg);
+  background: var(--holweb-chrome-bg);
+  border: 1px solid var(--holweb-chrome-border);
+  border-radius: 4px;
+}
+.holweb-host:hover .holweb-runblock,
+.holweb-runblock:focus-visible { opacity: 1; }
+
+/* ---- The pane ----------------------------------------------------------- */
+
+/* Shrink the reading column instead of overlaying it, and keep the column
+   centred in the strip that is left over (tutorial.css centres <body> with
+   `margin: 1em auto; max-width: 80ch`, which would otherwise slide half the
+   text under the pane). */
+html.holweb-open body {
+  margin-left: max(1em, calc((100vw - var(--holweb-pane-width) - 80ch) / 2));
+  margin-right: calc(var(--holweb-pane-width) + 1.5em);
+}
+
+#holweb-pane {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: var(--holweb-pane-width);
+  z-index: 50;
+  display: none;
+  flex-direction: column;
+  background: var(--holweb-chrome-bg);
+  border-left: 1px solid var(--holweb-chrome-border);
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.18);
+}
+html.holweb-open #holweb-pane { display: flex; }
+
+#holweb-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.35em 0.5em;
+  font-size: 0.75rem;
+  color: var(--holweb-chrome-fg);
+  border-bottom: 1px solid var(--holweb-chrome-border);
+}
+#holweb-head b { font-weight: 600; }
+#holweb-status { flex: 1 1 auto; opacity: 0.8; }
+#holweb-status.holweb-busy { color: #b8860b; }
+#holweb-head button {
+  font: inherit;
+  font-size: 0.85em;
+  line-height: 1;
+  padding: 0.3em 0.45em;
+  cursor: pointer;
+  color: inherit;
+  background: transparent;
+  border: 1px solid var(--holweb-chrome-border);
+  border-radius: 4px;
+}
+#holweb-head button:hover { background: var(--holweb-accent-soft); }
+
+#holweb-frame {
+  flex: 1 1 auto;
+  width: 100%;
+  border: 0;
+}
+
+/* Drag strip along the pane's left edge. */
+#holweb-grip {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -3px;
+  width: 7px;
+  cursor: col-resize;
+}
+#holweb-grip:hover, #holweb-grip.holweb-dragging { background: var(--holweb-accent); }
+html.holweb-dragging { user-select: none; }
+
+/* Narrow screens: no room to sit side by side, so the pane takes over. */
+@media (max-width: 900px) {
+  html.holweb-open body { margin-left: 1em; margin-right: 1em; }
+  #holweb-pane { width: 100%; }
+  #holweb-grip { display: none; }
+}
