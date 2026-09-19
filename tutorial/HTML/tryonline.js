@@ -49,25 +49,16 @@
     return u.href;
   }
 
-  /* ---- 1.  Recovering runnable source from a printed session -------------
+  /* ---- 1.  Reading the phrases out of a printed session -------------------
 
-     tex4ht puts no markup inside a verbatim block, but it does substitute
-     characters: every space becomes U+00A0, and the typewriter font's glyphs
-     for ` ' ~ ^ come out as U+2018 U+2019 U+02DC U+02C6.  Undoing those five
-     gives back source HOL Light accepts -- and they are the only non-ASCII
-     characters that any verbatim block in the tutorial contains, so there is
-     nothing else to undo.  (Entities like &gt; are already decoded for us:
-     we read .textContent, not .innerHTML.)  */
+     A verbatim block holds the source verbatim: build-html.sh step 4
+     (fix-tt-glyphs.py) turns tex4ht's typewriter glyphs and U+00A0 spaces
+     back into ASCII, so .textContent is already a phrase HOL Light accepts.
+     (It decodes entities like &gt; for us too, which .innerHTML would not.)
 
-  const GLYPHS = {
-    '\u00a0': ' ',   /* no-break space -> space                              */
-    '\u2018': '`',   /* left single quote -> backquote (both ends of a term) */
-    '\u2019': "'",   /* right single quote -> apostrophe, as in `a' b'`      */
-    '\u02dc': '~',   /* small tilde -> negation                              */
-    '\u02c6': '^',   /* small circumflex -> caret (term antiquotation)       */
-  };
-  const toSource = (s) =>
-    s.replace(/[\u00a0\u2018\u2019\u02dc\u02c6]/g, (c) => GLYPHS[c]);
+     A page built without that step decorates nothing, since PROMPT below
+     does not match its "#\u00a0" prompt lines -- which is why step 4 fails
+     the build rather than shipping one. */
 
   /* A prompt line is "#" in the first column followed by a space.  That is
      deliberately strict: it skips the shell transcripts (where "#" appears
@@ -92,7 +83,7 @@
   /* Split a block's text into the phrases it contains, as
      {from, to, code} with `from`/`to` line indices into `text`. */
   function phrasesOf(text) {
-    const src = toSource(text).split('\n');
+    const src = text.split('\n');
     const out = [];
     for (let i = 0; i < src.length; i++) {
       if (!PROMPT.test(src[i])) continue;
@@ -331,14 +322,25 @@
     send({ holweb: insertOnly ? 'insert' : 'eval', src: code });
   }
 
+  /* Shift+click is also a selection gesture: it extends the selection from the
+     previous caret, which in Firefox tripped the guard below on every
+     Shift+click after a run.  Cancelling the default on mousedown stops the
+     selection ever starting, so the click comes through clean. */
+  document.addEventListener('mousedown', (ev) => {
+    if (!(ev.shiftKey || ev.altKey) || !ev.target.closest) return;
+    if (ev.target.closest('.holweb-phrase, .holweb-runblock')) ev.preventDefault();
+  });
+
   document.addEventListener('click', (ev) => {
+    const insertOnly = ev.shiftKey || ev.altKey;
     const btn = ev.target.closest('.holweb-runblock');
-    if (btn) { run(btn.dataset.holwebCode, ev.shiftKey || ev.altKey); return; }
+    if (btn) { run(btn.dataset.holwebCode, insertOnly); return; }
     const span = ev.target.closest('.holweb-phrase');
     if (!span) return;
-    /* Don't hijack a click that was the end of a text selection. */
-    if (String(window.getSelection())) return;
-    run(span.dataset.holwebCode, ev.shiftKey || ev.altKey);
+    /* Don't hijack a click that ended a text selection, unless it carried a
+       modifier and so said plainly what it wants. */
+    if (!insertOnly && String(window.getSelection())) return;
+    run(span.dataset.holwebCode, insertOnly);
   });
 
   document.addEventListener('keydown', (ev) => {
