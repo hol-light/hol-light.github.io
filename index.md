@@ -44,11 +44,14 @@ opam install hol_light hol_light_module
 
 *HOL Light in a web browser.* You can also try [https://hol-light.github.io/try](https://hol-light.github.io/try) which runs HOL Light in your web browser.
 
-## Available documentation and resources
+## Official documentations
 
 - Tutorial ([HTML](tutorial/HTML/tutorial.html), [pdf](tutorial/tutorial.pdf)), which tries to teach HOL Light through examples.
 - Reference Manual available as [online crosslinked HTML](references/HTML/index.html) or
   as [one PDF file](references/reference.pdf)
+
+## More documentation and resources
+
 - Quick Reference Guide compiled by Freek Wiedijk ([text](holchart/holchart.txt), [PDF](holchart/holchart.pdf), [Postscript](holchart/holchart.ps), [DVI](holchart/holchart.dvi), [LaTeX](holchart/holchart.teX))
 - Summary of many HOL source files, written by Carl Witty ([text](summary.txt))
 - [A VS Code extension for HOL Light](https://marketplace.visualstudio.com/items?itemName=monadius.hol-light-simple), written by Alexey Solovyev.
