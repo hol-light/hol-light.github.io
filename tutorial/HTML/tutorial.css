@@ -283,3 +283,19 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+/* Put the typewriter and roman faces back.
+   tex4ht gives each LaTeX font its own CSS class and takes the font-family
+   from its own font database, which gets both of ours wrong.  Courier
+   (pcrr7t -- what \tt selects here) comes out as "'Nimbus Mono L', serif":
+   Nimbus Mono L is a URW font hardly any reader has installed, so every \tt
+   word falls back to serif and stops looking like code.  Times (ptmr7t --
+   the footnote face) is mapped the other way round, to monospace, while its
+   own bold and italic siblings get no family at all and so stay serif.
+   The attribute selectors cover each size variant (pcrr7t-, pcrr7t-x-x-80,
+   ...) and set only the family, leaving tex4ht's font-size alone; they carry
+   the same specificity as its class rules and win by coming later, as
+   build-html.sh appends this file to tutorial.css.  "monospace,monospace"
+   is the usual trick to stop browsers shrinking monospace text. */
+[class^="pcrr7t"], [class*=" pcrr7t"] { font-family: monospace,monospace; }
+[class^="ptmr7t"], [class*=" ptmr7t"] { font-family: serif; }
