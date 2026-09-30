@@ -279,3 +279,7 @@ div.flushleft div.tabular table.tabular[rules] pre.verbatim {
 div.flushleft {
   text-align: left;
 }
+img {
+  max-width: 100%;
+  height: auto;
+}
