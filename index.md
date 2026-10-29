@@ -42,6 +42,13 @@ opam install hol_light
 opam install hol_light hol_light_module 
 ```
 
+If you use the Nix package manager, you can install and run HOL Light as follows.
+
+```bash
+nix-shell -p hol_light
+hol.sh
+```
+
 *HOL Light in a web browser.* You can also try [https://hol-light.github.io/try](https://hol-light.github.io/try) which runs HOL Light in your web browser.
 
 ## Official documentations
