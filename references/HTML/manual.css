@@ -25,6 +25,7 @@ body.manual {
 }
 #search:focus { outline: 2px solid #0b5cad; outline-offset: -1px; }
 #top .pdf { font-size: 0.85rem; white-space: nowrap; }
+
 #layout { flex: 1 1 auto; display: flex; min-height: 0; }
 #sidebar {
   flex: 0 0 21rem; min-width: 12rem; background: #f7f8fa;
@@ -58,6 +59,7 @@ body.manual {
 #entry { flex: 1 1 auto; overflow: auto; padding: 1rem 1.5rem 4rem; }
 #entry > * { max-width: 62rem; }
 #entry .note { color: #61666e; }
+#entry .version { margin-top: 2.5rem; font-size: 0.85em; }
 #entry DL.backlinks {
   margin-top: 2.5rem; padding-top: 0.5rem; border-top: 1px solid #d8dbe0;
 }

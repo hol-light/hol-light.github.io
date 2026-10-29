@@ -24,7 +24,22 @@
     '<kbd>Enter</kbd> to search it; then <kbd>&#8593;</kbd> and ' +
     '<kbd>&#8595;</kbd> walk the results and <kbd>Enter</kbd> opens one. ' +
     'The whole manual is also available as a ' +
-    '<a href="../reference.pdf">single PDF</a>.</p>';
+    '<a href="../reference.pdf">single PDF</a>.</p>' + versionHtml();
+
+  /* The build date and HOL Light commit, from version.js, which build.sh
+     writes, as a line at the foot of the home pane.  Nothing if that file is
+     missing.  The commit is only linked if it looks like one. */
+  function versionHtml() {
+    var v = window.HOL_LIGHT_VERSION;
+    if (!v || typeof v.date !== 'string') return '';
+    var line = 'Built ' + escapeHtml(v.date);
+    if (/^[0-9a-f]{7,40}$/.test(v.commit || '')) {
+      line += ' from HOL Light <a href="https://github.com/jrh13/hol-light/' +
+        'commit/' + v.commit + '" title="' + v.commit + '">' +
+        v.commit.slice(0, 7) + '</a>';
+    }
+    return '<p class="note version">' + line + '</p>';
+  }
 
   /* Every link this page writes, and every link it rewrites, addresses an
      entry here rather than on its own page, so that opening one in a new tab
