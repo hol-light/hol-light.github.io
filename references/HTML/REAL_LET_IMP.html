@@ -10,7 +10,7 @@ inequality.
 
 <P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
 When applied to a theorem <SPAN CLASS=BRKT>A |- s <= t</SPAN> where <SPAN CLASS=BRKT>s</SPAN> and <SPAN CLASS=BRKT>t</SPAN> have type <SPAN CLASS=BRKT>real</SPAN>, the
-rule <SPAN CLASS=BRKT>REAL_LE_IMP</SPAN> returns <SPAN CLASS=BRKT>A |- !x1...xn z. t < z ==> s < z</SPAN>, where <SPAN CLASS=BRKT>z</SPAN> is
+rule <SPAN CLASS=BRKT>REAL_LET_IMP</SPAN> returns <SPAN CLASS=BRKT>A |- !x1...xn z. t < z ==> s < z</SPAN>, where <SPAN CLASS=BRKT>z</SPAN> is
 some variable and the <SPAN CLASS=BRKT>x1,...,xn</SPAN> are free variables in <SPAN CLASS=BRKT>s</SPAN> and <SPAN CLASS=BRKT>t</SPAN>.
 
 <P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
@@ -25,7 +25,7 @@ for some real number terms <SPAN CLASS=BRKT>s</SPAN> and <SPAN CLASS=BRKT>t</SPA
 
 <P><DT><SPAN CLASS=FIELD-NAME>USES</SPAN><DD>
 Can make transitivity chaining in goals easier, e.g. by
-<SPAN CLASS=BRKT>FIRST_ASSUM(MATCH_MP_TAC o REAL_LE_IMP)</SPAN>.
+<SPAN CLASS=BRKT>FIRST_ASSUM(MATCH_MP_TAC o REAL_LET_IMP)</SPAN>.
 
 <P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
 <A href="LE_IMP.html">LE_IMP</A>, <A href="REAL_ARITH.html">REAL_ARITH</A>, <A href="REAL_LE_IMP.html">REAL_LE_IMP</A>.

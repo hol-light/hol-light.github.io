@@ -22,18 +22,18 @@ Fails if no subterm matching <SPAN CLASS=BRKT>l</SPAN> occurs in the goal.
 
 <P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
 <DIV class=XMPL><PRE>
-  # g ‘!a b c. a < b ==> (a - b) / (a - b) * c = c‘;;
+  # g `!a b c. a < b ==> (a - b) / (a - b) * c = c`;;
   val it : goalstack = 1 subgoal (1 total)
 
-  ‘!a b c. a < b ==> (a - b) / (a - b) * c = c‘
+  `!a b c. a < b ==> (a - b) / (a - b) * c = c`
 
   # e(CASE_REWRITE_TAC REAL_DIV_REFL);;
   val it : goalstack = 1 subgoal (1 total)
 
-  ‘!a b c.
+  `!a b c.
     a < b
       ==> (~(a - b = &amp;0) ==> &amp;1 * c = c) /\
-        (a - b = &amp;0 ==> (a - b) / (a - b) * c = c)‘
+        (a - b = &amp;0 ==> (a - b) / (a - b) * c = c)`
 </PRE></DIV>
 
 <P><DT><SPAN CLASS=FIELD-NAME>USES</SPAN><DD>
