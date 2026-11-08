@@ -1,0 +1,43 @@
+<link rel = "stylesheet" href = "hollightref.css">
+<A href="index.html">Go back to the list</A><BR><BR>
+<DIV class=ENTRY>
+<DIV class=TYPE><PRE>check_axioms : unit -&gt; unit</PRE></DIV>
+<DL>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SYNOPSIS</SPAN><DD>
+Checks that no axioms other than the three basic ones have been asserted.
+
+<P><DT><SPAN CLASS=FIELD-NAME>DESCRIPTION</SPAN><DD>
+A call <SPAN CLASS=BRKT>check_axioms()</SPAN> examines the current list of axioms, as returned by
+<SPAN CLASS=BRKT>axioms()</SPAN>, and succeeds (returning <SPAN CLASS=BRKT>()</SPAN>) if every one of them is one of the
+three axioms of the HOL Light core, namely the axiom of infinity
+<SPAN CLASS=BRKT>INFINITY_AX</SPAN>, the axiom of choice <SPAN CLASS=BRKT>SELECT_AX</SPAN> and the extensionality axiom
+<SPAN CLASS=BRKT>ETA_AX</SPAN>. This gives a simple way of confirming that a development has been
+carried out purely by definitional extension, for example at the end of a
+proof script.
+
+<P><DT><SPAN CLASS=FIELD-NAME>FAILURE CONDITIONS</SPAN><DD>
+Fails if any other axiom has been introduced, e.g. by <SPAN CLASS=BRKT>new_axiom</SPAN>. The failure
+message lists the extra axioms.
+
+<P><DT><SPAN CLASS=FIELD-NAME>EXAMPLE</SPAN><DD>
+In a fresh HOL Light session, the check succeeds:
+<DIV class=XMPL><PRE>
+  # check_axioms();;
+  val it : unit = ()
+</PRE></DIV>
+but after asserting an axiom it fails:
+<DIV class=XMPL><PRE>
+  # new_axiom `x = 1`;;
+  val it : thm = |- x = 1
+
+  # check_axioms();;
+  Exception: Failure "check_axioms: [|- x = 1]".
+</PRE></DIV>
+
+<P><DT><SPAN CLASS=FIELD-NAME>SEE ALSO</SPAN><DD>
+<A href="axioms.html">axioms</A>, <A href="new_axiom.html">new_axiom</A>, <A href="mk_thm.html">mk_thm</A>.
+
+
+</DL>
+</DIV>
