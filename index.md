@@ -64,6 +64,7 @@ hol.sh
 - [A VS Code extension for HOL Light](https://marketplace.visualstudio.com/items?itemName=monadius.hol-light-simple), written by Alexey Solovyev.
 - [HOL Light: HOW-TO](https://github.com/aqjune/hol-light-materials/tree/main), written by Juneyoung Lee
 - [HOL Light Zulip Chat](https://hol-light.zulipchat.com/)
+- [Interesting proofs running on the latest HOL Light](https://hol-light.github.io/benchmark-results/)
 - And many other projects at [https://github.com/hol-light-family](https://github.com/hol-light-family)
 
 ## Applications of HOL Light
