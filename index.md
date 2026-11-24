@@ -34,7 +34,7 @@ reasonably recent version.
 See the [README](https://github.com/jrh13/hol-light/blob/master/README) file
 in the distribution for detailed installation instructions.
 
-You can also install official releases of HOL Light from OPAM.
+You can also install official releases of HOL Light [from OPAM](https://opam.ocaml.org/packages/hol_light/).
 
 ```bash
 opam install hol_light
