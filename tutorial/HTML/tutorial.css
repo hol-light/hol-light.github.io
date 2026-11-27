@@ -259,6 +259,10 @@ div.flushleft div.tabular table.tabular[rules] {
 @media (prefers-color-scheme: dark) {
   div.flushleft div.tabular table.tabular[rules] {
     background-color: #2a2a2a;
+     color: #e2e2e2;
+  }
+  div.flushleft div.tabular table.tabular[rules] *:not(.holweb-prompt) {
+    color: #e2e2e2;
   }
 }
 div.flushleft div.tabular table.tabular[rules] *,
