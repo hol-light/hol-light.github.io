@@ -261,6 +261,26 @@ div.flushleft div.tabular table.tabular[rules] {
     background-color: #2a2a2a;
   }
 }
+
+/* Dark mode.  tex4ht's own stylesheet hard-codes black rules and borders and
+   leaves the page background to the browser (white), so on its own it only
+   inverts the tutorial*.png math images.  Turn the page itself dark, and
+   recolor the black lines it draws so they stay visible. */
+@media (prefers-color-scheme: dark) {
+  :root { color-scheme: dark; }
+  html, body { background-color: #1e1e1e; color: #d4d4d4; }
+  a { color: #61afef; }
+  a:visited { color: #c678dd; }
+  .fbox, div.center div.fbox, .framebox-c, .framebox-l, .framebox-r,
+  table[rules], div.footnotes, .hline, .hline hr, .cline hr,
+  .array-hline, .array-cline, .overline img, .underline img {
+    border-color: #888 !important;
+  }
+  /* The other diagrams (nor.png, fano.png, ...) are black lines on a
+     transparent background; invert them like tex4ht does for its own
+     images, and rotate the hue back so any colors keep their meaning. */
+  img:not([src^="tutorial"]) { filter: invert(1) hue-rotate(180deg); }
+}
 div.flushleft div.tabular table.tabular[rules] *,
 div.flushleft div.tabular table.tabular[rules] td,
 div.flushleft div.tabular table.tabular[rules] tr,
